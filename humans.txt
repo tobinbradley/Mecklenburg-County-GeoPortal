@@ -1,0 +1,41 @@
+/* TEAM */
+  Lead: Tobin Bradley
+  Site: fuzzytolerance.info
+  Twitter: fuzzytolerance
+  Location: North Carolina, USA
+
+/* THANKS */
+  Names (& URL): 
+
+/* SITE */
+  Standards: HTML5, CSS3
+  Components: Modernizr, jQuery, jQuery UI
+  Software: 
+  
+
+                                    
+								 ..- - .              
+							   '        `.           
+							  '.- .  .--. .          
+							 |: _ | :  _ :|          
+							 |`(@)--`.(@) |          
+							 : .'     `-, :          
+							 :(_____.-'.' `          
+							 : `-.__.-'   :          
+							 `  _.    _.   .         
+							/  /  `_ '  \    .       
+						   .  :          \\   \      
+						  .  : _      __  .\   .     
+						 .  /             : `.  \    
+						:  /      '        : `.  .   
+					   '  `      :          : :  `.  
+					 .`_ :       :          / '   |  
+					 :' \ .      :           '__  :  
+				  .--'   \`-._    .      .' :    `).  
+				..|       \   )          :   '._.'  : 
+			   ;           \-'.        ..:         / 
+			   '.           \  - ....-   |        '  
+				  -.         :   _____   |      .'   
+					` -.    .'--       --`.   .'     
+						`--                --        
+				

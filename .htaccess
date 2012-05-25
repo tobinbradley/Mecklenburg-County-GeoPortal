@@ -1,0 +1,7 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	
+	# Send IE 5 and 6 packing
+	RewriteCond %{HTTP_USER_AGENT} MSIE\ ([56])\.
+	RewriteRule ^(.*)$ /ie6/ [R=302,L]
+</IfModule>
