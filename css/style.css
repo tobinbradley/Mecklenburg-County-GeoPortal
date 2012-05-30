@@ -221,7 +221,7 @@ td { vertical-align: top; }
 .smallfont { font-size: 0.8em; }
 .importanttext { color: red; font-weight: bold; }
 .inset { -moz-box-shadow: inset 0 3px 8px rgba(0,0,0,.4); -webkit-box-shadow: inset 0 3px 8px rgba(0,0,0,.4); box-shadow: inset 0 3px 8px rgba(0,0,0,.24); }
-
+iframe { box-shadow: 0 3px 4px -2px black; }
 
 /* some sensible defaults */
 p { margin: 10px 0 }
@@ -231,10 +231,10 @@ h5 { padding-top: 3px; font-size: 14px; margin: 0; }
 body { font-family:  Helmet, Freesans, sans-serif; font-size: 12px; font-variant: normal; background: #ccc; }
 
 /* layout */
-header {  padding: 2px 0 0 0; overflow: hidden; height: 111px; box-shadow: 0 5px 8px #666; position: relative; z-index: 1; }
-aside { z-index: 1;  position: absolute; left: 0; top: 112px; bottom: 20px; width: 330px; overflow: auto; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; background: url('../img/gislogo.png') bottom center no-repeat; box-shadow:  5px 0 5px -2px #666;}
-#map-container { position: absolute; top: 112px; left: 330px; right: 0; bottom: 20px; overflow: hidden; }
-#toolbar { position: absolute;  z-index: 10; right: 0; left: 0; bottom: 0; padding: 2px 2px 2px 330px;  overflow: hidden; }
+header { background-color: #e7e7e7; padding: 2px 0 0 0; overflow: hidden; height: 111px; box-shadow: 0 5px 8px #666; position: relative; z-index: 1; }
+aside { z-index: 1;  position: absolute; left: 0; top: 112px; bottom: 20px; width: 390px; overflow: auto; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; background: url('../img/gislogo.png') bottom center no-repeat; box-shadow:  5px 0 5px -2px #666;}
+#map-container { position: absolute; top: 112px; left: 390px; right: 0; bottom: 20px; overflow: hidden; }
+#toolbar { position: absolute;  z-index: 10; right: 0; left: 0; bottom: 0; padding: 2px 2px 2px 390px;  overflow: hidden; }
 #map { position: absolute; top: 0; left: 1px; right: 1px; bottom: 2px; background: white; overflow: hidden;  }
 footer { position: absolute; bottom: 0px; left: 0px; right: 0px; height: 20px; overflow: hidden; z-index: 2;  background: #ccc; }
 #main { overflow: hidden; } /* Without this ie7 will randomly decide not to draw the middle part when content changes. I hate you ie7. */
@@ -299,16 +299,13 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 
 /*  jQuery UI Tweaks  */
 .ui-widget { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;}
-.ui-accordion-content { padding: 5px !important; overflow: hidden !important; }
-.ui-accordion-content { font-size: 1em !important }
+.ui-accordion-content { padding: 5px !important; overflow: hidden !important; font-size: 1em !important; }
+.ui-accordion-content a, .ui-accordion-content a:link, .ui-accordion-content a:visited { color: #1982D1 !important; text-decoration: none !important;  }
+.ui-accordion-content a:hover { text-decoration: underline !important; }
 .ui-autocomplete-loading { background: transparent url('../img/ui-anim_basic_16x16.gif') right no-repeat !important }
 .ui-autocomplete .ui-menu-item { padding-left: 10px }
 .ui-autocomplete { overflow: auto; overflow-y: auto; overflow-x: hidden; font-size: 0.9em;   font-weight: normal; max-height: 400px; box-shadow: 2px 2px 4px #666; }
 .ui-autocomplete-category { font-weight: bold; padding: 0 4px; line-height: 1.5;    font-variant: small-caps; font-size: 14px; }
-.ui-accordion-content a, .ui-accordion-content a:visited { color: #1982D1 !important; text-decoration: underline !important; }
-.ui-accordion-content a:hover { background-color:  #DEEDFA; } 
-
-
 
 
 
@@ -357,6 +354,7 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 
 @media screen and (max-width: 800px) {
     #searchdiv { max-width: 350px; }
+    #toolbar { padding-left: 8px;  }
 }
 
 @media screen and (max-width: 640px) {
@@ -364,7 +362,7 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 	.boxshadow { box-shadow: none; }
 	
 	/* Header */
-	header { padding: 0; margin: 0; top: 295px; left: 1px; right: 15px; box-shadow: none; }
+	header { padding: 0; margin: 0; top: 295px; left: 1px; right: 15px; box-shadow: none; background-color: #ccc; }
   #logo { display: none }	
     
 	/*  Search  */

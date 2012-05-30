@@ -18,17 +18,7 @@ google.load('earth', '1');
 
 function initializeMap(){
 	
-	/**
-	* If localstorage values present, set zoom accordingly
-	*/
-	if (window.localStorage) {
-		if (localStorage.getItem('gp_lastSelected_longitude') && localStorage.getItem('gp_lastSelected_latitude') && !(getUrlVars()["matid"] && getUrlVars()["category"])) {
-			//myOptions.center = new google.maps.LatLng(localStorage.getItem('gp_lastSelected_latitude'), localStorage.getItem('gp_lastSelected_longitude'));
-			//myOptions.zoom = 16;
-		}
-	}
-
-	/*  Initialize map  */
+		/*  Initialize map  */
 	map = new google.maps.Map(document.getElementById("map"), myOptions);
 	
       // Try adding google earth api to map
@@ -372,71 +362,6 @@ function autoDataVisibility (layer_name, layerList) {
      if (map.getMapTypeId() == "GoogleEarthAPI") googleEarth.addMeckLayers_();
      
 }
-
-/**
-*	Twitter Search
-*/
-function searchTwitter(searchString) {
-	url = "http://search.twitter.com/search.json?callback=?&rrp=100&q=burrito&result_type=recent&geocode=35.23214188499233,-80.83727359765874,34.27km";
-	$.getJSON(url, function(data){
-		console.log("victory!");
-	});
-
-
-	$.ajax({
-        url: "http://search.twitter.com/search.json?rrp=100&q=burrito&result_type=recent&geocode=35.23214188499233,-80.83727359765874,34.27km",
-        dataType: "jsonp",
-        success: function(data){
-            console.log("test");
-        },
-        error: function() {
-        	console.log("shit!");
-        }
-
-
-    });
-}
-
-function addTwitterResults(data) {
-	//if (data.results) {
-			$.each(data.results, function(i, item){
-                from = item.from_user;
-                profileImageUrl = item.profile_image_url;
-				loc = item.location;
-
-				console.log("test");
-
-				// Check if the location matches a latlng
-
-				//var point = loc.replace("\u00dcT:", "").match(/-?\d+\.\d+/g);
-
-				var point = loc.substr(loc.indexOf(":") + 2, loc.length).split(",");
-
-				if (point.length == 2) {
-					var image = new google.maps.MarkerImage(profileImageUrl,
-						new google.maps.Size(48, 48),
-						new google.maps.Point(0, 0),
-						new google.maps.Point(24, 24),
-						new google.maps.Size(24, 24)
-					);
-
-					var pos = new google.maps.LatLng(parseFloat(point[0], 10), parseFloat(point[1], 10));
-
-					var marker = new google.maps.Marker({
-						map: map,
-						position: pos,
-						icon: image,
-						zIndex: 10
-					});
-
-					twitterMarkers.push(marker);
-				}
-
-			});
-		//}
-}
-
-
 
 
 /**

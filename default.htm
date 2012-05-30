@@ -35,7 +35,7 @@
     <!-- Custom Fonts -->
         
 	<!-- CSS: implied media="all" -->
-	<link rel="stylesheet" href="css/style.css?v=111">
+	<link rel="stylesheet" href="css/style.css?v=112">
 		
 	<!-- For data error reporter -->
 	<link rel="stylesheet" type="text/css" href="http://maps.co.mecklenburg.nc.us/report_data_problems/colorbox.css" media="screen" />
@@ -43,7 +43,7 @@
 	<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects
 		Note this modernizr build only contains HTML5 shim/iepp, modernizr.load, add css classes, and
 		geolocation api. You can build your own with additional features at http://www.modernizr.com/ -->
-	<script src="js/libs/modernizr.custom.js?v=111"></script>
+	<script src="js/libs/modernizr.custom.js?v=112"></script>
 
 </head>
 
@@ -105,7 +105,7 @@
                 <h3 id="WELCOME"><a href="#">Welcome to GeoPortal</a></h3>
                 <div>
                     <p>
-                        Use the search bar to begin (<a href="javascript:void(0)" class="searchoptions">options</a>). For assistance, check out our <a href="http://www.youtube.com/watch?v=MNX2p1su3K0" target="_blank">video tutorial</a> or see <a href="javascript:void(0)" id="whatsnew">what's new</a>. 
+                        Use the search bar to begin (<a href="javascript:void(0)" class="searchoptions">options</a>). For assistance, check out our <a href="javascript:void(0)" class="video_tutorial">video tutorial</a> or see <a href="javascript:void(0)" id="whatsnew">what's new</a>. 
                     </p>
                     <p>
                         This site is powered by <a href="http://en.wikipedia.org/wiki/Open_source" target="_blank">free and open source software</a>.
@@ -771,7 +771,7 @@
 		<footer class="screen-only">
 			<div class="alignright smallfont" id="footer-text"> 
 				<a href="#" onclick="$('#welcome-dialog').dialog('open'); return false;">Disclaimer</a> &#183
-				<a href="http://www.youtube.com/watch?v=MNX2p1su3K0" target="_blank">Tutorial (Flash)</a> &#183
+				<a href="javascript:void(0)" class="video_tutorial">Tutorial</a> &#183
 				<a class='report_data_error' href="javascript:void(0);">Report a Problem</a> &#183
 				<a href="http://charmeck.org/mecklenburg/county/GeospatialInformationServices/GeneralInfo/Pages/Strategic%20Planning%20and%20Program%20Support.aspx">Strategic Planning and Program Support</a> &#183 
 				<a href="http://emaps.charmeck.org">Mecklenburg County GIS</a>
@@ -785,7 +785,7 @@
 	<!-- Search help - jQuery UI Dialog -->
 	<div id="search-dialog" title="Search Help" class="hidden">
 		<p class="textcenter">
-            <iframe width="350" height="262" src="http://www.youtube-nocookie.com/embed/aGlmVQXRRj4" frameborder="0" allowfullscreen></iframe>
+            <iframe width="350" height="262" src="http://www.youtube-nocookie.com/embed/aGlmVQXRRj4?rel=0" frameborder="0" allowfullscreen></iframe>
         </p>
         <p>
 		  Type in the first part of an address or location and <em>let the search box do the work for you</em>. 
@@ -796,13 +796,19 @@
 		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Street</strong>: Enter the name of the street. Ex: type <em>ruth</em></p>
 		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Intersection</strong>: Enter a street name, followed by an &amp;. Ex: type <em>ruth &amp;</em></p>
 		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Parcel ID</strong>: Enter an 8-digit Parcel ID. Ex: type <em>11111111</em></p>
-
 	</div>
+
+    <div id="help-dialog" title="Video Tutorial" class="hidden">
+        <iframe width="640" height="480" src="http://www.youtube-nocookie.com/embed/O3S3QobjONM?rel=0" frameborder="0" allowfullscreen></iframe>
+    </div>
 
     <!-- What's New - jQuery UI Dialog -->
     <div id="new-dialog" title="What's New" class="hidden">
         <p>
             <ul>
+                <li>New tutorial videos are now available, including one just for Search!</li>
+                <li>If your browser is set to a primary language other than English, a translation bar will
+                    automatically appear.</li>
                 <li>There's a new <span class="importanttext">"Custom Map Layer"</span> in the <a href="javascript:void(0)" onclick="$('#accordion-data').accordion('activate', 'h3#MAPCONTROLS')">Map Controls</a>. Basically, it's any layer we share via our web map server, so you can see anything
                     we hav available in GeoPortal! We're still cleaning up the layer titles and working on transparancy capabilities.</li>
                 <li>You might notice the <span class="importanttext">hash</span> (#XXXXX) that appears in the URL bar when a property is selected. This enables your browser history, so
@@ -876,10 +882,10 @@
 	
 	
 	<!-- scripts concatenated and minified via ant build script-->
-    <script src="js/geoportal-gm-settings.js?v=111"></script>
-    <script src="js/map-gm.js?v=111"></script>
-	<script src="js/plugins.js?v=111"></script>
-	<script src="js/script.js?v=111"></script>
+    <script src="js/geoportal-gm-settings.js?v=112"></script>
+    <script src="js/map-gm.js?v=112"></script>
+	<script src="js/plugins.js?v=112"></script>
+	<script src="js/script.js?v=112"></script>
 	
 	<!--   Google Analytics -->
 	<script type="text/javascript">

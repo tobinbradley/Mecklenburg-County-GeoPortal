@@ -19,6 +19,7 @@ $(document).ready(function() {
    
     // Dialogs
     $("#search-dialog").dialog({ width: $("#searchdiv").width(), autoOpen: false, show: 'fade', hide: 'fade' });
+    $("#help-dialog").dialog({ width: 670, autoOpen: false, show: 'fade', hide: 'fade' });
     $("#new-dialog").dialog({ width: 380, autoOpen: false, show: 'fade', hide: 'fade' });
     $("#welcome-dialog").dialog({ width: 550, autoOpen: false, show: 'fade', hide: 'fade' });
     $("#buffer-dialog").dialog({ width: 280, height: 135, autoOpen: false, position: [485, 120], show: 'fade', hide: 'fade' });
@@ -33,6 +34,7 @@ $(document).ready(function() {
 
     // Click events
     $(".searchoptions").click(function(){ $('#search-dialog').dialog('open'); });
+    $(".video_tutorial").click(function(){ $('#help-dialog').dialog('open'); });
     $("#whatsnew").click(function(){ $('#new-dialog').dialog('open'); });
     $("#searchinput").click(function() { $(this).select(); });
     $("#apply_radius").click(function() {  circle.setRadius( $("#radius").val() * 0.3088 );  });
@@ -113,7 +115,7 @@ $(document).ready(function() {
                    },
                    success: function(data) {
                         if (data.total_rows > 0) {
-                            response($.map(data.rows, function(item) {                               
+                            response($.map(data.rows, function(item) {
                                 return {
                                     label: urldecode(item.row.displaytext),
                                     value: item.row.displaytext,
@@ -121,7 +123,7 @@ $(document).ready(function() {
                                     responsetable: item.row.responsetable,
                                     getfield: item.row.getfield,
                                     getid: item.row.getid
-                                }
+                                };
                              }));
                         }
                         else if (data.total_rows == 0) {
@@ -130,8 +132,8 @@ $(document).ready(function() {
                                         // No records found message
                                        label: "No records found.",
                                        responsetype: "I've got nothing"
-                                  }
-                             }))
+                                  };
+                             }));
                         }
                         else if  (data.total_rows == -1) {
                              response($.map([{}], function(item) {
@@ -139,12 +141,12 @@ $(document).ready(function() {
                                        // Message indicating no search performed
                                        label: "More information needed for search.",
                                        responsetype: "More please"
-                                  }
-                             }))
+                                  };
+                             }));
                         }
                         
                    }
-              })
+              });
          },
          select: function(event, ui) {
             $("#searchinput").autocomplete('widget').trigger('mousedown.choose_option');
@@ -180,12 +182,15 @@ $(document).ready(function() {
      
 });
 
+/************************
+    Window Load
+*************************/
 $(window).load(function() {
    
     // Initialize Map
     initializeMap();
   
-    // Detect arguments or localstorage
+    // Detect arguments
     if (window.location.hash.length > 1) {
         theHash = window.location.hash.replace("#","");
         locationFinder("Address", 'master_address_table', 'objectid', theHash);
@@ -199,10 +204,6 @@ $(window).load(function() {
         }
         locationFinder("API", 'master_address_table', 'objectid', getUrlVars()["matid"]);
     }
-    else if (window.localStorage) {
-        if (localStorage.getItem('gp_lastSelected')) locationFinder("Address", 'master_address_table', 'objectid', localStorage.getItem('gp_lastSelected'));
-    }
-   
 });
 
 
@@ -222,7 +223,7 @@ function processAccordionDataChange(accordionValue) {
         switch (accordionValue) {
           
             case "SERVICES":
-                if ($('#parks table tbody').html().length === 0) { // Make sure information isn't already popupated
+                if ($('#parks table tbody').html().length == 0) { // Make sure information isn't already popupated
                     // Solid waste services
                     url = pointOverlay(selectedAddress.x_coordinate, selectedAddress.y_coordinate, 2264, 'solid_waste', "thetext", "1=1 order by thetext desc", 'json', '?');                   
                     $.getJSON(url, function(data) {
@@ -470,7 +471,7 @@ function processAccordionDataChange(accordionValue) {
         
             case "COMMUNITY":
                 autoDataVisibility(null);
-                if ($('#crime table tbody').html().length === 0) {
+                if ($('#crime table tbody').html().length == 0) {
                     // Crime Stats
                     url = pointOverlay(selectedAddress.x_coordinate, selectedAddress.y_coordinate, 2264, 'cmpd_districts', 'division, div_name,murder_and_non_negligent_manslaughter,murder_and_non_negligent_manslaughter_change, rape, rape_change,robbery,robbery_change,aggravated_assault,aggravated_assault_change,burglary, burglary_change,larceny , larceny_change, vehicle_theft, vehicle_theft_change, arson, arson_change, total_incidents, total_incidents_change, violent_incidents, violent_incidents_change, property_incidents, property_incidents_change', "", 'json', '?');
                     $.getJSON(url, function(data) {
@@ -528,7 +529,7 @@ function processAccordionDataChange(accordionValue) {
         
             case "ENVIRONMENT":
                 autoDataVisibility("Environmental Layers");
-                if ($('#environment_general').html().length === 0) {
+                if ($('#environment_general').html().length == 0) {
 
                     //Impervious Surface
                     url = wsbase + "v1/ws_geo_attributequery.php?geotable=impervious_surface_area&fields=sum(sum_of_area) as sum_of_area,subtheme&parameters=commonpid='" + selectedAddress.parcelid + "' group by subtheme&format=json&callback=?";
@@ -781,9 +782,9 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
                     
                     $.each(data.rows, function(i, item){
                         // Create selectedLocation links
-                        selectedLocation = item.row.address;
-                        selectedLocation += '<br /><span class="smallfont">[ <a href="javascript:void(0)" onclick="zoomToLonLat(' + item.row.longitude +', ' + item.row.latitude + ', 16);">Zoom To</a>';
-                        selectedLocation += ' | <a href="#' + item.row.objectid + '">Permalink</a> ]</span>';
+                        selectedLocation = '<strong><a href="javascript:void(0)" onclick="zoomToLonLat(' + item.row.longitude +', ' + item.row.latitude + ', 16);"> ' + item.row.address + '</a></strong>';
+                        //selectedLocation += '<br /><span class="smallfont">[ <a href="javascript:void(0)" onclick="zoomToLonLat(' + item.row.longitude +', ' + item.row.latitude + ', 16);">Zoom To</a>';
+                        //selectedLocation += ' | <a href="#' + item.row.objectid + '">Permalink</a> ]</span>';
                         $('.selectedLocation').html(selectedLocation);
                         $('.selected-data-clear, .datatable tbody').empty();
                         $('.selected-data').show();
@@ -803,6 +804,7 @@ function locationFinder(findType, findTable, findField, findID, findLabel, findV
                         window.location.hash = selectedAddress.objectid; 
                         // Call data accordion change function if open so results are refreshed
                         processAccordionDataChange($("#accordion-data h3").eq($('#accordion-data').accordion('option', 'active')).attr("id"));
+                        if ($('#accordion-data').accordion('option', 'active') == 0) $('#accordion-data').accordion('activate', 1);
                     });
                 }
             });
