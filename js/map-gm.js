@@ -2,8 +2,8 @@
  * map.gm.js
  * This javascript file handles map initialization and events for the google maps control.
  *
- * @author 		Tobin Bradley
- * @license 	MIT
+ * @author		Tobin Bradley
+ * @license		MIT
  */
 
 
@@ -17,25 +17,25 @@
 google.load('earth', '1');
 
 function initializeMap(){
-	
+
 		/*  Initialize map  */
 	map = new google.maps.Map(document.getElementById("map"), myOptions);
-	
+
       // Try adding google earth api to map
       try { googleEarth = new GoogleEarth(map); }
       catch(err) {  }
-     
-	
-	
+
+
+
      /*  Coordinate display  */
      google.maps.event.addListener(map, 'mousemove', function(event) {
           $("#toolbar-coords").text(event.latLng.lng().toFixed(4) + " " + event.latLng.lat().toFixed(4));
      });
-     
-     
+
+
     /*  Circle for radius display  */
     circle = new google.maps.Circle({radius: 500, fillColor: "#ccc"});
-     
+
 	/*  Layer Switcher  */
 	$("#layerswitcher").append("<ul></ul>");
 	$.each(overlayMaps, function(index) {
@@ -61,7 +61,7 @@ function initializeMap(){
     $("#layerswitcher ul").append('<li><input type="checkbox" id="weather" class="layer" /><label for="weather">Weather</label></li>');
 
 
-    
+
     // Load WMS Directory select
     url = wsbase + "v1/ws_getcapabilities_summary.php?url=" + urlencode("http://maps.co.mecklenburg.nc.us/geoserver/wms?service=wms&version=1.1.1&request=GetCapabilities") + "&callback=?";
 	$.getJSON(url, function(data) {
@@ -124,8 +124,8 @@ function initializeMap(){
 	google.maps.event.addListener(map, 'zoom_changed', function() {
 		layerSwitcherZoomCheck();
 	});
-     
-	
+
+
     /*  Opacity Slider  */
     $("#layerOpacity").html("Layer Opacity: " + parseInt(overlayMaps[$('#opacitydll').val()].opacity * 100 ) + "%");
     $('#opacitySlider').slider({range: "min", min: 0.1, max: 1, step: 0.05, value: overlayMaps[$('#opacitydll').val()].opacity, stop: function(event, ui) {
@@ -136,25 +136,25 @@ function initializeMap(){
                var overlayMap = new google.maps.ImageMapType(overlayMaps[opacityDLLValue]);
                map.overlayMapTypes.setAt(opacityDLLValue,overlayMap);
           }
-          
+
           // handle opacity on Google Earth
           if (map.getMapTypeId() == "GoogleEarthAPI") folder.setOpacity(ui.value);
 	 }});
 	 $('#opacitySlider').sliderLabels('MAP','DATA');
      $('#opacitydll').change(function() {
-          $("#opacitySlider").slider( "option", "value", overlayMaps[$('#opacitydll').val()].opacity );          
+          $("#opacitySlider").slider( "option", "value", overlayMaps[$('#opacitydll').val()].opacity );
      });
-     
-     
-     
+
+
+
      // Add holders for overlay layers to map
      for (i=0; i<overlayMaps.length; i++){
           map.overlayMapTypes.push(null);
      }
 
-    
+
      /*  Set base maps  */
-     var baseHolder = []; 
+     var baseHolder = [];
      $.each(baseMaps, function(index) {
           map.mapTypes.set(this.name, new google.maps.ImageMapType(this));
           baseHolder.push(this.name);
@@ -170,21 +170,21 @@ function initializeMap(){
 				"GoogleEarthAPI"
                ].concat(baseHolder)
           }
-          
+
      });
-  
-  
+
+
 	// Add traffic and bicycling layers
 	var trafficLayer = new google.maps.TrafficLayer();
 	var bikeLayer = new google.maps.BicyclingLayer();
 	var panoramioLayer = new google.maps.panoramio.PanoramioLayer();
 	var weatherLayer = new google.maps.weather.WeatherLayer({ temperatureUnits: google.maps.weather.TemperatureUnit.FAHRENHEIT });
 	//var cloudLayer = new google.maps.weather.CloudLayer();
-	 
+
 	// Create an ElevationService.
     elevator = new google.maps.ElevationService();
 
-     
+
 	// add auto overlay layers
 	$.each(overlayMaps, function(index) {
 		 if (jQuery.inArray(this.name, autoOverlayMaps) != -1) {
@@ -192,7 +192,7 @@ function initializeMap(){
 			  map.overlayMapTypes.setAt(index,new google.maps.ImageMapType(overlayMaps[index]));
 		 }
 	});
-  
+
     // Set streetview options
 	if (navigator.userAgent.indexOf('iPhone') == -1 && navigator.userAgent.indexOf('Android') == -1) {
 		var panoramaOptions = {
@@ -200,16 +200,16 @@ function initializeMap(){
 		};
 		var panorama = new  google.maps.StreetViewPanorama(document.getElementById("streetview"), panoramaOptions);
 		map.setStreetView(panorama);
-		google.maps.event.addListener(panorama, 'closeclick', function(){ 
+		google.maps.event.addListener(panorama, 'closeclick', function(){
 			  $("#streetview").hide();
 		});
-		google.maps.event.addListener(panorama, 'position_changed', function(){ 
+		google.maps.event.addListener(panorama, 'position_changed', function(){
 			  $("#streetview").show();
 		});
 	}
-     
+
       // MapType change event - might need it someday
-      google.maps.event.addListener( map, 'maptypeid_changed', function() { 
+      google.maps.event.addListener( map, 'maptypeid_changed', function() {
             if (map.getMapTypeId() == "GoogleEarthAPI") {
                   $( "#mapcontrols" ).buttonset( "option", "disabled", true );
             }
@@ -235,14 +235,14 @@ function layerSwitcherZoomCheck() {
 function toolbar(tool) {
      // Clear listeners
      if (clickListener) google.maps.event.removeListener(clickListener);
-     
+
      // clear measure
      measureReset();
-     
+
      // clear circle
      if (circle !== null) circle.setMap(null);
           $("#buffer-dialog").dialog("close");
-     
+
      // set tool
      if (tool.attr("id") == "identify") {
           clickListener = google.maps.event.addListener(map, 'click', function(event) {
@@ -268,21 +268,21 @@ function toolbar(tool) {
                measureAdd(evt.latLng);
           });
      }
-     
+
     if (tool.attr("id") == "buffer") {
         $("#buffer-dialog").dialog("open");
         clickListener = google.maps.event.addListener(map,'click',function(evt){
             // set circle xy
             circle.setCenter(evt.latLng);
-            
+
             // set circle radius (convert feet to meters)
             circle.setRadius($("#radius").val() * 0.3088);
-            
+
             // add circle to map
             circle.setMap(map);
         });
     }
-     
+
 }
 
 /**
@@ -325,17 +325,17 @@ function addMarker(lon, lat, featuretype, label) {
         flat: false,
 		shadow: shadow
      });
-     
+
      // Create info window
      var mycontent = label;
      var infowindow = new google.maps.InfoWindow({ content: mycontent });
      google.maps.event.addListener(markers[featuretype], 'click', function() {
           infowindow.open(map,markers[featuretype]);
      });
-     
+
      // active window if the map is big enough - i.e. not mobile - and not google earth view
      //if ($("#map").width() > 500 && map.getMapTypeId() != "GoogleEarthAPI") infowindow.open(map,markers[featuretype]);
-	
+
      // handle adding new marker to Google Earth
      if (map.getMapTypeId() == "GoogleEarthAPI") googleEarth.refresh_();
 }
@@ -344,23 +344,23 @@ function addMarker(lon, lat, featuretype, label) {
 /* Set some layers to draw when accordion clicked */
 function autoDataVisibility (layer_name, layerList) {
       layerList = typeof(layerList) != 'undefined' ? layerList : ["Economic Development", "Community", "Environmental Layers"];
-      
+
       $.each(overlayMaps, function(index) {
             if (jQuery.inArray(this.name, layerList) != -1) {
-            
+
                   if (this.name == layer_name) {
                         if(!$("#" + index).is(':checked')) $("#" + index).attr('checked', true).change();
                   }
                   else {
                         if($("#" + index).is(':checked')) $("#" + index).attr('checked', false).change();
                   }
-            
+
             }
      });
-     
+
      // Google Earth
      if (map.getMapTypeId() == "GoogleEarthAPI") googleEarth.addMeckLayers_();
-     
+
 }
 
 
@@ -373,33 +373,33 @@ function measureAdd(ll){
 		position:ll,
 		draggable:true,
 		raiseOnDrag: false,
-		
+
 		/* Let the user know they can drag the markers to change shape */
 		title:'Drag me to change the polygon\'s shape',
-		
+
 		icon: markerImageDefault
 	});
 	var count = measure.ll.push(ll);
      measure.ll2.push(ll);
 	var llIndex = count-1;
-     
-		
+
+
 	/* when dragging stops, and there are more than 2 points in our MVCArray, recalculate length and area measurements */
 	google.maps.event.addListener(marker,'dragend',function(evt){
-		
+
           if (measure.ll.getLength() >= 2) { measureLine(); getElevation(); }
 		if (measure.ll.getLength() >= 3) measureArea();
 	});
-	
+
 	/* when the user 'mouseover's a marker change the image so they know something is different (it's draggable) */
 	google.maps.event.addListener(marker,'mouseover',function(evt){
 		marker.setIcon(markerImageHover);
 	});
-	
+
 	google.maps.event.addListener(marker,'mouseout',function(evt){
 		marker.setIcon(markerImageDefault);
 	});
-	
+
 	/* when we drag a marker it resets its respective LatLng value in an MVCArray. Since we're changing a value in an MVCArray, any lines or polygons on the map that reference this MVCArray also change shape ... Perfect! */
 	google.maps.event.addListener(marker,'drag',function(evt){
 		measure.ll.setAt(llIndex,evt.latLng);
@@ -460,10 +460,10 @@ function measureReset(){
 function measureArea(){
 	area_met = google.maps.geometry.spherical.computeArea(measure.poly.getPath());
 	area_ft = area_met * 10.7639104;
-	
+
      if (area_ft <= 10000) $("#toolbar-area").html("Area: " + area_ft.toFixed(1) + " sqft");
      else  $("#toolbar-area").html("Area: " + (area_ft/43560).toFixed(3) + " ac");
-	
+
 }
 function measureLine() {
      length_met = google.maps.geometry.spherical.computeLength(measure.line.getPath());
@@ -474,17 +474,17 @@ function getElevation() {
             'path': measure.line.getPath().getArray(),
             'samples': 25
       }
-      
+
       elevator.getElevationAlongPath(pathRequest, function(results, status) {
             if (status == google.maps.ElevationStatus.OK) {
                   var elevals = [];
                   for (var i = 0; i < results.length; i++) {
                         elevals[i] = parseInt((results[i].elevation * 3.2808399) / 10);
-                  }      
-            
+                  }
+
                   $("#elevation_chart_image").html('<img width="400" height="110" src="https://chart.googleapis.com/chart?cht=lc&chs=400x110&chd=t:' + elevals.join(",") + '&chco=224499&chxt=y&chxl=0:|0|200|400|600|800|1000&chm=B,76A4FB,0,0,0" />');
             }
-            
+
             $("#elevation_chart").show();
       });
 }
@@ -499,17 +499,17 @@ function WMSBBOXUrl(WMSurl, coord, zoom, minZoom, maxZoom) {
      if (map.getZoom() >= minZoom && map.getZoom() <= maxZoom) {
           var lULP = new google.maps.Point(coord.x*256,(coord.y+1)*256);
           var lLRP = new google.maps.Point((coord.x+1)*256,coord.y*256);
-     
+
           var projectionMap = new MercatorProjection();
-          
+
           var lULg = projectionMap.fromDivPixelToSphericalMercator(lULP, zoom);
           var lLRg  = projectionMap.fromDivPixelToSphericalMercator(lLRP, zoom);
-              
+
           var lUL_Latitude = lULg.y;
           var lUL_Longitude = lULg.x;
           var lLR_Latitude = lLRg.y;
           var lLR_Longitude = lLRg.x;
-          
+
           return WMSurl + "&bbox=" + lUL_Longitude + "," + lUL_Latitude + "," + lLR_Longitude + "," + lLR_Latitude;
      }
      else return null;
@@ -534,9 +534,9 @@ function MercatorProjection() {
 };
 MercatorProjection.prototype.fromLatLngToPoint = function(latLng, opt_point) {
   var me = this;
- 
+
   var point = opt_point || new google.maps.Point(0, 0);
- 
+
   var origin = me.pixelOrigin_;
   point.x = origin.x + latLng.lng() * me.pixelsPerLonDegree_;
   // NOTE(appleton): Truncating to 0.9999 effectively limits latitude to
@@ -547,7 +547,7 @@ MercatorProjection.prototype.fromLatLngToPoint = function(latLng, opt_point) {
 };
 MercatorProjection.prototype.fromDivPixelToLatLng = function(pixel, zoom) {
   var me = this;
-  
+
   var origin = me.pixelOrigin_;
   var scale = Math.pow(2, zoom);
   var lng = (pixel.x / scale - origin.x) / me.pixelsPerLonDegree_;
@@ -558,11 +558,11 @@ MercatorProjection.prototype.fromDivPixelToLatLng = function(pixel, zoom) {
 MercatorProjection.prototype.fromDivPixelToSphericalMercator = function(pixel, zoom) {
   var me = this;
   var coord = me.fromDivPixelToLatLng(pixel, zoom);
-  
+
   var r= 6378137.0;
   var x = r* degreesToRadians(coord.lng());
   var latRad = degreesToRadians(coord.lat());
   var y = (r/2) * Math.log((1+Math.sin(latRad))/ (1-Math.sin(latRad)));
- 
+
   return new google.maps.Point(x,y);
 };

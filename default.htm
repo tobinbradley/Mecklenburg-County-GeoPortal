@@ -7,43 +7,42 @@
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 	<meta charset="utf-8">
-  
+
 	<!-- Always force latest IE rendering engine (even in intranet) & Chrome Frame
 		 Remove this if you use the .htaccess -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  
+
 	<title>GeoPortal - Mecklenburg County GIS</title>
 	<meta name="description" content="GeoPortal - One stop shopping for location information.">
 	<meta name="author" content="Tobin Bradley">
-	
-	<!-- Allow all robots -->	
+
+	<!-- Allow all robots -->
 	<meta content="all" name="robots" />
-	
+
 	<!-- turn off IE image toolbar -->
     <meta content="no" http-equiv="imagetoolbar" />
-  
+
 	<!-- Mobile viewport optimized: j.mp/bplateviewport -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
 	<!-- Place favicon.ico & apple-touch-icon.png in the root of your domain and delete these references -->
 	<link rel="shortcut icon" href="favicon.ico">
 	<link rel="apple-touch-icon" href="apple-touch-icon.png">
-		
+
 	<!-- jQuery UI CSS -->
 	<link type="text/css" media="all" href="css/Aristo.css" rel="stylesheet" />
-    
+
     <!-- Custom Fonts -->
-        
+
 	<!-- CSS: implied media="all" -->
-	<link rel="stylesheet" href="css/style.css?v=112">
-		
-	<!-- For data error reporter -->
-	<link rel="stylesheet" type="text/css" href="http://maps.co.mecklenburg.nc.us/report_data_problems/colorbox.css" media="screen" />
-  
+	<link rel="stylesheet" href="css/style.css?v=114">
+
+
+
 	<!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects
 		Note this modernizr build only contains HTML5 shim/iepp, modernizr.load, add css classes, and
 		geolocation api. You can build your own with additional features at http://www.modernizr.com/ -->
-	<script src="js/libs/modernizr.custom.js?v=112"></script>
+	<script src="js/libs/modernizr.custom.js?v=114"></script>
 
 </head>
 
@@ -51,17 +50,17 @@
 
 	<div id="container">
 		<header>
-            <!-- Header logo -->            
+            <!-- Header logo -->
             <div id="logo" class="logo alignleft">
                 <img src="img/gp_logo.png" />
             </div>
-            
+
             <div id="searchdiv" class="screen-only">
 				<input id="searchinput" class="ui-corner-all inset" x-webkit-speech speech placeholder='Start here! Try "700 N Tryon".' /><br />
-                <a href="javascript:void(0)" id="gogpslocation">Follow My Location</a> &#183 
+                <a href="javascript:void(0)" id="gogpslocation">Follow My Location</a> &#183
                 <a class="searchoptions" href="javascript:void(0)">Help</a>
 			</div>
-            
+
 			<div id="toolbar" class="screen-only ui-widget-header hidden">
 				<div id="mapcontrols">
 					<input type="radio" id="navigate" name="mapcontrol-button" value="none" checked="checked" /><label for="navigate">Navigate</label>
@@ -76,16 +75,16 @@
 					<span id="toolbar-coords"></span>
 				</div>
 			</div>
-            
+
 		</header>
-	
+
 		<div id="main" role="main">
-		
+
 
         <!-- Map -->
         <div id="map-container">
             <div id="map" class="ui-corner-bottom"></div>
-            
+
             <!-- The following elements are positioned on top of the map as needed -->
             <div id="elevation_chart" class="boxshadow ui-corner-all hidden">
                 <div id="elevation_chart_image"></div>
@@ -95,27 +94,27 @@
         </div>
 
 
-		<!-- side bar -->   
+		<!-- side bar -->
 		<aside>
 
-				   
+
             <!-- Data Accordion -->
             <div id="accordion-data" class="accordion hidden">
-              
+
                 <h3 id="WELCOME"><a href="#">Welcome to GeoPortal</a></h3>
                 <div>
                     <p>
-                        Use the search bar to begin (<a href="javascript:void(0)" class="searchoptions">options</a>). For assistance, check out our <a href="javascript:void(0)" class="video_tutorial">video tutorial</a> or see <a href="javascript:void(0)" id="whatsnew">what's new</a>. 
+                        Use the search bar to begin (<a href="javascript:void(0)" class="searchoptions">options</a>). For assistance, check out our <a href="javascript:void(0)" class="video_tutorial">video tutorial</a> or see <a href="javascript:void(0)" id="whatsnew">what's new</a>.
                     </p>
                     <p>
                         This site is powered by <a href="http://en.wikipedia.org/wiki/Open_source" target="_blank">free and open source software</a>.
-                        The source code can be found <a href="http://code.google.com/p/geoportal/" target="_blank">here</a>. 
+                        The source code can be found <a href="http://code.google.com/p/geoportal/" target="_blank">here</a>.
                         By using this web site, you agree to abide by our <a href="#" onclick="$('#welcome-dialog').dialog('open'); return false;">Disclaimer</a>.
                     </p>
                     <h5>Search Results</h5>
                     <span class="selectedLocation">No records selected.</span>
                 </div>
-                
+
                 <h3 id="PROPERTY"><a href="#">Property</a></h3>
                 <div>
                     <div class="selectedLocation">No property currently selected.</div>
@@ -221,7 +220,7 @@
                         <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
                     </p>
                 </div>
-                
+
                 <h3 id="SERVICES"><a href="#">Services</a></h3>
                 <div>
                     <div class="selectedLocation">No property currently selected.</div>
@@ -302,7 +301,7 @@
                         <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
                     </p>
                 </div>
-                
+
                 <h3 id="TRANSPORTATION"><a href="#">Transportation</a></h3>
                 <div>
                     <div class="selectedLocation">No property currently selected.</div>
@@ -353,17 +352,17 @@
                         <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
                      </p>
                 </div>
-                
+
                 <h3 id="ENVIRONMENT"><a href="#">Environment</a></h3>
                 <div>
-                    <div class="selectedLocation">No property currently selected.</div>                        
-                    
+                    <div class="selectedLocation">No property currently selected.</div>
+
                     <h5 class="selected-data environment-list-heading">Critical Information</h5>
                     <ul class="selected-data environment-list selected-data-clear" id="environment_critical"></ul>
-                    
+
                     <h5 class="selected-data">General Information</h5>
                     <ul class="selected-data environment-list selected-data-clear" id="environment_general"></ul>
-                    
+
                     <p class="smallfont">For more <strong>Environment</strong> information, try:
                         <a href="http://charmeck.org/mecklenburg/county/WaterandLandResources/Pages/default.aspx" target="_blank">Water &amp; Land Resources</a>,
                         <a href="ftp://ftp1.co.mecklenburg.nc.us/WaterQuality/WQ%20Buffers/WaterQualityBufferImplementationGuidelines.pdf" target="_blank">
@@ -371,7 +370,7 @@
                         <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
                     </p>
                 </div>
-                
+
                 <h3 id="ECONOMIC_DEVELOPMENT"><a href="#">Economic Development</a></h3>
                 <div>
                     <div class="selectedLocation">No property currently selected.</div>
@@ -463,12 +462,12 @@
                         <a href="http://charmeck.org/city/charlotte/planning" target="_blank">Planning Department</a>,
                         <a href="http://charmeck.org/mecklenburg/county/LUESA" target="_blank">LUESA</a>.
                         <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
-                    </p>											
+                    </p>
                 </div>
-                
+
                 <h3 id="SCHOOLS"><a href="#">Schools</a></h3>
                 <div>
-                    <div class="selectedLocation">No property currently selected.</div>                        
+                    <div class="selectedLocation">No property currently selected.</div>
                     <div id="future_school_assignments" class="selected-data"></div>
                     <div id="high_school_n" class="selected-data">
                         <table class="datatable">
@@ -538,7 +537,7 @@
                         <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
                     </p>
                 </div>
-                
+
                 <h3 id="VOTING"><a href="#">Voting</a></h3>
                 <div>
                     <div class="selectedLocation">No property currently selected.</div>
@@ -645,7 +644,7 @@
                         <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
                     </p>
                 </div>
-                
+
                 <h3 id="COMMUNITY"><a href="#">Community</a></h3>
                 <div>
                     <div class="selectedLocation">No property currently selected.</div>
@@ -715,7 +714,7 @@
                                     <td class="ui-widget-content textright"></td>
                                     <td class="ui-widget-content textright"></td>
                                 </tr>
-                                
+
                             </tbody>
                         </table>
                     </div>
@@ -752,43 +751,43 @@
                 <div>
                     <img src="img/legend.png" />
                 </div>
-                
+
             </div> <!-- close accordions -->
 
             <!-- Print-only disclaimer -->
             <div class="print-only">
-                <p style="font-size: 0.8em; padding-top: 50px;">This system is subject to current public information rules and regulations. Information presented on 
-                this web site is considered public information and may be distributed or copied. Mecklenburg County 
-                and its data providers give no warranty, expressed or implied, as to the accuracy, precision, timeliness, completeness, 
-                or any other aspect of the data presented. The publisher and data providers assume no liability for damage 
-                arrising from the use of this web site or the data provided herein.</p>    
+                <p style="font-size: 0.8em; padding-top: 50px;">This system is subject to current public information rules and regulations. Information presented on
+                this web site is considered public information and may be distributed or copied. Mecklenburg County
+                and its data providers give no warranty, expressed or implied, as to the accuracy, precision, timeliness, completeness,
+                or any other aspect of the data presented. The publisher and data providers assume no liability for damage
+                arrising from the use of this web site or the data provided herein.</p>
             </div>
 		</aside>
-		
-		
-		 
-		 
+
+
+
+
 		<footer class="screen-only">
-			<div class="alignright smallfont" id="footer-text"> 
+			<div class="alignright smallfont" id="footer-text">
 				<a href="#" onclick="$('#welcome-dialog').dialog('open'); return false;">Disclaimer</a> &#183
 				<a href="javascript:void(0)" class="video_tutorial">Tutorial</a> &#183
 				<a class='report_data_error' href="javascript:void(0);">Report a Problem</a> &#183
-				<a href="http://charmeck.org/mecklenburg/county/GeospatialInformationServices/GeneralInfo/Pages/Strategic%20Planning%20and%20Program%20Support.aspx">Strategic Planning and Program Support</a> &#183 
+				<a href="http://charmeck.org/mecklenburg/county/GeospatialInformationServices/GeneralInfo/Pages/Strategic%20Planning%20and%20Program%20Support.aspx">Strategic Planning and Program Support</a> &#183
 				<a href="http://emaps.charmeck.org">Mecklenburg County GIS</a>
 			  </div>
 		</footer>
-	
+
 	</div> <!--! end of #container -->
 
 	<!-- The following content is not displayed at run time -->
-	
+
 	<!-- Search help - jQuery UI Dialog -->
 	<div id="search-dialog" title="Search Help" class="hidden">
 		<p class="textcenter">
             <iframe width="350" height="262" src="http://www.youtube-nocookie.com/embed/aGlmVQXRRj4?rel=0" frameborder="0" allowfullscreen></iframe>
         </p>
         <p>
-		  Type in the first part of an address or location and <em>let the search box do the work for you</em>. 
+		  Type in the first part of an address or location and <em>let the search box do the work for you</em>.
 		  Select a match using either the mouse or the up/down arrow keys and Enter.
 		</p>
 		<p><span class="ui-icon ui-icon-circle-check alignleft"></span><strong>Address</strong>: Enter the first part of the address. Ex: for 700 North Tryon Street, try <em>700 n</em></p>
@@ -812,7 +811,7 @@
                 <li>There's a new <span class="importanttext">"Custom Map Layer"</span> in the <a href="javascript:void(0)" onclick="$('#accordion-data').accordion('activate', 'h3#MAPCONTROLS')">Map Controls</a>. Basically, it's any layer we share via our web map server, so you can see anything
                     we hav available in GeoPortal! We're still cleaning up the layer titles and working on transparancy capabilities.</li>
                 <li>You might notice the <span class="importanttext">hash</span> (#XXXXX) that appears in the URL bar when a property is selected. This enables your browser history, so
-                    if you select multiple records you can go forward and backward in your history. You can also email the URL when a record is 
+                    if you select multiple records you can go forward and backward in your history. You can also email the URL when a record is
                     selected and the recipient will automatically select the record!</li>
                 <li>Install the <a href="http://code.google.com/apis/earth/" target="_blank">Google Earth API</a> to experience <span class="importanttext">GeoPortal in 3D</span>!
                         After installation, an Earth option will appear in the list on top right of the map.</li>
@@ -820,7 +819,7 @@
 
         </p>
     </div>
-     
+
     <!-- Welcome screen - jQuery UI Dialog -->
 	<div id="welcome-dialog" title="Welcome" class="hidden">
 		<h5 class="aligncenter">Welcome to GeoPortal</h5>
@@ -828,15 +827,15 @@
 		<p>GeoPortal is an advanced web mapping system created by Mecklenburg County GIS. Its mission is to be an easy to use "portal" into
 		Mecklenburg County's data and services. This site is powered by <a href="http://en.wikipedia.org/wiki/Open_source#Terms_based_on_open_source" target="_blank">free and open source software</a>.
 		The source code for this site is released under the <a href="http://en.wikipedia.org/wiki/MIT_X11" target="_blank">MIT free software license</a> and can be downloaded <a href="http://fuzzytolerance.info/projects/" target="_blank">here</a>.</p>
-					
-		<h5>Disclaimer</h5>            
-		<p>This system is subject to current public information rules and regulations. Information presented on 
-		this web site is considered public information and may be distributed or copied. Mecklenburg County 
-		and its data providers give no warranty, expressed or implied, as to the accuracy, precision, timeliness, completeness, 
-		or any other aspect of the data presented. The publisher and data providers assume no liability for damage 
+
+		<h5>Disclaimer</h5>
+		<p>This system is subject to current public information rules and regulations. Information presented on
+		this web site is considered public information and may be distributed or copied. Mecklenburg County
+		and its data providers give no warranty, expressed or implied, as to the accuracy, precision, timeliness, completeness,
+		or any other aspect of the data presented. The publisher and data providers assume no liability for damage
 		arrising from the use of this web site or the data provided herein.</p>
 	</div>
-	
+
 	<!-- Google Chrome Frame message - jQuery UI Dialog -->
 	<div id="gcf-dialog" title="Improve Your GeoPortal Experience!" class="hidden">
 		<h5 class="aligncenter">Enable open web technologies in Internet Explorer</h5>
@@ -851,7 +850,7 @@
 			<a href="http://www.google.com/chromeframe/?user=true&quickenable=true" target="_blank">Install Google Chrome Frame</a>
 		</p>
 	</div>
-    
+
     <!-- Welcome screen - jQuery UI Dialog -->
 	<div id="buffer-dialog" title="Draw a Buffer" class="hidden">
 		<p>Click on the map to set the center of the buffer and draw the buffer on the map.</p>
@@ -868,25 +867,25 @@
 
     <!-- Photo Gallery - jQuery UI Dialog -->
     <div id="gallery-dialog" title="Photo Gallery" class="hidden"></div>
-	
-	
+
+
 	<!-- JavaScript at the bottom for fast page loading -->
-  
+
 	<!-- jQuery and jQuery UI from Google CDN -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
-	
+
 	<!-- Scripts for google maps -->
 	<script src="http://maps.googleapis.com/maps/api/js?v=3.8&sensor=false&libraries=geometry,panoramio,weather"></script>
 	<script src="https://www.google.com/jsapi"></script>
-	
-	
+
+
 	<!-- scripts concatenated and minified via ant build script-->
-    <script src="js/geoportal-gm-settings.js?v=112"></script>
-    <script src="js/map-gm.js?v=112"></script>
-	<script src="js/plugins.js?v=112"></script>
-	<script src="js/script.js?v=112"></script>
-	
+    <script src="js/geoportal-gm-settings.js?v=114"></script>
+    <script src="js/map-gm.js?v=114"></script>
+	<script src="js/plugins.js?v=114"></script>
+	<script src="js/script.js?v=114"></script>
+
 	<!--   Google Analytics -->
 	<script type="text/javascript">
       var _gaq = _gaq || [];
@@ -910,9 +909,9 @@
     </script>
     <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-		
+
 	<!-- end scripts-->
 
-	
+
 </body>
 </html>

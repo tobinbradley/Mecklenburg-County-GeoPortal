@@ -4,7 +4,7 @@
 window.log = function(){
   log.history = log.history || [];   // store logs to an array for reference
   log.history.push(arguments);
-  arguments.callee = arguments.callee.caller;  
+  arguments.callee = arguments.callee.caller;
   if(this.console) console.log( Array.prototype.slice.call(arguments) );
 };
 // make it safe to use console.log always
@@ -20,19 +20,19 @@ window.log = function(){
  */
 (function($) {
 	$.fn.tableGenerator = function( options ) {
-		
+
 		// plugin's default options
 		var settings = {
-		    'rowClass': '',
-		    'colClass': 'ui-widget-content',
-		    'fields': [],
-		    'nodataString': 'No records found.',
-		    'data': {},
-		    'data2': {},
+			'rowClass': '',
+			'colClass': 'ui-widget-content',
+			'fields': [],
+			'nodataString': 'No records found.',
+			'data': {},
+			'data2': {},
 			'returnType': 'rowsh',
 			'rowsvCount': '3'
-		}
-		
+		};
+
 		return this.each(function() {
 			if ( options ) {
 				$.extend( settings, options );
@@ -41,8 +41,8 @@ window.log = function(){
 
 			if (settings.returnType == 'rowsh') {
 				if (settings.data.total_rows > 0) {
-					
-					
+
+
 					// Process JSON
 					$.each(settings.data.rows, function(j, item){
 						writebuffer += '<tr>';
@@ -53,21 +53,21 @@ window.log = function(){
 							writebuffer += "<td class='" + settings.colClass + "'><a href='javascript:void(0);' title='Locate on the map.' " + zoomClick + "><img src='img/find.gif' style='margin: 0px' /></a></td><td class='" + settings.colClass + "'><a href='" + routeurl + "' target='_blank' title='Get driving directions.'><img src='img/car.png' style='margin: 0px' /></a></td>"
 						}
 						for (i = 0; i < settings.fields.length; i++) {
-							writebuffer += '<td class="' + settings.colClass + '">' + eval(settings.fields[i]) + '</td>';		
+							writebuffer += '<td class="' + settings.colClass + '">' + eval(settings.fields[i]) + '</td>';
 						}
 						writebuffer += '</tr>';
 					});
-					
+
 					// Populate table
 					$(this).append(writebuffer);
-					
+
 				}
 				else {
 					// No records found
 					$(this).append('<tr><td class="' + settings.colClass + '" colspan="' + $(this).parent().children("thead").children("tr").children("th").length + '">' + settings.nodataString + '</td></tr>');
 				}
 			}
-			
+
 			if (settings.returnType == 'rowsv') {
 				if (settings.data.total_rows > 0) {
 					y = 0;
@@ -80,20 +80,20 @@ window.log = function(){
 						writebuffer += '<td class="textright ' + settings.colClass + '">' + eval(settings.fields[i]) + '</td>';
 						writebuffer += "</tr>";
 					}
-					
+
 					// Populate table
 					$(this).append(writebuffer);
-					
+
 				}
 				else $(this).append('<tr><td class="' + settings.colClass + '" colspan="' + $(this).parent().children("thead").children("tr").children("th").length + '">' + settings.nodataString + '</td></tr>');
-					
-					
-					
+
+
+
 			}
-			
+
 		});
 	};
-		
+
 })(jQuery);
 
 
@@ -156,10 +156,50 @@ $.fn.extend({
 (function($,e,b){var c="hashchange",h=document,f,g=$.event.special,i=h.documentMode,d="on"+c in e&&(i===b||i>7);function a(j){j=j||location.href;return"#"+j.replace(/^[^#]*#?(.*)$/,"$1")}$.fn[c]=function(j){return j?this.bind(c,j):this.trigger(c)};$.fn[c].delay=50;g[c]=$.extend(g[c],{setup:function(){if(d){return false}$(f.start)},teardown:function(){if(d){return false}$(f.stop)}});f=(function(){var j={},p,m=a(),k=function(q){return q},l=k,o=k;j.start=function(){p||n()};j.stop=function(){p&&clearTimeout(p);p=b};function n(){var r=a(),q=o(m);if(r!==m){l(m=r,q);$(e).trigger(c)}else{if(q!==m){location.href=location.href.replace(/#.*/,"")+q}}p=setTimeout(n,$.fn[c].delay)}$.browser.msie&&!d&&(function(){var q,r;j.start=function(){if(!q){r=$.fn[c].src;r=r&&r+a();q=$('<iframe tabindex="-1" title="empty"/>').hide().one("load",function(){r||l(a());n()}).attr("src",r||"javascript:0").insertAfter("body")[0].contentWindow;h.onpropertychange=function(){try{if(event.propertyName==="title"){q.document.title=h.title}}catch(s){}}}};j.stop=k;o=function(){return a(q.location.href)};l=function(v,s){var u=q.document,t=$.fn[c].domain;if(v!==s){u.title=h.title;u.open();t&&u.write('<script>document.domain="'+t+'"<\/script>');u.close();q.location.hash=v}}})();return j})()})(jQuery,this);
 
 
-/* jQuery Tiny Pub/Sub - v0.7 - 10/27/2011
- * http://benalman.com/
- * Copyright (c) 2011 "Cowboy" Ben Alman; Licensed MIT, GPL */
-(function(a){var b=a({});a.subscribe=function(){b.on.apply(b,arguments)},a.unsubscribe=function(){b.off.apply(b,arguments)},a.publish=function(){b.trigger.apply(b,arguments)}})(jQuery)
+/*
+    jQuery pub/sub plugin by Peter Higgins
+	https://github.com/phiggins42/bloody-jquery-plugins/blob/master/pubsub.js
+    Modified by Tobin Bradley
+    AFL/BSD Licensed
+*/
+;(function(d){
+    // the topic/subscription hash
+    var cache = {};
+    // Publish some data on a named topic.
+    d.publish = function(topic, args){
+        cache[topic] && d.each(cache[topic], function(){
+            try {
+                this.apply(d, args || []);
+            } catch(err) {
+                console.log(err);
+            }
+        });
+    };
+    // Register a callback on a named topic.
+    d.subscribe = function(topic, callback){
+        if(!cache[topic]){
+            cache[topic] = [];
+        }
+        cache[topic].push(callback);
+        return [topic, callback]; // Array
+    };
+    // Disconnect a subscribed function for a topic.
+    d.unsubscribe = function(topic, callback){
+        cache[topic] && d.each(cache[topic], function(idx){
+            if(this == callback){
+                cache[topic].splice(idx, 1);
+            }
+        });
+    };
+    // List Subscribers
+    d.subscribers = function(topic) {
+        l = [];
+        cache[topic] && d.each(cache[topic], function(idx){
+            l.push(this.name);
+        });
+        return l;
+    };
+})(jQuery);
 
 
 /**
@@ -181,6 +221,8 @@ function GoogleEarth(a){if(!google||!google.earth){throw"google.earth not loaded
 /**
  * Sort photos
  */
-function sortPhotos(a, b) {          
+function sortPhotos(a, b) {
     return parseInt(a.getAttribute("data-date")) < parseInt(b.getAttribute("data-date")) ? 1 : -1;
 };
+
+
