@@ -1,0 +1,46 @@
+CACHE MANIFEST
+# v3
+
+# Explicitly cached 'master entries'.
+CACHE:
+# styles
+#css/style.css
+css/aristo.css
+
+# images
+favicon.ico
+apple-touch-icon.png
+img/gp_logo.png
+img/gis_logo.png
+img/route.png
+img/locate.gif
+img/marker.png
+img/marker2.png
+img/marker-shadow.png
+img/ui-anim_basic_16x16.gif
+img/environment-air.png
+img/environment-green.jpg
+img/environment-land.png
+img/environment-water.png
+img/measure-vertex-hover.png
+img/measure-vertex.png
+img/puzzle.png
+
+# scripts
+#js/config.js
+#js/plugins.js
+#js/script.js
+#js/map.js
+js/libs/modernizr.custom.js
+https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
+https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js
+http://maps.googleapis.com/maps/api/js?v=3.9&sensor=false&libraries=geometry,panoramio,weather
+
+
+
+
+
+# Everything else: go sponge somebody's wifi
+NETWORK:
+*
+

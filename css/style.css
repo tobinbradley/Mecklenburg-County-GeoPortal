@@ -10,7 +10,6 @@
  * ==|== normalize ==========================================================
  */
 
-
 /* =============================================================================
    HTML5 display definitions
    ========================================================================== */
@@ -217,61 +216,104 @@ td { vertical-align: top; }
 .textright { text-align: right }
 .textcenter { text-align: center; }
 .print-only { display: none }
-.boxshadow { box-shadow: 2px 2px 4px #666; }
-.smallfont { font-size: 0.8em; }
-.importanttext { color: red; font-weight: bold; }
-.inset { -moz-box-shadow: inset 0 3px 8px rgba(0,0,0,.4); -webkit-box-shadow: inset 0 3px 8px rgba(0,0,0,.4); box-shadow: inset 0 3px 8px rgba(0,0,0,.24); }
-iframe { box-shadow: 0 3px 4px -2px black; }
+.mute { color: #77787B; font-size: 0.9em; }
+.mute a { color: #77787B; font-weight: bold; }
+
 
 /* some sensible defaults */
+body { font-family:  Helmet, Freesans, sans-serif; font-size: 12px; font-variant: normal; }
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 p { margin: 10px 0 }
-table { width: 100%; font-size: 0.75em;  }
+table { width: 100%; font-size: 0.8em;  }
 td, th { padding: 2px }
 h5 { padding-top: 3px; font-size: 14px; margin: 0; }
-body { font-family:  Helmet, Freesans, sans-serif; font-size: 12px; font-variant: normal; background: #ccc; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+.cutout { border: 2px dashed #666; border-radius: 5px; background-color: whiteSmoke; padding: 5px; }
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { box-shadow: inset 0 0 6px rgba(0,0,0,0.2); border-radius: 10px; }
+::-webkit-scrollbar-thumb { border-radius: 10px; box-shadow: inset 0 0 6px rgba(0,0,0,0.3); }
+
 
 /* layout */
-header { background-color: #e7e7e7; padding: 2px 0 0 0; overflow: hidden; height: 111px; box-shadow: 0 5px 8px #666; position: relative; z-index: 1; }
-aside { z-index: 1;  position: absolute; left: 0; top: 112px; bottom: 20px; width: 390px; overflow: auto; overflow-x: hidden; overflow-y: auto; -webkit-overflow-scrolling: touch; background: url('../img/gislogo.png') bottom center no-repeat; box-shadow:  5px 0 5px -2px #666;}
-#map-container { position: absolute; top: 112px; left: 390px; right: 0; bottom: 20px; overflow: hidden; }
-#toolbar { position: absolute;  z-index: 10; right: 0; left: 0; bottom: 0; padding: 2px 2px 2px 390px;  overflow: hidden; }
-#map { position: absolute; top: 0; left: 1px; right: 1px; bottom: 2px; background: white; overflow: hidden;  }
-footer { position: absolute; bottom: 0px; left: 0px; right: 0px; height: 20px; overflow: hidden; z-index: 2;  background: #ccc; }
-#main { overflow: hidden; } /* Without this ie7 will randomly decide not to draw the middle part when content changes. I hate you ie7. */
+#container { overflow: hidden; }
+header { padding: 2px 5px; background-color: #e7e7e7; overflow: hidden; height: 65px; position: relative; z-index: 1; }
+aside {
+  padding: 0;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 64px;
+  bottom: 0;
+  width: 390px;
+  overflow: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: url(../img/gis_logo.png) bottom center no-repeat;
+  box-shadow:  5px 0 5px -2px #666;
+  background-color: #e7e7e7;
+}
+#map-container {
+  position: absolute;
+  top: 65px;
+  left: 390px;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  margin: 0;
+}
+#toolbar { position: absolute; z-index: 2; right: 0; left: 0; top: 0; padding: 2px 5px; overflow: hidden; box-shadow: 0 5px 8px #666; }
+#map { position: absolute; top: 35px; left: 0; right: 0; bottom: 0; background: white; overflow: hidden; }
+.ie7 #map-container { left: 400px; }
 
-
-
-/* logo */
-#logo {max-width: 251px; padding-top: 10px; float: left; }
+/* header image */
+#logo {max-width: 251px; padding-top: 3px; float: left; }
 
 
 /*  Search  */
-#searchdiv { padding-top: 13px; max-width: 450px; max-height: 35px; margin: 0 auto; text-align: right; color: #666; }
-#searchdiv label { font-size: 1.4em; padding: 4px; margin-top: 3px;}
-#searchinput { position: relative; z-index: 10; font-size: 1.3em; padding: 3px; margin: 0; border:1px solid #b2b2b2; border-radius: 5px; color: #7C7C7C; font-weight: bold; padding: 8px 5px; width: 100%; max-width: 442px; }
-#searchinput:focus { outline:none; }
-#searchdiv a { text-decoration: none; color: #666; font-size: 10px; }
-#searchdiv a:hover { text-decoration: underline; }
+#searchdiv { padding-top: 10px; max-width: 450px; max-height: 35px; margin: 0 auto; text-align: right; }
+#searchinput {
+  position: relative;
+  z-index: 10;
+  font-size: 1.3em;
+  margin: 0;
+  border:1px solid #D9D9D9;
+  color: #7C7C7C;
+  font-weight: bold;
+  padding: 6px 5px;
+  width: 100%;
+  max-width: 450px;
+  transition: all 0.25s ease-in-out;
+  -webkit-transition: all 0.25s ease-in-out;
+  -moz-transition: all 0.25s ease-in-out;
+  -ms-transition: all 0.25s ease-in-out;
+  -o-transition: all 0.25s ease-in-out;
+}
+#searchinput:focus, #searchinput:hover {
+  outline: none;
+  -webkit-box-shadow: 0 0 8px #9ecaed;
+  -moz-box-shadow: 0 0 8px #9ecaed;
+  box-shadow: 0 0 8px #9ecaed;
+  border-color: #9ecaed;
+}
+#searchdiv p { text-align: right; margin: 1px 0 0 0;  }
 input::-webkit-input-placeholder, textarea::-webkit-input-placeholder { color: #7C7C7C; }
 input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 
 
-/*  Footer  */
-#footer-text { margin: 4px 10px 0 0; }
-#footer-text a { color: #666; text-decoration: none; }
-#footer-text a:hover { text-decoration: underline; }
-
-
 /*  Sidebar  */
 .datatable caption { text-align: left; padding-top: 10px; font-size: 12px; font-weight: bold; }
-#opacitydll { margin-top: 8px; }
-#layerswitcher ul { margin-left: 0; padding-left: 10px; }
-#layerswitcher ul li { display: block; margin: 2px 0; }
-#layerswitcher input[type="checkbox"], #layerswitcher input[type="radio"] { margin-right: 5px; }
-#wmsDirectoryLayer { width: 250px; margin-left: 18px; }
+.table-icon { width: 16px; }
+#opacitydll { margin-top: 4px; }
+#opacitySlider { margin: 10px 7px 0 7px; }
+footer { margin-top: 20px; }
+footer hr { clear:both; width: 90%; margin: 3px auto 0; height: 3px; border-color: #bfbfbf; }
+#routePane button { margin: 10px 0 7px; }
+#routePane input, #routePane select { width: 80%; margin: 2px; }
 .environment_div { font-size: 0.8em }
 .environment-list { margin-left: 0; padding-left: 10px; }
-.environment-list li { padding: 0 5px 0 40px; border-bottom: 1px solid #ccc; list-style: none; display: block; font-size: 0.8em;}
+.environment-list li { padding: 4px 5px 4px 40px; border-bottom: 1px solid #ccc; list-style: none; display: block; font-size: 0.8em;}
 .environment-list-heading {padding-top: 10px;  }
 .environment-water { background: url("../img/environment-water.png") no-repeat top left;}
 .environment-green { background: url("../img/environment-green.jpg") no-repeat top left; }
@@ -279,33 +321,51 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 .environment-land { background: url("../img/environment-land.png") no-repeat top left; }
 
 /* Map */
-#toolbar-text-output { font-size: .8em; position: absolute;  right: 4px; padding-top: 5px; }
+#toolbar-text-output { font-size: 0.8em; position: absolute;  right: 5px; padding-top: 5px; }
+#mapcontrols { float: left; }
+#map { border: 1px solid #D9D9D9; }
+#map div {-moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
+#opacitySlider { margin: 18px auto 30px auto; width: 90%}
 #elevation_chart { position: absolute; top: 35px; right: 7px; background: white; padding: 5px; text-align: center;}
 #elevation_chart span { font-weight: bold; position: relative; top: -10px;  }
 #streetview { position: absolute; bottom: 7px; right: 7px; width: 50%; height: 40%; border: 4px solid white; }
-#mapcontrols { float: left; }
-#map-canvas { border: 1px solid #D9D9D9; border-color: rgba(102, 102, 102, 0.25) }
 #radius { width: 60px; }
-#opacitySlider { margin: 18px auto 30px auto; width: 90%}
+#layerswitcher ul { margin-left: 0; padding-left: 10px; }
+#layerswitcher ul li { display: block; margin: 2px 0; }
+#layerswitcher input[type="checkbox"], #layerswitcher input[type="radio"] { margin-right: 5px; }
+.infowin-content { overflow: hidden; }
+#wmsDirectoryLayer { width: 250px; margin-left: 18px; }
+.toggleLayersArea { margin-top: 10px; padding: 8px 10px 10px; }
 
 /* Image gallery */
-#housephoto { margin: 5px 0; text-align: center; }
-#housephoto img { cursor: pointer; margin: 0 5px 5px 0; width: 30%; box-shadow: 0 3px 4px -2px black; border-top: 2px solid white; }
-.house_photo_selected { border-top: 2px solid #547472 !important; box-shadow: 0 0 15px #547472, 0 3px 4px -2px black !important; }
-
-/* Misc dialogs */
-#problem-dialog, #photo-dialog { padding: 0; text-align: center; }
-#gallery-dialog { text-align: center; }
+#housephoto { margin: 5px 0; padding: 8px 0; text-align: center; max-height: 200px; overflow: auto; }
+#photo_gallery img { cursor: pointer; margin: 0 5px 5px 0; width: 30%; box-shadow: 0 3px 4px -2px black; border-top: 2px solid white; }
+#housephoto button { margin-top: 8px; }
+.house_photo_selected { border-top: 2px solid #547472; box-shadow: 0 0 15px #547472, 0 3px 4px -2px black; }
 
 /*  jQuery UI Tweaks  */
-.ui-widget { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;}
-.ui-accordion-content { padding: 5px !important; overflow: hidden !important; font-size: 1em !important; }
-.ui-accordion-content a, .ui-accordion-content a:link, .ui-accordion-content a:visited { color: #1982D1 !important; text-decoration: none !important;  }
-.ui-accordion-content a:hover { text-decoration: underline !important; }
-.ui-autocomplete-loading { background: transparent url('../img/ui-anim_basic_16x16.gif') right no-repeat !important }
+.ui-widget { font-family: Helmet, Freesans, sans-serif;}
+.ui-accordion-content { padding: 5px !important; overflow: hidden; font-size: 1em; }
+.ui-autocomplete-loading { background: transparent url('../img/ui-anim_basic_16x16.gif') right no-repeat; }
 .ui-autocomplete .ui-menu-item { padding-left: 10px }
-.ui-autocomplete { overflow: auto; overflow-y: auto; overflow-x: hidden; font-size: 0.9em;   font-weight: normal; max-height: 400px; box-shadow: 2px 2px 4px #666; }
-.ui-autocomplete-category { font-weight: bold; padding: 0 4px; line-height: 1.5;    font-variant: small-caps; font-size: 14px; }
+.ui-autocomplete {
+  overflow: auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-size: 0.9em;
+  font-weight: normal;
+  max-height: 400px;
+  box-shadow: 2px 2px 4px #666;
+}
+.ui-autocomplete-category {
+  font-weight: bold;
+  padding: 0 4px;
+  line-height: 1.5;
+  font-variant: small-caps;
+  font-size: 14px;
+}
+.ui-accordion .ui-accordion-header a { padding: .4em .5em .4em 2em; }
+.ui-accordion-content a, .ui-accordion-content a:visited { color: #1982D1 ; }
 
 
 
@@ -337,6 +397,7 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 
 
 
+
 /* ==|== media queries ======================================================
    PLACEHOLDER Media Queries for Responsive Design.
    These override the primary ('mobile first') styles
@@ -345,6 +406,7 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 
 /* Grade-A Mobile Browsers (Opera Mobile, Mobile Safari, Android Chrome)
    consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
+
 @media screen and (max-width: 1024px) {
     #searchdiv {  margin: 0 5px;  }
     #logo { float: right; }
@@ -356,33 +418,41 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 }
 
 @media screen and (max-width: 640px) {
-	/* General */
-	.boxshadow { box-shadow: none; }
 
-	/* Header */
-	header { padding: 0; margin: 0; top: 295px; left: 1px; right: 15px; box-shadow: none; background-color: #ccc; }
+  /* Header */
+  header { padding: 0; margin: 0; top: 295px; left: 1px; right: 15px;  }
   #logo { display: none }
 
-	/*  Search  */
-	#searchdiv { max-width: inherit; width: 100%; margin:  1px; padding: 0;  text-align:  left; }
-  #searchinput { width: 95% ;  }
+  /*  Search  */
+  #searchdiv { max-width: inherit; width: 100%; margin: 1px; padding-right: 15px; text-align:  left; }
 
 
-	/* map area */
-	#map-container { top: 1px; left: 1px; right: 15px; bottom: auto; height: 290px; min-width:  290px;  }
-	#toolbar { display: none !important; }
-	#map { top: 2px; }
+  /* map area */
+  #map-container { top: 1px; left: 1px; right: 15px; bottom: auto; height: 290px; min-width:  290px;  }
 
-	/* sidebar */
-	aside { top: 360px; left: 1px; right: 15px; bottom: inherit; height: auto; width: auto; overflow: auto; min-width: 290px;  box-shadow: none; }
-	.ui-accordion-header a { padding: 1.4em 1em 1.4em 2.2em !important }
+  #map { top: 2px; }
 
-	/* footer */
-	footer { display: none; }
+  /* sidebar */
+  aside {
+    top: 360px;
+    left: 1px;
+    right: 15px;
+    bottom: inherit;
+    height: auto;
+    width: auto;
+    overflow-y: hidden;
+    min-width: 290px;
+    box-shadow: none;
+  }
+  .ui-accordion-header a { padding: 1.4em 1em 1.4em 2.2em !important }
 
-	/* Uncomment if you don't want iOS and WinMobile to mobile-optimize the text for you: j.mp/textsizeadjust */
-	/* html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } */
+
+  /* Uncomment if you don't want iOS and WinMobile to mobile-optimize the text for you: j.mp/textsizeadjust */
+  /* html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } */
 }
+
+
+
 
 
 /* ==|== print styles =======================================================
@@ -395,7 +465,7 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
   pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
   thead { display: table-header-group; } /* h5bp.com/t */
   tr, img { page-break-inside: avoid; }
-  img { max-width: 100% !important; }
+  img { max-width: none !important; }
   @page { margin: 0.5cm; }
   p, h2, h3 { orphans: 3; widows: 3; }
   h2, h3 { page-break-after: avoid; }
@@ -412,7 +482,17 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
   aside { overflow: visible; box-shadow: none; width: 100%; margin: 0 auto; padding: 0; }
   #logo { float: none; margin: 0 auto; }
   #map-container, aside { position: relative; left: inherit; right: inherit; top: inherit; bottom: inherit; }
-  #map-container { left: 0; top: 20px; bottom: 0; right: 0; height: 750px; width: 99%; border: 2px solid black; margin: 0 auto; page-break-after : always; }
+  #map-container {
+    left: 0;
+    top: 20px;
+    bottom: 0;
+    right: 0;
+    height: 750px;
+    width: 99%;
+    border: 2px solid black;
+    margin: 0 auto;
+    page-break-after: always;
+  }
 
 
   .selectedLocation { font-weight: bold;  }
@@ -420,6 +500,7 @@ input::-moz-placeholder, textarea::-moz-placeholder { color: #7C7C7C; }
 
   /* map */
   .gmnoprint {display: none; width: 0; height: 0; }
+  .leaflet-top .leaflet-control, .olControlZoom, .olControlLayerSwitcher { display: none; }
 
   /* jQuery Tweaks */
   .accordion h3, .ui-tabs-nav {display: none !important;}
