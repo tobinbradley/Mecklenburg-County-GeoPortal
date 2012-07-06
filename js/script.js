@@ -5,11 +5,11 @@
  * @Bradley     MIT
  */
 
-var config; // Container for config.json
 var map = null; // map
 var selectedAddress = {}; // JSON selected record object
 var markers = []; // Array of markers
-var layersControl; // Leaflet layer control
+
+
 /*  Document Ready  */
 $(document).ready(function() {
 
