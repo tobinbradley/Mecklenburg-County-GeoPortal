@@ -8,6 +8,7 @@ Mecklenburg County GeoPortal is the current production release of Mecklenburg Co
 * [jQuery UI](http://jqueryui.com/)
 
 ## Getting Started
+This app uses no server-side code. Fling it on any http server and it should start working.
 
 ### Navigating config.js
 config.js is a JavaScript object containing map and layer configuration information.
