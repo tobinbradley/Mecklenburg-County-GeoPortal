@@ -1,10 +1,10 @@
 CACHE MANIFEST
-# v3
+# v4
 
 # Explicitly cached 'master entries'.
 CACHE:
 # styles
-#css/style.css
+css/style.css
 css/aristo.css
 
 # images
@@ -27,17 +27,14 @@ img/measure-vertex.png
 img/puzzle.png
 
 # scripts
-#js/config.js
-#js/plugins.js
-#js/script.js
-#js/map.js
+js/config.js
+js/plugins.js
+js/script.js
+js/map.js
 js/libs/modernizr.custom.js
 https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js
 https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/jquery-ui.min.js
 http://maps.googleapis.com/maps/api/js?v=3.9&sensor=false&libraries=geometry,panoramio,weather
-
-
-
 
 
 # Everything else: go sponge somebody's wifi
