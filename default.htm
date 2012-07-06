@@ -131,7 +131,7 @@
                     <span id="parcel_id" class="selected-data selected-data-clear"></span>
                     <div id="housephoto" class="cutout selected-data hidden">
                         <div id="photo_gallery" class="selected-data selected-data-clear"></div>
-                        <button type="button" id="newphoto">Submit a Photo!</button>
+                        <button type="button" id="newphoto" class="screen-only">Submit a Photo!</button>
                     </div>
                     <div id="ownership" class="selected-data hidden">
                         <table class="datatable">
@@ -241,7 +241,7 @@
                         <h5>Search Results</h5>
                         <span class="selectedLocation">No records selected.</span>
                     </div>
-                    <div class="cutout toggleLayersArea">
+                    <div class="cutout toggleLayersArea screen-only">
                         <h5>Toggle Layers</h5>
                         <a href="javascript:void(0)" data-layer="Environmental Layers" class="toggleLayer" title="Regulated Floodplains, Water Quality Buffers, MPL Sites, Landfills">Environmental Layers</a>,
                         <a href="javascript:void(0)" data-layer="Soil Types" class="toggleLayer">Soil Types</a>
@@ -408,7 +408,7 @@
                         <h5>Search Results</h5>
                         <span class="selectedLocation">No records selected.</span>
                     </div>
-                    <div class="cutout toggleLayersArea">
+                    <div class="cutout toggleLayersArea screen-only">
                         <h5>Toggle Layers</h5>
                         <a href="javascript:void(0)" data-layer="Economic Development" class="toggleLayer" title="Development Corridors, Zoning, Building Permits, Development Loans, Business Investment Program">Economic Development</a>
                     </div>
@@ -790,7 +790,7 @@
 
                 <h3 id="ROUTING"><a href="javascript:void(0)">Routing</a></h3>
                 <div>
-                    <div class="cutout" id="routePane">
+                    <div class="cutout" id="routePane screen-only">
                         <h5>Routing Options</h5>
                         <input type="text" id="routeFrom" name="routeFrom" />
                         <label for="routeFrom">From</label><br />
@@ -872,6 +872,9 @@
     <div id="new-dialog" title="What's New" class="hidden">
         <p>
             <ul>
+                <li>GeoPortal is now an app! From your iOS odevice, go to add a bookmark, and click on add to home screen.</li>
+                <li>Routing, including driving, walking, biking, and transit, is now built-in!</li>
+                <li>Totally refactored code base for even faster performance.</li>
                 <li>New tutorial videos are now available, including one just for Search!</li>
                 <li>If your browser is set to a primary language other than English, a translation bar will
                     automatically appear.</li>
@@ -962,7 +965,6 @@
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-127085-2']);
       _gaq.push(['_trackPageview']);
-
       (function() {
         var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
         ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
