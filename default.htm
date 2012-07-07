@@ -25,8 +25,11 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <!-- Favicon and apple touch icon. Apple touch icons should be 57x57px -->
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="apple-touch-icon-144x144.png" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
     <!-- jQuery UI CSS -->
@@ -790,7 +793,7 @@
 
                 <h3 id="ROUTING"><a href="javascript:void(0)">Routing</a></h3>
                 <div>
-                    <div class="cutout" id="routePane screen-only">
+                    <div class="cutout" id="routePane" class="screen-only">
                         <h5>Routing Options</h5>
                         <input type="text" id="routeFrom" name="routeFrom" />
                         <label for="routeFrom">From</label><br />
@@ -872,7 +875,7 @@
     <div id="new-dialog" title="What's New" class="hidden">
         <p>
             <ul>
-                <li>GeoPortal is now an app! From your iOS odevice, go to add a bookmark, and click on add to home screen.</li>
+                <li>GeoPortal is now an app! From your device go to add a bookmark, and click on add to home screen.</li>
                 <li>Routing, including driving, walking, biking, and transit, is now built-in!</li>
                 <li>Totally refactored code base for even faster performance.</li>
                 <li>New tutorial videos are now available, including one just for Search!</li>
