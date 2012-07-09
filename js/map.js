@@ -32,6 +32,9 @@ var elevator;
 /*  Load google earth API  */
 google.load('earth', '1');
 
+// Load the Visualization API and the columnchart package.
+google.load("visualization", "1", {packages: ["columnchart"]});
+
 
 /*  Map Initialization  */
 
@@ -381,6 +384,12 @@ function addMarker(data) {
         shadow: shadow
     });
 
+
+    // Add routing to infowindow if there's a selected record and it isn't an address itself.
+    if (data.featuretype !== 0 && selectedAddress.objectid) {
+        data.label += '<br /><a href="javascript:void(0)" onclick="$(\'#routeTo\').val(\'' + data.lat + ',' + data.lon + '\'); $(\'#accordion-data\').accordion(\'activate\', \'#ROUTING\'); calcRoute();" >Route to This Location </a>';
+    }
+
     // Create info window
     var infowindow = new google.maps.InfoWindow({
         content: "<div class='infowin-content'>" + data.label + "</div>"
@@ -407,6 +416,7 @@ function calcRoute() {
         };
         directionsService.route(request, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
+                $("#directionsPanel").empty();
                 directionsDisplay.setDirections(response);
             }
             else {
@@ -534,12 +544,23 @@ function getElevation() {
 
     elevator.getElevationAlongPath(pathRequest, function(results, status) {
         if (status == google.maps.ElevationStatus.OK) {
-            var elevals = [];
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Sample');
+            data.addColumn('number', 'Elevation');
             for (var i = 0; i < results.length; i++) {
-                elevals[i] = parseInt((results[i].elevation * 3.2808399) / 10, 10);
+              data.addRow(['', parseInt((results[i].elevation * 3.2808399), 10)]);
             }
 
-            $("#elevation_chart_image").html('<img width="400" height="110" src="https://chart.googleapis.com/chart?cht=lc&chs=400x110&chd=t:' + elevals.join(",") + '&chco=224499&chxt=y&chxl=0:|0|200|400|600|800|1000&chm=B,76A4FB,0,0,0" />');
+            // Draw the chart
+            var chart = new google.visualization.ColumnChart(document.getElementById('elevation_chart_image'));
+            document.getElementById('elevation_chart_image').style.display = 'block';
+            chart.draw(data, {
+                width: 300,
+                height: 110,
+                legend: 'none',
+                fontSize: 12
+            });
         }
 
         $("#elevation_chart").show();

@@ -25,7 +25,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
     <!-- Favicon and apple touch icon. Apple touch icons should be 57x57px -->
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" type="image/png" href="favicon.png" />
     <link rel="apple-touch-icon-precomposed" href="apple-touch-icon.png" />
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="apple-touch-icon-72x72.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="apple-touch-icon-114x114.png" />
@@ -97,8 +97,8 @@
 
             <!-- The following elements are positioned on top of the map as needed -->
             <div id="elevation_chart" class="boxshadow ui-corner-all hidden">
+                <strong>Path Elevation Profile (feet)</strong>
                 <div id="elevation_chart_image"></div>
-                <span>Path Elevation Profile (ft)</span>
             </div>
             <div id="streetview" class="boxshadow ui-corner-all hidden"></div>
 
@@ -847,20 +847,14 @@
         </aside>
 
 
-
     </div> <!-- end of #container -->
-
-
-
 
 
     <!-- The following content is not displayed at run time -->
 
-    <!-- Welcome screen - jQuery UI Dialog -->
+    <!-- Search Help - jQuery UI Dialog -->
     <div id="search-dialog" title="Search Help" class="hidden">
-        <p class="textcenter">
-            <iframe width="350" height="262" src="http://www.youtube-nocookie.com/embed/aGlmVQXRRj4?rel=0" frameborder="0" allowfullscreen></iframe>
-        </p>
+        <div class="textcenter" id="search-dialog-video"></div>
         <p>
           Type in the first part of an address or location and <em>let the search box do the work for you</em>.
           Select a match using either the mouse or the up/down arrow keys and Enter.
@@ -943,7 +937,7 @@
 
     <!-- Video Tutorial - jQuery UI Dialog -->
     <div id="help-dialog" title="Video Tutorial" class="hidden">
-        <iframe width="640" height="480" src="http://www.youtube-nocookie.com/embed/O3S3QobjONM?rel=0" frameborder="0" allowfullscreen></iframe>
+        <div id="help-dialog-video"></div>
     </div>
 
 

@@ -37,16 +37,20 @@ $(document).ready(function() {
 
     // jQuery UI Dialogs
     $("#search-dialog").dialog({
-        width: $("#searchdiv").width(),
+        width: 400,
         autoOpen: false,
         show: 'fade',
-        hide: 'fade'
+        hide: 'fade',
+        open: function(event, ui) { $("#search-dialog-video").html('<iframe width="350" height="262" src="http://www.youtube-nocookie.com/embed/aGlmVQXRRj4?rel=0" frameborder="0" allowfullscreen></iframe>'); },
+        close: function(event, ui) { $("#search-dialog-video").empty(); }
     });
     $("#help-dialog").dialog({
         width: 670,
         autoOpen: false,
         show: 'fade',
-        hide: 'fade'
+        hide: 'fade',
+        open: function(event, ui) { $("#help-dialog-video").html('<iframe width="640" height="480" src="http://www.youtube-nocookie.com/embed/O3S3QobjONM?rel=0" frameborder="0" allowfullscreen></iframe>'); },
+        close: function(event, ui) { $("#help-dialog-video").empty(); }
     });
     $("#new-dialog").dialog({
         width: 380,
@@ -129,10 +133,10 @@ $(document).ready(function() {
             routes: []
         });
     });
-    $("#housephoto").on("click", "img", function(event) {
+    $("#photo_gallery").on("click", "img", function(event) {
         $(".house_photo").removeClass("house_photo_selected");
         $(this).addClass("house_photo_selected");
-        $("#gallery-dialog").html('<img src="' + $(this).prop("src") + '" style="width: 100%" /><h3>' + $(this).prop("data-date") + ' from ' + $(this).prop("data-attribution") + '</h3>');
+        $("#gallery-dialog").html('<img src="' + $(this).prop("src") + '" style="width: 100%" /><h3>' + $(this).data("date") + ' from ' + $(this).data("attribution") + '</h3>');
         $("#gallery-dialog").dialog("open");
     });
     $("#housephoto").on("click", "#newphoto", function(event) {

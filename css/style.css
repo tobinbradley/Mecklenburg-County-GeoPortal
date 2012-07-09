@@ -245,7 +245,7 @@ aside {
   left: 0;
   top: 64px;
   bottom: 0;
-  width: 390px;
+  width: 350px;
   overflow: auto;
   overflow-x: hidden;
   overflow-y: auto;
@@ -257,7 +257,7 @@ aside {
 #map-container {
   position: absolute;
   top: 65px;
-  left: 390px;
+  left: 350px;
   right: 0;
   bottom: 0;
   overflow: hidden;
@@ -326,8 +326,7 @@ footer hr { clear:both; width: 90%; margin: 3px auto 0; height: 3px; border-colo
 #map { border: 1px solid #D9D9D9; }
 #map div {-moz-box-sizing: content-box; -webkit-box-sizing: content-box; box-sizing: content-box; }
 #opacitySlider { margin: 18px auto 30px auto; width: 90%}
-#elevation_chart { position: absolute; top: 35px; right: 7px; background: white; padding: 5px; text-align: center;}
-#elevation_chart span { font-weight: bold; position: relative; top: -10px;  }
+#elevation_chart { position: absolute; top: 65px; right: 7px; text-align: center; background: white; padding: 5px; box-shadow: 3px 3px 6px #666; }
 #streetview { position: absolute; bottom: 7px; right: 7px; width: 50%; height: 40%; border: 4px solid white; }
 #radius { width: 60px; }
 #layerswitcher ul { margin-left: 0; padding-left: 10px; }
@@ -342,6 +341,10 @@ footer hr { clear:both; width: 90%; margin: 3px auto 0; height: 3px; border-colo
 #photo_gallery img { cursor: pointer; margin: 0 5px 5px 0; width: 30%; box-shadow: 0 3px 4px -2px black; border-top: 2px solid white; }
 #housephoto button { margin-top: 8px; }
 .house_photo_selected { border-top: 2px solid #547472; box-shadow: 0 0 15px #547472, 0 3px 4px -2px black; }
+
+/*  Video holders */
+#help-dialog-video { width: 640px; height: 480px; }
+#search-dialog-video { width: 350px; height: 252px; margin: 0 auto 30px auto; }
 
 /*  jQuery UI Tweaks  */
 .ui-widget { font-family: Helmet, Freesans, sans-serif;}
