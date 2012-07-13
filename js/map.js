@@ -59,7 +59,6 @@ function initializeMap() {
     } catch (err) {}
 
     // For routing
-    directionsDisplay.setMap(map);
     directionsDisplay.setPanel(document.getElementById("directionsPanel"));
 
     /*  Locate user position via GeoLocation API  */
@@ -282,12 +281,13 @@ function toolbar(tool) {
         clickListener = google.maps.event.addListener(map, 'click', function(event) {
             if (map.getZoom() >= 16) {
                 url = pointOverlay(event.latLng.lng(), event.latLng.lat(), 4326, 'tax_parcels', 'pid', "", 'json', '?');
-                $.getJSON(url, function(data) {
+                $.getJSON(url, function(data) { // Get the parcel ID
                     if (data.total_rows > 0) {
+                        var pid = data.rows[0].row.pid;
                         url = config.web_service_base + "v1/ws_mat_pidgeocode.php?format=json&callback=?";
-                        args = "&pid=" + urlencode(data.rows[0].row.pid);
+                        args = "&pid=" + urlencode(pid);
                         url = url + args;
-                        $.getJSON(url, function(data) {
+                        $.getJSON(url, function(data) { // Try to find a match in the MAT
                             if (data.total_rows > 0) {
                                 message = "<h5>Identfy</h5>" + data.rows[0].row.address + "<br />PID: " + data.rows[0].row.parcel_id;
                                 message += "<br /><br /><strong><a href='javascript:void(0)' class='identify_select' data-matid='" + data.rows[0].row.objectid + "' onclick='locationFinder(\"Address\", \"master_address_table\", \"objectid\", " + data.rows[0].row.objectid + ");'>Select this Location</a></strong>";
@@ -297,6 +297,21 @@ function toolbar(tool) {
                                     "featuretype": "1",
                                     "label": message
                                 }]);
+                            }
+                            else { // If no MAT match try a parcel to MAT spatial intersection
+                                url = featureOverlay("tax_parcels", "master_address_table", "t.objectid, t.full_address as address,t.num_parent_parcel as parcel_id, x(transform(SETSRID(makepoint(num_x_coord ,  num_y_coord), 2264), 4326)) as longitude, y(transform(SETSRID(makepoint(num_x_coord ,  num_y_coord), 2264), 4326)) as latitude", "f.pid = '" + pid + "' limit 1", "json", "?");
+                                $.getJSON(url, function(data) {
+                                     if (data.total_rows > 0) {
+                                        message = "<h5>Identfy</h5>" + data.rows[0].row.address + "<br />PID: " + data.rows[0].row.parcel_id;
+                                        message += "<br /><br /><strong><a href='javascript:void(0)' class='identify_select' data-matid='" + data.rows[0].row.objectid + "' onclick='locationFinder(\"Address\", \"master_address_table\", \"objectid\", " + data.rows[0].row.objectid + ");'>Select this Location</a></strong>";
+                                        $.publish("/layers/addmarker", [{
+                                            "lon": data.rows[0].row.longitude,
+                                            "lat": data.rows[0].row.latitude,
+                                            "featuretype": "1",
+                                            "label": message
+                                        }]);
+                                    }
+                                });
                             }
                         });
                     }
@@ -387,7 +402,7 @@ function addMarker(data) {
 
     // Add routing to infowindow if there's a selected record and it isn't an address itself.
     if (data.featuretype !== 0 && selectedAddress.objectid) {
-        data.label += '<br /><a href="javascript:void(0)" onclick="$(\'#routeTo\').val(\'' + data.lat + ',' + data.lon + '\'); $(\'#accordion-data\').accordion(\'activate\', \'#ROUTING\'); calcRoute();" >Route to This Location </a>';
+        data.label += '<br /><strong><a href="javascript:void(0)" onclick="$(\'#routeTo\').val(\'' + data.lat + ',' + data.lon + '\'); $(\'#accordion-data\').accordion(\'activate\', \'#ROUTING\'); calcRoute();" >Route to This Location </a></strong>';
     }
 
     // Create info window
@@ -416,12 +431,13 @@ function calcRoute() {
         };
         directionsService.route(request, function(response, status) {
             if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setMap(map);
                 $("#directionsPanel").empty();
                 directionsDisplay.setDirections(response);
             }
             else {
                 $("#directionsPanel").html("<h5>Route Not Found</h5>Google was unable to find one of the locations provided.");
-                directionsDisplay.setDirections({routes: []});
+                directionsDisplay.setMap(map);
             }
         });
     }

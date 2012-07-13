@@ -129,9 +129,8 @@ $(document).ready(function() {
         calcRoute();
     });
     $("#routeClear").on("click", function() {
-        directionsDisplay.setDirections({
-            routes: []
-        });
+        directionsDisplay.setMap(null);
+        $("#directionsPanel").empty();
     });
     $("#photo_gallery").on("click", "img", function(event) {
         $(".house_photo").removeClass("house_photo_selected");

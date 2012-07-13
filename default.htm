@@ -238,88 +238,6 @@
                     </p>
                 </div>
 
-                <h3 id="ENVIRONMENT"><a href="#">Environment</a></h3>
-                <div>
-                    <div>
-                        <h5>Search Results</h5>
-                        <span class="selectedLocation">No records selected.</span>
-                    </div>
-                    <div class="cutout toggleLayersArea screen-only">
-                        <h5>Toggle Layers</h5>
-                        <a href="javascript:void(0)" data-layer="Environmental Layers" class="toggleLayer" title="Regulated Floodplains, Water Quality Buffers, MPL Sites, Landfills">Environmental Layers</a>,
-                        <a href="javascript:void(0)" data-layer="Soil Types" class="toggleLayer">Soil Types</a>
-                    </div>
-                    <h5 class="selected-data hidden environment-list-heading">Critical Information</h5>
-                    <ul class="selected-data hidden environment-list selected-data-clear" id="environment_critical"></ul>
-
-                    <h5 class="selected-data hidden">General Information</h5>
-                    <ul class="selected-data hidden environment-list selected-data-clear" id="environment_general"></ul>
-
-                    <p class="mute">
-                        For more information, try:
-                        <a href="http://charmeck.org/mecklenburg/county/WaterandLandResources/Pages/default.aspx" target="_blank">Water &amp; Land Resources</a>,
-                        <a href="ftp://ftp1.co.mecklenburg.nc.us/WaterQuality/WQ%20Buffers/WaterQualityBufferImplementationGuidelines.pdf" target="_blank">
-                            Water Quality Buffer Implementation Guidelines</a>, <a href="http://charmeck.org/mecklenburg/county/AirQuality/Pages/default.aspx" target="_blank">Air Quality</a>.
-                        <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
-                    </p>
-                </div>
-
-
-                <h3 id="TRANSPORTATION"><a href="javascript:void(0)">Transportation</a></h3>
-                <div>
-                    <div>
-                        <h5>Search Results</h5>
-                        <span class="selectedLocation">No records selected.</span>
-                    </div>
-                    <div id="bus-stops" class="selected-data hidden">
-                        <table class="datatable">
-                            <caption>5 Nearest CATS Bus Stops</caption>
-                            <thead>
-                                <tr>
-                                    <th class="ui-state-default"></th>
-                                    <th class="ui-state-default"></th>
-                                    <th class="ui-state-default">Bus Stop</th>
-                                    <th class="ui-state-default">Routes</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                       </table>
-                    </div>
-                    <div id="park-and-rides" class="selected-data hidden">
-                        <table class="datatable">
-                            <caption>3 Nearest CATS Park & Ride</caption>
-                            <thead>
-                                <tr>
-                                    <th class="ui-state-default"></th>
-                                    <th class="ui-state-default"></th>
-                                    <th class="ui-state-default">Bus Stop</th>
-                                    <th class="ui-state-default">Address</th>
-                                    <th class="ui-state-default">Routes</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div id="light-rail-stops" class="selected-data hidden">
-                        <table class="datatable">
-                            <caption>3 Nearest CATS Lynx Stops</caption>
-                            <thead>
-                                <tr>
-                                    <th class="ui-state-default"></th>
-                                    <th class="ui-state-default"></th>
-                                    <th class="ui-state-default">Bus Stop</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <p class="mute">For more information, try:
-                        <a href="http://charmeck.org/city/charlotte/cats" target="_blank">CATS</a>.
-                        <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
-                    </p>
-                </div>
-
-
                 <h3 id="SERVICES"><a href="javascript:void(0)">Services</a></h3>
                 <div>
                     <div>
@@ -401,108 +319,6 @@
                         <a href="http://www.plcmc.org/" target="_blank">Public Library</a>,
                         <a href="http://charmeck.org/city/charlotte/Fire" target="_blank">Fire Department</a>,
                         <a href="http://charmeck.org/city/charlotte/CMPD/Pages/default.aspx" target="_blank">CMPD</a>.
-                        <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
-                    </p>
-                </div>
-
-                <h3 id="ECONOMIC_DEVELOPMENT"><a href="#">Economic Development</a></h3>
-                <div>
-                    <div>
-                        <h5>Search Results</h5>
-                        <span class="selectedLocation">No records selected.</span>
-                    </div>
-                    <div class="cutout toggleLayersArea screen-only">
-                        <h5>Toggle Layers</h5>
-                        <a href="javascript:void(0)" data-layer="Economic Development" class="toggleLayer" title="Development Corridors, Zoning, Building Permits, Development Loans, Business Investment Program">Economic Development</a>
-                    </div>
-                    <div id="parcel_ed" class="selected-data hidden">
-                        <table class="datatable">
-                            <caption>Zoning</caption>
-                            <thead>
-                                <tr>
-                                    <th class="ui-state-default">Jurisdiction</th>
-                                    <th class="ui-state-default">Zoning</th>
-                                    <th class="ui-state-default">Description</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div id="parcel_ed_building_permits" class="selected-data hidden">
-                        <table class="datatable">
-                            <caption>Parcel Building Permits</caption>
-                            <thead>
-                                <tr>
-                                    <th class="ui-state-default">Year</th>
-                                    <th class="ui-state-default">Project Name</th>
-                                    <th class="ui-state-default">SQ FT</th>
-                                    <th class="ui-state-default">Construction Cost (Est)</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div id="corridor_permits_1" class="selected-data hidden">
-                        <table class="datatable">
-                            <caption>Corridor Funding and Permits</caption>
-                                <thead>
-                                    <tr>
-                                        <th class="ui-state-default">Name</th>
-                                        <th class="ui-state-default">Type</th>
-                                        <th class="ui-state-default">City Loans &amp; Grants</th>
-                                    </tr>
-                                </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div id="corridor_permits_2" class="selected-data hidden">
-                        <table class="datatable">
-                            <thead>
-                                <tr>
-                                    <th class="ui-state-default">Year</th>
-                                    <th class="ui-state-default">QTR</th>
-                                    <th class="ui-state-default">Projects</th>
-                                    <th class="ui-state-default">SQ FT</th>
-                                    <th class="ui-state-default">Const. Value</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div id="grantsandloans" class="selected-data hidden">
-                        <table class="datatable">
-                            <caption>Parcel Funding</caption>
-                            <thead>
-                                <tr>
-                                    <th class="ui-state-default">Type</th>
-                                    <th class="ui-state-default">Business Name</th>
-                                    <th class="ui-state-default">Award Date</th>
-                                    <th class="ui-state-default">Award Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <div id="business_investment" class="selected-data hidden">
-                        <table class="datatable">
-                            <caption>Business Investment Program</caption>
-                            <thead>
-                                <tr>
-                                    <th class="ui-state-default">Business Name</th>
-                                    <th class="ui-state-default">Year</th>
-                                    <th class="ui-state-default">Investment</th>
-                                    <th class="ui-state-default">Jobs Created or Saved</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                    <p class="mute">
-                        For more information, try:
-                        <a href="http://charmeck.org/mecklenburg/county/edo/Pages/default.aspx" target="_blank">Economic Development</a>,
-                        <a href="http://charmeck.org/city/charlotte/nbs" target="_blank">Neighborhood and Business Services</a>,
-                        <a href="http://charmeck.org/city/charlotte/planning" target="_blank">Planning Department</a>,
-                        <a href="http://charmeck.org/mecklenburg/county/LUESA" target="_blank">LUESA</a>.
                         <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
                     </p>
                 </div>
@@ -690,6 +506,190 @@
                     </div>
                     <p class="mute">For more information, try:
                         <a href="http://www.meckboe.org/" target="_blank">Board of Elections</a>.
+                        <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
+                    </p>
+                </div>
+
+                <h3 id="ENVIRONMENT"><a href="#">Environment</a></h3>
+                <div>
+                    <div>
+                        <h5>Search Results</h5>
+                        <span class="selectedLocation">No records selected.</span>
+                    </div>
+                    <div class="cutout toggleLayersArea screen-only">
+                        <h5>Toggle Layers</h5>
+                        <a href="javascript:void(0)" data-layer="Environmental Layers" class="toggleLayer" title="Regulated Floodplains, Water Quality Buffers, MPL Sites, Landfills">Environmental Layers</a>,
+                        <a href="javascript:void(0)" data-layer="Impervious Surface" class="toggleLayer">Impervious Surface</a>,
+                        <a href="javascript:void(0)" data-layer="Soil Types" class="toggleLayer">Soil Map</a>
+                    </div>
+                    <h5 class="selected-data hidden environment-list-heading">Critical Information</h5>
+                    <ul class="selected-data hidden environment-list selected-data-clear" id="environment_critical"></ul>
+
+                    <h5 class="selected-data hidden">General Information</h5>
+                    <ul class="selected-data hidden environment-list selected-data-clear" id="environment_general"></ul>
+
+                    <p class="mute">
+                        For more information, try:
+                        <a href="http://charmeck.org/mecklenburg/county/WaterandLandResources/Pages/default.aspx" target="_blank">Water &amp; Land Resources</a>,
+                        <a href="ftp://ftp1.co.mecklenburg.nc.us/WaterQuality/WQ%20Buffers/WaterQualityBufferImplementationGuidelines.pdf" target="_blank">
+                            Water Quality Buffer Implementation Guidelines</a>, <a href="http://charmeck.org/mecklenburg/county/AirQuality/Pages/default.aspx" target="_blank">Air Quality</a>.
+                        <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
+                    </p>
+                </div>
+
+
+                <h3 id="TRANSPORTATION"><a href="javascript:void(0)">Transportation</a></h3>
+                <div>
+                    <div>
+                        <h5>Search Results</h5>
+                        <span class="selectedLocation">No records selected.</span>
+                    </div>
+                    <div id="bus-stops" class="selected-data hidden">
+                        <table class="datatable">
+                            <caption>5 Nearest CATS Bus Stops</caption>
+                            <thead>
+                                <tr>
+                                    <th class="ui-state-default"></th>
+                                    <th class="ui-state-default"></th>
+                                    <th class="ui-state-default">Bus Stop</th>
+                                    <th class="ui-state-default">Routes</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                       </table>
+                    </div>
+                    <div id="park-and-rides" class="selected-data hidden">
+                        <table class="datatable">
+                            <caption>3 Nearest CATS Park & Ride</caption>
+                            <thead>
+                                <tr>
+                                    <th class="ui-state-default"></th>
+                                    <th class="ui-state-default"></th>
+                                    <th class="ui-state-default">Bus Stop</th>
+                                    <th class="ui-state-default">Address</th>
+                                    <th class="ui-state-default">Routes</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div id="light-rail-stops" class="selected-data hidden">
+                        <table class="datatable">
+                            <caption>3 Nearest CATS Lynx Stops</caption>
+                            <thead>
+                                <tr>
+                                    <th class="ui-state-default"></th>
+                                    <th class="ui-state-default"></th>
+                                    <th class="ui-state-default">Bus Stop</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <p class="mute">For more information, try:
+                        <a href="http://charmeck.org/city/charlotte/cats" target="_blank">CATS</a>.
+                        <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
+                    </p>
+                </div>
+
+                <h3 id="ECONOMIC_DEVELOPMENT"><a href="#">Economic Development</a></h3>
+                <div>
+                    <div>
+                        <h5>Search Results</h5>
+                        <span class="selectedLocation">No records selected.</span>
+                    </div>
+                    <div class="cutout toggleLayersArea screen-only">
+                        <h5>Toggle Layers</h5>
+                        <a href="javascript:void(0)" data-layer="Economic Development" class="toggleLayer" title="Development Corridors, Zoning, Building Permits, Development Loans, Business Investment Program">Economic Development</a>
+                    </div>
+                    <div id="parcel_ed" class="selected-data hidden">
+                        <table class="datatable">
+                            <caption>Zoning</caption>
+                            <thead>
+                                <tr>
+                                    <th class="ui-state-default">Jurisdiction</th>
+                                    <th class="ui-state-default">Zoning</th>
+                                    <th class="ui-state-default">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div id="parcel_ed_building_permits" class="selected-data hidden">
+                        <table class="datatable">
+                            <caption>Parcel Building Permits</caption>
+                            <thead>
+                                <tr>
+                                    <th class="ui-state-default">Year</th>
+                                    <th class="ui-state-default">Project Name</th>
+                                    <th class="ui-state-default">SQ FT</th>
+                                    <th class="ui-state-default">Construction Cost (Est)</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div id="corridor_permits_1" class="selected-data hidden">
+                        <table class="datatable">
+                            <caption>Corridor Funding and Permits</caption>
+                                <thead>
+                                    <tr>
+                                        <th class="ui-state-default">Name</th>
+                                        <th class="ui-state-default">Type</th>
+                                        <th class="ui-state-default">City Loans &amp; Grants</th>
+                                    </tr>
+                                </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div id="corridor_permits_2" class="selected-data hidden">
+                        <table class="datatable">
+                            <thead>
+                                <tr>
+                                    <th class="ui-state-default">Year</th>
+                                    <th class="ui-state-default">QTR</th>
+                                    <th class="ui-state-default">Projects</th>
+                                    <th class="ui-state-default">SQ FT</th>
+                                    <th class="ui-state-default">Const. Value</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div id="grantsandloans" class="selected-data hidden">
+                        <table class="datatable">
+                            <caption>Parcel Funding</caption>
+                            <thead>
+                                <tr>
+                                    <th class="ui-state-default">Type</th>
+                                    <th class="ui-state-default">Business Name</th>
+                                    <th class="ui-state-default">Award Date</th>
+                                    <th class="ui-state-default">Award Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <div id="business_investment" class="selected-data hidden">
+                        <table class="datatable">
+                            <caption>Business Investment Program</caption>
+                            <thead>
+                                <tr>
+                                    <th class="ui-state-default">Business Name</th>
+                                    <th class="ui-state-default">Year</th>
+                                    <th class="ui-state-default">Investment</th>
+                                    <th class="ui-state-default">Jobs Created or Saved</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                    <p class="mute">
+                        For more information, try:
+                        <a href="http://charmeck.org/mecklenburg/county/edo/Pages/default.aspx" target="_blank">Economic Development</a>,
+                        <a href="http://charmeck.org/city/charlotte/nbs" target="_blank">Neighborhood and Business Services</a>,
+                        <a href="http://charmeck.org/city/charlotte/planning" target="_blank">Planning Department</a>,
+                        <a href="http://charmeck.org/mecklenburg/county/LUESA" target="_blank">LUESA</a>.
                         <br /><a class='report_data_error' href="javascript:void(0);">Report a Problem</a>
                     </p>
                 </div>
