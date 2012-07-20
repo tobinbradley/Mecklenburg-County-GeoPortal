@@ -154,11 +154,11 @@ var overlayMaps = [
           minZoom: 15,
           maxZoom: 19
     },{
-        name: "Environmental Layers",
+        name: "Regulated Floodplains",
         getTileUrl: function(coord, zoom) {
             var layerParams = [
                 "FORMAT=image/png",
-                "LAYERS=postgis:view_regulated_floodplains,postgis:landfills,postgis:mpl_sites,postgis:water_quality_buffers,postgis:proposed_thoroughfares,postgis:air_pollution_facilities",
+                "LAYERS=postgis:view_regulated_floodplains",
                 "STYLES="
             ];
             return WMSBBOXUrl(meckWMSBase + meckWMSParams.concat(layerParams).join("&"), coord, zoom, 15, 19);
@@ -168,7 +168,48 @@ var overlayMaps = [
         isPng: true,
         minZoom: 15,
         maxZoom: 19,
-        kmlnetworkpath: 'http://maps.co.mecklenburg.nc.us/geoserver/gwc/service/kml/geoportal_environment.png.kml'
+        kmlnetworkpath: 'http://maps.co.mecklenburg.nc.us/geoserver/gwc/service/kml/postgis:view_regulated_floodplains.png.kml'
+    },{
+        name: "Water Quality Buffers",
+        getTileUrl: function(coord, zoom) {
+            var layerParams = [
+                "FORMAT=image/png",
+                "LAYERS=postgis:water_quality_buffers",
+                "STYLES="
+            ];
+            return WMSBBOXUrl(meckWMSBase + meckWMSParams.concat(layerParams).join("&"), coord, zoom, 15, 19);
+        },
+        tileSize: new google.maps.Size(256, 256),
+        opacity: 0.6,
+        isPng: true,
+        minZoom: 15,
+        maxZoom: 19,
+        kmlnetworkpath: 'http://maps.co.mecklenburg.nc.us/geoserver/gwc/service/kml/postgis:water_quality_buffers.png.kml'
+    },{
+          name: "Impervious Surface",
+          getTileUrl: function(coord, zoom) {
+              return WMSBBOXUrl("http://meckmap.mecklenburgcountync.gov/ArcGIS/services/impervious_surface_sm/MapServer/WMSServer?REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&BGCOLOR=0xFFFFFF&TRANSPARENT=TRUE&STYLES=&SRS=EPSG:102113&WIDTH=256&HEIGHT=256&FORMAT=image/png&LAYERS=0,1", coord, zoom, 17, 19);
+          },
+          tileSize: new google.maps.Size(256, 256),
+          opacity: 0.6,
+          isPng: true,
+          minZoom: 17,
+          maxZoom: 19
+    },{
+        name: "Environmental Sites",
+        getTileUrl: function(coord, zoom) {
+            var layerParams = [
+                "FORMAT=image/png",
+                "LAYERS=postgis:landfills,postgis:mpl_sites,postgis:air_pollution_facilities,postgis:proposed_thoroughfares",
+                "STYLES="
+            ];
+            return WMSBBOXUrl(meckWMSBase + meckWMSParams.concat(layerParams).join("&"), coord, zoom, 15, 19);
+        },
+        tileSize: new google.maps.Size(256, 256),
+        opacity: 0.6,
+        isPng: true,
+        minZoom: 15,
+        maxZoom: 19
     },{
         name: "Soil Types",
         getTileUrl: function(coord, zoom) {
@@ -186,21 +227,11 @@ var overlayMaps = [
         maxZoom: 19,
         kmlnetworkpath: 'http://maps.co.mecklenburg.nc.us/geoserver/gwc/service/kml/postgis:soil.png.kml'
     },{
-          name: "Impervious Surface",
-          getTileUrl: function(coord, zoom) {
-              return WMSBBOXUrl("http://meckmap.mecklenburgcountync.gov/ArcGIS/services/impervious_surface_sm/MapServer/WMSServer?REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&BGCOLOR=0xFFFFFF&TRANSPARENT=TRUE&STYLES=&SRS=EPSG:102113&WIDTH=256&HEIGHT=256&FORMAT=image/png&LAYERS=0,1", coord, zoom, 17, 19);
-          },
-          tileSize: new google.maps.Size(256, 256),
-          opacity: 0.6,
-          isPng: true,
-          minZoom: 17,
-          maxZoom: 19
-    },{
         name: "Economic Development",
         getTileUrl: function(coord, zoom) {
             var layerParams = [
                 "FORMAT=image/png",
-                "LAYERS=postgis:economic_development_corridors,postgis:view_zoning,postgis:building_permits,postgis:economic_development_loans,postgis:economic_development_business_investment_program",
+                "LAYERS=postgis:view_zoning,postgis:building_permits,postgis:economic_development_loans,postgis:economic_development_business_investment_program",
                 "STYLES="
             ];
             return WMSBBOXUrl(meckWMSBase + meckWMSParams.concat(layerParams).join("&"), coord, zoom, 15, 19);
@@ -210,7 +241,7 @@ var overlayMaps = [
         isPng: true,
         minZoom: 15,
         maxZoom: 19,
-        kmlnetworkpath: 'http://maps.co.mecklenburg.nc.us/geoserver/gwc/service/kml/geoportal_economic.png.kml'
+        kmlnetworkpath: 'http://maps.co.mecklenburg.nc.us/geoserver/gwc/service/kml/postgis:building_permits.png.kml'
     },{
           name: "Nexrad Weather Radar",
           getTileUrl: function(coord, zoom) {

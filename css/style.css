@@ -251,7 +251,7 @@ aside {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   background: url(../img/gis_logo.png) bottom center no-repeat;
-  box-shadow:  5px 0 5px -2px #666;
+  box-shadow:  5px 0 5px -3px #666;
   background-color: #e7e7e7;
 }
 #map-container {
