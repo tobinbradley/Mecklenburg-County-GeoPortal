@@ -3,7 +3,7 @@ var config = {
 	"default_map_center" :  [35.270, -80.837],
 	"default_map_zoom" : 10,
 	"default_map_min_zoom" : 10,
-	"default_map_max_zoom" : 18
+	"default_map_max_zoom" : 19
 };
 var meckWMSBase = "http://maps.co.mecklenburg.nc.us/geoserver/wms?";
 var meckWMSParams = [
@@ -186,9 +186,19 @@ var overlayMaps = [
         maxZoom: 19,
         kmlnetworkpath: 'http://maps.co.mecklenburg.nc.us/geoserver/gwc/service/kml/postgis:water_quality_buffers.png.kml'
     },{
-          name: "Impervious Surface",
+          name: "Residential Impervious Surface",
           getTileUrl: function(coord, zoom) {
-              return WMSBBOXUrl("http://meckmap.mecklenburgcountync.gov/ArcGIS/services/impervious_surface_sm/MapServer/WMSServer?REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&BGCOLOR=0xFFFFFF&TRANSPARENT=TRUE&STYLES=&SRS=EPSG:102113&WIDTH=256&HEIGHT=256&FORMAT=image/png&LAYERS=0,1", coord, zoom, 17, 19);
+              return WMSBBOXUrl("http://meckmap.mecklenburgcountync.gov/ArcGIS/services/impervious_surface_sm/MapServer/WMSServer?REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&BGCOLOR=0xFFFFFF&TRANSPARENT=TRUE&STYLES=&SRS=EPSG:102113&WIDTH=256&HEIGHT=256&FORMAT=image/png&LAYERS=1", coord, zoom, 17, 19);
+          },
+          tileSize: new google.maps.Size(256, 256),
+          opacity: 0.6,
+          isPng: true,
+          minZoom: 17,
+          maxZoom: 19
+    },{
+          name: "Commercial Impervious Surface",
+          getTileUrl: function(coord, zoom) {
+              return WMSBBOXUrl("http://maps.ci.charlotte.nc.us/ArcGIS/services/STM/ImperviousSurfaceCommercial_py/MapServer/WMSServer?REQUEST=GetMap&SERVICE=WMS&VERSION=1.1.1&BGCOLOR=0xFFFFFF&TRANSPARENT=TRUE&STYLES=&SRS=EPSG:102113&WIDTH=256&HEIGHT=256&FORMAT=image/png&LAYERS=0", coord, zoom, 17, 19);
           },
           tileSize: new google.maps.Size(256, 256),
           opacity: 0.6,

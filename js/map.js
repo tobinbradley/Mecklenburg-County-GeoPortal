@@ -53,6 +53,13 @@ function initializeMap() {
         minZoom: config.default_map_min_zoom
     });
 
+    // style the base map
+    var style = [];
+    var styledMapType = new google.maps.StyledMapType(style, {
+        map: map,
+        name: 'Map'
+    });
+
     // Try adding google earth api to map
     try {
         googleEarth = new GoogleEarth(map);
@@ -110,13 +117,17 @@ function initializeMap() {
         map.mapTypes.set(this.name, new google.maps.ImageMapType(this));
         baseHolder.push(this.name);
     });
+    map.mapTypes.set('Map', styledMapType);
     map.setOptions({
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeId: 'Map',
         mapTypeControlOptions: {
             mapTypeIds: [
-            google.maps.MapTypeId.ROADMAP, google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, "GoogleEarthAPI"].concat(baseHolder)
+            'Map', google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, "GoogleEarthAPI"].concat(baseHolder)
         }
     });
+
+    //map.mapTypes.set('Map', styledMapType);
+    //map.setMapTypeId('Map');
 
     // Layer control change event
     $("#layerswitcher").on("change", ".layer", function() {
@@ -290,7 +301,7 @@ function toolbar(tool) {
                         $.getJSON(url, function(data) { // Try to find a match in the MAT
                             if (data.total_rows > 0) {
                                 message = "<h5>Identfy</h5>" + data.rows[0].row.address + "<br />PID: " + data.rows[0].row.parcel_id;
-                                message += "<br /><br /><strong><a href='javascript:void(0)' class='identify_select' data-matid='" + data.rows[0].row.objectid + "' onclick='locationFinder(\"Address\", \"master_address_table\", \"objectid\", " + data.rows[0].row.objectid + ");'>Select this Location</a></strong>";
+                                message += "<br /><br /><strong><a href='javascript:void(0)' class='identify_select' data-matid='" + data.rows[0].row.objectid + "' onclick='locationFinder(" + data.rows[0].row.objectid + ", \"ADDRESS\", \"\");'>Select this Location</a></strong>";
                                 $.publish("/layers/addmarker", [{
                                     "lon": data.rows[0].row.longitude,
                                     "lat": data.rows[0].row.latitude,
@@ -303,7 +314,7 @@ function toolbar(tool) {
                                 $.getJSON(url, function(data) {
                                      if (data.total_rows > 0) {
                                         message = "<h5>Identfy</h5>" + data.rows[0].row.address + "<br />PID: " + data.rows[0].row.parcel_id;
-                                        message += "<br /><br /><strong><a href='javascript:void(0)' class='identify_select' data-matid='" + data.rows[0].row.objectid + "' onclick='locationFinder(\"Address\", \"master_address_table\", \"objectid\", " + data.rows[0].row.objectid + ");'>Select this Location</a></strong>";
+                                        message += "<br /><br /><strong><a href='javascript:void(0)' class='identify_select' data-matid='" + data.rows[0].row.objectid + "' onclick='locationFinder(" + data.rows[0].row.objectid + ", \"ADDRESS\", \"\");'>Select this Location</a></strong>";
                                         $.publish("/layers/addmarker", [{
                                             "lon": data.rows[0].row.longitude,
                                             "lat": data.rows[0].row.latitude,
@@ -442,6 +453,7 @@ function calcRoute() {
         });
     }
 }
+
 
 /*
     Bunch of code for measuring. Big hat tip to Jason Sanford

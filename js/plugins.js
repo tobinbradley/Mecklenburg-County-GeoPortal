@@ -314,6 +314,9 @@ String.prototype.escapeQuotes = function() {
     if (this === null) return null;
     return this.replace(/'/g, "&#39;").replace(/"/g, "&quot;");
 };
+String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
 
 /**
  * Return whether a string is a number or not
