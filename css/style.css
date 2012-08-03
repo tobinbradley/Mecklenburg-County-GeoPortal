@@ -205,6 +205,13 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 table { border-collapse: collapse; border-spacing: 0; }
 td { vertical-align: top; }
 
+/* =============================================================================
+   Chrome Frame Prompt
+   ========================================================================== */
+
+.chromeframe { display: block; position: absolute; top: 0; z-index: 100; width: 100%; margin: 0; text-align: center; font-size: 10px; background: #FFFF07; color: black; padding: 1px; }
+.chromeframe a { color: blue; font-weight: bold; text-decoration: underline; }
+
 
 /* ==|== primary styles =====================================================
    Author: Tobin Bradley

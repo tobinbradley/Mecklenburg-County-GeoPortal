@@ -66,22 +66,12 @@ $(document).ready(function() {
     });
     $("#buffer-dialog").dialog({
         width: 280,
-        height: 135,
+        height: 145,
         autoOpen: false,
         position: [485, 120],
         show: 'fade',
         hide: 'fade'
     });
-    if ($.browser.msie && parseInt($.browser.version, 10) < 8) {
-        $("#gcf-dialog a").button();
-        $("#gcf-dialog").dialog({
-            width: 550,
-            autoOpen: true,
-            show: 'fade',
-            hide: 'fade',
-            modal: true
-        });
-    }
     $("#gallery-dialog").dialog({
         width: 500,
         minHeight: 400,
@@ -212,7 +202,6 @@ $(document).ready(function() {
         delay: 400,
         autoFocus: true,
         source: function(request, response) {
-
             $.ajax({
                 url: config.web_service_base + "v3/ws_geo_ubersearch.php",
                 dataType: "jsonp",
@@ -243,19 +232,11 @@ $(document).ready(function() {
             });
         },
         select: function(event, ui) {
-            $("#searchinput").autocomplete('widget').trigger('mousedown.choose_option');
             if (ui.item.gid) {
                 locationFinder(ui.item.gid, ui.item.responsetype, ui.item.label);
             }
         },
         open: function(event, ui) {
-            // get enter/return for stubborn browsers
-            $(this).keypress(function(e) {
-
-                if (e.keyCode == 13 || e.keyCode == 39) {
-                    $($(this).data('autocomplete').menu.active).find('a').trigger('click');
-                }
-            });
             // Go if only 1 result
             menuItems = $("ul.ui-autocomplete li.ui-menu-item");
             if (menuItems.length == 1 && menuItems.text() != "More information needed for search." && menuItems.text() != "No records found.") {
