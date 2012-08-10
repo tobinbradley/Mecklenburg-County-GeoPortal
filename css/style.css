@@ -228,8 +228,8 @@ td { vertical-align: top; }
 
 
 /* some sensible defaults */
-body { font-family:  Helmet, Freesans, sans-serif; font-size: 12px; font-variant: normal; }
-* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+body { font-family:  Helmet, Freesans, sans-serif; font-size: 12px; font-variant: normal; background-color: #e7e7e7; }
+input, div { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 p { margin: 10px 0 }
 table { width: 100%; font-size: 0.8em;  }
 td, th { padding: 2px }
@@ -244,7 +244,7 @@ a:hover { text-decoration: underline; }
 
 /* layout */
 #container { overflow: hidden; }
-header { padding: 2px 5px; background-color: #e7e7e7; overflow: hidden; height: 65px; position: relative; z-index: 1; }
+header { padding: 2px 5px;  overflow: hidden; height: 65px; position: relative; z-index: 1; }
 aside {
   padding: 0;
   z-index: 1;
@@ -422,15 +422,15 @@ footer hr { clear:both; width: 90%; margin: 3px auto 0; height: 3px; border-colo
 }
 
 @media screen and (max-width: 800px) {
+  body { background: #fff; }
 
   /* Header */
-  header { position: absolute; padding: 0; margin: 0; top: 290px; left: 1px; right: 20px; background: #fff; }
+  header { position: absolute; padding: 0; margin: 0; top: 290px; left: 1px; right: 20px;  }
   #logo { display: none }
 
   /*  Search  */
   #searchdiv { max-width: inherit; width: 100%; margin: 1px; padding-right: 2px; text-align:  left; }
   #searchinput { max-width: inherit; }
-
 
   /* map area */
   #map-container { top: 1px; left: 1px; right: 20px; bottom: auto; height: 290px; min-width:  290px;  }

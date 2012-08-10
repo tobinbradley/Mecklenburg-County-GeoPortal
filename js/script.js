@@ -160,6 +160,23 @@ $(document).ready(function() {
         calcRoute();
     });
 
+    /* Placeholder fix for crap browsers */
+    if (!Modernizr.input.placeholder) {
+        $('[placeholder]').focus(function() {
+            var input = $(this);
+            if (input.val() == input.attr('placeholder')) {
+                input.val('');
+                input.removeClass('placeholder');
+            }
+        }).blur(function() {
+            var input = $(this);
+            if (input.val() === '' || input.val() == input.attr('placeholder')) {
+                input.addClass('placeholder');
+                input.val(input.attr('placeholder'));
+            }
+        }).blur();
+    }
+
     //  Map toolbar
     $("#mapcontrols").buttonset();
     $("#mapcontrols input:radio").click(function() {
