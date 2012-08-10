@@ -272,7 +272,6 @@ aside {
 }
 #toolbar { position: absolute; z-index: 2; right: 0; left: 0; top: 0; padding: 2px 5px; overflow: hidden; box-shadow: 0 5px 8px #666; }
 #map { position: absolute; top: 35px; left: 0; right: 0; bottom: 0; background: white; overflow: hidden; }
-.ie7 #map-container { left: 400px; }
 
 /* header image */
 #logo {max-width: 251px; padding-top: 3px; float: left; }
