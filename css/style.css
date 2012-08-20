@@ -229,7 +229,7 @@ td { vertical-align: top; }
 
 /* some sensible defaults */
 body { font-family:  Helmet, Freesans, sans-serif; font-size: 12px; font-variant: normal; background-color: #e7e7e7; }
-input, div { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+* { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
 p { margin: 10px 0 }
 table { width: 100%; font-size: 0.8em;  }
 td, th { padding: 2px }
@@ -256,6 +256,7 @@ aside {
   overflow: auto;
   overflow-x: hidden;
   overflow-y: auto;
+  box-sizing: content-box; /* hack for ie9 box-sizing doubling the scrollbar width */
   -webkit-overflow-scrolling: touch;
   background: url(../img/gis_logo.png) bottom center no-repeat;
   box-shadow:  5px 0 5px -3px #666;

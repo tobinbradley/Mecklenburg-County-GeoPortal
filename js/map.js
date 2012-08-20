@@ -300,7 +300,7 @@ function toolbar(tool) {
                         url = url + args;
                         $.getJSON(url, function(data) { // Try to find a match in the MAT
                             if (data.total_rows > 0) {
-                                message = "<h5>Identfy</h5>" + data.rows[0].row.address + "<br />PID: " + data.rows[0].row.parcel_id;
+                                message = "<h5>Identify</h5>" + data.rows[0].row.address + "<br />PID: " + data.rows[0].row.parcel_id;
                                 message += "<br /><br /><strong><a href='javascript:void(0)' class='identify_select' data-matid='" + data.rows[0].row.objectid + "' onclick='locationFinder(" + data.rows[0].row.objectid + ", \"ADDRESS\", \"\");'>Select this Location</a></strong>";
                                 $.publish("/layers/addmarker", [{
                                     "lon": data.rows[0].row.longitude,
