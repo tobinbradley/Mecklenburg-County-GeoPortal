@@ -375,7 +375,7 @@ footer hr { clear:both; width: 90%; margin: 3px auto 0; height: 3px; border-colo
   font-size: 14px;
 }
 .ui-accordion .ui-accordion-header a { padding: .4em .5em .4em 2em; }
-.ui-accordion-content a, .ui-accordion-content a:visited { color: #1982D1 ; }
+.ui-dialog-content a, .ui-dialog-content a:visited, .ui-accordion-content a, .ui-accordion-content a:visited { color: #1982D1 ; }
 
 
 

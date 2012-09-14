@@ -805,7 +805,7 @@ function processAccordionDataChange(accordionValue) {
                 url = featureOverlay("tax_parcels", "business_corridor_revitalization", "t.gid", "f.pid = '" + selectedAddress.groundparcel + "' limit 1", "json", "?");
                 $.getJSON(url, function(data) {
                     if (data.total_rows > 0) $("#environment_critical").append('<li class="environment-water">This property <b>is located within a distressed business district</b>. <a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">PCCO mitigation options apply</a>. For more information, please call 704.432.5570.</li>');
-                    else $("#environment_general").append('<li class="environment-water">This property <b>is not located within a distressed business district.</b>.<li>');
+                    else $("#environment_general").append('<li class="environment-water">This property <b>is not located within a distressed business district</b>.</li>');
                 });
 
                 //Transit Corridor
