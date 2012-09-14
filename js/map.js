@@ -121,13 +121,13 @@ function initializeMap() {
     map.setOptions({
         mapTypeId: 'Map',
         mapTypeControlOptions: {
-            mapTypeIds: [
-            'Map', google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, "GoogleEarthAPI"].concat(baseHolder)
+            mapTypeIds: baseHolder.concat([ 'Map', google.maps.MapTypeId.TERRAIN, google.maps.MapTypeId.SATELLITE, google.maps.MapTypeId.HYBRID, "GoogleEarthAPI"])
         }
     });
 
+
     //map.mapTypes.set('Map', styledMapType);
-    //map.setMapTypeId('Map');
+    map.setMapTypeId('Meck Base');
 
     // Layer control change event
     $("#layerswitcher").on("change", ".layer", function() {
@@ -149,6 +149,7 @@ function initializeMap() {
             }
             if ($(this).prop('id') == "traffic") {
                 $(this).prop('checked') ? trafficLayer.setMap(map) : trafficLayer.setMap(null);
+                if ($(this).prop('checked')) map.setMapTypeId('Map');
             }
             if ($(this).prop('id') == "bike") {
                 $(this).prop('checked') ? bikeLayer.setMap(map) : bikeLayer.setMap(null);
@@ -191,6 +192,8 @@ function initializeMap() {
     layerSwitcherZoomCheck();
     google.maps.event.addListener(map, 'zoom_changed', function() {
         layerSwitcherZoomCheck();
+        // disable identify if zoomed out too far
+        (map.getZoom() < 16) ? $( "#identify" ).button({ disabled: true }) : $( "#identify" ).button({ disabled: false });
     });
 
 

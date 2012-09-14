@@ -27,7 +27,7 @@ var baseMaps = [
           alt: "Mecklenburg Base Map",
           getTileUrl: function(ll, z) {
                var X = ll.x % (1 << z);  // wrap
-               return 'http://maps.co.mecklenburg.nc.us/geoserver/gwc/service/gmaps?layers=meckbase&zoom=' + z + '&x=' + X + '&y=' + ll.y + '&format=image/png';
+               return 'http://maps.co.mecklenburg.nc.us/mbtiles/mbtiles-server.php?V=6&db=meckbase.mbtiles&z=' + z + '&x=' + X + '&y=' + ll.y;
            },
            tileSize: new google.maps.Size(256, 256),
            isPng: true,
@@ -284,7 +284,7 @@ var overlayMaps = [
         },
         tileSize: new google.maps.Size(256,256),
         isPng: true,
-        isVisible: true,
+        isVisible: false,
         minZoom: 16,
         maxZoom: 19,
         kmlnetworkpath: 'http://maps.co.mecklenburg.nc.us/geoserver/gwc/service/kml/postgis:tax_parcels.png.kml'

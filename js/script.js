@@ -182,6 +182,7 @@ $(document).ready(function() {
     $("#mapcontrols input:radio").click(function() {
         toolbar($(this));
     });
+    $( "#identify" ).button({ disabled: true });
     $("#toolbar").fadeIn("slow");
 
     // Buttons
