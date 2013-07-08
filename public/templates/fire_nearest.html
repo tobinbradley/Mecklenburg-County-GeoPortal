@@ -1,0 +1,24 @@
+<div class="details what">
+    <table class="table table-condensed">
+        <caption class="text-left">Nearest Fire Stations</caption>
+        <thead>
+            <tr>
+                <th>Station</th>
+                <th>Type</th>
+                <th>Address</th>
+                <th class="text-right">Distance</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each( rc, function( item ){ %>
+                <tr data-location="<%- item.lng %>,<%- item.lat %>" data-label="<%- toTitleCase(item.label) %>">
+                    <td><%- toTitleCase(item.label) %></td>
+                    <td><%- item.type %></td>
+                    <td><%- item.address %></td>
+                    <td class="text-right"><%- Math.ceil((item.distance / 5280) * 10) / 10 %> mi</td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+

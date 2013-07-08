@@ -1,0 +1,25 @@
+<div class="details what">
+    <% if (rc !== "row" && rc.length !== 0) { %>
+    <table class="table table-condensed">
+        <caption class="text-left">Sales History</caption>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th class="text-right">Price</th>
+                <th>Deed Book</th>
+                <th>Legal Ref</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each( rc, function( item ){ %>
+                <tr>
+                    <td><%- item.row.sale_date %></td>
+                    <td class="text-right"><%- prettyNumber(item.row.sale_price, "$") %></td>
+                    <td><%- item.row.deed_book %></td>
+                    <td><%- item.row.legal_reference %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <% } %>
+</div>

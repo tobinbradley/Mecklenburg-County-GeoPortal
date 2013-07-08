@@ -1,0 +1,28 @@
+<div class="details what">
+    <table class="table table-condensed">
+        <caption class="text-left">Garbage/Recycling Collection Days</caption>
+        <% if ( rc.length > 0 ) { %>
+        <tbody>
+            <% _.each( rc, function( item ){ %>
+                <tr>
+                    <td><%= item.label.replace("ORANGE week", "<strong>ORANGE</strong> week (see calendar)").replace("GREEN week", "<strong>GREEN</strong> week (see calendar)") %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <p class="text-center">
+        <a href="images/solid_waste_calendar.gif" target="_blank"><img src="images/solid_waste_calendar.gif" alt="Solid Waste Calendar" width="95%" class="img-polaroid"></a>
+    </p>
+    <% } else { %>
+        <tbody>
+            <tr>
+                <td>No Garbage/Recycling information found.</td>
+            </tr>
+        </tbody>
+    </table>
+    <% } %>
+</div>
+<div class="details resources">
+    <h5>Additional Resources</h5>
+    <a href="http://charmeck.org/city/charlotte/SWS" target="_blank">Solid Waste Services</a>
+</div>

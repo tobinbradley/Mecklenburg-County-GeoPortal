@@ -1,0 +1,35 @@
+<div class="details what">
+    <table class="table table-condensed">
+        <caption class="text-left">Magnet Schools</caption>
+        <thead>
+            <tr>
+                <th>School</th>
+                <th>Address</th>
+                <th class="text-right">Distance*</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each( rc, function( item ){ %>
+                <tr data-location="<%- item.lng %>,<%- item.lat %>" data-label="<%- item.label %>">
+                    <td><%- item.label %></td>
+                    <td><%- item.address %></td>
+                    <td class="text-right"><%- Math.ceil((item.distance / 5280) * 10) / 10 %> mi</td>
+                </tr>
+            <% }); %>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">
+                    *If the distance is greater than 5 miles, you may be assigned to a shuttle stop location.
+                    For the assigned shuttle stop site for your address, please call Charlotte-Mecklenburg School Transportation Services at (980) 343-6715.
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<div class="details resources">
+    <h5>Additional Resources</h5>
+    <ul class="unstyled">
+        <li><a href="http://www.cms.k12.nc.us/" target="_blank">Charlotte-Mecklenburg Schools</a></li>
+    </ul>
+</div>

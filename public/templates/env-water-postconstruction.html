@@ -1,0 +1,42 @@
+<div class="details what">
+    <table class="table table-condensed">
+        <caption class="text-left">Post Construction Information</caption>
+        <% if ( rc.length > 0 ) { %>
+            <tbody>
+                <tr>
+                    <td>
+                        <%
+                            var district = _(rc).filter(function (x) { return x.type === "DISTRICT";});
+                            var transit = _(rc).filter(function (x) { return x.type === "TRANSIT CORRIDOR";});
+                            var business = _(rc).filter(function (x) { return x.type === "BUSINESS CORRIDOR";});
+                        %>
+                        <% if ( district.length > 0 ) { %>
+                            This property is located in the <strong><%= district[0].name %></strong> Post Construction District.
+                        <% } %>
+                        <% if ( business.length > 0 ) { %>
+                            This property <b>is located within a Distressed Business District</b> and
+                        <% } else { %>
+                            This property is not located within a Distressed Business District and
+                        <% } %>
+                        <% if ( transit.length > 0 ) { %>
+                            <b>is located within a Transit Station Area</b>.
+                        <% } else { %>
+                            is not located within a Transit Station Area.
+                        <% } %>
+                        <% if ( business.length > 0 || transit.length > 0) { %>
+                            <a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">PCCO mitigation options apply</a>. For more information, please call 704.432.5570.
+                        <% } %>
+                    </td>
+                </tr>
+            </tbody>
+        <% } else { %>
+            <tbody>
+                <tr>
+                    <td>
+                        Unable to find Post Construction information.
+                    </td>
+                </tr>
+            </tbody>
+        <% } %>
+    </table>
+</div>

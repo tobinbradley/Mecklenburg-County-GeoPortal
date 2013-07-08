@@ -1,0 +1,27 @@
+<div class="details what">
+    <% if (rc !== "row" && rc.length !== 0) { %>
+    <table class="table table-condensed">
+        <caption class="text-left">Appraisal</caption>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th class="text-right">Building</th>
+                <th class="text-right">Land</th>
+                <th class="text-right">Extra</th>
+                <th class="text-right">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each( rc, function( item ){ %>
+                <tr>
+                    <td><%- item.row.tax_year %></td>
+                    <td class="text-right"><%- prettyNumber(item.row.building_value, "$") %></td>
+                    <td class="text-right"><%- prettyNumber(item.row.land_value, "$") %></td>
+                    <td class="text-right"><%- prettyNumber(item.row.extra_features_value, "$") %></td>
+                    <td class="text-right"><%- prettyNumber(item.row.total_value, "$") %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <% } %>
+</div>

@@ -1,0 +1,57 @@
+<div class="details what">
+    <table class="table table-condensed">
+    <caption class="text-left">Quality of Life - Neighborhood <%= rc[0].id %></caption>
+        <tbody>
+                <tr>
+                    <td>Population</td>
+                    <td class="text-right"><%- prettyNumber(rc[0].population) %></td>
+                </tr>
+                <tr>
+                    <td>Housing Units per Acre</td>
+                    <td class="text-right"><%- rc[0].residential_density %></td>
+                </tr>
+                <tr>
+                    <td>Developed Land</td>
+                    <td class="text-right"><%- rc[0].developed_land %>%</td>
+                </tr>
+                <tr>
+                    <td>Rent (avg)</td>
+                    <td class="text-right">$<%- rc[0].rent %></td>
+                </tr>
+                <tr>
+                    <td>Single Family Property Value (avg)</td>
+                    <td class="text-right">$<%- prettyNumber(rc[0].singlefamily_property_value) %></td>
+                </tr>
+                <tr>
+                    <td>Commute Time > 30 Minutes</td>
+                    <td class="text-right"><%- rc[0].commute_time %>%</td>
+                </tr>
+                <tr>
+                    <td>Bicycle Friendly (1-3, 3 being most friendly)</td>
+                    <td class="text-right"><%- rc[0].bicycle_friendly %></td>
+                </tr>
+                <tr>
+                    <td>Streets with Sidewalks</td>
+                    <td class="text-right"><%- rc[0].sidewalks %>%</td>
+                </tr>
+                <tr>
+                    <td>Tree Canopy</td>
+                    <td class="text-right"><%- rc[0].tree_canopy %>%</td>
+                </tr>
+                <tr>
+                    <td>Within &#189; Mile of Outdoor Recreation</td>
+                    <td class="text-right"><%- rc[0].near_public_outdoor_recreation %>%</td>
+                </tr>
+                <tr>
+                    <td>Dropout Rate</td>
+                    <td class="text-right"><%- rc[0].dropout_rate %>%</td>
+                </tr>
+        </tbody>
+    </table>
+</div>
+<div class="details resources">
+    <h5>Additional Resources</h5>
+    <ul class="unstyled">
+        <li><a href="http://maps.co.mecklenburg.nc.us/qoldashboard/" target="_blank">Quality of Life Dashboard</a></li>
+    </ul>
+</div>

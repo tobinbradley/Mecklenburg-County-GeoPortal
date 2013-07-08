@@ -1,0 +1,30 @@
+<div class="details what">
+    <% if (rc !== "row" && rc.length !== 0) { %>
+    <div id="photos-carousel" class="carousel slide img-polaroid">
+        <!-- Carousel items -->
+        <div class="carousel-inner">
+            <% _.each( rc, function( item, i ){ %>
+                <% if (i === 0 ) { %>
+                    <div class="item active">
+                <% } else { %>
+                    <div class="item">
+                <% } %>
+                        <img class="" src="<%- item.row.photo_url %>">
+                        <div class="carousel-caption">
+                            <p class="text-center">
+                                <%- item.row.attribution %>, <%- item.row.photo_date.substring(0,4) %>-<%- item.row.photo_date.substring(4,6) %>-<%- item.row.photo_date.substring(6,8) %>
+                            </p>
+                        </div>
+
+                    </div>
+
+            <% }); %>
+        </div>
+        <!-- Carousel nav -->
+          <a class="carousel-control left" href="#photos-carousel" data-slide="prev">&lsaquo;</a>
+          <a class="carousel-control right" href="#photos-carousel" data-slide="next">&rsaquo;</a>
+    </div>
+    <% } %>
+    <p class="submit-photo text-center"><button class="btn" type="button" onclick="submitPhoto()">Submit a Photo</button></p>
+</div>
+

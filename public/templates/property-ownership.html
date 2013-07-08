@@ -1,0 +1,21 @@
+<div class="details what">
+    <% if (rc !== "row" && rc.length !== 0) { %>
+    <table class="table table-condensed">
+        <caption class="text-left">Ownership</caption>
+        <thead>
+            <tr>
+                <th>Owner</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each( rc, function( item ){ %>
+                <tr>
+                    <td><%- toTitleCase(item.row.first_name) %> <%- toTitleCase(item.row.last_name) %></td>
+                    <td><%- toTitleCase(item.row.address_1) %> <%- toTitleCase(item.row.address_2) %><br><%- toTitleCase(item.row.city) %>, <%- item.row.state %> <%- item.row.zipcode %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <% } %>
+</div>

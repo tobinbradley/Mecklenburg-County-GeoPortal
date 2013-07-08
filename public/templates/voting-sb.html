@@ -1,0 +1,25 @@
+<div class="details what">
+    <table class="table table-condensed">
+        <%
+            var district = _(rc).filter(function (x) { return x.district !== "At-Large";});
+            var atlarge = _(rc).filter(function (x) { return x.district === "At-Large";});
+         %>
+        <caption class="text-left">Mecklenburg County School Board District <%= rc[0].district %></caption>
+        <tbody>
+            <tr>
+                <td><%= district[0].representative %></td>
+            </tr>
+            <tr>
+                <td>
+                    <%
+                            var al = [];
+                            _.each( atlarge, function( item ){
+                                al.push(item.representative);
+                            });
+                        %>
+                    <strong>At-Large: </strong><%= al.join(", ") %>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

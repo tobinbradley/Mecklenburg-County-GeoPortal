@@ -1,0 +1,107 @@
+<%
+    var elementary = _(rc).filter(function (x) { return x.type === "ELEMENTARY";});
+    var middle = _(rc).filter(function (x) { return x.type === "MIDDLE";});
+    var high = _(rc).filter(function (x) { return x.type === "HIGH";});
+%>
+
+<div class="details what">
+    <table class="table table-condensed table-locations">
+        <caption class="text-left">Home School Assignments</caption>
+
+        <tbody>
+            <% if (high.length === 1) { %>
+                <tr>
+                    <th>HIgh School</th>
+                    <th>Address</th>
+                    <th class="text-right">Distance</th>
+                </tr>
+                <tr data-location="<%- high[0].lng %>,<%- high[0].lat %>" data-label="<%- high[0].label %>">
+                    <td><%- high[0].label %></td>
+                    <td><%- high[0].address %></td>
+                    <td class="text-right"><%- Math.ceil((high[0].dist / 5280) * 10) / 10 %> mi</td>
+                </tr>
+            <% } else { %>
+                <tr>
+                    <th colspan="3">HIgh School</th>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        This address is too close to a school district boundary to give an accurate High school assignment. Possibilities are <strong>
+                        <%
+                            var schools = [];
+                            _.each( high, function( item ){
+                                schools.push(item.label);
+                            });
+                        %>
+                        <%= schools.join(", ") %></strong>.
+                        To locate your student's home school or your transportation zone, email your address to planning@cms.k12.nc.us or call 980-343-6246.
+                    </td>
+                </tr>
+            <% } %>
+             <% if (middle.length === 1) { %>
+                <tr>
+                    <th>Middle School</th>
+                    <th>Address</th>
+                    <th class="text-right">Distance</th>
+                </tr>
+                <tr data-location="<%- middle[0].lng %>,<%- middle[0].lat %>" data-label="<%- middle[0].label %>">
+                    <td><%- middle[0].label %></td>
+                    <td><%- middle[0].address %></td>
+                    <td class="text-right"><%- Math.ceil((middle[0].dist / 5280) * 10) / 10 %> mi</td>
+                </tr>
+            <% } else { %>
+                <tr>
+                    <th colspan="3">Middle School</th>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        This address is too close to a school district boundary to give an accurate Middle school assignment. Possibilities are <strong>
+                        <%
+                            var schools = [];
+                            _.each( middle, function( item ){
+                                schools.push(item.label);
+                            });
+                        %>
+                        <%= schools.join(", ") %></strong>.
+                        To locate your student's home school or your transportation zone, email your address to planning@cms.k12.nc.us or call 980-343-6246.
+                    </td>
+                </tr>
+            <% } %>
+            <% if (elementary.length === 1) { %>
+                <tr>
+                    <th>Elementary School</th>
+                    <th>Address</th>
+                    <th class="text-right">Distance</th>
+                </tr>
+                <tr data-location="<%- elementary[0].lng %>,<%- elementary[0].lat %>" data-label="<%- elementary[0].label %>">
+                    <td><%- elementary[0].label %></td>
+                    <td><%- elementary[0].address %></td>
+                    <td class="text-right"><%- Math.ceil((elementary[0].dist / 5280) * 10) / 10 %> mi</td>
+                </tr>
+            <% } else { %>
+                <tr>
+                    <th colspan="3">Elementary School</th>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        This address is too close to a school district boundary to give an accurate Elementary school assignment. Possibilities are <strong>
+                        <%
+                            var schools = [];
+                            _.each( elementary, function( item ){
+                                schools.push(item.label);
+                            });
+                        %>
+                        <%= schools.join(", ") %></strong>.
+                        To locate your student's home school or your transportation zone, email your address to planning@cms.k12.nc.us or call 980-343-6246.
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>
+<div class="details resources">
+    <h5>Additional Resources</h5>
+    <ul class="unstyled">
+        <li><a href="http://www.cms.k12.nc.us/" target="_blank">Charlotte-Mecklenburg Schools</a></li>
+    </ul>
+</div>

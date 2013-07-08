@@ -1,0 +1,28 @@
+<div class="details what">
+    <table class="table table-condensed">
+            <caption class="text-left">MPL Contamination Sites within 1500 Feet</caption>
+        <% if (rc.length !== 0 ) { %>
+            <thead>
+                <tr>
+                    <th>MPL Number</th>
+                    <th class="text-right">Distance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each( rc, function( item ){ %>
+                    <tr data-location="<%- item.lng %>,<%- item.lat %>" data-label="<%- 'MPL #' + item.mpl_number %>">
+                        <td><%- item.mpl_number %></td>
+                        <td class="text-right"><%- prettyNumber(Math.round(item.dist * 100) / 100) %> ft</td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        <% } else { %>
+            <tbody>
+                <tr>
+                    <td>This property is not within 1500 feet of a MPL Contamination Site.</td>
+                </tr>
+            </tbody>
+        <% } %>
+    </table>
+</div>
+

@@ -1,0 +1,31 @@
+<div class="details what">
+    <table class="table table-condensed">
+        <caption class="text-left">Soil Types</caption>
+        <% if (rc.length !== 0 ) { %>
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Group</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% _.each( rc, function( item ){ %>
+                    <tr>
+                        <td><%- item.name %></td>
+                        <td><%- item.hydrologic_group %></td>
+                        <td><%- item.description %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+
+        <% } else { %>
+            <tbody>
+                <tr>
+                    <td>Unable to determine soils for this property.</td>
+                </tr>
+            </tbody>
+        <% } %>
+    </table>
+</div>
+

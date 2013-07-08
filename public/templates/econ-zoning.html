@@ -1,0 +1,21 @@
+<div class="details what">
+    <table class="table table-condensed">
+        <caption class="text-left">Zoning</caption>
+        <thead>
+            <tr>
+                <th>Jurisdiction</th>
+                <th>Zoning</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each( rc, function( item ){ %>
+                <tr>
+                    <td><%= toTitleCase(findJurisdiction(activeRecord.address)) %></td>
+                    <td><%- item.zone_des %></td>
+                    <td><%- toTitleCase(item.zone_class) %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

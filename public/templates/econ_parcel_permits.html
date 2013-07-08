@@ -1,0 +1,31 @@
+<div class="details what">
+    <table class="table table-condensed">
+        <caption class="text-left">Parcel Building Permits</caption>
+        <% if ( rc.length > 0 ) { %>
+        <thead>
+            <tr>
+                <th>Year</th>
+                <th>Project Name</th>
+                <th class="text-right">Area</th>
+                <th class="text-right">Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% _.each( rc, function( item ){ %>
+                <tr>
+                    <td><%- item.theyear %></td>
+                    <td><%- item.project_name %></td>
+                    <td  class="text-right" nowrap><%- prettyNumber(item.square_footage) %> ft<sup>2</sup></td>
+                    <td class="text-right"><%- prettyNumber(item.construction_cost, "$") %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+        <% } else { %>
+        <tbody>
+            <tr>
+                <td>No building permits found.</td>
+            </tr>
+        </tbody>
+        <% } %>
+    </table>
+</div>
