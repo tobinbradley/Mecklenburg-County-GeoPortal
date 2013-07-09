@@ -21,7 +21,7 @@ module.exports = function (grunt) {
             'assets/scripts/vendor/bootstrap/bootstrap-collapse.js',
             'assets/scripts/vendor/bootstrap/bootstrap-popover.js',
             'assets/scripts/vendor/bootstrap/bootstrap-carousel.js',
-            'assets/scripts/vendor/jquery-ui-1.10.0.custom.min.js',
+            'assets/scripts/vendor/jquery-ui-1.10.3.custom.js',
             'assets/scripts/vendor/leaflet.js',
             'assets/scripts/functions.js',
             'assets/scripts/question.js',
@@ -39,7 +39,7 @@ module.exports = function (grunt) {
         uglify: {
             production: {
                 options: {
-                    report: 'gzip',
+                    //report: 'gzip',
                 },
                 files: {
                     'public/js/main.js': jsFiles

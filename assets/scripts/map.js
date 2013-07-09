@@ -3,19 +3,20 @@
 ********************************************/
 
 function mapInit() {
-    // Get passed lng/lat if it exists to avoid the load map jump
-    var center;
+    // go straight to xy if passed to avoid "flash"
     if (getURLParameter("lng") && getURLParameter("lat")) {
-        center = [getURLParameter("lng"), getURLParameter("lat")];
+        cen = [getURLParameter("lat"), getURLParameter("lng")];
+        z = 17;
     }
     else {
-        center = [35.260, -80.827];
+        cen = [35.260, -80.827];
+        z = 10;
     }
 
     // Map options
     map = new L.Map('map', {
-        center: center,
-        zoom: 10,
+        center: cen,
+        zoom: z,
         minZoom: 9,
         maxZoom: 18,
         closePopupOnClick: false
@@ -25,8 +26,6 @@ function mapInit() {
     L.Icon.Default.imagePath = "images/";
 
     //  Mecklenburg Base Layer
-    // L.tileLayer("http://maps.co.mecklenburg.nc.us/mbtiles/mbtiles-server.php?db=meckbase.mbtiles&z={z}&x={x}&y={y}",
-    //  { "attribution": "<a href='http://emaps.charmeck.org' target='_blank'>Mecklenburg County GIS</a>" }).addTo(map);
     L.tileLayer("http://maps.co.mecklenburg.nc.us/tiles/meckbase/{y}/{x}/{z}.png",
      { "attribution": "<a href='http://emaps.charmeck.org' target='_blank'>Mecklenburg County GIS</a>" }).addTo(map);
 
@@ -38,6 +37,7 @@ function mapInit() {
             L.DomEvent.stopPropagation(e);
             latlng = $(".map-info a").data("location").split(",");
             zoomToLngLat({'lng': latlng[0], 'lat': latlng[1]});
+            markers[0].openPopup();
         });
         return this._div;
     };
@@ -99,18 +99,18 @@ function addMarker(data, marker) {
     // add new marker
     markers[marker] = L.marker([data.lat, data.lng]).addTo(map);
 
-    // marker popup
+    // popup
     data.label = "<h5>" + data.label + "</h5>";
     if (marker === 0) {
         info.update(data);
-        if ($(".embed-container ")[0]) {
-            data.label += '<div class="details"></div>';
-        }
         gURL = getGoogleLink(data.lng, data.lat);
         data.label += '<ul class="text-center inline">';
         data.label += '<li><a href="http://maps.co.mecklenburg.nc.us/databrowser/#/' + activeRecord.gid + '" target="_blank">Data Browser</a></li>';
         data.label += '<li><a href="' + gURL + '" target="_blank">Google Maps</a></li>';
         data.label += '</ul>';
+        if ($(".embed-container ")[0]) {
+            data.label += '<div class="details"></div>';
+        }
     }
     if (marker === 1) {
         gURLD = getDirections(activeRecord.lng, activeRecord.lat, data.lng, data.lat);
@@ -121,14 +121,11 @@ function addMarker(data, marker) {
         data.label += '<li><a href="' + gURL + '" target="_blank">Google Maps</a></li>';
         data.label += '</ul>';
     }
-    var height = $("#map").height() - parseInt(($("#map").height() * 0.4), 10);
-    var width = $("#map").width() - parseInt(($("#map").width() * 0.3), 10);
-    markers[marker].bindPopup(data.label, {"maxHeight": height, "maxWidth": width}).openPopup();
 
-    // prevent marker clicks from falling through
-    L.DomEvent.addListener(markers[marker], 'click', function (e) {
-        L.DomEvent.stopPropagation(e);
-    });
+    var mHeight = $("#map").height() -  200;
+    var mWidth = $("#map").width() - 200;
+    markers[marker].bindPopup(data.label, {"maxHeight": mHeight, "maxWidth": mWidth}).openPopup();
+
 }
 
 // Create google maps directions link

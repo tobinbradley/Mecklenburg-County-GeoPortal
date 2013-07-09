@@ -16,7 +16,7 @@
         <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/main.css?foo=28250">
+        <link rel="stylesheet" href="css/main.css?foo=19158">
 
         <!-- HTML5 for oldIE -->
         <!--[if lt IE 9]>
@@ -35,7 +35,7 @@
         <![endif]-->
         <header class="jumbotron subhead">
           <div class="container">
-            <h1>GeoPortal <span class="text-info">beta</span></h1>
+            <h1>GeoPortal <span class="text-info"></span></h1>
             <h2 class="lead">Mecklenburg County GIS</h2>
           </div>
         </header>
@@ -126,7 +126,7 @@
             <footer>
                 <hr>
                 <ul class="text-center inline">
-                    <li><a href="https://github.com/tobinbradley/leaflet-bootstrap-mapping-template" class="muted">Github</a></li>
+                    <li><a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" class="muted">Github</a></li>
                     <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalTalkback" class="muted">Feedback</a></li>
                 </ul>
             </footer>
@@ -173,6 +173,7 @@
             </div>
         </div>
 
+        <!-- submit photo -->
         <div class="modal hide fade" id="modalPhoto">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
@@ -220,7 +221,6 @@
                             </p>
                         </div>
                     </div>
-
                     <div class="item">
                         <div class="carousel-content">
                             <div class="carousel-shade">
@@ -229,6 +229,12 @@
                                 </legend>
                                 <div id="q-col1" class="embed-cols pull-left"><ul class="unstyled"></ul></div>
                                 <div id="q-col2" class="embed-cols pull-right"><ul class="unstyled"></ul></div>
+                                <div class="form-inline">
+                                    <label>
+                                        Default Selection:
+                                        <select id="embed-defaultquestion"></select>
+                                    </label>
+                                </div>
                             </div>
                         </div>
                         <div class="carousel-caption">
@@ -241,7 +247,6 @@
                             </p>
                         </div>
                     </div>
-
                     <div class="item" id="step3">
                         <div class="carousel-content">
                             <div class="carousel-shade">
@@ -249,22 +254,22 @@
                                     Map Size and Embed Code
                                 </legend>
                                 <div class="text-center">
-                                    <img src="images/size1.gif" class="img-polaroid selected-size" data-width="560"
-                                    data-height="400">
-                                    <img src="images/size2.gif" class="img-polaroid" data-width="640" data-height="500">
-                                    <img src="images/size3.gif" class="img-polaroid" data-width="830" data-height="700">
-                                    <img src="images/size4.gif" class="img-polaroid" data-width="1200" data-height="900">
+                                    <img src="images/size1.gif" class="img-polaroid" data-width="450"
+                                    data-height="560">
+                                    <img src="images/size2.gif" class="img-polaroid selected-size" data-width="500" data-height="640">
+                                    <img src="images/size3.gif" class="img-polaroid" data-width="700" data-height="830">
+                                    <img src="images/size4.gif" class="img-polaroid" data-width="900" data-height="1000">
                                     <div id="size-boxes" style="">
                                         <div class="input-prepend input-append">
                                             <span class="add-on">Width</span>
-                                            <input id="embed-width" type="number" min="560" max="1200" class="embed-size input-mini textright" placeholder="width"
-                                            value="560" required>
+                                            <input id="embed-width" type="number" min="500" max="1200" class="embed-size input-mini textright" placeholder="width"
+                                            value="500" required>
                                             <span class="add-on">px</span>
                                         </div>
                                         <div class="input-prepend input-append">
                                             <span class="add-on">Height</span>
-                                            <input id="embed-height" type="number" min="400" max="900" class="embed-size input-mini textright" placeholder="height"
-                                            value="315" required>
+                                            <input id="embed-height" type="number" min="500" max="1200" class="embed-size input-mini textright" placeholder="height"
+                                            value="640" required>
                                             <span class="add-on">px</span>
                                         </div>
                                     </div>
@@ -286,7 +291,6 @@
                 </div>
                 <a class="left carousel-control" href="#embed-carousel" data-slide="prev">‹</a>
                 <a class="right carousel-control" href="#embed-carousel" data-slide="next">›</a>
-
             </div>
             <div class="modal-footer">
                 <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
@@ -294,8 +298,8 @@
         </div>
 
         <!-- scripts at the bottom yo -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-        <script src="js/main.js?foo=28837"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="js/main.js?foo=54589"></script>
 
         <!--   Google Analytics -->
         <script>

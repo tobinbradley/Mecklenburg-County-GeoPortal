@@ -1,3 +1,4 @@
+
 // apply layer overlay
 function overlayLayer() {
     var q = $(".question select ").val();
@@ -16,9 +17,7 @@ function overlayLayer() {
                 layers: 'postgis:view_regulated_floodplains,postgis:water_quality_buffers',
                 format: 'image/png',
                 transparent: true,
-                opacity: 0.7,
-                minZoom: 16,
-                maxZoom: 18
+                opacity: 0.7
             }).addTo(map);
             break;
         case "env-air":
@@ -54,7 +53,9 @@ function overlayLayer() {
 
 // fetch data
 function question() {
+    $(".details").empty();
     if (activeRecord.gid) {
+        markers[0].openPopup();
         switch ($(".question select ").val()) {
         case "parks":
             $.ajax({
@@ -127,7 +128,7 @@ function question() {
                     'limit': '3'
                 },
                 success: function (data) {
-                    report("fire_nearest", data, $(".details .fire_stations"));
+                    report("fire_nearest", data, $('.details .fire_stations'));
                 }
             });
             $.ajax({
@@ -140,7 +141,7 @@ function question() {
                     'format': 'json'
                 },
                 success: function (data) {
-                    report("fire_district", data.rows[0], $(".details .fire_district"));
+                    report("fire_district", data.rows[0], $('.details .fire_district'));
                 }
             });
             break;

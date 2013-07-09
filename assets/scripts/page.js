@@ -5,8 +5,7 @@
 var map,
     overlay = {},
     markers = [],
-    activeRecord = {},
-    popped = false;
+    activeRecord = {};
 
 _.templateSettings.variable = "rc";
 
@@ -33,13 +32,16 @@ $(document).ready(function () {
         }
         // size the search box
         $('#searchbox').width($('.search').width() - 100);
-        // show questions
+        // show questions, removing ones that weren't passed
         if (getURLParameter("qs")) {
             var qs = getURLParameter("qs").split(",");
-            _.each(qs, function (item) {
-                $('select option[value="' + item + '"]').removeClass("hide").parent("optgroup").removeClass("hide");
+            _.each($('.question select option'), function (item) {
+                if (!_.contains(qs, $(item).val())) { $(item).remove();  }
             });
-            $("select").val($("select option:not(.hide)").first().val());
+            _.each($('.question select optgroup'), function (item) {
+                if ($(item).children().length < 1) { $(item).remove(); }
+            });
+            $(".question select").val($(".question select option[value=" + getURLParameter("dq") + "]").val());
         }
     }
 
@@ -55,7 +57,7 @@ $(document).ready(function () {
     }
 
     // .table-location click event
-    $(".details").on("click", "tr[data-location]", function (event) {
+    $(document).on("click", "tr[data-location]", function (event) {
         var rec = $(this);
         var latlng = rec.data("location").split(",");
         var label = rec.data("label");
@@ -112,13 +114,8 @@ $(document).ready(function () {
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php',
                 dataType: 'jsonp',
                 data: {
-                    searchtypes: 'address,pid,business',
+                    searchtypes: 'address,pid,business,park,library,school',
                     query: request.term
-                },
-                open: function () {
-                    setTimeout(function () {
-                        $('.ui-autocomplete').css('z-index', 99999999999999);
-                    }, 0);
                 },
                 success: function (data) {
                     if (data.length > 0) {
@@ -145,8 +142,8 @@ $(document).ready(function () {
                 // Addresses and PID's
                 if (ui.item.responsetype === "ADDRESS" || ui.item.responsetype === "PID") {
                     $.publish("/data/select", [ ui.item ]);
-                    $.publish("/data/question", [$(".question select ").val()]);
                     $.publish("/map/addmarker", [ activeRecord, 0 ]);
+                    $.publish("/data/question", [$(".question select ").val()]);
                     $.publish("/data/addhistory", [ activeRecord ]);
                 }
                 // Non-MAT locations
@@ -165,31 +162,18 @@ $(document).ready(function () {
 $(window).load(function () {
     // initialize map
     mapInit();
+
     // History API
     if (Modernizr.history) {
         // history is supported, do magical things
         $(window).bind("popstate", function (e) {
-            if (!popped) { // not my problem
-                popped = true;
-                return;
-            }
-            if (getURLParameter("q")) {
-                $('.question select').val(getURLParameter("q"));
-            }
-            if (getURLParameter("matid")) {
-                if (activeRecord && activeRecord.gid !== getURLParameter("matid")) {
-                    getMAT(getURLParameter("matid"));
-                }
-                else {
-                    $.publish("/data/select", activeRecord);
-                    $.publish("/data/question", [$(".question select ").val()]);
-
-                }
-            }
+            handleGETArgs();
         });
-        $(window).trigger("popstate");
     }
 
+    // hack because of Chrome popstate on load bug
+    var isChrome = window.chrome;
+    if (!isChrome) { handleGETArgs(); }
 
     // embed tool content
     $('.carousel').carousel({
@@ -199,10 +183,10 @@ $(window).load(function () {
     var split = Math.ceil(listItems.length / 2);
     $.each(listItems, function (i, item) {
         if (i < split) {
-            $('#q-col1 ul').append('<li><label class="checkbox"><input type="checkbox" id="' + $(item).val() + '">' + $(item).text() + '</label></li>');
+            $('#q-col1 ul').append('<li><label class="checkbox"><input type="checkbox" class="embed-q" id="' + $(item).val() + '">' + $(item).text() + '</label></li>');
         }
         else {
-            $('#q-col2 ul').append('<li><label class="checkbox"><input type="checkbox" id="' + $(item).val() + '">' + $(item).text() + '</label></li>');
+            $('#q-col2 ul').append('<li><label class="checkbox"><input type="checkbox" class="embed-q" id="' + $(item).val() + '">' + $(item).text() + '</label></li>');
         }
     });
 
@@ -215,13 +199,21 @@ $(window).load(function () {
         createIframe();
     });
     $(".embed-size").keypress(function () { createIframe(); });
-    $("#embed-carousel input[type=checkbox]").change(function () { createIframe(); });
+    $("#embed-carousel input[type=checkbox]").click(function () {
+        if ($(this).hasClass('embed-q')) {
+            if (this.checked) {
+                $("#embed-defaultquestion").append('<option value="' + $(this).attr("id") + '">' + $(this).parent().text()  + '</option>');
+            }
+            else {
+                $("#embed-defaultquestion option[value=" + $(this).attr('id') + "]").remove();
+            }
+        }
+        createIframe();
+    });
     $("#step3 textarea, #step3 input").on("click", function () {
         $(this).select();
     });
 
-    // pulse the search box
-    pulse(1000, 6, $('.search > .blink'));
 });
 
 // Set activerecord
@@ -241,6 +233,25 @@ function setactvieRecord(data) {
     }
 }
 
+// handle URL args
+function handleGETArgs() {
+    if (getURLParameter("q")) {
+        $('.question select').val(getURLParameter("q"));
+    }
+    if (getURLParameter("matid")) {
+        if (activeRecord && activeRecord.gid !== getURLParameter("matid")) {
+            getMAT(getURLParameter("matid"));
+        }
+        else {
+            $.publish("/data/select", activeRecord);
+            $.publish("/data/question", [$(".question select ").val()]);
+        }
+    }
+    else {
+        pulse(1000, 4, $('.search > .blink'));
+    }
+}
+
 // Push state
 function newHistory(data) {
     if (Modernizr.history) {
@@ -257,20 +268,22 @@ function newHistory(data) {
 
 // create report
 function report(q, data, element) {
-    $(".details").empty();
     templateLoader.loadRemoteTemplate(q, "templates/" + q + ".html", function (tmpl) {
         var compiled = _.template(tmpl);
         element.append(compiled(data));
-        // resize and reposition marker popup
-        markers[0]._popup._updateLayout();
-        markers[0]._popup._updatePosition();
-        markers[0]._popup._content = null;
+
+        // hacky shit for data in popups
+        if ($("div.embed-container ")[0]) {
+            markers[0]._popup._updateLayout();
+            markers[0]._popup._updatePosition();
+            markers[0]._popup._content = null;
+        }
     });
 }
 
 function showQuestion () {
     $(".question").fadeIn("slow", function(){
-        pulse(1000, 6, $('.question > .blink'));
+        pulse(1000, 4, $('.question > .blink'));
     })
 }
 
@@ -287,8 +300,8 @@ function getMAT(gid) {
         },
         success: function (data) {
             $.publish("/data/select", [ data[0] ]);
-            $.publish("/data/question", [$(".question select ").val()]);
             $.publish("/map/addmarker", [ activeRecord, 0 ]);
+            $.publish("/data/question", [$(".question select ").val()]);
         },
         error: function (error, status, desc) {
             console.log(status, desc);
@@ -314,8 +327,8 @@ function getNearestMAT(approx) {
                 approx.label = data[0].full_address;
             }
             $.publish("/data/select", [ data[0] ]);
-            $.publish("/data/question", [$(".question select ").val()]);
             $.publish("/map/addmarker", [ activeRecord, 0 ]);
+            $.publish("/data/question", [$(".question select ").val()]);
             $.publish("/data/addhistory", [activeRecord]);
         },
         error: function (error, status, desc) {
@@ -336,18 +349,20 @@ function createIframe() {
     var getSearch = '?s=' + $("#embed_search input").is(":checked");
     // matid option
     var getMatid;
-    $("#embed_selected input").is(":checked") ? getMatid = "&matid=" + $("#embed_selected input").data("matid") : getMatid = '';
+    $("#embed_selected input").is(":checked") ? getMatid = "&matid=" + activeRecord.gid + "&lng=" + activeRecord.lng + "&lat=" + activeRecord.lat : getMatid = '';
     // q's
     var questions = [];
     $('.embed-cols input').each(function (i, item) {
         if ($(item).is(':checked')) { questions.push($(item).attr('id')); }
     });
     var getQ = '&qs=' + questions.join();
+    // default question
+    var getDQ = '&dq=' + $('#embed-defaultquestion').val();
     // size
     var w = $('#embed-width').val();
     var h = $('#embed-height').val();
 
-    var url = 'http://localhost/geoportal/embed.html' + getSearch + getMatid + getQ;
+    var url = 'http://maps.co.mecklenburg.nc.us/geoportal/embed.html' + getSearch + getMatid + getQ + getDQ;
     // write iframe
     $('#embed-code').val('<iframe frameborder="0" width="' + w + '" height="' + h + '" src="' + url + '"></iframe>');
 }
