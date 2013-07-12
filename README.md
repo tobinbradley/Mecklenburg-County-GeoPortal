@@ -12,13 +12,7 @@ This project stands on the shoulders of Smart People:
 + It's not ugly. That puts it into the top 5% of online government GIS apps from the get-go.
 + It's easy to use. See above.
 + It's extremely fast and light-weight. All the JavaScript gzip'd except jQuery (which it loads via Google's CDN) is ~4Okb. That's Leaflet and everything.
-+ Embed map. It has a wizard to walk you through creating an iframe for the site, so you can shove just the features you want in your CMS, other sites, whatever. The embedded map looks something like this:
-
-
-    <iframe frameborder="0" width="600" height="640" src="http://maps.co.mecklenburg.nc.us/geoportal/embed.html?s=true&matid=150772&lng=-80.801&lat=35.2878&qs=parks,libraries,schools-magnet&dq=parks"></iframe>
-
-
-<iframe frameborder="0" width="600" height="640" src="http://maps.co.mecklenburg.nc.us/geoportal/embed.html?s=true&matid=150772&lng=-80.801&lat=35.2878&qs=parks,libraries,schools-magnet&dq=parks"></iframe>
++ Embed map. It has a wizard to walk you through creating an iframe for the site, so you can shove just the features you want in your CMS, other sites, whatever. Here's [an example](http://maps.co.mecklenburg.nc.us/geoportal/testiframe.html).
 
 ### Future Features
 + Print a report, aka taking what's on your screen and burning it into pressed trees. Apparently that's still a thing.
