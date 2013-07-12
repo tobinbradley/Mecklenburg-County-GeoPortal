@@ -16,7 +16,7 @@
         <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/main.css?foo=19158">
+        <link rel="stylesheet" href="css/main.css?foo=15834">
 
         <!-- HTML5 for oldIE -->
         <!--[if lt IE 9]>
@@ -31,7 +31,7 @@
 
     <body>
         <!--[if lt IE 8]>
-        <p class="chromeframe">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
+        <p class="oldie">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
         <![endif]-->
         <header class="jumbotron subhead">
           <div class="container">
@@ -82,7 +82,7 @@
                                     <div class="question hide">
                                         <h4 class="blink">What do you want to know?</h4>
                                         <div>
-                                            <select class="span4 shadow_select">
+                                            <select>
                                                 <optgroup label="Community">
                                                     <option value="qol">Quality of Life</option>
                                                     <option value="voting">Voting</option>
@@ -113,7 +113,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="details"></div>
+                                <div class="report"></div>
                             </div>
                         </div>
                         <div id="map-area" class="span7 pull-right">
@@ -125,7 +125,7 @@
 
             <footer>
                 <hr>
-                <ul class="text-center inline">
+                <ul class="text-right inline">
                     <li><a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" class="muted">Github</a></li>
                     <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalTalkback" class="muted">Feedback</a></li>
                 </ul>
@@ -298,8 +298,13 @@
         </div>
 
         <!-- scripts at the bottom yo -->
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script src="js/main.js?foo=54589"></script>
+        <!--[if lt IE 9]>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <![endif]-->
+        <!--[if gte IE 9]><!-->
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <!--<![endif]-->
+        <script src="js/main.js?foo=84605"></script>
 
         <!--   Google Analytics -->
         <script>

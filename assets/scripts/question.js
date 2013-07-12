@@ -1,5 +1,4 @@
-
-// apply layer overlay
+// Overlay layers
 function overlayLayer() {
     var q = $(".question select ").val();
 
@@ -51,9 +50,9 @@ function overlayLayer() {
     }
 }
 
-// fetch data
+// Fetch data for reports
 function question() {
-    $(".details").empty();
+    $(".report").empty();
     if (activeRecord.gid) {
         markers[0].openPopup();
         switch ($(".question select ").val()) {
@@ -71,7 +70,7 @@ function question() {
                     'limit': '5'
                 },
                 success: function (data) {
-                    report("parks", data, $(".details"));
+                    report("parks", data, "");
                 }
             });
             break;
@@ -89,7 +88,7 @@ function question() {
                     'limit': '5'
                 },
                 success: function (data) {
-                    report("libraries", data, $(".details"));
+                    report("libraries", data, "");
                 }
             });
             break;
@@ -108,13 +107,13 @@ function question() {
                     'order': 'label desc'
                 },
                 success: function (data) {
-                    report("trash", data, $(".details"));
+                    report("trash", data, "");
                 }
             });
             break;
 
         case "fire":
-            $('.details').append('<div class="fire_stations"></div><div class="fire_district"></div>');
+            $('.report').append('<div class="fire_stations"></div><div class="fire_district"></div>');
             $.ajax({
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_nearest.php',
                 type: 'GET',
@@ -128,7 +127,7 @@ function question() {
                     'limit': '3'
                 },
                 success: function (data) {
-                    report("fire_nearest", data, $('.details .fire_stations'));
+                    report("fire_nearest", data, '.fire_stations');
                 }
             });
             $.ajax({
@@ -141,13 +140,13 @@ function question() {
                     'format': 'json'
                 },
                 success: function (data) {
-                    report("fire_district", data.rows[0], $('.details .fire_district'));
+                    report("fire_district", data.rows[0], '.fire_district');
                 }
             });
             break;
 
         case "police":
-            $('.details').append('<div class="police_stations"></div><div class="police_stats"></div>');
+            $('.report').append('<div class="police_stations"></div><div class="police_stats"></div>');
             $.ajax({
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_nearest.php',
                 type: 'GET',
@@ -161,7 +160,7 @@ function question() {
                     'limit': '3'
                 },
                 success: function (data) {
-                    report("police_nearest", data, $(".details .police_stations"));
+                    report("police_nearest", data, ".police_stations");
                 }
             });
             $.ajax({
@@ -177,7 +176,7 @@ function question() {
                     'geometryfield': 'geom'
                 },
                 success: function (data) {
-                    report("police_stats", data, $(".details .police_stats"));
+                    report("police_stats", data, '.police_stats');
                 }
             });
             break;
@@ -196,29 +195,47 @@ function question() {
                     'fields': "type,schlname as label,address,city,x as lng, y as lat, round(ST_Distance(ST_Transform(ST_GeomFromText('POINT(" + activeRecord.lng + " " + activeRecord.lat + ")',4326), 2264),ST_transform(ST_GeomFromText('POINT(' || x || ' ' || y || ')',4326), 2264))) as dist"
                 },
                 success: function (data) {
-                    report("schools-home", data, $(".details"));
+                    report("schools-home", data, "");
                 }
             });
             break;
 
         case "schools-magnet":
+            $('.report').append('<div class="schools-magnet"></div><div class="schools-zone"></div>');
             $.ajax({
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_attributequery.php',
                 type: 'GET',
                 dataType: 'jsonp',
                 data: {
                     'table': 'view_schools_magnet',
-                    'fields': "schlname as label,address,ST_Distance(the_geom,ST_Transform(GeomFromText('POINT(" + activeRecord.lng + " " + activeRecord.lat + ")',4326), 2264)) as distance, x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat",
+                    'fields': "schlname as label, schl, address,ST_Distance(the_geom,ST_Transform(GeomFromText('POINT(" + activeRecord.lng + " " + activeRecord.lat + ")',4326), 2264)) as distance, x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat",
                     'order': 'distance'
                 },
                 success: function (data) {
-                    report("schools_magnet", data, $(".details"));
+                    report("schools_magnet", data, ".schools-magnet");
+                }
+            });
+            $.ajax({
+                url: 'http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_bufferpoint.php',
+                type: 'GET',
+                dataType: 'jsonp',
+                data: {
+                    'x': activeRecord.lng,
+                    'y': activeRecord.lat,
+                    'srid': 4326,
+                    'distance': 150,
+                    'geometryfield': 'geom',
+                    'table': 'magnet_school_transportation_zones',
+                    'fields': "choicezn"
+                },
+                success: function (data) {
+                    report("schools-zone", data, ".schools-zone");
                 }
             });
             break;
 
         case "voting":
-            $('.details').append('<div class="voting-poll"></div><div class="voting-nats"></div><div class="voting-natc"></div><div class="voting-senate"></div><div class="voting-house"></div><div class="voting-cc"></div><div class="voting-sb"></div><div class="voting-city"></div>');
+            $('.report').append('<div class="voting-poll"></div><div class="voting-nats"></div><div class="voting-natc"></div><div class="voting-senate"></div><div class="voting-house"></div><div class="voting-cc"></div><div class="voting-sb"></div><div class="voting-city"></div>');
             // polling location
             $.ajax({
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php',
@@ -233,7 +250,7 @@ function question() {
                     'parameters': 'a.precno = polling_locations.precno'
                 },
                 success: function (data) {
-                    report("voting-poll", data, $(".details .voting-poll"));
+                    report("voting-poll", data, ".voting-poll");
                 }
             });
             // national senate
@@ -247,7 +264,7 @@ function question() {
                     'district': ''
                 },
                 success: function (data) {
-                    report("voting-natsenate", data.rows, $(".details .voting-nats"));
+                    report("voting-natsenate", data.rows, '.voting-nats');
                 }
             });
             // National Congressional
@@ -264,7 +281,7 @@ function question() {
                     'parameters': "elected_officials.district_type = 'national_congressional' and (elected_officials.district = 'At-Large' or elected_officials.district = cast(a.district as varchar(5)))"
                 },
                 success: function (data) {
-                    report("voting-natc", data, $(".details .voting-natc"));
+                    report("voting-natc", data, ".voting-natc");
                 }
             });
             // state senate
@@ -281,7 +298,7 @@ function question() {
                     'parameters': "elected_officials.district_type = 'state_senate' and elected_officials.district = cast(a.senate as varchar(5))"
                 },
                 success: function (data) {
-                    report("voting-state-senate", data, $(".details .voting-senate"));
+                    report("voting-state-senate", data, ".voting-senate");
                 }
             });
             // state house
@@ -298,7 +315,7 @@ function question() {
                     'parameters': "elected_officials.district_type = 'state_house' and elected_officials.district = cast(a.house as varchar(5))"
                 },
                 success: function (data) {
-                    report("voting-house", data, $(".details .voting-house"));
+                    report("voting-house", data, ".voting-house");
                 }
             });
             // County commissioners
@@ -315,7 +332,7 @@ function question() {
                     'parameters': "elected_officials.district_type = 'county_commission' and (elected_officials.district = cast(a.cc as varchar(5)) or elected_officials.district = 'At-Large')"
                 },
                 success: function (data) {
-                    report("voting-cc", data, $(".details .voting-cc"));
+                    report("voting-cc", data, ".voting-cc");
                 }
             });
             // school board
@@ -332,7 +349,7 @@ function question() {
                     'parameters': "elected_officials.district_type = 'board_of_education' and (elected_officials.district = cast(a.school as varchar(5)) or elected_officials.district = 'At-Large')"
                 },
                 success: function (data) {
-                    report("voting-sb", data, $(".details .voting-sb"));
+                    report("voting-sb", data, ".voting-sb");
                 }
             });
             // city council
@@ -350,13 +367,13 @@ function question() {
                     'debug': 'true'
                 },
                 success: function (data) {
-                    report("voting-city", data, $(".details .voting-city"));
+                    report("voting-city", data, ".voting-city");
                 }
             });
             break;
 
         case "econ":
-            $('.details').append('<div class="econ-zoning"></div><div class="econ_parcel_permits"></div><div class="econ_neighborhood_permits"></div>');
+            $('.report').append('<div class="econ-zoning"></div><div class="econ_parcel_permits"></div><div class="econ_neighborhood_permits"></div>');
             // zoning
             $.ajax({
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php',
@@ -371,7 +388,7 @@ function question() {
                     'parameters': "zone_des <> 'sm_towns'"
                 },
                 success: function (data) {
-                    report("econ-zoning", data, $(".details .econ-zoning"));
+                    report("econ-zoning", data, ".econ-zoning");
                 }
             });
             // parcel building permits
@@ -388,7 +405,7 @@ function question() {
                     'limit': 10
                 },
                 success: function (data) {
-                    report("econ_parcel_permits", data, $(".details .econ_parcel_permits"));
+                    report("econ_parcel_permits", data, ".econ_parcel_permits");
                 }
             });
             // neighborhood building permits
@@ -408,7 +425,7 @@ function question() {
                     'order': 'theyear, thequarter'
                 },
                 success: function (data) {
-                    report("econ_neighborhood_permits", data, $(".details .econ_neighborhood_permits"));
+                    report("econ_neighborhood_permits", data, ".econ_neighborhood_permits");
                 }
             });
             break;
@@ -423,13 +440,13 @@ function question() {
                     'pid': activeRecord.pid
                 },
                 success: function (data) {
-                    report("photos", data.rows, $(".details"));
+                    report("photos", data.rows, "");
                 }
             });
             break;
 
         case "property":
-            $('.details').append('<div class="property-ownership"></div><div class="property-appraisal"></div><div class="property-sales"></div><div class="property-landuse"></div><div class="property-building"></div>');
+            $('.report').append('<div class="property-ownership"></div><div class="property-appraisal"></div><div class="property-sales"></div><div class="property-landuse"></div><div class="property-building"></div>');
             // ownership
             $.ajax({
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v2/php-cgi/ws_cama_ownership.php',
@@ -441,7 +458,7 @@ function question() {
                     'format': 'json'
                 },
                 success: function (data) {
-                    report("property-ownership", data.rows, $(".details .property-ownership"));
+                    report("property-ownership", data.rows, ".property-ownership");
                 }
             });
             // appraisal
@@ -455,7 +472,7 @@ function question() {
                     'format': 'json'
                 },
                 success: function (data) {
-                    report("property-appraisal", data.rows, $(".details .property-appraisal"));
+                    report("property-appraisal", data.rows, ".property-appraisal");
                 }
             });
             // sales history
@@ -469,7 +486,7 @@ function question() {
                     'format': 'json'
                 },
                 success: function (data) {
-                    report("property-sales", data.rows, $(".details .property-sales"));
+                    report("property-sales", data.rows, ".property-sales");
                 }
             });
             // land use
@@ -483,7 +500,7 @@ function question() {
                     'format': 'json'
                 },
                 success: function (data) {
-                    report("property-landuse", data.rows, $(".details .property-landuse"));
+                    report("property-landuse", data.rows, ".property-landuse");
                 }
             });
             // building
@@ -497,7 +514,7 @@ function question() {
                     'format': 'json'
                 },
                 success: function (data) {
-                    report("property-building", data.rows, $(".details .property-building"));
+                    report("property-building", data.rows, ".property-building");
                 }
             });
             break;
@@ -514,7 +531,7 @@ function question() {
                     'order': 'subtheme'
                 },
                 success: function (data) {
-                    report("impervious", data, $(".details"));
+                    report("impervious", data, "");
                 }
             });
             break;
@@ -534,13 +551,13 @@ function question() {
                     'order': 'dist'
                 },
                 success: function (data) {
-                    report("env-air-apf", data, $(".details"));
+                    report("env-air-apf", data, "");
                 }
             });
             break;
         case "env-land":
             // environment - land
-            $('.details').append('<div class="env-land-contamination"></div><div class="env-land-soil"></div><div class="env-land-landuse"></div>');
+            $('.report').append('<div class="env-land-contamination"></div><div class="env-land-soil"></div><div class="env-land-landuse"></div>');
             $.ajax({
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_bufferpoint.php',
                 type: 'GET',
@@ -555,7 +572,7 @@ function question() {
                     'order': 'dist'
                 },
                 success: function (data) {
-                    report("env-land-contamination", data, $(".details .env-land-contamination"));
+                    report("env-land-contamination", data, ".env-land-contamination");
                 }
             });
             $.ajax({
@@ -570,7 +587,7 @@ function question() {
                     'order': 't.name'
                 },
                 success: function (data) {
-                    report("env-land-soil", data, $(".details .env-land-soil"));
+                    report("env-land-soil", data, ".env-land-soil");
                 }
             });
             $.ajax({
@@ -585,7 +602,7 @@ function question() {
                     'parameters': "pid = '" + activeRecord.pid + "'"
                 },
                 success: function (data) {
-                    report("env-land-landuse", data.rows, $(".details .env-land-landuse"));
+                    report("env-land-landuse", data.rows, ".env-land-landuse");
                 }
             });
             break;
@@ -604,13 +621,13 @@ function question() {
                     'fields': "id, population, median_age, developed_land, residential_density, singlefamily_property_value,gas_consumption, commute_time, dropout_rate, unexcused_absences, foreclosures,  water_consumption, tree_canopy, bicycle_friendly, near_public_outdoor_recreation, sidewalks, rent"
                 },
                 success: function (data) {
-                    report("qol", data, $(".details"));
+                    report("qol", data, "");
                 }
             });
             break;
         case "env-water":
             // Environment - Water
-            $('.details').append('<div class="env-water-floodplain"></div><div class="env-water-wqbuffers"></div><div class="env-water-watershed"></div><div class="env-water-postconstruction"></div>');
+            $('.report').append('<div class="env-water-floodplain"></div><div class="env-water-wqbuffers"></div><div class="env-water-watershed"></div><div class="env-water-postconstruction"></div>');
             // Floodplain
             $.ajax({
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_featureoverlay.php',
@@ -623,7 +640,7 @@ function question() {
                     'parameters': "f.pid = '" + activeRecord.pid + "'"
                 },
                 success: function (data) {
-                    report("env-water-floodplain", data, $(".details .env-water-floodplain"));
+                    report("env-water-floodplain", data, ".env-water-floodplain");
                 }
             });
             // Water Quality Buffers
@@ -638,7 +655,7 @@ function question() {
                     'parameters': "f.pid = '" + activeRecord.pid + "'"
                 },
                 success: function (data) {
-                    report("env-water-wqbuffers", data, $(".details .env-water-wqbuffers"));
+                    report("env-water-wqbuffers", data, ".env-water-wqbuffers");
                 }
             });
             // Critical Projection Area/Watershed
@@ -655,7 +672,7 @@ function question() {
                     'limit': 1
                 },
                 success: function (data) {
-                    report("env-water-watershed", data, $(".details .env-water-watershed"));
+                    report("env-water-watershed", data, ".env-water-watershed");
                 }
             });
             // Post construction district, transit station area, business district
@@ -670,7 +687,7 @@ function question() {
                     'parameters': "f.pid = '" + activeRecord.pid + "'"
                 },
                 success: function (data) {
-                    report("env-water-postconstruction", data, $(".details .env-water-postconstruction"));
+                    report("env-water-postconstruction", data, ".env-water-postconstruction");
                 }
             });
             break;

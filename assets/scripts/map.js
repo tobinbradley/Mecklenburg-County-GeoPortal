@@ -1,7 +1,4 @@
-/********************************************
-    Map Stuff
-********************************************/
-
+// initialize the map
 function mapInit() {
     // go straight to xy if passed to avoid "flash"
     if (getURLParameter("lng") && getURLParameter("lat")) {
@@ -21,7 +18,7 @@ function mapInit() {
         maxZoom: 18,
         closePopupOnClick: false
     });
-    map.attributionControl.setPrefix(false).setPosition("bottomleft");
+    map.attributionControl.setPrefix('<a href="http://maps.co.mecklenburg.nc.us/" target="_blank">GeoPortal</a>').setPosition("bottomleft");
     map.on('click', identify);
     L.Icon.Default.imagePath = "images/";
 
@@ -29,7 +26,7 @@ function mapInit() {
     L.tileLayer("http://maps.co.mecklenburg.nc.us/tiles/meckbase/{y}/{x}/{z}.png",
      { "attribution": "<a href='http://emaps.charmeck.org' target='_blank'>Mecklenburg County GIS</a>" }).addTo(map);
 
-    // Area for selected info location
+    // Area for selected info link
     info = L.control({position: 'bottomright'});
     info.onAdd = function (map) {
         this._div = L.DomUtil.create('div', 'map-info hide text-center');
@@ -86,7 +83,7 @@ function zoomToLngLat(data) {
 function addMarker(data, marker) {
     // remove old markers
     if (marker === 0) {
-        $.each(markers, function (i, item) {
+        _.each(markers, function (item) {
             try { map.removeLayer(item); }
             catch (err) {}
         });
@@ -100,7 +97,7 @@ function addMarker(data, marker) {
     markers[marker] = L.marker([data.lat, data.lng]).addTo(map);
 
     // popup
-    data.label = "<h5>" + data.label + "</h5>";
+    data.label = "<h5 class='text-center'>" + data.label + "</h5>";
     if (marker === 0) {
         info.update(data);
         gURL = getGoogleLink(data.lng, data.lat);
@@ -108,9 +105,7 @@ function addMarker(data, marker) {
         data.label += '<li><a href="http://maps.co.mecklenburg.nc.us/databrowser/#/' + activeRecord.gid + '" target="_blank">Data Browser</a></li>';
         data.label += '<li><a href="' + gURL + '" target="_blank">Google Maps</a></li>';
         data.label += '</ul>';
-        if ($(".embed-container ")[0]) {
-            data.label += '<div class="details"></div>';
-        }
+        data.label += '<div class="report"></div>';
     }
     if (marker === 1) {
         gURLD = getDirections(activeRecord.lng, activeRecord.lat, data.lng, data.lat);
@@ -121,11 +116,9 @@ function addMarker(data, marker) {
         data.label += '<li><a href="' + gURL + '" target="_blank">Google Maps</a></li>';
         data.label += '</ul>';
     }
-
-    var mHeight = $("#map").height() -  200;
-    var mWidth = $("#map").width() - 200;
+    var mHeight = $("#map").height() -  150;
+    var mWidth = $("#map").width() - 150;
     markers[marker].bindPopup(data.label, {"maxHeight": mHeight, "maxWidth": mWidth}).openPopup();
-
 }
 
 // Create google maps directions link
@@ -138,11 +131,7 @@ function getGoogleLink(lng, lat) {
     return "http://maps.google.com/maps?z=12&q=loc:" + lat + "+" + lng;
 }
 
-/**
- * Handle map click to identify
- * @param  {event} event  Map Click event
- * @return {null}
- */
+// Identify function
 function identify(event) {
     if (map.getZoom() >= 16) {
         getNearestMAT({'lng': event.latlng.lng, 'lat': event.latlng.lat});

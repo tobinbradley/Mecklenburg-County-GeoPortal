@@ -1,4 +1,4 @@
-// make it safe to use console.log always
+// Make console usage safe
 (function(b) {
     function c() {}
     for (var d = "assert,count,debug,dir,dirxml,error,exception,group,groupCollapsed,groupEnd,info,log,timeStamp,profile,profileEnd,time,timeEnd,trace,warn".split(","), a; a = d.pop();) {
@@ -57,7 +57,7 @@ function getURLParameter(name) {
 // https://github.com/Gazler/Underscore-Template-Loader
 (function () {
     var templateLoader = {
-        templateVersion: "64027",
+        templateVersion: "68268",
         templates: {},
         loadRemoteTemplate: function (templateName, filename, callback) {
             if (!this.templates[templateName]) {
@@ -119,15 +119,13 @@ function pulse(interval, repeats, element) {
         element.toggleClass('glow');
         --repeats || clearInterval(timer);
     };
-
     interval = interval <= 0 ? 1000 : interval; // default: 1000ms
     repeats = parseInt(repeats, 10) || 0; // default: repeat forever
     timer = setInterval(trigger, interval);
-
     return timer;
 }
 
-
+// left of : in string
 String.prototype.leftOf = function (str) {
     if (this.indexOf(":")) {
         return this.substring(0, this.indexOf(":"));
@@ -135,6 +133,7 @@ String.prototype.leftOf = function (str) {
     else { return this; }
 };
 
+// Clean up numbers - add commas, suffix, prefix
 function prettyNumber(x, prefix, suffix, round) {
     if ($.isNumeric(x)) {
         if (typeof(prefix) === 'undefined') { prefix = ""; }
@@ -151,13 +150,13 @@ function prettyNumber(x, prefix, suffix, round) {
 function findJurisdiction(theString) {
     var jurisdictions = ['CHARLOTTE', 'PINEVILLE', 'MINT HILL', 'MATTHEWS', 'HUNTERSVILLE', 'DAVIDSON', 'CORNELIUS'];
     var theJuris = 'CHARLOTTE';
-    $.each(jurisdictions, function (i, item) {
+    _.each(jurisdictions, function (item) {
         if (theString.toUpperCase().indexOf(item) !== -1) { theJuris = item; }
     });
     return theJuris;
 }
 
-// Function to replace land classification numbers with values
+// Land classification values
 function landClass(classNumber) {
     if (classNumber == 1) return "Open Space";
     if (classNumber == 2) return "Trees";
@@ -167,7 +166,7 @@ function landClass(classNumber) {
     return "Unidentified";
 }
 
-// title case
+// Title case
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 }

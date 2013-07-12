@@ -1,37 +1,85 @@
-/********************************************
-    Page Stuff
-*********************************************/
+var map,                        // The map
+    overlay = {},               // Holder for overlay layer needed for question
+    markers = [],               // Holder for makers
+    activeRecord = {};          //  Holder for the selected location
 
-var map,
-    overlay = {},
-    markers = [],
-    activeRecord = {};
-
+// default data container for Underscore.js
 _.templateSettings.variable = "rc";
 
+// Document Load
 $(document).ready(function () {
+    // Pubsub
+    // /map/addmarker           Adds marker to the map and zooms in
+    // /data/select             Make a data selection
+    // /data/question           Process the report area and layer overlay
+    // /data/addhistory         Adds current activeRecord/Question to history via pushstate
+    $.subscribe("/map/addmarker", zoomToLngLat);
+    $.subscribe("/map/addmarker", addMarker);
+    $.subscribe("/data/select", setactvieRecord);
+    $.subscribe("/data/select", showQuestion);
+    $.subscribe("/data/select", enableReportOption);
+    $.subscribe("/data/question", question);
+    $.subscribe("/data/question", overlayLayer);
+    $.subscribe("/data/addhistory", newHistory);
 
-    // Activate any tooltips and popovers
+    // Activate Bootstrap Tooltips
     $('a[rel=tooltip]').tooltip({delay: { show: 500, hide: 100 }});
-    $('*[rel=popover]').popover();
 
-    // Data select
+    // Search dialog sizing
+    // This is a hack that shouldn't be required in Bootstrap 3
+    if (!$("div.embed-container ")[0]) {
+        $(window).resize(function () {
+            var width = $('.search').width() - 100;
+            $('#searchbox, .question select').width(width);
+        });
+        $(window).trigger("resize");
+    }
+
+    // Question change event
     $(".question select").change(function () {
         newHistory(activeRecord);
         $.publish("/data/question", [$(this).val()]);
     });
 
-    // embed map height - only run in embed mode
+    // Create embed Iframe code
+    createIframe();
+
+    // If a table TR has location info, make it clickable
+    $(document).on("click", "tr[data-location]", function (event) {
+        var rec = $(this);
+        var latlng = rec.data("location").split(",");
+        var label = rec.data("label");
+        $.publish("/map/addmarker", [ {'lng': latlng[0], 'lat': latlng[1], 'label': label}, 1 ]);
+    });
+
+    // Feedback form
+    $("#talkback").submit(function (e) {
+        e.preventDefault();
+        $('#modalTalkback').modal('hide');
+        $.ajax({
+            type: "POST",
+            url: "php/feedback.php",
+            data: { inputName: $("#inputName").val(), inputEmail: $("#inputEmail").val(), inputURL: window.location.href, inputFeedback: $("#inputFeedback").val() }
+        });
+    });
+
+    // This stuff is just for the embedded map
     if ($("div.embed-container ")[0]) {
         // size or hide query area
         if (getURLParameter("s") === "true" || getURLParameter("qs")) {
+            // set top offset of map to accomodate well
             $(".embed-container #map").css("top", Math.abs(0 - $(".embed-container .well").height()) + 20);
         }
         else {
-            $(".embed-container .well").hide();
+            $(".embed-container .well").remove();
         }
-        // size the search box
-        $('#searchbox').width($('.search').width() - 100);
+        // hack for search box size - should be fixed in Bootstrap 3
+        if (getURLParameter("s") === "true") {
+            $('#searchbox').width($('.search').width() - 100);
+        }
+        else {
+            $('.search').remove();
+        }
         // show questions, removing ones that weren't passed
         if (getURLParameter("qs")) {
             var qs = getURLParameter("qs").split(",");
@@ -43,51 +91,10 @@ $(document).ready(function () {
             });
             $(".question select").val($(".question select option[value=" + getURLParameter("dq") + "]").val());
         }
+        else {
+            $(".question").remove();
+        }
     }
-
-    // create iframe
-    createIframe();
-
-    // search sizing - should be able to remove in BS 3.x
-    if (!$("div.embed-container ")[0]) {
-        $(window).resize(function () {
-            $("#searchbox").width($(".span4").width() - ($(".searchbtn").width() + 26));
-        });
-        $(window).trigger("resize");
-    }
-
-    // .table-location click event
-    $(document).on("click", "tr[data-location]", function (event) {
-        var rec = $(this);
-        var latlng = rec.data("location").split(",");
-        var label = rec.data("label");
-        $.publish("/map/addmarker", [ {'lng': latlng[0], 'lat': latlng[1], 'label': label}, 1 ]);
-    });
-
-    // Feedback
-    $("#talkback").submit(function (e) {
-        e.preventDefault();
-        $('#modalTalkback').modal('hide');
-        $.ajax({
-            type: "POST",
-            url: "php/feedback.php",
-            data: { inputName: $("#inputName").val(), inputEmail: $("#inputEmail").val(), inputURL: window.location.href, inputFeedback: $("#inputFeedback").val() }
-        });
-    });
-
-    // Pubsub
-    // /map/addmarker       Adds marker to the map and zooms in
-    // /data/select         Make a data selection
-    // /data/question     Process the report area and layer overlay
-    // /data/addhistory     Adds current activeRecord/Question to history via pushstate
-    $.subscribe("/map/addmarker", zoomToLngLat);
-    $.subscribe("/map/addmarker", addMarker);
-    $.subscribe("/data/select", setactvieRecord);
-    $.subscribe("/data/select", showQuestion);
-    $.subscribe("/data/select", enableReportOption);
-    $.subscribe("/data/question", question);
-    $.subscribe("/data/question", overlayLayer);
-    $.subscribe("/data/addhistory", newHistory);
 
     // jQuery UI Autocomplete
     $("#searchbox").click(function () { $(this).select(); }).focus();
@@ -95,7 +102,7 @@ $(document).ready(function () {
         _renderMenu: function (ul, items) {
             var that = this,
                 currentCategory = "";
-            $.each(items, function (index, item) {
+            _.each(items, function (item, index) {
                 if (item.responsetype !== currentCategory) {
                     ul.append("<li class='ui-autocomplete-category'>" + item.responsetype + "</li>");
                     currentCategory = item.responsetype;
@@ -156,6 +163,7 @@ $(document).ready(function () {
     $(".searchbtn").bind("click", function (event) {
         $("#searchbox").catcomplete("search");
     });
+
 });
 
 // Window load
@@ -175,13 +183,13 @@ $(window).load(function () {
     var isChrome = window.chrome;
     if (!isChrome) { handleGETArgs(); }
 
-    // embed tool content
+    // Embed modal content and interactions
     $('.carousel').carousel({
         interval: false
     });
     var listItems = $(".question select option");
     var split = Math.ceil(listItems.length / 2);
-    $.each(listItems, function (i, item) {
+    _.each(listItems, function (item, i) {
         if (i < split) {
             $('#q-col1 ul').append('<li><label class="checkbox"><input type="checkbox" class="embed-q" id="' + $(item).val() + '">' + $(item).text() + '</label></li>');
         }
@@ -189,8 +197,6 @@ $(window).load(function () {
             $('#q-col2 ul').append('<li><label class="checkbox"><input type="checkbox" class="embed-q" id="' + $(item).val() + '">' + $(item).text() + '</label></li>');
         }
     });
-
-    // embed tool interactions
     $("#step3 img").on("click", function () {
         var selected = $(this);
         selected.addClass("selected-size").siblings().removeClass("selected-size");
@@ -216,7 +222,7 @@ $(window).load(function () {
 
 });
 
-// Set activerecord
+// Set Active Record
 function setactvieRecord(data) {
     activeRecord.lng = Math.round(data.lng * 10000) / 10000;
     activeRecord.lat = Math.round(data.lat * 10000) / 10000;
@@ -233,7 +239,7 @@ function setactvieRecord(data) {
     }
 }
 
-// handle URL args
+// Get URL Arguments
 function handleGETArgs() {
     if (getURLParameter("q")) {
         $('.question select').val(getURLParameter("q"));
@@ -252,7 +258,7 @@ function handleGETArgs() {
     }
 }
 
-// Push state
+// Push state change into history
 function newHistory(data) {
     if (Modernizr.history) {
         var hist = [];
@@ -266,28 +272,29 @@ function newHistory(data) {
     }
 }
 
-// create report
+// Display detailed information
 function report(q, data, element) {
     templateLoader.loadRemoteTemplate(q, "templates/" + q + ".html", function (tmpl) {
         var compiled = _.template(tmpl);
-        element.append(compiled(data));
-
-        // hacky shit for data in popups
-        if ($("div.embed-container ")[0]) {
-            markers[0]._popup._updateLayout();
-            markers[0]._popup._updatePosition();
-            markers[0]._popup._content = null;
+        if ($("div.embed-container ")[0] || $(document).width() < 1000) {
+            // iframe or mobile/small
+            $(".leaflet-popup-content .report " + element).append(compiled(data));
+            markers[0].setPopupContent($('.leaflet-popup-conent').html());
+        }
+        else {
+            $(".overview .report " + element).append(compiled(data));
         }
     });
 }
 
+// Enable question area when location selected
 function showQuestion () {
     $(".question").fadeIn("slow", function(){
         pulse(1000, 4, $('.question > .blink'));
     })
 }
 
-
+// Get information for record based on our master address table ID
 function getMAT(gid) {
     $.ajax({
         url: 'http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_attributequery.php',
@@ -309,6 +316,7 @@ function getMAT(gid) {
     });
 }
 
+// Get the nearest master address record to a coordinate
 function getNearestMAT(approx) {
     $.ajax({
         url: 'http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_nearest.php',
@@ -337,12 +345,14 @@ function getNearestMAT(approx) {
     });
 }
 
+// Enable active record option in embed modal
 function enableReportOption() {
     $("#embed_selected .muted").text(activeRecord.label);
     $("#embed_selected").show();
     $("#embed_selected input").data("matid", activeRecord.gid);
 }
 
+// Create iframe content
 function createIframe() {
     // TODO: change url from localhost
     // search option
@@ -367,6 +377,7 @@ function createIframe() {
     $('#embed-code').val('<iframe frameborder="0" width="' + w + '" height="' + h + '" src="' + url + '"></iframe>');
 }
 
+// Submit photo modal
 function submitPhoto() {
     url = "http://maps.co.mecklenburg.nc.us/house_photos/index.php?pid=" + activeRecord.pid;
     $("#modalPhoto .modal-body").html('<iframe src="' + url + '" style="width: 450px; min-height: 500px; border: none;"></iframe>');
