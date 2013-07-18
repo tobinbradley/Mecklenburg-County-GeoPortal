@@ -18,10 +18,11 @@
         <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/main.css?foo=29892">
+        <link rel="stylesheet" href="css/main.css?foo=10379">
 
-        <!-- HTML5 for oldIE -->
-        <!--[if lt IE 9]>
+        <!-- HTML5 and Leaflet patches for oldIE -->
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.3/leaflet.ie.css" />
             <script>
                 document.createElement('header'); document.createElement('nav'); document.createElement('section'); document.createElement('article'); document.createElement('aside'); document.createElement('footer'); document.createElement('hgroup');
             </script>
@@ -297,7 +298,7 @@
         <!--[if gte IE 9]><!-->
             <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
         <!--<![endif]-->
-        <script src="js/main.js?foo=69192"></script>
+        <script src="js/main.js?foo=29977"></script>
 
         <!--   Google Analytics -->
         <script>

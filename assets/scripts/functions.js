@@ -57,7 +57,8 @@ function getURLParameter(name) {
 // https://github.com/Gazler/Underscore-Template-Loader
 (function () {
     var templateLoader = {
-        templateVersion: "57213",
+        templateVersion: "99471",
+        templateName: "geoportal-",
         templates: {},
         loadRemoteTemplate: function (templateName, filename, callback) {
             if (!this.templates[templateName]) {
@@ -83,15 +84,15 @@ function getURLParameter(name) {
         },
         saveLocalTemplates: function () {
             if (this.localStorageAvailable) {
-                localStorage.setItem("templates", JSON.stringify(this.templates));
-                localStorage.setItem("templateVersion", this.templateVersion);
+                localStorage.setItem(this.templateName + "templates", JSON.stringify(this.templates));
+                localStorage.setItem(this.templateName + "templateVersion", this.templateVersion);
             }
         },
         loadLocalTemplates: function () {
             if (this.localStorageAvailable) {
-                var templateVersion = localStorage.getItem("templateVersion");
+                var templateVersion = localStorage.getItem(this.templateName + "templateVersion");
                 if (templateVersion && templateVersion === this.templateVersion) {
-                    var templates = localStorage.getItem("templates");
+                    var templates = localStorage.getItem(this.templateName + "templates");
                     if (templates) {
                         templates = JSON.parse(templates);
                         for (var x in templates) {
@@ -101,8 +102,8 @@ function getURLParameter(name) {
                         }
                     }
                 } else {
-                    localStorage.removeItem("templates");
-                    localStorage.removeItem("templateVersion");
+                    localStorage.removeItem(this.templateName + "templates");
+                    localStorage.removeItem(this.templateName + "templateVersion");
                 }
             }
         }
