@@ -57,7 +57,7 @@ function getURLParameter(name) {
 // https://github.com/Gazler/Underscore-Template-Loader
 (function () {
     var templateLoader = {
-        templateVersion: "99471",
+        templateVersion: "64234",
         templateName: "geoportal-",
         templates: {},
         loadRemoteTemplate: function (templateName, filename, callback) {
@@ -170,4 +170,11 @@ function landClass(classNumber) {
 // Title case
 function toTitleCase(str) {
     return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+}
+
+// Fix trim() being unsupported in ie8. Damn you IE8.
+if (typeof String.prototype.trim !== 'function') {
+    String.prototype.trim = function () {
+        return this.replace(/^\s+|\s+$/g, '');
+    };
 }

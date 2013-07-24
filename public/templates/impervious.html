@@ -9,12 +9,18 @@
                 </tr>
             </thead>
             <tbody>
+                <% var impTotal = 0; %>
                 <% _.each( rc, function( item ){ %>
                     <tr>
                         <td><%- item.subtheme %></td>
                         <td class="text-right" nowrap><%- prettyNumber(Math.round(item.area)) %> ft<sup>2</sup></td>
                     </tr>
+                    <% impTotal += parseInt(item.area); %>
                 <% }); %>
+                <tr>
+                    <td><strong>Total</strong></td>
+                    <td class="text-right"><strong><%- prettyNumber(Math.round(impTotal)) %> ft<sup>2</sup></strong></td>
+                </tr>
             </tbody>
         <% } else { %>
             <tbody>

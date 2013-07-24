@@ -36,8 +36,8 @@ function overlayLayer() {
             }).addTo(map);
             break;
         case "impervious":
-            overlay.layer = L.tileLayer.wms("http://meckmap.mecklenburgcountync.gov/ArcGIS/services/impervious_surface_sm/MapServer/WMSServer", {
-                layers: '0,1',
+            overlay.layer = L.tileLayer.wms("http://maps.co.mecklenburg.nc.us/geoserver/wms", {
+                layers: 'impervious_surface',
                 format: 'image/png',
                 transparent: true,
                 opacity: 0.5
