@@ -97,7 +97,12 @@ function addMarker(data, marker) {
     markers[marker] = L.marker([data.lat, data.lng]).addTo(map);
 
     // popup
-    data.label = "<h5 class='text-center'>" + data.label + "</h5>";
+    console.log(data);
+    data.label = "<h5 class='text-center'>" + data.label;
+    if (data.pid && data.pid.length > 0) {
+        data.label += "<br>Parcel " + data.pid;
+    }
+    data.label += "</h5>";
     if (marker === 0) {
         info.update(data);
         gURL = getGoogleLink(data.lng, data.lat);
