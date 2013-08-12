@@ -1,13 +1,18 @@
 var map,                        // The map
     overlay = {},               // Holder for overlay layer needed for question
     markers = [],               // Holder for makers
-    activeRecord = {};          //  Holder for the selected location
+    activeRecord = {},          // Holder for the selected location
+    pageType = "DEFAULT";       // Type of page - DEFAULT, PRINT, or EMBED set in document ready
 
 // default data container for Underscore.js
 _.templateSettings.variable = "rc";
 
-// Document Load
+// Document Ready
 $(document).ready(function () {
+    // Set Page Type
+    if ($("div.embed-container ")[0]) { pageType = "EMBED"; }
+    if ($("div.container-print ")[0]) { pageType = "PRINT"; }
+
     // Pubsub
     // /map/addmarker           Adds marker to the map and zooms in
     // /data/select             Make a data selection
@@ -18,22 +23,13 @@ $(document).ready(function () {
     $.subscribe("/data/select", setactvieRecord);
     $.subscribe("/data/select", showQuestion);
     $.subscribe("/data/select", enableReportOption);
+    if (pageType === "PRINT") { $.subscribe("/data/select", printSelect); }
     $.subscribe("/data/question", question);
-    $.subscribe("/data/question", overlayLayer);
+    if (pageType !== "PRINT") { $.subscribe("/data/question", overlayLayer); }
     $.subscribe("/data/addhistory", newHistory);
 
-    // Activate Bootstrap Tooltips
-    $('a[rel=tooltip]').tooltip({delay: { show: 500, hide: 100 }});
-
-    // Search dialog sizing
-    // This is a hack that shouldn't be required in Bootstrap 3
-    if (!$("div.embed-container ")[0]) {
-        $(window).resize(function () {
-            var width = $('.search').width() - 100;
-            $('#searchbox, .question select').width(width);
-        });
-        $(window).trigger("resize");
-    }
+    // Activate Bootstrap Popovers
+    $('a[rel=popover]').popover({delay: { show: 500, hide: 100 }});
 
     // Question change event
     $(".question select").change(function () {
@@ -64,7 +60,7 @@ $(document).ready(function () {
     });
 
     // This stuff is just for the embedded map
-    if ($("div.embed-container ")[0]) {
+    if (pageType === "EMBED") {
         // size or hide query area
         if (getURLParameter("s") === "true" || getURLParameter("qs")) {
             // set top offset of map to accomodate well
@@ -73,14 +69,13 @@ $(document).ready(function () {
         else {
             $(".embed-container .well").remove();
         }
-        // hack for search box size - should be fixed in Bootstrap 3
-        if (getURLParameter("s") === "true") {
-            $('#searchbox').width($('.search').width() - 100);
-        }
-        else {
+        // show or hide search box
+        if (getURLParameter("s") !== "true") {
             $('.search').remove();
         }
+
         // show questions, removing ones that weren't passed
+        // removed because ie8 won't hide options in a select
         if (getURLParameter("qs")) {
             var qs = getURLParameter("qs").split(",");
             _.each($('.question select option'), function (item) {
@@ -98,70 +93,99 @@ $(document).ready(function () {
 
     // jQuery UI Autocomplete
     $("#searchbox").click(function () { $(this).select(); }).focus();
-    $.widget("custom.catcomplete", $.ui.autocomplete, {
-        _renderMenu: function (ul, items) {
-            var that = this,
-                currentCategory = "";
-            _.each(items, function (item, index) {
-                if (item.responsetype !== currentCategory) {
-                    ul.append("<li class='ui-autocomplete-category'>" + item.responsetype + "</li>");
-                    currentCategory = item.responsetype;
-                }
-                item.value = item.value.leftOf(": ");
-                that._renderItemData(ul, item);
-            });
-        }
-    });
-    $("#searchbox").catcomplete({
-        minLength: 4,
-        delay: 250,
-        autoFocus: true,
-        source: function (request, response) {
-            $.ajax({
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php',
+    $('.typeahead').typeahead([
+        {
+            name: 'Address',
+            remote: {
+                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=address&query=%QUERY',
                 dataType: 'jsonp',
-                data: {
-                    searchtypes: 'address,pid,business,park,library,school',
-                    query: request.term
-                },
-                success: function (data) {
-                    if (data.length > 0) {
-                        response($.map(data, function (item) {
-                            return {
-                                label: item.name,
-                                gid: item.gid,
-                                responsetype: item.type,
-                                lng: item.lng,
-                                lat: item.lat,
-                                moreinfo: item.moreinfo
-                            };
-                        }));
-                    } else {
-                        response($.map([{}], function (item) {
-                            return { label: 'No matches found.', responsetype: "I've got nothing" };
-                        }));
+                filter: function (data) {
+                    var dataset = [];
+                    _.each(data, function (item) {
+                        dataset.push({
+                            value: item.name,
+                            label: item.name,
+                            gid: item.gid,
+                            pid: item.moreinfo,
+                            layer: 'Address',
+                            lat: item.lat,
+                            lng: item.lng
+                        });
+                    });
+                    var query = $(".typeahead").val();
+                    if (dataset.length === 0 && $.isNumeric(query.split(" ")[0]) && query.trim().split(" ").length > 1) {
+                        dataset.push({ value: "No records found." });
                     }
+                    return dataset;
                 }
-            });
-        },
-        select: function (event, ui) {
-            if (ui.item.lat) {
-                // Addresses and PID's
-                if (ui.item.responsetype === "ADDRESS" || ui.item.responsetype === "PID") {
-                    $.publish("/data/select", [ ui.item ]);
-                    $.publish("/map/addmarker", [ activeRecord, 0 ]);
-                    $.publish("/data/question", [$(".question select ").val()]);
-                    $.publish("/data/addhistory", [ activeRecord ]);
+            },
+            minLength: 4,
+            limit: 10,
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> Address</h4>'
+        }, {
+            name: 'PID',
+            remote: {
+                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=pid&query=%QUERY',
+                dataType: 'jsonp',
+                filter: function (data) {
+                    var dataset = [];
+                    _.each(data, function (item) {
+                        dataset.push({
+                            value: item.moreinfo,
+                            label: item.moreinfo,
+                            gid: item.gid,
+                            pid: item.name,
+                            layer: 'Parcel ID',
+                            lat: item.lat,
+                            lng: item.lng
+                        });
+                    });
+                    var query = $(".typeahead").val();
+                    if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
+                        dataset.push({ value: "No records found." }); }
+                    return dataset;
                 }
-                // Non-MAT locations
-                else {
-                    getNearestMAT(ui.item);
+            },
+            minLength: 8,
+            limit: 5,
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> Parcel ID</h4>'
+        }, {
+            name: 'POI',
+            remote: {
+                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=business,park,library,school&query=%QUERY',
+                dataType: 'jsonp',
+                filter: function (data) {
+                    var dataset = [];
+                    _.each(data, function (item) {
+                        dataset.push({
+                            value: item.name,
+                            label: item.name,
+                            layer: 'Point of Interest',
+                            lat: item.lat,
+                            lng: item.lng
+                        });
+                    });
+                    if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
+                    return _(dataset).sortBy("value");
                 }
-            }
+            },
+            minLength: 4,
+            limit: 15,
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-star"></span> Points of Interest</h4>'
+        }
+    ]).on('typeahead:selected', function (obj, datum) {
+        if (datum.layer === 'Address') {
+            $.publish("/data/select", [ datum ]);
+            $.publish("/map/addmarker", [ activeRecord, 0 ]);
+            $.publish("/data/question", [$(".question select ").val()]);
+            $.publish("/data/addhistory", [ activeRecord ]);
+        }
+        else if (datum.layer) {
+            getNearestMAT(datum);
         }
     });
-    $(".searchbtn").bind("click", function (event) {
-        $("#searchbox").catcomplete("search");
+    $("#btn-search").bind("click", function (event) {
+        $('.typeahead').focus();
     });
 
 });
@@ -182,6 +206,17 @@ $(window).load(function () {
     // hack because of Chrome popstate on load bug
     var isChrome = window.chrome;
     if (!isChrome) { handleGETArgs(); }
+
+    // this is for the print map only
+    if (pageType === "PRINT") {
+        // hide controls on print
+        $(".leaflet-control-zoom, .leaflet-control-attribution, .leaflet-locate, .map-info").addClass("hidden-print");
+        // turn off map events
+        map.touchZoom.disable();
+        map.doubleClickZoom.disable();
+        map.boxZoom.disable();
+        map.keyboard.disable();
+    }
 
     // Embed modal content and interactions
     $('.carousel').carousel({
@@ -220,23 +255,57 @@ $(window).load(function () {
         $(this).select();
     });
 
+    // Print Modal
+    $("#modalPrint input[type=checkbox]").click(function () {
+        if (this.checked) {
+            $("#print-overlay").append('<option value="' + $(this).attr("id") + '">' + $(this).parent().text()  + '</option>');
+        }
+        else {
+            $("#print-overlay option[value=" + $(this).attr('id') + "]").remove();
+        }
+    });
+    $("#print").on("click", function () {
+        var args = [];
+        if (activeRecord.lat) {
+            args.push({name: "matid", value: activeRecord.gid});
+            args.push({name: "lat", value: activeRecord.lat});
+            args.push({name: "lng", value: activeRecord.lng});
+        }
+        // overlay
+        args.push({name: "overlay", value: $("#print-overlay").val() });
+        // qs
+        var qs = [];
+        $.each($("#modalPrint input[type=checkbox]"), function () {
+            if (this.checked) {
+                qs.push($(this).attr("id"));
+            }
+        });
+        args.push({name: "qs", value: qs.join()});
+        var url = "print.html?" + $.param(args);
+        var win = window.open(url, '_blank');
+        win.focus();
+    });
 });
 
 // Set Active Record
 function setactvieRecord(data) {
-    activeRecord.lng = Math.round(data.lng * 10000) / 10000;
+    activeRecord = data;
     activeRecord.lat = Math.round(data.lat * 10000) / 10000;
-    activeRecord.gid = data.gid;
-    if (data.responsetype === 'ADDRESS') {
-        activeRecord.pid = data.moreinfo;
-        activeRecord.label = data.label;
-        activeRecord.address = data.label;
-    }
-    else {
-        activeRecord.pid = data.label;
-        activeRecord.label = data.moreinfo;
-        activeRecord.address = data.moreinfo;
-    }
+    activeRecord.lng = Math.round(data.lng * 10000) / 10000;
+    activeRecord.value = data.label;
+}
+
+// Set subtitle on print page
+function printSelect() {
+    // set subheader
+    $("header h2").html(activeRecord.value + " &bull; Parcel ID " + activeRecord.pid);
+    // run overlay
+    overlayLayer(getURLParameter("overlay"));
+    // run q's
+    _.each(getURLParameter("qs").split(","), function (item) {
+        question(item);
+    });
+
 }
 
 // Get URL Arguments
@@ -270,13 +339,14 @@ function newHistory(data) {
         }
         history.pushState({myTag: true}, null, "?" + $.param(hist));
     }
+    ga('send', 'pageview');
 }
 
 // Display detailed information
 function report(q, data, element) {
     templateLoader.loadRemoteTemplate(q, "templates/" + q + ".html", function (tmpl) {
         var compiled = _.template(tmpl);
-        if ($("div.embed-container ")[0] || $(document).width() < 1000) {
+        if (pageType === "EMBED" || $(document).width() < 1000) {
             // iframe or mobile/small
             $(".leaflet-popup-content .report " + element).append(compiled(data));
             markers[0].setPopupContent($('.leaflet-popup-conent').html());
@@ -302,7 +372,7 @@ function getMAT(gid) {
         dataType: 'jsonp',
         data: {
             'table': 'master_address_table',
-            'fields': "full_address as label,objectid as gid,x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, num_parent_parcel as moreinfo, 'ADDRESS' as responsetype",
+            'fields': "full_address as label,objectid as gid,x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, num_parent_parcel as pid, 'ADDRESS' as responsetype",
             'parameters': "objectid = " + gid
         },
         success: function (data) {
@@ -327,12 +397,12 @@ function getNearestMAT(approx) {
             'y': approx.lat,
             'srid': 4326,
             'table': 'master_address_table',
-            'fields': "full_address as label,objectid as gid,x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, num_parent_parcel as moreinfo, 'ADDRESS' as responsetype",
+            'fields': "full_address as label,objectid as gid,x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, num_parent_parcel as pid, 'ADDRESS' as responsetype",
             'limit': 1
         },
         success: function (data) {
-            if (!approx.label) {
-                approx.label = data[0].full_address;
+            if (approx.label) {
+                data[0].label = approx.label + "<br>" + data[0].label;
             }
             $.publish("/data/select", [ data[0] ]);
             $.publish("/map/addmarker", [ activeRecord, 0 ]);

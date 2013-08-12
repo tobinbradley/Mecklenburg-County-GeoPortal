@@ -1,6 +1,7 @@
-<div class="details what">
+<h3 class="visible-print">Photos</h3>
+<div class="details what text-center">
     <% if (rc !== "row" && rc.length !== 0) { %>
-    <div id="photos-carousel" class="carousel slide img-polaroid">
+    <div id="photos-carousel" class="carousel slide img-thumbnail hidden-print">
         <!-- Carousel items -->
         <div class="carousel-inner">
             <% _.each( rc, function( item, i ){ %>
@@ -15,16 +16,28 @@
                                 <%- item.row.attribution %>, <%- item.row.photo_date.substring(0,4) %>-<%- item.row.photo_date.substring(4,6) %>-<%- item.row.photo_date.substring(6,8) %>
                             </p>
                         </div>
-
                     </div>
-
             <% }); %>
         </div>
-        <!-- Carousel nav -->
-          <a class="carousel-control left" href="#photos-carousel" data-slide="prev">&lsaquo;</a>
-          <a class="carousel-control right" href="#photos-carousel" data-slide="next">&rsaquo;</a>
+        <% if (rc.length > 1) { %>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#photos-carousel" data-slide="prev">
+            <span class="icon-prev"></span>
+        </a>
+        <a class="right carousel-control" href="#photos-carousel" data-slide="next">
+            <span class="icon-next"></span>
+        </a>
+        <% } %>
     </div>
+
+    <div class="visible-print">
+        <% _.each( rc, function( item, i ){ %>
+        <img style="width: 45%" src="<%- item.row.photo_url %>" onError="this.onerror=null;this.src='images/no-image.gif';">
+        <% }); %>
+    </div>
+    <% } else { %>
+    <p><h4>No photos available.</h4></p>
     <% } %>
-    <p class="submit-photo text-center"><button class="btn" type="button" onclick="submitPhoto()">Submit a Photo</button></p>
+    <p class="submit-photo hidden-print"><button class="btn btn-primary" type="button" onclick="submitPhoto()">Submit a Photo</button></p>
 </div>
 

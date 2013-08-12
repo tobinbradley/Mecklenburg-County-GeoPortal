@@ -4,7 +4,9 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>GeoPortal</title>
-        <meta name="description" content="">
+        <meta name="description" content="Mecklenburg County's GeoPortal is your gateway to a wealth of information about Mecklenburg County.">
+        <meta name="keywords" content="GIS,Mecklenburg County,parks,libraries,schools,environment,impervious surface,floodplain,zoning,assessment,tax,photos,government">
+        <meta name="author" content="Tobin Bradley">
 
         <!-- Mobile viewport optimized: j.mp/bplateviewport -->
         <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -16,7 +18,7 @@
         <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/main.css?foo=28250">
+        <link rel="stylesheet" href="css/main.css?foo=49107">
 
         <!-- HTML5 for oldIE -->
         <!--[if lt IE 9]>
@@ -33,18 +35,24 @@
         <div class="embed-container">
             <!-- input area -->
             <div class="well">
-                <div class="search">
+                <div class="search col-7 col-lg-7">
                     <h4 class="blink">What are you looking for?</h4>
-                    <div class="form form-inline input-append" >
+                    <!-- <div class="form form-inline input-append" >
                         <label for="searchbox" class="hide">Search</label>
                         <input id="searchbox" type="text" placeholder="Search">
                         <a class="btn searchbtn" type="button" rel="tooltip" data-toggle="tooltip" data-html="true" data-placement="bottom"  title="<img src='images/help-search.gif' width=250 alt='Animated GIF Search Help'>">Search</a>
+                    </div> -->
+                    <div class="input-group">
+                        <input id="searchbox" type="text" class="form-control typeahead" placeholder="Search">
+                        <span class="input-group-btn">
+                            <button class="btn btn-primary" type="button" id="btn-search">Go!</button>
+                        </span>
                     </div>
                 </div>
-                <div class="question hide">
+                <div class="question col-5 col-lg-5">
                     <h4 class="blink">What do you want to know?</h4>
                     <div>
-                        <select>
+                        <select class="form-control">
                             <optgroup label="Community">
                                 <option value="qol">Quality of Life</option>
                                 <option value="voting">Voting</option>

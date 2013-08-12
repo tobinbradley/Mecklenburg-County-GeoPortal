@@ -18,7 +18,7 @@
         <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/main.css?foo=57624">
+        <link rel="stylesheet" href="css/main.css?foo=87551">
 
         <!-- HTML5 and Leaflet patches for oldIE -->
         <!--[if lte IE 8]>
@@ -36,258 +36,294 @@
         <!--[if lt IE 8]>
         <p class="oldie">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
         <![endif]-->
-        <header class="jumbotron subhead">
+        <header class="main-header">
           <div class="container">
-            <h1>GeoPortal <span class="text-info"></span></h1>
-            <h2 class="lead">Mecklenburg County GIS</h2>
+            <h1>GeoPortal <small>Mecklenburg County GIS</small></h1>
           </div>
         </header>
-        <div class="navbar navbar-inverse navbar-static-top">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand hide" href="./index.html">GeoPortal</a>
-                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </a>
-                    <div class="nav-collapse collapse">
-                        <ul class="nav">
-                            <!-- TODO: Header links -->
-                            <li class="active"><a href="./index.html">Home</a></li>
-                            <li><a href="http://charmeck.org/mecklenburg/county/GeospatialInformationServices/Pages/Default.aspx">GIS</a></li>
-                            <li><a href="http://charmeck.org/">Charmeck.org</a></li>
-                            <li><a href="http://maps.co.mecklenburg.nc.us/databrowser/">Data Browser</a></li>
-                            <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalEmbed">Embed Map</a></li>
-                            <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalTalkback">Feedback</a></li>
-                        </ul>
-                    </div><!--/.nav-collapse -->
-                </div>
+        <div class="navbar navbar-inverse">
+            <div class="container">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="./">GeoPortal</a>
+                <div class="nav-collapse collapse navbar-responsive-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="http://charmeck.org/mecklenburg/county/GeospatialInformationServices/Pages/Default.aspx">GIS</a>
+                        </li>
+                        <li>
+                            <a href="http://charmeck.org/">Charmeck.org</a>
+                        </li>
+                        <li>
+                            <a href="http://maps.co.mecklenburg.nc.us/databrowser/">Data Browser</a>
+                        </li>
+                        <li>
+                            <a data-toggle="modal" href="#modalPrint">Print</a>
+                        </li>
+                        <li>
+                            <a data-toggle="modal" href="#modalEmbed">Embed</a>
+                        </li>
+                        <li>
+                            <a data-toggle="modal" href="#modalTalkback">Feedback</a>
+                        </li>
+                    </ul>
+                </div><!--/.nav-collapse -->
             </div>
         </div>
 
         <div class="container">
             <div class="row main-row">
-                <div class="span12">
-                    <div class="row">
-                        <div id="data" class="span5 pull-left">
-                            <div class="overview">
-                                <div class="search well">
-                                    <h4 class="blink">What are you looking for?</h4>
-                                    <p class="help-snippet">
-                                        Type the first part of an address like <strong><em>700 N</em></strong>, a place name or a parcel ID (<a rel="tooltip" href="javascript:void(0)" data-toggle="tooltip" data-html="true" data-placement="bottom"  title="<img src='images/help-search.gif' width=250 alt='Animated GIF Search Help'>">help</a>).
-                                    </p>
-                                    <div class="form form-inline input-append" >
-                                        <label for="searchbox" class="hide">Search</label>
-                                        <input id="searchbox" type="text" placeholder="Search">
-                                        <button class="btn searchbtn" type="button">Search</button>
-                                    </div>
-                                    <div class="question hide">
-                                        <h4 class="blink">What do you want to know?</h4>
-                                        <div>
-                                            <select>
-                                                <optgroup label="Community">
-                                                    <option value="qol">Quality of Life</option>
-                                                    <option value="voting">Voting</option>
-                                                </optgroup>
-                                                <optgroup label="Environment">
-                                                    <option value="env-air">Air</option>
-                                                    <option value="env-land">Land</option>
-                                                    <option value="env-water">Water</option>
-                                                </optgroup>
-                                                <optgroup label="Property">
-                                                    <option value="impervious">Impervious Surface</option>
-                                                    <option value="photos" selected="true">Photos</option>
-                                                    <option value="property">Tax Information</option>
-                                                    <option value="econ">Zoning and Permits</option>
-                                                </optgroup>
-                                                <optgroup label="Schools">
-                                                    <option value="schools-home">Home Schools</option>
-                                                    <option value="schools-magnet">Magnet Schools</option>
-                                                </optgroup>
-                                                <optgroup label="Services">
-                                                    <option value="fire">Fire</option>
-                                                    <option value="trash">Garbage/Recycling</option>
-                                                    <option value="libraries">Libraries</option>
-                                                    <option value="parks">Parks</option>
-                                                    <option value="police">Police</option>
-                                                </optgroup>
-                                            </select>
-                                        </div>
-                                    </div>
+                <div id="data" class="col-12 col-lg-5">
+                    <div class="overview">
+                        <div class="search well">
+                            <h4 class="blink">What are you looking for?</h4>
+                            <p class="help-snippet">
+                                Type the first part of an address like <strong><em>700 N</em></strong>, a place name or a parcel ID (<a rel="popover" data-toggle="popover" data-placement="bottom" data-content="<img src='images/help-search.gif' width=250 alt='Animated GIF Search Help'>" data-original-title="" title="Search Help" data-trigger="hover" data-html="true">help</a>).
+                            </p>
+                            <div>
+                                <div class="input-group">
+                                    <input id="searchbox" type="text" class="form-control typeahead" placeholder="Search">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-primary" type="button" id="btn-search">Go!</button>
+                                    </span>
                                 </div>
-                                <div class="report"></div>
+                            </div>
+                            <div class="question">
+                                <h4 class="blink">What do you want to know?</h4>
+                                <div>
+                                    <select class="form-control">
+                                        <optgroup label="Community">
+                                            <option value="qol">Quality of Life</option>
+                                            <option value="voting">Voting</option>
+                                        </optgroup>
+                                        <optgroup label="Environment">
+                                            <option value="env-air">Air</option>
+                                            <option value="env-land">Land</option>
+                                            <option value="env-water">Water</option>
+                                        </optgroup>
+                                        <optgroup label="Property">
+                                            <option value="impervious">Impervious Surface</option>
+                                            <option value="photos" selected="true">Photos</option>
+                                            <option value="property">Tax Information</option>
+                                            <option value="econ">Zoning and Permits</option>
+                                        </optgroup>
+                                        <optgroup label="Schools">
+                                            <option value="schools-home">Home Schools</option>
+                                            <option value="schools-magnet">Magnet Schools</option>
+                                        </optgroup>
+                                        <optgroup label="Services">
+                                            <option value="fire">Fire</option>
+                                            <option value="trash">Garbage/Recycling</option>
+                                            <option value="libraries">Libraries</option>
+                                            <option value="parks">Parks</option>
+                                            <option value="police">Police</option>
+                                        </optgroup>
+                                    </select>
+                                </div>
                             </div>
                         </div>
-                        <div id="map-area" class="span7 pull-right">
-                            <div id="map"></div>
-                        </div>
+                        <div class="report"></div>
                     </div>
-                </div><!-- end of main row -->
-            </div>
-
-            <footer>
-                <hr>
-                <ul class="text-right inline">
-                    <li><a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" class="muted">Github</a></li>
-                    <li><a href="javascript:void(0)" data-toggle="modal" data-target="#modalTalkback" class="muted">Feedback</a></li>
-                </ul>
-            </footer>
+                </div>
+                <div id="map-area" class="col-12 col-lg-7">
+                    <div id="map"></div>
+                    <footer>
+                        <hr>
+                        <ul class="text-right list-inline">
+                            <li><a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" class="text-muted">Github</a></li>
+                            <li><a data-toggle="modal" href="#modalTalkback" class="text-muted">Feedback</a></li>
+                        </ul>
+                    </footer>
+                </div>
+            </div><!-- end of main row -->
 
         </div><!-- /container -->
 
-        <div class="modal hide fade" id="modalTalkback">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Report a Problem</h3>
-            </div>
-            <div class="modal-body">
-                <p>Thank you for taking the time to let us know about a problem or giving us feedback. Please fill out the form below and let us know about the issue in as much detail as possible.</p>
-                <form id="talkback" class="form-horizontal">
-                    <fieldset>
-                        <div class="control-group">
-                            <label class="control-label" for="inputEmail">Email</label>
-                            <div class="controls">
-                                <input type="text" id="inputEmail" class="input-xlarge" placeholder="Email">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="inputName">Name</label>
-                            <div class="controls">
-                                <input type="text" id="inputName" class="input-xlarge" placeholder="Name">
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <label class="control-label" for="inputFeedback">Feedback</label>
-                            <div class="controls">
-                                <textarea rows="7" id="inputFeedback" class="input-xlarge"></textarea>
-                            </div>
-                        </div>
-                        <div class="control-group">
-                            <div class="controls">
-                                <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+        <!-- feedback modal -->
+        <div class="modal fade" id="modalTalkback">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Report a Problem</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Thank you for taking the time to let us know about a problem or giving us feedback. Please fill out the form below and let us know about the issue in as much detail as possible.</p>
+                        <form id="talkback" class="form-horizontal">
+                            <fieldset>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" for="inputEmail">Email</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="inputEmail" placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" for="inputName">Name</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="inputName" placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label" for="inputFeedback">Feedback</label>
+                                    <div class="col-lg-10">
+                                        <textarea rows="7" id="inputFeedback" class="form-control"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-lg-offset-2 col-lg-10">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- submit photo -->
-        <div class="modal hide fade" id="modalPhoto">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Submit Photo</h3>
+        <div class="modal fade" id="modalPhoto">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Submit Photo</h4>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body"></div>
-            <div class="modal-footer">
-                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
+        </div>
+
+        <!-- Print -->
+        <div class="modal fade" id="modalPrint">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Print</h4>
+                    </div>
+                    <div class="modal-body">
+                        <h4>Print Content</h4>
+                        <div id="q-col1" class="embed-cols pull-left"><ul class="list-unstyled"></ul></div>
+                        <div id="q-col2" class="embed-cols pull-right"><ul class="list-unstyled"></ul></div>
+                        <div class="form-inline">
+                          <div class="form-group">
+                            <label for="inputEmail" class="col-lg-2 control-label">Map Overlay</label>
+                            <div class="col-lg-5">
+                              <select id="print-overlay" class="form-control"></select>
+                            </div>
+                            <button type="button" class="btn btn-success" id="print">Print</button>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Modal carosel for embed -->
-        <div class="modal hide fade bigmodal" id="modalEmbed">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h3>Embed This Map!</h3>
-            </div>
-            <div id="embed-carousel" class="carousel slide">
-                <div class="carousel-inner">
-
-                    <div class="item active">
-                        <div class="carousel-content">
-                            <div class="carousel-shade">
-                                <legend>
-                                    Search Options
-                                </legend>
-                                <label class="checkbox" id="embed_search">
-                                    <input type="checkbox" checked>
-                                    Include search box?<br>
-                                    <small class="muted">(i.e. "What are you looking for?")</small>
-                                </label>
-                                <label class="checkbox hide" id="embed_selected">
-                                    <input type="checkbox" data-matid="">
-                                    Start with the selected location?<br>
-                                    <small class="muted"></small>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="carousel-caption">
-                            <p>
-                                Do you want the search box to appear? If you already have a location selected, do you want to start with it selected or at the full county map?
-                            </p>
-                        </div>
+        <div class="modal fade bigmodal" id="modalEmbed">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Embed this Map</h4>
                     </div>
-                    <div class="item">
-                        <div class="carousel-content">
-                            <div class="carousel-shade">
-                                <legend>
-                                    What do you want to show?
-                                </legend>
-                                <div id="q-col1" class="embed-cols pull-left"><ul class="unstyled"></ul></div>
-                                <div id="q-col2" class="embed-cols pull-right"><ul class="unstyled"></ul></div>
-                                <div class="form-inline">
-                                    <label>
-                                        Default Selection:
-                                        <select id="embed-defaultquestion"></select>
-                                    </label>
+                    <div id="embed-carousel" class="carousel slide">
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <div class="carousel-content">
+                                    <div class="carousel-shade">
+                                        <legend>
+                                            Search Options
+                                        </legend>
+                                        <label class="checkbox" id="embed_search">
+                                            <input type="checkbox" checked>
+                                            Include search box?<br>
+                                            <small class="text-muted">(i.e. "What are you looking for?")</small>
+                                        </label>
+                                        <label class="checkbox hide" id="embed_selected">
+                                            <input type="checkbox" data-matid="">
+                                            Start with the selected location?<br>
+                                            <small class="text-muted"></small>
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="carousel-caption">
-                            <p>
-                                Select the base map and options to use for your widget. Pan and zoom until you have
-                                the map center and zoom level you want your embedded map to start with. You may have to zoom in to see some layers.
-                            </p>
-                        </div>
-                    </div>
-                    <div class="item" id="step3">
-                        <div class="carousel-content">
-                            <div class="carousel-shade">
-                                <legend>
-                                    Map Size and Embed Code
-                                </legend>
-                                <div class="text-center">
-                                    <img src="images/size1.gif" class="img-polaroid" data-width="450"
-                                    data-height="560" alt="Embed size 450x560">
-                                    <img src="images/size2.gif" class="img-polaroid selected-size" data-width="500" data-height="640"  alt="Embed size 450x560">
-                                    <img src="images/size3.gif" class="img-polaroid" data-width="700" data-height="830" alt="Embed size 450x560">
-                                    <img src="images/size4.gif" class="img-polaroid" data-width="900" data-height="1000" alt="Embed size 450x560">
-                                    <div id="size-boxes" style="">
-                                        <div class="input-prepend input-append">
-                                            <span class="add-on">Width</span>
-                                            <input id="embed-width" type="number" min="500" max="1200" class="embed-size input-mini textright" placeholder="width"
-                                            value="500" required>
-                                            <span class="add-on">px</span>
-                                        </div>
-                                        <div class="input-prepend input-append">
-                                            <span class="add-on">Height</span>
-                                            <input id="embed-height" type="number" min="500" max="1200" class="embed-size input-mini textright" placeholder="height"
-                                            value="640" required>
-                                            <span class="add-on">px</span>
+                            <div class="item">
+                                <div class="carousel-content">
+                                    <div class="carousel-shade">
+                                        <legend>
+                                            What do you want to show?
+                                        </legend>
+                                        <div id="q-col1" class="embed-cols pull-left"><ul class="list-unstyled"></ul></div>
+                                        <div id="q-col2" class="embed-cols pull-right"><ul class="list-unstyled"></ul></div>
+                                        <div class="form-horizontal">
+                                            <div class="form-group">
+                                                <label for="embed-defaultquestion" class="col-lg-4 control-label">Default Selection</label>
+                                                <div class="col-lg-5">
+                                                    <select id="embed-defaultquestion" class="form-control"></select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <textarea rows="3" id="embed-code" class="input-xxlarge"></textarea>
                                 </div>
                             </div>
-                            <div class="carousel-caption">
-                                <p>
-                                    Customize the size of your map by clicking on a size or entering your
-                                    own custom dimensions. Paste the embed code in your site and enjoy your
-                                    new map!
-                                </p>
+                            <div class="item" id="step3">
+                                <div class="carousel-content">
+                                    <div class="carousel-shade">
+                                        <legend>
+                                            Map Size and Embed Code
+                                        </legend>
+                                        <div class="text-center">
+                                            <img src="images/size2.gif" class="img-thumbnail selected-size" data-width="500" data-height="640"  alt="Embed size 450x560">
+                                            <img src="images/size3.gif" class="img-thumbnail" data-width="700" data-height="830" alt="Embed size 450x560">
+                                            <img src="images/size4.gif" class="img-thumbnail" data-width="900" data-height="1000" alt="Embed size 450x560">
+                                            <div id="size-boxes">
+                                                <div class="input-group col-lg-5 col-lg-offset-1 text-center">
+                                                    <span class="input-group-addon">Width</span>
+                                                    <input id="embed-width" type="number" min="500" max="1200" class="embed-size input-mini text-right form-control" placeholder="width"
+                                                    value="500" required>
+                                                    <span class="input-group-addon">px</span>
+                                                </div>
+                                                <div class="input-group col-lg-5 text-center">
+                                                    <span class="input-group-addon">Height</span>
+                                                    <input id="embed-height" type="number" min="500" max="1200" class="embed-size input-mini text-right form-control" placeholder="height"
+                                                    value="640" required>
+                                                    <span class="input-group-addon">px</span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-10 col-lg-offset-1" style="margin-top: 10px;">
+                                                <textarea rows="3" id="embed-code" class="form-control"></textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <!-- Controls -->
+                          <a class="left carousel-control" href="#embed-carousel" data-slide="prev">
+                            <span class="icon-prev"></span>
+                          </a>
+                          <a class="right carousel-control" href="#embed-carousel" data-slide="next">
+                            <span class="icon-next"></span>
+                          </a>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
-                <a class="left carousel-control" href="#embed-carousel" data-slide="prev">‹</a>
-                <a class="right carousel-control" href="#embed-carousel" data-slide="next">›</a>
-            </div>
-            <div class="modal-footer">
-                <a href="javascript:void(0)" class="btn" data-dismiss="modal" aria-hidden="true">Close</a>
             </div>
         </div>
 
@@ -298,7 +334,7 @@
         <!--[if gte IE 9]><!-->
             <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
         <!--<![endif]-->
-        <script src="js/main.js?foo=41995"></script>
+        <script src="js/main.js?foo=70284"></script>
 
         <!--   Google Analytics -->
         <script>

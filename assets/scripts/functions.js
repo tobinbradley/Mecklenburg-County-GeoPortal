@@ -1,10 +1,10 @@
 // Make console usage safe
-(function(b) {
+(function (b) {
     function c() {}
     for (var d = "assert,count,debug,dir,dirxml,error,exception,group,groupCollapsed,groupEnd,info,log,timeStamp,profile,profileEnd,time,timeEnd,trace,warn".split(","), a; a = d.pop();) {
         b[a] = b[a] || c
     }
-})((function() {
+})((function () {
     try {
         console.log();
         return window.console;
@@ -16,8 +16,8 @@
 // jQuery pub/sub plugin by Peter Higgins modified by Tobin Bradley
 (function (d) {
     var cache = {};
-    d.publish = function(topic, args) {
-        cache[topic] && d.each(cache[topic], function() {
+    d.publish = function (topic, args) {
+        cache[topic] && d.each(cache[topic], function () {
             try {
                 this.apply(d, args || []);
             } catch (err) {
@@ -25,7 +25,7 @@
             }
         });
     };
-    d.subscribe = function(topic, callback) {
+    d.subscribe = function (topic, callback) {
         if (!cache[topic]) {
             cache[topic] = [];
         }
@@ -41,7 +41,7 @@
     };
     d.subscribers = function (topic) {
         l = [];
-        cache[topic] && d.each(cache[topic], function(idx) {
+        cache[topic] && d.each(cache[topic], function (idx) {
             l.push(this.name);
         });
         return l;
@@ -57,7 +57,7 @@ function getURLParameter(name) {
 // https://github.com/Gazler/Underscore-Template-Loader
 (function () {
     var templateLoader = {
-        templateVersion: "51578",
+        templateVersion: "2223",
         templateName: "geoportal-",
         templates: {},
         loadRemoteTemplate: function (templateName, filename, callback) {

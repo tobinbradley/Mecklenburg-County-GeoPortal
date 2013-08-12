@@ -1,6 +1,5 @@
 // Overlay layers
-function overlayLayer() {
-    var q = $(".question select ").val();
+function overlayLayer(q) {
 
     // remove layer if it exists and the question has changed
     if (overlay.q && overlay.q !== q) {
@@ -17,7 +16,7 @@ function overlayLayer() {
                 format: 'image/png',
                 transparent: true,
                 opacity: 0.7
-            }).addTo(map);
+            }).addTo(map).bringToFront();
             break;
         case "env-air":
             overlay.layer = L.tileLayer.wms("http://maps.co.mecklenburg.nc.us/geoserver/wms", {
@@ -25,7 +24,7 @@ function overlayLayer() {
                 format: 'image/png',
                 transparent: true,
                 opacity: 0.7
-            }).addTo(map);
+            }).addTo(map).bringToFront();
             break;
         case "env-land":
             overlay.layer = L.tileLayer.wms("http://maps.co.mecklenburg.nc.us/geoserver/wms", {
@@ -33,7 +32,7 @@ function overlayLayer() {
                 format: 'image/png',
                 transparent: true,
                 opacity: 0.7
-            }).addTo(map);
+            }).addTo(map).bringToFront();
             break;
         case "impervious":
             overlay.layer = L.tileLayer.wms("http://maps.co.mecklenburg.nc.us/geoserver/wms", {
@@ -41,7 +40,7 @@ function overlayLayer() {
                 format: 'image/png',
                 transparent: true,
                 opacity: 0.5
-            }).addTo(map);
+            }).addTo(map).bringToFront();
             break;
         default:
             overlay = {};
@@ -51,11 +50,12 @@ function overlayLayer() {
 }
 
 // Fetch data for reports
-function question() {
-    $(".report").empty();
+function question(q) {
+    // if not a print then empty .report
+    if (pageType !== "PRINT") { $(".report").empty(); }
     if (activeRecord.gid) {
-        markers[0].openPopup();
-        switch ($(".question select ").val()) {
+        if (markers[0]) { markers[0].openPopup(); }
+        switch (q) {
         case "parks":
             $.ajax({
                 url: 'http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_nearest.php',
