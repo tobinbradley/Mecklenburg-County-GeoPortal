@@ -2,6 +2,7 @@
 @import "bootstrap.less";
 @import "bootstrap-glyphicons.less";
 @import "leaflet.less";
+@import "typeahead.less";
 
 // vars
 @header-start-color: #242428;
@@ -24,13 +25,30 @@
 }
 
 /* OldIE Prompt */
-.oldie { width: 100%; margin: 0; text-align: center; font-size: 0.9em; background: #FFFF07; color: black; padding: 1px; }
+.oldie {
+    width: 100%;
+    margin: 0;
+    font-size: 0.9em;
+    padding: 1px;
+    a {
+        text-decoration: underline;
+    }
+}
 
-/* Helper Classes and Sensible Defaults*/
+
+/* Helper Classes, Sensible Defaults and Bootstrap Adjustments */
 .initialism { font-size: 0.8em;}
 a:focus, li:focus, .btn:focus { outline: none;}
 h1, h2, h3, h4, h5 { font-weight: bold; }
-
+.carousel-control { width: 10%; }
+.carousel-caption {
+    background: rgba(0,0,0,0.7);
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+.navbar { border-radius: 0; }
+.img-thumbnail { display: inline-block;}
 
 /* Header */
 .main-header {
@@ -47,9 +65,7 @@ h1, h2, h3, h4, h5 { font-weight: bold; }
         text-shadow: rgba(0, 0, 0, 0.4) 0px 1px 3px, rgba(0, 0, 0, 0.0745098) 0px 0px 30px;
     }
 }
-.navbar {
-    border-radius: 0;
-}
+
 
 /* Aside */
 // slow flash to alert user
@@ -63,7 +79,6 @@ h1, h2, h3, h4, h5 { font-weight: bold; }
 .glow {
     text-shadow: 0 0 8px @header-end-color, 0 0 16px orange;
 }
-// Data area
 .well {
     margin-bottom: 5px;
     padding-top: 8px;
@@ -76,7 +91,7 @@ h1, h2, h3, h4, h5 { font-weight: bold; }
 .search {
     padding-bottom: 2px;
     margin-bottom: 20px;
-    p { margin: -4px 0 5px; }
+    > p { margin: -4px 0 5px; }
     .input-group { padding-bottom: 10px;}
 }
 .question {
@@ -110,53 +125,6 @@ h1, h2, h3, h4, h5 { font-weight: bold; }
 }
 
 
-.twitter-typeahead {
-    width: 100%;
-}
-.twitter-typeahead .tt-query,
-.twitter-typeahead .tt-hint {
-    margin-bottom: 0;
-}
-.tt-hint {
-    .form-control;
-}
-.tt-dropdown-menu {
-    width: 100%;
-    min-width: 160px;
-    max-height: 300px;
-    overflow: auto;
-    overflow-x: hidden;
-    margin-top: 2px;
-    padding: 5px 0;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 0 0 4px 4px;
-    -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-    background-clip: padding-box;
-}
-.tt-suggestion {
-    display: block;
-    padding: 3px 20px;
-}
-.tt-suggestion.tt-is-under-cursor {
-    color: #fff;
-    background-color: #428bca;
-}
-.tt-suggestion.tt-is-under-cursor a {
-    color: #fff;
-}
-.tt-suggestion p {
-    margin: 0;
-    font-size: 12px;
-}
-.typeahead-header {
-    margin: 0 20px 5px 20px;
-    padding: 3px 0;
-    border-bottom: 1px solid #ccc;
-}
-
 /* Map */
 #map {
     height: 500px;
@@ -171,15 +139,10 @@ h1, h2, h3, h4, h5 { font-weight: bold; }
     background: rgba(255,255,255,0.8);
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     border-radius: 5px;
-    margin: 0 0 0 100px;
-    padding: 5px;
     h5 {
-        line-height: 20px;
+        margin: 6px;
+        font-size: 1em;
     }
-}
-.map-info h5 {
-    margin: 3px 6px;
-    font-size: 1em;
 }
 .leaflet-popup-content {
     h5 { margin-bottom: 0; line-height: 20px;}
@@ -211,7 +174,7 @@ footer {
     .carousel-content { width: 750px; height: 400px; padding: 20px 45px;  }
     .carousel-shade {
         padding: 10px;
-        margin: 0 45px;
+        margin: 0 60px;
         border-radius: 6px;
         background: rgb(255,255,255);
         background: rgba(255,255,255,0.9);
@@ -260,9 +223,6 @@ footer {
         box-shadow: 0 3px 8px #666;
         border-radius: 6px 6px 0 0;
     }
-    .typeahead-header {
-        padding: 3px 5px;
-    }
 }
 
 /* Print Page */
@@ -299,6 +259,14 @@ footer {
         #col1, #co12 {
             width: 50%;
             float: left;
+        }
+    }
+    .visible-print {
+        display: block !important;
+    }
+    .report {
+        .hidden-print {
+            display: none !important;
         }
     }
 }

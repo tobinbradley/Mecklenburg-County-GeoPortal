@@ -131,11 +131,11 @@ $(document).ready(function () {
                     var dataset = [];
                     _.each(data, function (item) {
                         dataset.push({
-                            value: item.moreinfo,
+                            value: item.name,
                             label: item.moreinfo,
                             gid: item.gid,
                             pid: item.name,
-                            layer: 'Parcel ID',
+                            layer: 'PID',
                             lat: item.lat,
                             lng: item.lng
                         });
@@ -148,11 +148,11 @@ $(document).ready(function () {
             },
             minLength: 8,
             limit: 5,
-            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> Parcel ID</h4>'
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> Parcel</h4>'
         }, {
             name: 'POI',
             remote: {
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=business,park,library,school&query=%QUERY',
+                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=park,library,school&query=%QUERY',
                 dataType: 'jsonp',
                 filter: function (data) {
                     var dataset = [];
@@ -171,10 +171,33 @@ $(document).ready(function () {
             },
             minLength: 4,
             limit: 15,
-            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-star"></span> Points of Interest</h4>'
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-star"></span> Point of Interest</h4>'
+        }, {
+            name: 'business',
+            remote: {
+                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=business&query=%QUERY',
+                dataType: 'jsonp',
+                filter: function (data) {
+                    var dataset = [];
+                    _.each(data, function (item) {
+                        dataset.push({
+                            value: item.name,
+                            label: item.name,
+                            layer: 'Point of Interest',
+                            lat: item.lat,
+                            lng: item.lng
+                        });
+                    });
+                    if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
+                    return _(dataset).sortBy("value");
+                }
+            },
+            minLength: 4,
+            limit: 15,
+            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-briefcase"></span> Business</h4>'
         }
     ]).on('typeahead:selected', function (obj, datum) {
-        if (datum.layer === 'Address') {
+        if (datum.layer === 'Address' || datum.layer === 'PID') {
             $.publish("/data/select", [ datum ]);
             $.publish("/map/addmarker", [ activeRecord, 0 ]);
             $.publish("/data/question", [$(".question select ").val()]);
@@ -187,6 +210,7 @@ $(document).ready(function () {
     $("#btn-search").bind("click", function (event) {
         $('.typeahead').focus();
     });
+    $("#searchbox").focus();
 
 });
 
@@ -222,16 +246,6 @@ $(window).load(function () {
     $('.carousel').carousel({
         interval: false
     });
-    var listItems = $(".question select option");
-    var split = Math.ceil(listItems.length / 2);
-    _.each(listItems, function (item, i) {
-        if (i < split) {
-            $('#q-col1 ul').append('<li><label class="checkbox"><input type="checkbox" class="embed-q" id="' + $(item).val() + '">' + $(item).text() + '</label></li>');
-        }
-        else {
-            $('#q-col2 ul').append('<li><label class="checkbox"><input type="checkbox" class="embed-q" id="' + $(item).val() + '">' + $(item).text() + '</label></li>');
-        }
-    });
     $("#step3 img").on("click", function () {
         var selected = $(this);
         selected.addClass("selected-size").siblings().removeClass("selected-size");
@@ -256,14 +270,6 @@ $(window).load(function () {
     });
 
     // Print Modal
-    $("#modalPrint input[type=checkbox]").click(function () {
-        if (this.checked) {
-            $("#print-overlay").append('<option value="' + $(this).attr("id") + '">' + $(this).parent().text()  + '</option>');
-        }
-        else {
-            $("#print-overlay option[value=" + $(this).attr('id') + "]").remove();
-        }
-    });
     $("#print").on("click", function () {
         var args = [];
         if (activeRecord.lat) {

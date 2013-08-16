@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>GeoPortal</title>
+        <meta name="description" content="Mecklenburg County's GeoPortal is your gateway to a wealth of information about Mecklenburg County.">
+        <meta name="keywords" content="GIS,Mecklenburg County,parks,libraries,schools,environment,impervious surface,floodplain,zoning,assessment,tax,photos,government">
+        <meta name="author" content="Tobin Bradley">
+
+        <!-- Mobile viewport optimized: j.mp/bplateviewport -->
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+
+        <!-- Favicon -->
+        <link rel="shortcut icon" type="image/png" href="favicon.png" />
+        <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="css/main.css?foo=56183">
+
+        <!-- Leaflet, HTML5 and typeahead patches for oldIE -->
+        <!--[if lte IE 8]>
+            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+            <script>
+                document.createElement('header'); document.createElement('nav'); document.createElement('section'); document.createElement('article'); document.createElement('aside'); document.createElement('footer'); document.createElement('hgroup');
+            </script>
+            <style>
+                header,nav,section,article,aside,footer,hgroup { display: block; }
+            </style>
+        <![endif]-->
+    </head>
+
+    <body>
+        <div class="container-print">
+            <div class="alert alert-success hidden-print text-center">
+                <button type="button" class="btn btn-default" onclick="window.print();">Print</button>
+            </div>
+            <header class="text-center">
+                <h1>GeoPortal</h1>
+                <h2></h2>
+            </header>
+            <div>
+                <div id="map"></div>
+            </div>
+            <div id="data" class="page-break">
+                <div class="overview">
+                    <div class="report"></div>
+                </div>
+            </div>
+            <footer>
+                <hr>
+                <ul class="text-center list-inline">
+                    <li><a href="http://emaps.charmeck.org" class="text-muted">Mecklenburg County GIS</a></li>
+                    <li><a href="http://maps.co.mecklenburg.nc.us" class="text-muted">GeoPortal</a></li>
+                    <li><a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" class="text-muted">Github</a></li>
+                </ul>
+            </footer>
+        </div>
+
+
+        <!-- scripts at the bottom yo -->
+        <!--[if lt IE 9]>
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.min.js"></script>
+        <![endif]-->
+        <!--[if gte IE 9]><!-->
+            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+        <!--<![endif]-->
+        <script src="js/main.js?foo=23334"></script>
+
+        <!--   Google Analytics -->
+        <script>
+          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+          ga('create', 'UA-42311520-1', 'mecklenburg.nc.us');
+          ga('send', 'pageview');
+
+        </script>
+
+    </body>
+</html>

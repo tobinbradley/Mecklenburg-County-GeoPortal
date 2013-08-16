@@ -98,7 +98,7 @@ module.exports = function (grunt) {
         },
         replace: {
             foo: {
-                src: ['public/index.html'],
+                src: ['public/index.html', 'public/print.html', 'public/embed.html'],
                 overwrite: true,
                 replacements: [{
                     from: /\?foo=[0-9]*/g,

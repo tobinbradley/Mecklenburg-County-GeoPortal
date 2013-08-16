@@ -1,7 +1,7 @@
 <h3 class="visible-print">Photos</h3>
 <div class="details what text-center">
     <% if (rc !== "row" && rc.length !== 0) { %>
-    <div id="photos-carousel" class="carousel slide img-thumbnail hidden-print">
+    <div id="photos-carousel" class="img-thumbnail hidden-print carousel slide">
         <!-- Carousel items -->
         <div class="carousel-inner">
             <% _.each( rc, function( item, i ){ %>
@@ -11,10 +11,8 @@
                     <div class="item">
                 <% } %>
                         <img class="" src="<%- item.row.photo_url %>" onError="this.onerror=null;this.src='images/no-image.gif';">
-                        <div class="carousel-caption">
-                            <p class="text-center">
-                                <%- item.row.attribution %>, <%- item.row.photo_date.substring(0,4) %>-<%- item.row.photo_date.substring(4,6) %>-<%- item.row.photo_date.substring(6,8) %>
-                            </p>
+                        <div class="carousel-caption text-center">
+                            <%- item.row.attribution %>, <%- item.row.photo_date.substring(0,4) %>-<%- item.row.photo_date.substring(4,6) %>-<%- item.row.photo_date.substring(6,8) %>
                         </div>
                     </div>
             <% }); %>
@@ -32,9 +30,10 @@
 
     <div class="visible-print">
         <% _.each( rc, function( item, i ){ %>
-        <img style="width: 45%" src="<%- item.row.photo_url %>" onError="this.onerror=null;this.src='images/no-image.gif';">
+        <img style="width: 45%" class="img-thumbnail" src="<%- item.row.photo_url %>" onError="this.onerror=null;this.src='images/no-image.gif';">
         <% }); %>
     </div>
+    <script> $('#photos-carousel').carousel(); </script>
     <% } else { %>
     <p><h4>No photos available.</h4></p>
     <% } %>

@@ -18,38 +18,42 @@
         <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/main.css?foo=87551">
+        <link rel="stylesheet" href="css/main.css?foo=76265">
 
-        <!-- HTML5 and Leaflet patches for oldIE -->
+        <!-- Leaflet, HTML5 and typeahead patches for oldIE -->
         <!--[if lte IE 8]>
-            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.3/leaflet.ie.css" />
+            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
             <script>
                 document.createElement('header'); document.createElement('nav'); document.createElement('section'); document.createElement('article'); document.createElement('aside'); document.createElement('footer'); document.createElement('hgroup');
             </script>
             <style>
                 header,nav,section,article,aside,footer,hgroup { display: block; }
+                .twitter-typeahead { border: 1px solid #ccc; }
             </style>
         <![endif]-->
     </head>
 
     <body>
-        <!--[if lt IE 8]>
-        <p class="oldie">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
+        <!--[if lt IE 9]>
+        <p class="oldie alert-info text-center">You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.</p>
         <![endif]-->
         <header class="main-header">
           <div class="container">
             <h1>GeoPortal <small>Mecklenburg County GIS</small></h1>
           </div>
         </header>
-        <div class="navbar navbar-inverse">
+        <nav class="navbar navbar-inverse" role="navigation">
             <div class="container">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="./">GeoPortal</a>
-                <div class="nav-collapse collapse navbar-responsive-collapse">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-main-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="./">GeoPortal</a>
+                </div>
+                <div class="collapse navbar-collapse navbar-main-collapse">
                     <ul class="nav navbar-nav">
                         <li>
                             <a href="http://charmeck.org/mecklenburg/county/GeospatialInformationServices/Pages/Default.aspx">GIS</a>
@@ -72,11 +76,11 @@
                     </ul>
                 </div><!--/.nav-collapse -->
             </div>
-        </div>
+        </nav>
 
         <div class="container">
             <div class="row main-row">
-                <div id="data" class="col-12 col-lg-5">
+                <div id="data" class="col-md-5">
                     <div class="overview">
                         <div class="search well">
                             <h4 class="blink">What are you looking for?</h4>
@@ -85,7 +89,7 @@
                             </p>
                             <div>
                                 <div class="input-group">
-                                    <input id="searchbox" type="text" class="form-control typeahead" placeholder="Search">
+                                    <input id="searchbox" type="text" class="typeahead form-control" placeholder="Search">
                                     <span class="input-group-btn">
                                         <button class="btn btn-primary" type="button" id="btn-search">Go!</button>
                                     </span>
@@ -128,7 +132,7 @@
                         <div class="report"></div>
                     </div>
                 </div>
-                <div id="map-area" class="col-12 col-lg-7">
+                <div id="map-area" class="col-md-7">
                     <div id="map"></div>
                     <footer>
                         <hr>
@@ -155,25 +159,25 @@
                         <form id="talkback" class="form-horizontal">
                             <fieldset>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label" for="inputEmail">Email</label>
-                                    <div class="col-lg-10">
+                                    <label class="col-md-2 control-label" for="inputEmail">Email</label>
+                                    <div class="col-md-10">
                                         <input type="text" class="form-control" id="inputEmail" placeholder="Email">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label" for="inputName">Name</label>
-                                    <div class="col-lg-10">
+                                    <label class="col-md-2 control-label" for="inputName">Name</label>
+                                    <div class="col-md-10">
                                         <input type="text" class="form-control" id="inputName" placeholder="Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-lg-2 control-label" for="inputFeedback">Feedback</label>
-                                    <div class="col-lg-10">
+                                    <label class="col-md-2 control-label" for="inputFeedback">Feedback</label>
+                                    <div class="col-md-10">
                                         <textarea rows="7" id="inputFeedback" class="form-control"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-lg-offset-2 col-lg-10">
+                                    <div class="col-md-offset-2 col-md-10">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </div>
                                 </div>
@@ -213,13 +217,70 @@
                     </div>
                     <div class="modal-body">
                         <h4>Print Content</h4>
-                        <div id="q-col1" class="embed-cols pull-left"><ul class="list-unstyled"></ul></div>
-                        <div id="q-col2" class="embed-cols pull-right"><ul class="list-unstyled"></ul></div>
+                        <div id="q-col1" class="embed-cols pull-left">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="qol">Quality of Life</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="voting">Voting</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="env-air">Air</label></li><li><label class="checkbox"><input type="checkbox" class="embed-q" id="env-land">Land</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="env-water">Water</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="impervious">Impervious Surface</label>
+                                    </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="photos">Photos</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="property">Tax Information</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div id="q-col2" class="embed-cols pull-right">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="econ">Zoning and Permits</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="schools-home">Home Schools</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="schools-magnet">Magnet Schools</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="fire">Fire</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="trash">Garbage/Recycling</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="libraries">Libraries</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="parks">Parks</label>
+                                </li>
+                                <li>
+                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="police">Police</label>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="form-inline">
                           <div class="form-group">
-                            <label for="inputEmail" class="col-lg-2 control-label">Map Overlay</label>
-                            <div class="col-lg-5">
-                              <select id="print-overlay" class="form-control"></select>
+                            <label for="inputEmail" class="col-md-2 control-label">Map Overlay</label>
+                            <div class="col-md-5">
+                              <select id="print-overlay" class="form-control">
+                                  <option value="none">None</option>
+                                  <option value="env-water">Water</option>
+                                  <option value="env-air">Air</option>
+                                  <option value="env-land">Land</option>
+                                  <option value="impervious">Impervious Surface</option>
+                              </select>
                             </div>
                             <button type="button" class="btn btn-success" id="print">Print</button>
                           </div>
@@ -267,12 +328,63 @@
                                         <legend>
                                             What do you want to show?
                                         </legend>
-                                        <div id="q-col1" class="embed-cols pull-left"><ul class="list-unstyled"></ul></div>
-                                        <div id="q-col2" class="embed-cols pull-right"><ul class="list-unstyled"></ul></div>
+                                        <div id="q-col1" class="embed-cols pull-left">
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="qol">Quality of Life</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="voting">Voting</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="env-air">Air</label></li><li><label class="checkbox"><input type="checkbox" class="embed-q" id="env-land">Land</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="env-water">Water</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="impervious">Impervious Surface</label>
+                                                    </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="photos">Photos</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="property">Tax Information</label>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div id="q-col2" class="embed-cols pull-right">
+                                            <ul class="list-unstyled">
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="econ">Zoning and Permits</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="schools-home">Home Schools</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="schools-magnet">Magnet Schools</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="fire">Fire</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="trash">Garbage/Recycling</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="libraries">Libraries</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="parks">Parks</label>
+                                                </li>
+                                                <li>
+                                                    <label class="checkbox"><input type="checkbox" class="embed-q" id="police">Police</label>
+                                                </li>
+                                            </ul>
+                                        </div>
                                         <div class="form-horizontal">
                                             <div class="form-group">
-                                                <label for="embed-defaultquestion" class="col-lg-4 control-label">Default Selection</label>
-                                                <div class="col-lg-5">
+                                                <label for="embed-defaultquestion" class="col-md-4 control-label">Default Selection</label>
+                                                <div class="col-md-5">
                                                     <select id="embed-defaultquestion" class="form-control"></select>
                                                 </div>
                                             </div>
@@ -291,20 +403,20 @@
                                             <img src="images/size3.gif" class="img-thumbnail" data-width="700" data-height="830" alt="Embed size 450x560">
                                             <img src="images/size4.gif" class="img-thumbnail" data-width="900" data-height="1000" alt="Embed size 450x560">
                                             <div id="size-boxes">
-                                                <div class="input-group col-lg-5 col-lg-offset-1 text-center">
+                                                <div class="input-group col-md-5 col-md-offset-1 text-center">
                                                     <span class="input-group-addon">Width</span>
                                                     <input id="embed-width" type="number" min="500" max="1200" class="embed-size input-mini text-right form-control" placeholder="width"
                                                     value="500" required>
                                                     <span class="input-group-addon">px</span>
                                                 </div>
-                                                <div class="input-group col-lg-5 text-center">
+                                                <div class="input-group col-md-5 text-center">
                                                     <span class="input-group-addon">Height</span>
                                                     <input id="embed-height" type="number" min="500" max="1200" class="embed-size input-mini text-right form-control" placeholder="height"
                                                     value="640" required>
                                                     <span class="input-group-addon">px</span>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-10 col-lg-offset-1" style="margin-top: 10px;">
+                                            <div class="col-md-10 col-md-offset-1" style="margin-top: 10px;">
                                                 <textarea rows="3" id="embed-code" class="form-control"></textarea>
                                             </div>
                                         </div>
@@ -330,11 +442,12 @@
         <!-- scripts at the bottom yo -->
         <!--[if lt IE 9]>
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.min.js"></script>
         <![endif]-->
         <!--[if gte IE 9]><!-->
             <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
         <!--<![endif]-->
-        <script src="js/main.js?foo=70284"></script>
+        <script src="js/main.js?foo=73812"></script>
 
         <!--   Google Analytics -->
         <script>
