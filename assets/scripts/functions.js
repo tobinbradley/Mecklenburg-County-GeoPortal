@@ -57,7 +57,7 @@ function getURLParameter(name) {
 // https://github.com/Gazler/Underscore-Template-Loader
 (function () {
     var templateLoader = {
-        templateVersion: "15067",
+        templateVersion: "46404",
         templateName: "geoportal-",
         templates: {},
         loadRemoteTemplate: function (templateName, filename, callback) {

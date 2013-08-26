@@ -64,7 +64,7 @@ $(document).ready(function () {
         // size or hide query area
         if (getURLParameter("s") === "true" || getURLParameter("qs")) {
             // set top offset of map to accomodate well
-            $(".embed-container #map").css("top", Math.abs(0 - $(".embed-container .well").height()) + 20);
+            $(".embed-container #map").css("top", Math.abs(0 - $(".embed-container .well").height()) + 30);
         }
         else {
             $(".embed-container .well").remove();
@@ -456,6 +456,6 @@ function createIframe() {
 // Submit photo modal
 function submitPhoto() {
     url = "http://maps.co.mecklenburg.nc.us/house_photos/index.php?pid=" + activeRecord.pid;
-    $("#modalPhoto .modal-body").html('<iframe src="' + url + '" style="width: 450px; min-height: 500px; border: none;"></iframe>');
+    $("#modalPhoto .modal-body").html('<iframe src="' + url + '" style="width: 450px; height: 400px; border: none;"></iframe>');
     $('#modalPhoto').modal();
 }

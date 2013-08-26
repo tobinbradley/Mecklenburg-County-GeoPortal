@@ -69,8 +69,8 @@ function mapInit() {
                 link = L.DomUtil.create('div', 'leaflet-bar', container);
             link.innerHTML = '<span class="glyphicon glyphicon-screenshot"></span>';
             link.title = 'Take me to my location.';
-            link.style.cssText = 'width:25px;height:25px;display:block;background:#fff;' +
-                'border-radius:4px;line-height:29px;text-decoration:none;text-align:center;color:#151; cursor:pointer;';
+            link.style.cssText = 'width:25px;height:25px;background:#fff;' +
+                'border-radius:4px;line-height:26px;text-align:center;color: black; cursor:pointer;';
             L.DomEvent
                 .on(link, 'click', L.DomEvent.stopPropagation)
                 .on(link, 'mousedown', L.DomEvent.stopPropagation)

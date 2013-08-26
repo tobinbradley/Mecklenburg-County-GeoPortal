@@ -18,18 +18,14 @@
         <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/main.css?foo=76265">
+        <link rel="stylesheet" href="css/main.css?foo=10768">
 
         <!-- Leaflet, HTML5 and typeahead patches for oldIE -->
-        <!--[if lte IE 8]>
-            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
-            <script>
-                document.createElement('header'); document.createElement('nav'); document.createElement('section'); document.createElement('article'); document.createElement('aside'); document.createElement('footer'); document.createElement('hgroup');
-            </script>
-            <style>
-                header,nav,section,article,aside,footer,hgroup { display: block; }
-                .twitter-typeahead { border: 1px solid #ccc; }
-            </style>
+        <!--[if lt IE 9]>
+            <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+            <scrpt src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.min.js"></script>
+            <style> .twitter-typeahead { border: 1px solid #ccc; } </style>
         <![endif]-->
     </head>
 
@@ -134,15 +130,16 @@
                 </div>
                 <div id="map-area" class="col-md-7">
                     <div id="map"></div>
-                    <footer>
-                        <hr>
-                        <ul class="text-right list-inline">
-                            <li><a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" class="text-muted">Github</a></li>
-                            <li><a data-toggle="modal" href="#modalTalkback" class="text-muted">Feedback</a></li>
-                        </ul>
-                    </footer>
                 </div>
             </div><!-- end of main row -->
+
+            <footer>
+                <hr>
+                <ul class="text-right list-inline">
+                    <li><a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" class="text-muted">Github</a></li>
+                    <li><a data-toggle="modal" href="#modalTalkback" class="text-muted">Feedback</a></li>
+                </ul>
+            </footer>
 
         </div><!-- /container -->
 
@@ -200,9 +197,6 @@
                         <h4 class="modal-title">Submit Photo</h4>
                     </div>
                     <div class="modal-body"></div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -285,9 +279,6 @@
                             <button type="button" class="btn btn-success" id="print">Print</button>
                           </div>
                         </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
@@ -432,9 +423,6 @@
                             <span class="icon-next"></span>
                           </a>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -442,12 +430,11 @@
         <!-- scripts at the bottom yo -->
         <!--[if lt IE 9]>
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.min.js"></script>
         <![endif]-->
         <!--[if gte IE 9]><!-->
             <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
         <!--<![endif]-->
-        <script src="js/main.js?foo=73812"></script>
+        <script src="js/main.js?foo=81012"></script>
 
         <!--   Google Analytics -->
         <script>
@@ -455,10 +442,8 @@
           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
           })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
           ga('create', 'UA-42311520-1', 'mecklenburg.nc.us');
           ga('send', 'pageview');
-
         </script>
 
     </body>
