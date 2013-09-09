@@ -1,6 +1,5 @@
 // imports
 @import "bootstrap.less";
-@import "bootstrap-glyphicons.less";
 @import "leaflet.less";
 @import "typeahead.less";
 
@@ -14,12 +13,10 @@
 // mixins
 .gradient {
     background: @header-start-color;
-    background:  url(@background-svg) repeat center center, -webkit-gradient(linear, left bottom, right top, color-stop(0%,@header-start-color), color-stop(100%,@header-end-color));
     background: url(@background-svg) repeat center center, linear-gradient(45deg, @header-start-color 0%, @header-end-color 100%) repeat scroll 0 0 transparent;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=@header-start-color, endColorstr=@header-end-color,GradientType=1 );
 }
 .well-gradient {
-    background:  -webkit-gradient(linear, left top, right top, color-stop(0%,@div-start-color), color-stop(100%,@div-end-color));
     background: linear-gradient(90deg, @div-start-color 0%, @div-end-color 100%) repeat scroll 0 0 transparent;
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr=@div-start-color, endColorstr=@div-end-color,GradientType=1 );
 }
@@ -35,7 +32,6 @@
     }
 }
 
-
 /* Helper Classes, Sensible Defaults and Bootstrap Adjustments */
 .initialism { font-size: 0.8em;}
 a:focus, li:focus, .btn:focus { outline: none;}
@@ -49,6 +45,7 @@ h1, h2, h3, h4, h5 { font-weight: bold; }
 }
 .navbar { border-radius: 0; }
 .img-thumbnail { display: inline-block;}
+ul, ol { width: auto; overflow: hidden; }
 
 /* Header */
 .main-header {
@@ -70,10 +67,6 @@ h1, h2, h3, h4, h5 { font-weight: bold; }
 /* Aside */
 // slow flash to alert user
 .blink {
-    -webkit-transition: text-shadow 1s linear;
-    -moz-transition: text-shadow 1s linear;
-    -ms-transition: text-shadow 1s linear;
-    -o-transition: text-shadow 1s linear;
     transition: text-shadow 1s linear;
 }
 .glow {
@@ -128,8 +121,6 @@ h1, h2, h3, h4, h5 { font-weight: bold; }
 /* Map */
 #map {
     height: 500px;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     border: 1px solid #E5E5E5;
     border-radius: 6px;
@@ -170,7 +161,7 @@ footer {
 #embed-carousel {
     margin: 0;
     .carousel-inner { .gradient;  }
-    .carousel-content , .carousel-shade { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; }
+    .carousel-content , .carousel-shade { box-sizing: border-box; }
     .carousel-content { width: 750px; height: 400px; padding: 20px 45px;  }
     .carousel-shade {
         padding: 10px;
@@ -241,7 +232,6 @@ footer {
         height: 200mm;
         margin: auto;
         border: 2px solid black;
-        -moz-box-sizing: border-box;
         box-sizing: border-box;
         border-radius: 0;
         .leaflet-control-attribution, .leaflet-locate, .map-info {

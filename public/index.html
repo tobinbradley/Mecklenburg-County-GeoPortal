@@ -18,12 +18,12 @@
         <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/main.css?foo=10768">
+        <link rel="stylesheet" href="css/main.css?foo=92817">
 
         <!-- Leaflet, HTML5 and typeahead patches for oldIE -->
         <!--[if lt IE 9]>
             <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
-            <scrpt src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
             <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.min.js"></script>
             <style> .twitter-typeahead { border: 1px solid #ccc; } </style>
         <![endif]-->
@@ -181,9 +181,6 @@
                             </fieldset>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -210,7 +207,7 @@
                         <h4 class="modal-title">Print</h4>
                     </div>
                     <div class="modal-body">
-                        <h4>Print Content</h4>
+                        <h4>Report Content</h4>
                         <div id="q-col1" class="embed-cols pull-left">
                             <ul class="list-unstyled">
                                 <li>
@@ -264,10 +261,10 @@
                                 </li>
                             </ul>
                         </div>
-                        <div class="form-inline">
+                        <div class="form-horizontal" role="form">
                           <div class="form-group">
-                            <label for="inputEmail" class="col-md-2 control-label">Map Overlay</label>
-                            <div class="col-md-5">
+                            <label for="print-overlay" class="col-md-3 control-label">Map Overlay</label>
+                            <div class="col-md-6">
                               <select id="print-overlay" class="form-control">
                                   <option value="none">None</option>
                                   <option value="env-water">Water</option>
@@ -276,7 +273,11 @@
                                   <option value="impervious">Impervious Surface</option>
                               </select>
                             </div>
-                            <button type="button" class="btn btn-success" id="print">Print</button>
+                          </div>
+                          <div class="form-group">
+                            <div class="col-md-offset-3 col-md-9">
+                              <button type="button" class="btn btn-primary" id="print">Print</button>
+                            </div>
                           </div>
                         </div>
                     </div>
@@ -434,7 +435,7 @@
         <!--[if gte IE 9]><!-->
             <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
         <!--<![endif]-->
-        <script src="js/main.js?foo=81012"></script>
+        <script src="js/main.js?foo=45"></script>
 
         <!--   Google Analytics -->
         <script>

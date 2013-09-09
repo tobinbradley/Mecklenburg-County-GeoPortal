@@ -8,7 +8,8 @@
     "grunt-contrib-concat": "*",
     "grunt-contrib-less": "*",
     "grunt-contrib-watch": "*",
-    "grunt-contrib-uglify": "*"
+    "grunt-contrib-uglify": "*",
+    "grunt-autoprefixer": "*"
   },
   "scripts": {
     "test": "grunt build"

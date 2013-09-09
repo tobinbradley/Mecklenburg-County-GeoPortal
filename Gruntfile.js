@@ -5,10 +5,11 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-text-replace');
+    grunt.loadNpmTasks('grunt-autoprefixer');
 
     // Default task(s).
     grunt.registerTask('default', ['watch']);
-    grunt.registerTask('build', ['less:production', 'uglify:production', 'replace']);
+    grunt.registerTask('build', ['less:production', 'autoprefixer', 'uglify:production', 'replace']);
 
     // javascript stack
     var jsFiles = [
@@ -61,13 +62,20 @@ module.exports = function (grunt) {
                 }
             }
         },
+        autoprefixer: {
+            options: {
+                browsers: ['last 2 version', 'ie 8', 'ie 7']
+            },
+            src: 'public/css/main.css',
+            dest: 'public/css/main.css'
+        },
         watch: {
             options: {
                 livereload: true
             },
             less: {
                 files: ['assets/less/*.less'],
-                tasks: ['less:development'],
+                tasks: ['less:development', 'autoprefixer'],
                 options: {
                     livereload: false
                 }
