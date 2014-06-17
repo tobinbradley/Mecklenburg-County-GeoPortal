@@ -1,8 +1,8 @@
 var map,                        // The map
-    overlay = {},               // Holder for overlay layer needed for question
-    markers = [],               // Holder for makers
-    activeRecord = {},          // Holder for the selected location
-    pageType = "DEFAULT";       // Type of page - DEFAULT, PRINT, or EMBED set in document ready
+overlay = {},               // Holder for overlay layer needed for question
+markers = [],               // Holder for makers
+activeRecord = {},          // Holder for the selected location
+pageType = "DEFAULT";       // Type of page - DEFAULT, PRINT, or EMBED set in document ready
 
 // default data container for Underscore.js
 _.templateSettings.variable = "rc";
@@ -12,6 +12,11 @@ $(document).ready(function () {
     // Set Page Type
     if ($("div.embed-container ")[0]) { pageType = "EMBED"; }
     if ($("div.container-print ")[0]) { pageType = "PRINT"; }
+
+    // set select box if q passed
+    if (getURLParameter("q")) {
+        $('.question select').val(getURLParameter("q"));
+    }
 
     // Pubsub
     // /map/addmarker           Adds marker to the map and zooms in
@@ -28,13 +33,50 @@ $(document).ready(function () {
     if (pageType !== "PRINT") { $.subscribe("/data/question", overlayLayer); }
     $.subscribe("/data/addhistory", newHistory);
 
+    // chosen
+    $(".select-question").chosen({width: '100%', no_results_text: "Not found - ", disable_search_threshold: 10}).change(function () {
+        newHistory(activeRecord);
+        $.publish("/data/question", [$(this).val()]);
+    });
+    $(".select-question input").prop("placeholder", "search metrics");
+
     // Activate Bootstrap Popovers
     $('a[rel=popover]').popover({delay: { show: 500, hide: 100 }});
 
+    // joyride
+    var tour = $('#geoportal-tour').tourbus({});
+    $('.btn-help').on("click", function() {
+        tour.trigger('depart.tourbus');
+    });
+
     // Question change event
-    $(".question select").change(function () {
+    $(".embed-container .question select").change(function () {
         newHistory(activeRecord);
         $.publish("/data/question", [$(this).val()]);
+    });
+
+    // contact form
+    $(".contact form").submit(function(e) {
+        e.preventDefault();
+        $(".contact").dropdown("toggle");
+        // send feedback
+        if ($("#message").val().trim().length > 0) {
+            $.ajax({
+                type: "POST",
+                url: "/utilities/feedback.php",
+                data: {
+                    email: $("#email").val(),
+                    url: window.location.href,
+                    agent: navigator.userAgent,
+                    subject: "GeoPortal Feedback",
+                    to: "tobin.bradley@gmail.com",
+                    message: $("#message").val()
+                }
+            });
+        }
+    });
+    $('.dropdown .contact input').click(function(e) {
+        e.stopPropagation();
     });
 
     // Create embed Iframe code
@@ -64,7 +106,7 @@ $(document).ready(function () {
         // size or hide query area
         if (getURLParameter("s") === "true" || getURLParameter("qs")) {
             // set top offset of map to accomodate well
-            $(".embed-container #map").css("top", Math.abs(0 - $(".embed-container .well").height()) + 30);
+            $(".embed-container #map").css("top", Math.abs(0 - $(".embed-container .well").height()) + 40);
         }
         else {
             $(".embed-container .well").remove();
@@ -105,6 +147,7 @@ $(document).ready(function () {
                         dataset.push({
                             value: item.name,
                             label: item.name,
+                            address: item.name,
                             gid: item.gid,
                             pid: item.moreinfo,
                             layer: 'Address',
@@ -132,6 +175,7 @@ $(document).ready(function () {
                     _.each(data, function (item) {
                         dataset.push({
                             value: item.name,
+                            address: item.moreinfo,
                             label: item.moreinfo,
                             gid: item.gid,
                             pid: item.name,
@@ -143,319 +187,317 @@ $(document).ready(function () {
                     var query = $(".typeahead").val();
                     if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
                         dataset.push({ value: "No records found." }); }
-                    return dataset;
-                }
-            },
-            minLength: 8,
-            limit: 5,
-            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> Parcel</h4>'
-        }, {
-            name: 'POI',
-            remote: {
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=park,library,school&query=%QUERY',
-                dataType: 'jsonp',
-                filter: function (data) {
-                    var dataset = [];
-                    _.each(data, function (item) {
-                        dataset.push({
-                            value: item.name,
-                            label: item.name,
-                            layer: 'Point of Interest',
-                            lat: item.lat,
-                            lng: item.lng
+                        return dataset;
+                    }
+                },
+                minLength: 8,
+                limit: 5,
+                header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> Parcel</h4>'
+            }, {
+                name: 'POI',
+                remote: {
+                    url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=park,library,school&query=%QUERY',
+                    dataType: 'jsonp',
+                    filter: function (data) {
+                        var dataset = [];
+                        _.each(data, function (item) {
+                            dataset.push({
+                                value: item.name,
+                                label: item.name,
+                                layer: 'Point of Interest',
+                                lat: item.lat,
+                                lng: item.lng
+                            });
                         });
-                    });
-                    if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
-                    return _(dataset).sortBy("value");
-                }
-            },
-            minLength: 4,
-            limit: 15,
-            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-star"></span> Point of Interest</h4>'
-        }, {
-            name: 'business',
-            remote: {
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=business&query=%QUERY',
-                dataType: 'jsonp',
-                filter: function (data) {
-                    var dataset = [];
-                    _.each(data, function (item) {
-                        dataset.push({
-                            value: item.name,
-                            label: item.name,
-                            layer: 'Point of Interest',
-                            lat: item.lat,
-                            lng: item.lng
+                        if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
+                        return _(dataset).sortBy("value");
+                    }
+                },
+                minLength: 4,
+                limit: 15,
+                header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-star"></span> Point of Interest</h4>'
+            }, {
+                name: 'business',
+                remote: {
+                    url: 'http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_ubersearch.php?searchtypes=business&query=%QUERY',
+                    dataType: 'jsonp',
+                    filter: function (data) {
+                        var dataset = [];
+                        _.each(data, function (item) {
+                            dataset.push({
+                                value: item.name,
+                                label: item.name,
+                                layer: 'Point of Interest',
+                                lat: item.lat,
+                                lng: item.lng
+                            });
                         });
-                    });
-                    if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
-                    return _(dataset).sortBy("value");
+                        if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
+                        return _(dataset).sortBy("value");
+                    }
+                },
+                minLength: 4,
+                limit: 15,
+                header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-briefcase"></span> Business</h4>'
+            }
+            ]).on('typeahead:selected', function (obj, datum) {
+                $(".help-search").hide("slow");
+                $('.question').show("slow");
+                if (datum.layer === 'Address' || datum.layer === 'PID') {
+                    $.publish("/data/select", [ datum ]);
+                    $.publish("/map/addmarker", [ activeRecord, 0 ]);
+                    $.publish("/data/question", [$(".question select ").val()]);
+                    $.publish("/data/addhistory", [ activeRecord ]);
                 }
-            },
-            minLength: 4,
-            limit: 15,
-            header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-briefcase"></span> Business</h4>'
-        }
-    ]).on('typeahead:selected', function (obj, datum) {
-        if (datum.layer === 'Address' || datum.layer === 'PID') {
-            $.publish("/data/select", [ datum ]);
-            $.publish("/map/addmarker", [ activeRecord, 0 ]);
-            $.publish("/data/question", [$(".question select ").val()]);
-            $.publish("/data/addhistory", [ activeRecord ]);
-        }
-        else if (datum.layer) {
-            getNearestMAT(datum);
-        }
-    });
-    $("#btn-search").bind("click", function (event) {
-        $('.typeahead').focus();
-    });
-    $("#searchbox").focus();
+                else if (datum.layer) {
+                    getNearestMAT(datum);
+                }
+            });
+            $("#searchbox").focus();
 
-});
+        });
 
-// Window load
-$(window).load(function () {
-    // initialize map
-    mapInit();
+        // Window load
+        $(window).load(function () {
+            // initialize map
+            mapInit();
 
-    // History API
-    if (Modernizr.history) {
-        // history is supported, do magical things
-        $(window).bind("popstate", function (e) {
+            // History API
+            if (history.pushState) {
+                // history is supported, do magical things
+                // $(window).bind("popstate", function (e) {
+                //     handleGETArgs();
+                // });
+            }
+
+            // hack because of Chrome popstate on load bug
+            // var isChrome = window.chrome;
+            // if (!isChrome) { handleGETArgs(); }
             handleGETArgs();
+
+            // this is for the print map only
+            if (pageType === "PRINT") {
+                // hide controls on print
+                $(".leaflet-control-zoom, .leaflet-control-attribution, .leaflet-locate, .map-info").addClass("hidden-print");
+                // turn off map events
+                map.touchZoom.disable();
+                map.doubleClickZoom.disable();
+                map.boxZoom.disable();
+                map.keyboard.disable();
+            }
+
+            // Embed modal content and interactions
+            $('.carousel').carousel({
+                interval: false
+            });
+            $("#step3 img").on("click", function () {
+                var selected = $(this);
+                selected.addClass("selected-size").siblings().removeClass("selected-size");
+                $("#embed-width").val(selected.data("width"));
+                $("#embed-height").val(selected.data("height"));
+                createIframe();
+            });
+            $(".embed-size").keypress(function () { createIframe(); });
+            $("#embed-carousel input[type=checkbox]").click(function () {
+                if ($(this).hasClass('embed-q')) {
+                    if (this.checked) {
+                        $("#embed-defaultquestion").append('<option value="' + $(this).attr("id") + '">' + $(this).parent().text()  + '</option>');
+                    }
+                    else {
+                        $("#embed-defaultquestion option[value=" + $(this).attr('id') + "]").remove();
+                    }
+                }
+                createIframe();
+            });
+            $("#step3 textarea, #step3 input").on("click", function () {
+                $(this).select();
+            });
+
+            // Print Modal
+            $("#print").on("click", function () {
+                var args = [];
+                if (activeRecord.lat) {
+                    args.push({name: "matid", value: activeRecord.gid});
+                    args.push({name: "lat", value: activeRecord.lat});
+                    args.push({name: "lng", value: activeRecord.lng});
+                }
+                // overlay
+                args.push({name: "overlay", value: $("#print-overlay").val() });
+                // qs
+                var qs = [];
+                $.each($("#modalPrint input[type=checkbox]"), function () {
+                    if (this.checked) {
+                        qs.push($(this).attr("id"));
+                    }
+                });
+                args.push({name: "qs", value: qs.join()});
+                var url = "print.html?" + $.param(args);
+                var win = window.open(url, '_blank');
+                win.focus();
+            });
         });
-    }
 
-    // hack because of Chrome popstate on load bug
-    var isChrome = window.chrome;
-    if (!isChrome) { handleGETArgs(); }
+        // Set Active Record
+        function setactvieRecord(data) {
+            activeRecord = data;
+            activeRecord.lat = Math.round(data.lat * 10000) / 10000;
+            activeRecord.lng = Math.round(data.lng * 10000) / 10000;
+            activeRecord.value = data.label;
+        }
 
-    // this is for the print map only
-    if (pageType === "PRINT") {
-        // hide controls on print
-        $(".leaflet-control-zoom, .leaflet-control-attribution, .leaflet-locate, .map-info").addClass("hidden-print");
-        // turn off map events
-        map.touchZoom.disable();
-        map.doubleClickZoom.disable();
-        map.boxZoom.disable();
-        map.keyboard.disable();
-    }
+        // Set subtitle on print page
+        function printSelect() {
+            // set subheader
+            $("header h2").html(activeRecord.value + " &bull; Parcel ID " + activeRecord.pid);
+            // run overlay
+            overlayLayer(getURLParameter("overlay"));
+            // run q's
+            _.each(getURLParameter("qs").split(","), function (item) {
+                question(item);
+            });
 
-    // Embed modal content and interactions
-    $('.carousel').carousel({
-        interval: false
-    });
-    $("#step3 img").on("click", function () {
-        var selected = $(this);
-        selected.addClass("selected-size").siblings().removeClass("selected-size");
-        $("#embed-width").val(selected.data("width"));
-        $("#embed-height").val(selected.data("height"));
-        createIframe();
-    });
-    $(".embed-size").keypress(function () { createIframe(); });
-    $("#embed-carousel input[type=checkbox]").click(function () {
-        if ($(this).hasClass('embed-q')) {
-            if (this.checked) {
-                $("#embed-defaultquestion").append('<option value="' + $(this).attr("id") + '">' + $(this).parent().text()  + '</option>');
+        }
+
+        // Get URL Arguments
+        function handleGETArgs() {
+            if (getURLParameter("q")) {
+                $('.select-question').val(getURLParameter("q"));
+                //$('.select-question').chosen().change();
             }
-            else {
-                $("#embed-defaultquestion option[value=" + $(this).attr('id') + "]").remove();
+            if (getURLParameter("matid")) {
+                if (activeRecord && activeRecord.gid !== getURLParameter("matid")) {
+                    getMAT(getURLParameter("matid"));
+                }
+                else {
+                    $.publish("/data/select", activeRecord);
+                    $.publish("/data/question", [$(".question select ").val()]);
+                }
             }
         }
-        createIframe();
-    });
-    $("#step3 textarea, #step3 input").on("click", function () {
-        $(this).select();
-    });
 
-    // Print Modal
-    $("#print").on("click", function () {
-        var args = [];
-        if (activeRecord.lat) {
-            args.push({name: "matid", value: activeRecord.gid});
-            args.push({name: "lat", value: activeRecord.lat});
-            args.push({name: "lng", value: activeRecord.lng});
-        }
-        // overlay
-        args.push({name: "overlay", value: $("#print-overlay").val() });
-        // qs
-        var qs = [];
-        $.each($("#modalPrint input[type=checkbox]"), function () {
-            if (this.checked) {
-                qs.push($(this).attr("id"));
+        // Push state change into history
+        function newHistory(data) {
+            if (history.pushState) {
+                var hist = [];
+                if (data.gid) {
+                    hist.push({name: "matid", value: data.gid}, {name: "lng", value: data.lng}, {name: "lat", value: data.lat});
+                }
+                if ($(".question select").val() !== null) {
+                    hist.push({name: "q", value: $(".question select").val()});
+                }
+                history.pushState({myTag: true}, null, "?" + $.param(hist));
             }
-        });
-        args.push({name: "qs", value: qs.join()});
-        var url = "print.html?" + $.param(args);
-        var win = window.open(url, '_blank');
-        win.focus();
-    });
-});
-
-// Set Active Record
-function setactvieRecord(data) {
-    activeRecord = data;
-    activeRecord.lat = Math.round(data.lat * 10000) / 10000;
-    activeRecord.lng = Math.round(data.lng * 10000) / 10000;
-    activeRecord.value = data.label;
-}
-
-// Set subtitle on print page
-function printSelect() {
-    // set subheader
-    $("header h2").html(activeRecord.value + " &bull; Parcel ID " + activeRecord.pid);
-    // run overlay
-    overlayLayer(getURLParameter("overlay"));
-    // run q's
-    _.each(getURLParameter("qs").split(","), function (item) {
-        question(item);
-    });
-
-}
-
-// Get URL Arguments
-function handleGETArgs() {
-    if (getURLParameter("q")) {
-        $('.question select').val(getURLParameter("q"));
-    }
-    if (getURLParameter("matid")) {
-        if (activeRecord && activeRecord.gid !== getURLParameter("matid")) {
-            getMAT(getURLParameter("matid"));
+            ga('send', 'pageview');
         }
-        else {
-            $.publish("/data/select", activeRecord);
-            $.publish("/data/question", [$(".question select ").val()]);
+
+        // Display detailed information
+        function report(q, data, element) {
+            $.get("templates/" + q + ".html" + cacheBuster, function(tmpl) {
+                var compiled = _.template(tmpl);
+                if (pageType === "EMBED" || $(document).width() < 1000) {
+                    // iframe or mobile/small
+                    $(".leaflet-popup-content .report " + element).append(compiled(data));
+                    markers[0].setPopupContent($('.leaflet-popup-conent').html());
+                }
+                else {
+                    $(".overview .report " + element).append(compiled(data));
+                }
+            });
         }
-    }
-    else {
-        pulse(1000, 4, $('.search > .blink'));
-    }
-}
 
-// Push state change into history
-function newHistory(data) {
-    if (Modernizr.history) {
-        var hist = [];
-        if (data.gid) {
-            hist.push({name: "matid", value: data.gid}, {name: "lng", value: data.lng}, {name: "lat", value: data.lat});
+        // Enable question area when location selected
+        function showQuestion () {
+            $(".question").fadeIn("slow");
         }
-        if ($(".question select").val() !== null) {
-            hist.push({name: "q", value: $(".question select").val()});
+
+        // Get information for record based on our master address table ID
+        function getMAT(gid) {
+            $.ajax({
+                url: 'http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_attributequery.php',
+                type: 'GET',
+                dataType: 'jsonp',
+                data: {
+                    'table': 'master_address_table',
+                    'fields': "full_address as label,objectid as gid,x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, num_parent_parcel as pid, 'ADDRESS' as responsetype",
+                    'parameters': "objectid = " + gid
+                },
+                success: function (data) {
+                    data[0].address = data[0].label;
+                    $.publish("/data/select", [ data[0] ]);
+                    $.publish("/map/addmarker", [ activeRecord, 0 ]);
+                    $.publish("/data/question", [$(".question select ").val()]);
+                },
+                error: function (error, status, desc) {
+                    console.log(status, desc);
+                }
+            });
         }
-        history.pushState({myTag: true}, null, "?" + $.param(hist));
-    }
-    ga('send', 'pageview');
-}
 
-// Display detailed information
-function report(q, data, element) {
-    templateLoader.loadRemoteTemplate(q, "templates/" + q + ".html", function (tmpl) {
-        var compiled = _.template(tmpl);
-        if (pageType === "EMBED" || $(document).width() < 1000) {
-            // iframe or mobile/small
-            $(".leaflet-popup-content .report " + element).append(compiled(data));
-            markers[0].setPopupContent($('.leaflet-popup-conent').html());
+        // Get the nearest master address record to a coordinate
+        function getNearestMAT(approx) {
+            $.ajax({
+                url: 'http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_nearest.php',
+                type: 'GET',
+                dataType: 'jsonp',
+                data: {
+                    'x': approx.lng,
+                    'y': approx.lat,
+                    'srid': 4326,
+                    'table': 'master_address_table',
+                    'fields': "full_address as label,objectid as gid,x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, num_parent_parcel as pid, 'ADDRESS' as responsetype",
+                    'limit': 1
+                },
+                success: function (data) {
+                    data[0].address = data[0].label;
+                    if (approx.label) {
+                        data[0].label = approx.label + "<br>" + data[0].label;
+                    }
+                    $.publish("/data/select", [ data[0] ]);
+                    $.publish("/map/addmarker", [ activeRecord, 0 ]);
+                    $.publish("/data/question", [$(".question select ").val()]);
+                    $.publish("/data/addhistory", [activeRecord]);
+                },
+                error: function (error, status, desc) {
+                    console.log(error);
+                }
+            });
         }
-        else {
-            $(".overview .report " + element).append(compiled(data));
+
+        // Enable active record option in embed modal
+        function enableReportOption() {
+            $("#embed_selected .muted").text(activeRecord.label);
+            $("#embed_selected").removeClass("hide");
+            $("#embed_selected input").data("matid", activeRecord.gid);
         }
-    });
-}
 
-// Enable question area when location selected
-function showQuestion () {
-    $(".question").fadeIn("slow", function(){
-        pulse(1000, 4, $('.question > .blink'));
-    })
-}
+        // Create iframe content
+        function createIframe() {
+            // TODO: change url from localhost
+            // search option
+            var getSearch = '?s=' + $("#embed_search input").is(":checked");
+            // matid option
+            var getMatid;
+            $("#embed_selected input").is(":checked") ? getMatid = "&matid=" + activeRecord.gid + "&lng=" + activeRecord.lng + "&lat=" + activeRecord.lat : getMatid = '';
+            // q's
+            var questions = [];
+            $('.embed-cols input').each(function (i, item) {
+                if ($(item).is(':checked')) { questions.push($(item).attr('id')); }
+            });
+            var getQ = '&qs=' + questions.join();
+            // default question
+            var getDQ = '&dq=' + $('#embed-defaultquestion').val();
+            // size
+            var w = $('#embed-width').val();
+            var h = $('#embed-height').val();
 
-// Get information for record based on our master address table ID
-function getMAT(gid) {
-    $.ajax({
-        url: 'http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_attributequery.php',
-        type: 'GET',
-        dataType: 'jsonp',
-        data: {
-            'table': 'master_address_table',
-            'fields': "full_address as label,objectid as gid,x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, num_parent_parcel as pid, 'ADDRESS' as responsetype",
-            'parameters': "objectid = " + gid
-        },
-        success: function (data) {
-            $.publish("/data/select", [ data[0] ]);
-            $.publish("/map/addmarker", [ activeRecord, 0 ]);
-            $.publish("/data/question", [$(".question select ").val()]);
-        },
-        error: function (error, status, desc) {
-            console.log(status, desc);
+            var url = 'http://mcmap.org/geoportal/embed.html' + getSearch + getMatid + getQ + getDQ;
+            // write iframe
+            $('#embed-code').val('<iframe frameborder="0" width="' + w + '" height="' + h + '" src="' + url + '"></iframe>');
         }
-    });
-}
 
-// Get the nearest master address record to a coordinate
-function getNearestMAT(approx) {
-    $.ajax({
-        url: 'http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_nearest.php',
-        type: 'GET',
-        dataType: 'jsonp',
-        data: {
-            'x': approx.lng,
-            'y': approx.lat,
-            'srid': 4326,
-            'table': 'master_address_table',
-            'fields': "full_address as label,objectid as gid,x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, num_parent_parcel as pid, 'ADDRESS' as responsetype",
-            'limit': 1
-        },
-        success: function (data) {
-            if (approx.label) {
-                data[0].label = approx.label + "<br>" + data[0].label;
-            }
-            $.publish("/data/select", [ data[0] ]);
-            $.publish("/map/addmarker", [ activeRecord, 0 ]);
-            $.publish("/data/question", [$(".question select ").val()]);
-            $.publish("/data/addhistory", [activeRecord]);
-        },
-        error: function (error, status, desc) {
-            console.log(error);
+        // Submit photo modal
+        function submitPhoto() {
+            url = "http://maps.co.mecklenburg.nc.us/house_photos/index.php?pid=" + activeRecord.pid;
+            $("#modalPhoto .modal-body").html('<iframe src="' + url + '" style="width: 450px; height: 400px; border: none;"></iframe>');
+            $('#modalPhoto').modal();
         }
-    });
-}
-
-// Enable active record option in embed modal
-function enableReportOption() {
-    $("#embed_selected .muted").text(activeRecord.label);
-    $("#embed_selected").show();
-    $("#embed_selected input").data("matid", activeRecord.gid);
-}
-
-// Create iframe content
-function createIframe() {
-    // TODO: change url from localhost
-    // search option
-    var getSearch = '?s=' + $("#embed_search input").is(":checked");
-    // matid option
-    var getMatid;
-    $("#embed_selected input").is(":checked") ? getMatid = "&matid=" + activeRecord.gid + "&lng=" + activeRecord.lng + "&lat=" + activeRecord.lat : getMatid = '';
-    // q's
-    var questions = [];
-    $('.embed-cols input').each(function (i, item) {
-        if ($(item).is(':checked')) { questions.push($(item).attr('id')); }
-    });
-    var getQ = '&qs=' + questions.join();
-    // default question
-    var getDQ = '&dq=' + $('#embed-defaultquestion').val();
-    // size
-    var w = $('#embed-width').val();
-    var h = $('#embed-height').val();
-
-    var url = 'http://maps.co.mecklenburg.nc.us/geoportal/embed.html' + getSearch + getMatid + getQ + getDQ;
-    // write iframe
-    $('#embed-code').val('<iframe frameborder="0" width="' + w + '" height="' + h + '" src="' + url + '"></iframe>');
-}
-
-// Submit photo modal
-function submitPhoto() {
-    url = "http://maps.co.mecklenburg.nc.us/house_photos/index.php?pid=" + activeRecord.pid;
-    $("#modalPhoto .modal-body").html('<iframe src="' + url + '" style="width: 450px; height: 400px; border: none;"></iframe>');
-    $('#modalPhoto').modal();
-}

@@ -18,18 +18,8 @@
         <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/main.css?foo=78708">
+        <link rel="stylesheet" href="css/main.css?foo=33056">
 
-        <!-- Leaflet, HTML5 and typeahead patches for oldIE -->
-        <!--[if lte IE 8]>
-            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
-            <script>
-                document.createElement('header'); document.createElement('nav'); document.createElement('section'); document.createElement('article'); document.createElement('aside'); document.createElement('footer'); document.createElement('hgroup');
-            </script>
-            <style>
-                header,nav,section,article,aside,footer,hgroup { display: block; }
-            </style>
-        <![endif]-->
     </head>
 
     <body>
@@ -61,14 +51,10 @@
 
 
         <!-- scripts at the bottom yo -->
-        <!--[if lt IE 9]>
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.min.js"></script>
-        <![endif]-->
-        <!--[if gte IE 9]><!-->
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <!--<![endif]-->
-        <script src="js/main.js?foo=63595"></script>
+        <script>
+            var cacheBuster = "?foo=33056";
+        </script>
+        <script src="js/main.js?foo=33056"></script>
 
         <!--   Google Analytics -->
         <script>

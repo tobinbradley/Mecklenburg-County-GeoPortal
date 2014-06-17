@@ -1,0 +1,59 @@
+<div class="details what">
+    <table class="table table-condensed">
+        <caption class="text-left">Representatives</caption>
+        <tbody>
+        <%
+        if (rc.status === "success" ) {
+            var sortedOffices = _.sortBy(rc.offices, function(d) { return d.name; });
+            _.each(sortedOffices, function(d) {
+                if (d.officialIds) {
+                    %>
+                    <tr>
+                        <th><%= d.name %></th>
+                    </tr>
+                    <%
+                    _.each(d.officialIds, function(r) {
+                        %>
+                        <tr>
+                            <td>
+                                <% if (rc.officials[r].urls) { %>
+                                    <a target="_blank" href="<%= rc.officials[r].urls[0] %>"><%= rc.officials[r].name %></a>
+                                <% } else { %>
+                                    <%= rc.officials[r].name %>
+                                <% } %>
+
+                                <% if (rc.officials[r].party && rc.officials[r].party !== "Unknown") { %>
+                                   (<%= rc.officials[r].party %>)
+                                <% } %>
+
+                                <% if (rc.officials[r].emails) { %>
+                                    <br>
+                                    <a href="mailto:<%= rc.officials[r].emails[0] %>"><%= rc.officials[r].emails[0] %></a>
+                                <% } %>
+                            </td>
+                        </tr>
+                        <%
+                    });
+
+                }
+            });
+            %>
+            <tr>
+                <td></td>
+            </tr>
+        <% } else { %>
+            <tr>
+                <td>No representative information found for this address.</td>
+            </tr>
+        <% } %>
+        </tbody>
+    </table>
+
+</div>
+<div class="details resources">
+    <h5>Additional Resources</h5>
+    <ul class="list-unstyled">
+        <li><a href="http://www.meckboe.org/" target="_blank">Mecklenburg County Board of Elections</a></li>
+        <li>Representative information provided by the <a href="https://developers.google.com/civic-information/" target="_blank">Google Civic API</a>.</li>
+    </ul>
+</div>

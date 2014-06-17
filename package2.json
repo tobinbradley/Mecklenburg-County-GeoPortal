@@ -1,0 +1,22 @@
+{
+  "name": "geoportal",
+  "version": "0.0.1",
+  "description": "Mecklenburg GeoPortal build and watch, including cache busting on build.",
+  "main": "Gruntfile.js",
+  "devDependencies": {
+    "grunt-text-replace": "*",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-less": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-autoprefixer": "*",
+    "grunt-contrib-imagemin": "~0.3.0"
+  },
+  "scripts": {
+    "test": "grunt build"
+  },
+  "author": "Tobin Bradley",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "repository": ""
+}

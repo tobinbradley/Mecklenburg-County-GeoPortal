@@ -18,17 +18,8 @@
         <link rel="apple-touch-icon-precomposed" href="apple-touch-icon-precomposed.png"/>
 
         <!-- Stylesheets -->
-        <link rel="stylesheet" href="css/main.css?foo=35503">
+        <link rel="stylesheet" href="css/main.css?foo=33056">
 
-        <!-- Leaflet, HTML5 and typeahead patches for oldIE -->
-        <!--[if lte IE 8]>
-            <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
-            <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.6.2/html5shiv.js"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.2.0/respond.min.js"></script>
-            <style>
-                .twitter-typeahead { border: 1px solid #ccc; }
-            </style>
-        <![endif]-->
     </head>
 
     <body>
@@ -37,11 +28,8 @@
             <div class="well">
                 <div class="search pull-left" style="width: 60%">
                     <h4>What are you looking for?</h4>
-                    <div class="input-group">
+                    <div class="form">
                         <input id="searchbox" type="text" class="form-control typeahead" placeholder="Search">
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary" type="button" id="btn-search">Go!</button>
-                        </span>
                     </div>
                 </div>
                 <div class="question pull-right" stye="width: 40%">
@@ -84,13 +72,10 @@
 
 
         <!-- scripts at the bottom yo -->
-        <!--[if lt IE 9]>
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <![endif]-->
-        <!--[if gte IE 9]><!-->
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-        <!--<![endif]-->
-        <script src="js/main.js?foo=6720"></script>
+        <script>
+            var cacheBuster = "?foo=33056";
+        </script>
+        <script src="js/main.js?foo=33056"></script>
 
         <!--   Google Analytics -->
         <script>

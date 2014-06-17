@@ -1,21 +1,31 @@
 {
-  "name": "geoportal",
-  "version": "0.0.1",
-  "description": "Mecklenburg GeoPortal build and watch, including cache busting on build.",
-  "main": "Gruntfile.js",
+  "name": "qoldashboard",
+  "version": "1.9.1",
+  "description": "Node packages for gulp",
+  "main": "gulpfile.js",
+  "dependencies": {},
   "devDependencies": {
-    "grunt-text-replace": "*",
-    "grunt-contrib-concat": "*",
-    "grunt-contrib-less": "*",
-    "grunt-contrib-watch": "*",
-    "grunt-contrib-uglify": "*",
-    "grunt-autoprefixer": "*"
+    "gulp": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-concat": "*",
+    "gulp-imagemin": "*",
+    "gulp-less": "*",
+    "gulp-minify-css": "*",
+    "gulp-replace": "*",
+    "gulp-uglify": "*",
+    "gulp-connect": "*",
+    "open": "*",
+    "psi": "*"
   },
   "scripts": {
-    "test": "grunt build"
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/tobinbradley/Mecklenburg-County-Quality-of-Life-Dashboard.git"
   },
   "author": "Tobin Bradley",
   "license": "MIT",
   "readmeFilename": "README.md",
-  "repository": ""
+  "gitHead": "5f971b0b3ff2cad74d86af05be9a2cb3af2072f6"
 }
