@@ -34,7 +34,7 @@ $(document).ready(function () {
     $.subscribe("/data/addhistory", newHistory);
 
     // chosen
-    $(".select-question").chosen({width: '100%', no_results_text: "Not found - ", disable_search_threshold: 10}).change(function () {
+    $(".select-question").chosen({width: '100%', no_results_text: "Not found - ", disable_search_threshold: 20}).change(function () {
         newHistory(activeRecord);
         $.publish("/data/question", [$(this).val()]);
     });
@@ -242,7 +242,7 @@ $(document).ready(function () {
             }
             ]).on('typeahead:selected', function (obj, datum) {
                 $(".help-search").hide("slow");
-                $('.question').show("slow");
+                $('.select-question').prop('disabled', false).trigger("chosen:updated");
                 if (datum.layer === 'Address' || datum.layer === 'PID') {
                     $.publish("/data/select", [ datum ]);
                     $.publish("/map/addmarker", [ activeRecord, 0 ]);
@@ -407,7 +407,7 @@ $(document).ready(function () {
 
         // Enable question area when location selected
         function showQuestion () {
-            $(".question").fadeIn("slow");
+            $('.select-question').prop('disabled', false).trigger("chosen:updated");
         }
 
         // Get information for record based on our master address table ID
