@@ -65,8 +65,9 @@ function question(q) {
                     'x': activeRecord.lng,
                     'y': activeRecord.lat,
                     'srid': 4326,
-                    'table': 'parks',
-                    'fields': 'prkname as label, prkaddr as address, prktype as type, city, x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat',
+                    'table': 'parks_all',
+                    'geometryfield': 'geom',
+                    'fields': 'name as label, address, city, x(transform(geom, 4326)) as lng, y(transform(geom, 4326)) as lat',
                     'limit': '5'
                 },
                 success: function (data) {

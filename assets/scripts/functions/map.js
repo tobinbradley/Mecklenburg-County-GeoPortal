@@ -26,7 +26,7 @@ function mapInit() {
     map.on('click', identify);
 
     //  Mecklenburg Base Layer
-    var meckbase = L.tileLayer("http://mcmap.org:3000/meckbase/{z}/{x}/{y}.png" + cacheBuster,
+    var meckbase = L.tileLayer("http://mcmap.org:3000/meckbase/{z}/{x}/{y}.png",
      { "attribution": "<a href='http://emaps.charmeck.org' target='_blank'>Mecklenburg County GIS</a>" }).addTo(map);
 
     // Aerials
