@@ -1,0 +1,22 @@
+#map {
+    width: 100%;
+    height: 100%;    
+}
+.map-transparent {
+    background: rgba(0,0,0,0);
+}
+
+.leaflet-control-layers-toggle {
+  background-image: url(../img/layers.png);
+}
+.leaflet-retina .leaflet-control-layers-toggle {
+	background-image: url(../img/layers-2x.png);
+}
+
+.leaflet-container .leaflet-bar, .leaflet-control-layers {
+    box-shadow: rgba(0, 0, 0, 0.137255) 0px 2px 2px 0px, rgba(0, 0, 0, 0.2) 0px 3px 1px -2px, rgba(0, 0, 0, 0.117647) 0px 1px 5px 0px;
+}
+
+.leaflet-container .leaflet-bar a {
+    border-color: #666;
+}

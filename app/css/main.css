@@ -1,0 +1,125 @@
+/*  imports  */
+/*@import '../../bower_components/material-design-lite/material.css';*/
+@import 'material.css';
+@import '../../node_modules/leaflet/dist/leaflet.css';
+@import '../../node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css';
+@import 'fontello.css';
+@import 'variables.css';
+@import 'oldie.css';
+@import 'layout.css';
+@import 'search.css';
+@import 'map.css';
+@import 'photos.css';
+@import 'reports.css';
+@import 'print.css';
+
+
+
+
+
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+body {
+    height: 100%;
+    width: 100%;
+}
+
+.list-unstyled {
+    list-style-type: none;
+    padding-left: 10px;
+}
+
+
+.nav-link {
+    text-decoration: none;
+    font-size: 12px;
+    padding: 0 0 3px;
+    display: block;
+}
+.nav-link:hover {
+    text-decoration: underline;
+}
+
+
+.muted {
+    font-size: 0.9em;
+    color: #666;
+}
+
+
+/* responsive video wrapper */
+.videoWrapper {
+	position: relative;
+	padding-bottom: 56.25%; /* 16:9 */
+	/*padding-top: 25px;*/
+	height: 0;
+    margin-bottom: 50px;
+}
+.videoWrapper iframe, .videoWrapper img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.introduction h3 {
+    font-weight: bold;
+    color: var(--reportHighlight);
+}
+.introduction h4, .introduction h5 {
+    line-height: normal;
+}
+.introduction h4 {
+    margin: 35px 0 6px;
+}
+.introduction h5 {
+    margin: 0 0 70px;
+}
+.credit {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
+
+
+/*-----------------------------------------------------------*/
+
+
+.mdl-layout__drawer-button .material-icons {
+    color: rgb(236, 239, 241);
+}
+
+.mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
+    padding: 14px 40px;
+}
+
+.mdl-layout__drawer {
+  border: none;
+}
+
+.mdl-layout__drawer-button {
+    /*top: -4px;*/
+    /*font-size: 1.4em;*/
+    line-height: normal;
+    top: 3px;
+}
+/*.mdl-layout__drawer-button.icon-menu {
+    display: inline-block;
+}*/
+
+@media (min-width: 768px) {
+    .demo-header { display: none; }
+}
+
+.mdl-layout__header-row {
+    padding: 0 16px 0 72px !important;
+}
+
+/*@media screen and (max-width: 1024px) {
+.mdl-layout__header-row {
+    height: 56px;
+    padding: 0 1pc 0 55px;
+}
+}*/

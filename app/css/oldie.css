@@ -1,0 +1,13 @@
+/* message for IE<10 */
+.oldie {
+    width: 100%;
+    margin: 0;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 10px;
+    background: yellow;
+}
+.oldie i {
+    float: left;
+    margin-right: 10px;
+}

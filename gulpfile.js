@@ -1,136 +1,96 @@
-var gulp = require('gulp'),
-    connect = require('gulp-connect'),
-    less = require('gulp-less'),
-    autoprefixer = require('gulp-autoprefixer'),
-    minifycss = require('gulp-minify-css'),
-    uglify = require('gulp-uglify'),
-    concat = require('gulp-concat'),
+var postcss = require("gulp-postcss"),
+    gulp = require("gulp"),
+    cssnext = require("cssnext"),
+    sourcemaps = require("gulp-sourcemaps"),
+    gutil = require('gulp-util'),
     imagemin = require('gulp-imagemin'),
+    browserSync = require('browser-sync'),
     replace = require('gulp-replace'),
-    open = require('open'),
-    fs = require('fs');
+    browserify = require('browserify'),
+    source = require('vinyl-source-stream'),
+    buffer = require('vinyl-buffer'),
+    babelify = require('babelify'),
+    reactify = require('reactify'),
+    uglify = require('gulp-uglify'),
+    nano = require('gulp-cssnano');
 
 
-var jsFiles = [
-    'bower_components/jquery/dist/jquery.js',
-    'bower_components/bootstrap/js/transition.js',
-    'bower_components/bootstrap/js/button.js',
-    'bower_components/bootstrap/js/collapse.js',
-    'bower_components/bootstrap/js/dropdown.js',
-    'bower_components/bootstrap/js/tooltip.js',
-    'bower_components/bootstrap/js/popover.js',
-    'bower_components/bootstrap/js/modal.js',
-    'bower_components/bootstrap/js/carousel.js',
-    'bower_components/jquery-placeholder/jquery.placeholder.js',
-    'bower_components/leaflet/dist/leaflet.js',
-    //'leaflet-1b1/leaflet.js',
-    'bower_components/d3/d3.js',
-    'assets/scripts/vendor/pubsub.js',
-    'bower_components/topojson/topojson.js',
-    'assets/scripts/vendor/typeahead.js',
-    'assets/scripts/vendor/jquery-tourbus.js',
-    'bower_components/lodash/lodash.min.js',
-    'bower_components/jquery.scrollTo/jquery.scrollTo.js',
-    'assets/scripts/functions/*.js',
-    'assets/scripts/page.js'
-];
+// main controller tasks
+// add "--type production" to compress CSs and uglify JS
+gulp.task('default', ['watch', 'browser-sync']);
+gulp.task('build', ['css', 'js', 'replace', 'imagemin', 'fonts']);
 
-process.setMaxListeners(0);
-
-// livereload server
-gulp.task('connect', function() {
-    connect.server({
-        root: 'public',
-        livereload: true,
-        port: 8000
+// Live reload server
+gulp.task('browser-sync', function() {
+    browserSync(['./public/**/*'], {
+        server: {
+            baseDir: "./public"
+        }
     });
 });
 
-// html
-gulp.task('html', function () {
-    gulp.src('./public/*.html')
-        .pipe(connect.reload());
+// watch tasks
+gulp.task('watch', function () {
+    gulp.watch(['./app/*.html'], ['replace']);
+    gulp.watch(['./app/css/**/*.css'], ['css']);
+    gulp.watch(['./app/js/**/*.js', './app/js/**/*.jsx'], ['js']);
+    gulp.watch('./app/img/**/*', ['imagemin']);
 });
 
-// Less processing
-gulp.task('less', function() {
-    return gulp.src('assets/less/main.less')
-        .pipe(less())
-        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(gulp.dest('public/css'))
-        .pipe(connect.reload());
-});
-gulp.task('less-build', function() {
-    return gulp.src('assets/less/main.less')
-        .pipe(less())
-        .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
-        .pipe(minifycss())
-        .pipe(gulp.dest('public/css'));
-});
-
-// JavaScript
-gulp.task('js', function() {
-    return gulp.src(jsFiles)
-        .pipe(concat('main.js'))
-        .pipe(gulp.dest('public/js'))
-        .pipe(connect.reload());
-});
-gulp.task('js-build', function() {
-    return gulp.src(jsFiles)
-        .pipe(concat('main.js'))
-        .pipe(uglify())
-        .pipe(gulp.dest('public/js'));
-});
-
-// image processing
-gulp.task('imagemin', function() {
-    return gulp.src('assets/images/build/*')
-        .pipe(imagemin({
-            optimizationLevel: 3,
-            progressive: true,
-            interlaced: true
-        }))
-        .pipe(gulp.dest('public/images'));
-});
-
-// cache busting
-gulp.task('cachebuster', function() {
-    return gulp.src('public/**/*.html')
-        .pipe(replace(/foo=[0-9]*/g, 'foo=' + Math.floor((Math.random() * 100000) + 1)))
+// process HTML with cache busting
+gulp.task('replace', function() {
+    return gulp.src('app/*.html')
+        .pipe(replace("{{cachebuster}}", Math.floor((Math.random() * 100000) + 1)))
         .pipe(gulp.dest('public/'));
 });
 
-// open broser
-gulp.task("browser", function(){
-    return open('http://localhost:8000');
+// move fonts
+gulp.task('fonts', function() {
+    return gulp.src('app/fonts/*.*')
+        .pipe(gulp.dest('public/fonts/'));
 });
 
-// watch
-gulp.task('watch', function () {
-    gulp.watch(['./public/**/*.html'], ['html']);
-    gulp.watch(['./assets/less/**/*.less'], ['less']);
-    gulp.watch('assets/scripts/**/*.js', ['js']);
-});
-
-// rename files for basic setup
-gulp.task('init', function() {
-    // make sure people don't run this twice and end up with no search.js
-    fs.exists('assets/scripts/functions/search.js.basic', function(exists) {
-        if (exists) {
-            console.log("renaming search files...");
-            // rename mecklenburg search file to search.js.meck
-            fs.rename('assets/scripts/functions/search.js', 'assets/scripts/functions/search.js.advanced', function(err) {
-                if ( err ) { console.log('ERROR: ' + err); }
-            });
-            // rename default search file to search.js
-            fs.rename('assets/scripts/functions/search.js.basic', 'assets/scripts/functions/search.js', function(err) {
-                if ( err ) { console.log('ERROR: ' + err); }
-            });
-        }
+// JavaScript
+gulp.task('js', function () {
+  var b = browserify({
+    entries: ['./app/js/app.js'],
+    debug: true,
+    transform: [reactify, babelify.configure({'only': './app/js/'})]
   });
+  return b.bundle()
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({loadMaps: true}))
+    .pipe(gutil.env.type === 'production' ? uglify() : gutil.noop())
+    .on('error', gutil.log)
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./public/js/'));
 });
 
+// CSS
+gulp.task("css", function() {
+    var processors = [
+        cssnext({
+            'browers': ['last 3 version'],
+            'customProperties': true,
+            'colorFunction': true,
+            'customSelectors': true
+        })
+    ];
+    return gulp.src('./app/css/main.css')
+        .pipe(sourcemaps.init())
+        .pipe(postcss(processors))
+        .pipe(gutil.env.type === 'production' ? nano() : gutil.noop())
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest('./public/css'));
+});
 
-// controller tasks
-gulp.task('default', ['less', 'js', 'watch', 'connect', 'browser']);
-gulp.task('build', ['less-build', 'js-build', 'cachebuster', 'imagemin']);
+// image minification
+gulp.task('imagemin', function() {
+    return gulp.src('app/img/*')
+        .pipe(imagemin({
+            optimizationLevel: 5,
+            svgoPlugins: [{removeViewBox: false}]
+        }))
+        .pipe(gulp.dest('public/img'));
+});

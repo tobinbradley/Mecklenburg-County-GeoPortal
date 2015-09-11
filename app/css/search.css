@@ -1,0 +1,125 @@
+/*Search input formatting*/
+.search-input {
+    width: 100%;
+    /*border: 1px solid rgba(0, 0, 0, 0.05);*/
+    border: none;
+    border-bottom: 2px solid #757575;
+    padding: 5px;
+    border-radius: 3px;
+    box-sizing: border-box;
+    color: var(--reportHighlight);
+    font-size: 32px;
+}
+.search-input:focus {
+    outline: none;
+}
+.search-container {
+    margin: 20px 0 10px;
+}
+.search-header {
+    padding: 0;
+    margin: 0 0 10px;
+    line-height: normal;
+    font-size: 3em;
+}
+.search-input-container {
+    width: 80%;
+    margin: 0 auto;
+}
+.search-input-container p {
+    padding-left: 5px;
+    margin-bottom: 0;
+}
+@media (max-width: 1000px) {
+    .search-input, .search-header { font-size: 26px; }
+}
+@media (max-width: 700px) {
+    .search-input, .search-header { font-size: 20px; }
+    .search-input-container { width: 100%; }
+}
+
+
+/* The bar under the search box ala MDL */
+.bar {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+.bar:before, .bar:after {
+    content: '';
+    height: 3px;
+    width: 0;
+    bottom: 1px;
+    position: absolute;
+    background:var(--reportHighlight);
+    transition: 0.4s ease all;
+}
+.bar:before {
+    left: 50%;
+}
+.bar:after {
+    right: 50%;
+}
+.search-input:focus ~ .bar:before, .search-input:focus ~ .bar:after {
+    width: 50%;
+}
+
+/*Search results formatting*/
+#search-results {
+    column-count: 2;
+    column-gap: 35px;
+}
+#search-results ul {
+    padding: 0;
+    margin: 0;
+}
+#search-results li {
+    list-style-type:none;
+    padding: 7px;
+    border: 1px solid var(--reportHighlight);
+    border-radius: 3px;
+    margin: 5px 0 5px 0;
+    display: inline-block;
+    width: 100%;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: 0.2s ease all;
+    color: var(--reportHighlight);
+}
+#search-results li:hover {
+    background: #edeaea;
+    /*box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);*/
+}
+#search-results .search-result-label {
+    text-decoration: none;
+    padding-left: 6px;
+}
+#search-results i, #search-results span {
+    pointer-events: none;
+}
+
+#search-results .icon {
+    display: inline-block;
+    float: right;
+}
+.search-result-type {
+    background-color: var(--reportHighlight);
+    color: white;
+    padding: 3px;
+    font-weight: bold;
+    border-radius: 3px;
+}
+.search-result-empty {
+    font-size: 1.4em;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+.search-result-empty i {
+    margin-right: 5px;
+    float: left;
+}
+@media (max-width: 900px) {
+    #search-results {
+        column-count: 1;
+    }
+}

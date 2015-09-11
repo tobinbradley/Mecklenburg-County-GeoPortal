@@ -1,0 +1,25 @@
+@media print {
+    .mdl-layout--fixed-drawer > .mdl-layout__content {
+        margin-left: 0;
+    }
+    /*html, body {
+ overflow-x: visible;
+ overflow-y: visible;
+ height: 100%;
+}*/
+    /*.mdl-card {
+        display: block;
+    }*/
+    /*.mdl-js {
+        height: 100vh !important;
+    }*/
+    /*html, body, .mdl-grid, .mdl-js, .mdl-layout__container {
+        overflow: visible !important;
+        overflow-y:visible !important;
+        height: 100%;
+        display: inline;
+    }*/
+    /*html {
+        height: initial !important;
+    }*/
+}
