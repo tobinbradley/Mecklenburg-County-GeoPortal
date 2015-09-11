@@ -33,12 +33,11 @@ $(document).ready(function () {
     if (pageType !== "PRINT") { $.subscribe("/data/question", overlayLayer); }
     $.subscribe("/data/addhistory", newHistory);
 
-    // chosen
-    $(".select-question").chosen({width: '100%', no_results_text: "Not found - ", disable_search_threshold: 20}).change(function () {
-        newHistory(activeRecord);
-        $.publish("/data/question", [$(this).val()]);
+    // question select
+    $(".select-question").change(function(){
+            newHistory(activeRecord);
+            $.publish("/data/question", [$(".select-question option:selected").val()]);
     });
-    $(".select-question input").prop("placeholder", "search metrics");
 
     // Activate Bootstrap Popovers
     $('a[rel=popover]').popover({delay: { show: 500, hide: 100 }});
@@ -155,15 +154,20 @@ $(document).ready(function () {
                             lng: item.lng
                         });
                     });
-                    var query = $(".typeahead").val();
-                    if (dataset.length === 0 && $.isNumeric(query.split(" ")[0]) && query.trim().split(" ").length > 1) {
-                        dataset.push({ value: "No records found." });
-                    }
+                    // var query = $(".typeahead").val();
+                    // if (dataset.length === 0 && $.isNumeric(query.split(" ")[0]) && query.trim().split(" ").length > 1) {
+                    //     dataset.push({ value: "No records found." });
+                    // }
+                    // return dataset;
+                    // if (typeof dataset[0].value == 'undefined') {
+                    //     //dataset[0].value = "No records found.";
+                    //     dataset.pop();
+                    // }
                     return dataset;
                 }
             },
-            minLength: 4,
-            limit: 10,
+            minLength: 2,
+            limit: 20,
             header: '<h4 class="typeahead-header"><span class="glyphicon glyphicon-home"></span> Address</h4>'
         }, {
             name: 'PID',
@@ -184,11 +188,17 @@ $(document).ready(function () {
                             lng: item.lng
                         });
                     });
-                    var query = $(".typeahead").val();
-                    if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
-                        dataset.push({ value: "No records found." }); }
-                        return dataset;
-                    }
+                    // var query = $(".typeahead").val();
+                    // if (dataset.length === 0 && query.length === 8 && query.indexOf(" ") === -1 && $.isNumeric(query.substring(0, 5))) {
+                    //     dataset.push({ value: "No records found." }); }
+                    //     return dataset;
+                    // }
+                    // if (typeof dataset[0].value == 'undefined') {
+                    //     //dataset[0].value = "No records found.";
+                    //     dataset.pop();
+                    // }
+                    return dataset;
+                }
                 },
                 minLength: 8,
                 limit: 5,
@@ -209,8 +219,11 @@ $(document).ready(function () {
                                 lng: item.lng
                             });
                         });
-                        if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
-                        return _(dataset).sortBy("value");
+                        // if (typeof dataset[0].value == 'undefined') {
+                        //     //dataset[0].value = "No records found.";
+                        //     dataset.pop();
+                        // }
+                        return dataset;
                     }
                 },
                 minLength: 4,
@@ -232,8 +245,11 @@ $(document).ready(function () {
                                 lng: item.lng
                             });
                         });
-                        if (dataset.length === 0) { dataset.push({ value: "No records found." }); }
-                        return _(dataset).sortBy("value");
+                        // if (typeof dataset[0].value == 'undefined') {
+                        //     //dataset[0].value = "No records found.";
+                        //     dataset.pop();
+                        // }
+                        return dataset;
                     }
                 },
                 minLength: 4,
@@ -242,7 +258,7 @@ $(document).ready(function () {
             }
             ]).on('typeahead:selected', function (obj, datum) {
                 $(".help-search").hide("slow");
-                $('.select-question').prop('disabled', false).trigger("chosen:updated");
+                $('.select-question').prop('disabled', false);
                 if (datum.layer === 'Address' || datum.layer === 'PID') {
                     $.publish("/data/select", [ datum ]);
                     $.publish("/map/addmarker", [ activeRecord, 0 ]);
@@ -362,7 +378,6 @@ $(document).ready(function () {
         function handleGETArgs() {
             if (getURLParameter("q")) {
                 $('.select-question').val(getURLParameter("q"));
-                //$('.select-question').chosen().change();
             }
             if (getURLParameter("matid")) {
                 if (activeRecord && activeRecord.gid !== getURLParameter("matid")) {
@@ -407,7 +422,7 @@ $(document).ready(function () {
 
         // Enable question area when location selected
         function showQuestion () {
-            $('.select-question').prop('disabled', false).trigger("chosen:updated");
+            $('.select-question').prop('disabled', false);
         }
 
         // Get information for record based on our master address table ID
@@ -418,7 +433,7 @@ $(document).ready(function () {
                 dataType: 'jsonp',
                 data: {
                     'table': 'master_address_table',
-                    'fields': "full_address as label,objectid as gid,x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, num_parent_parcel as pid, 'ADDRESS' as responsetype",
+                    'fields': "full_address as label,objectid as gid,st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat, num_parent_parcel as pid, 'ADDRESS' as responsetype",
                     'parameters': "objectid = " + gid
                 },
                 success: function (data) {
@@ -444,7 +459,7 @@ $(document).ready(function () {
                     'y': approx.lat,
                     'srid': 4326,
                     'table': 'master_address_table',
-                    'fields': "full_address as label,objectid as gid,x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, num_parent_parcel as pid, 'ADDRESS' as responsetype",
+                    'fields': "full_address as label,objectid as gid,st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat, num_parent_parcel as pid, 'ADDRESS' as responsetype",
                     'limit': 1
                 },
                 success: function (data) {

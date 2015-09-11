@@ -6,9 +6,9 @@
                 <tr>
                     <td>
                         <%
-                            var district = _(rc).filter(function (x) { return x.type === "DISTRICT";});
-                            var transit = _(rc).filter(function (x) { return x.type === "TRANSIT CORRIDOR";});
-                            var business = _(rc).filter(function (x) { return x.type === "BUSINESS CORRIDOR";});
+                            var district = _.filter(rc, function (x) { return x.type === "DISTRICT";});
+                            var transit = _.filter(rc, function (x) { return x.type === "TRANSIT CORRIDOR";});
+                            var business = _.filter(rc, function (x) { return x.type === "BUSINESS CORRIDOR";});
                         %>
                         <% if ( district.length > 0 ) { %>
                             This property is located in the <strong><%= district[0].name %></strong> Post Construction District.

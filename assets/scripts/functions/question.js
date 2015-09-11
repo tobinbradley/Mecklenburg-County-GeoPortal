@@ -67,7 +67,7 @@ function question(q) {
                     'srid': 4326,
                     'table': 'parks_all',
                     'geometryfield': 'geom',
-                    'fields': 'name as label, address, city, x(transform(geom, 4326)) as lng, y(transform(geom, 4326)) as lat',
+                    'fields': 'name as label, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',
                     'limit': '5'
                 },
                 success: function (data) {
@@ -85,7 +85,7 @@ function question(q) {
                     'y': activeRecord.lat,
                     'srid': 4326,
                     'table': 'libraries',
-                    'fields': 'name as label, address, city, x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat',
+                    'fields': 'name as label, address, city, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
                     'limit': '5'
                 },
                 success: function (data) {
@@ -124,7 +124,7 @@ function question(q) {
                     'y': activeRecord.lat,
                     'srid': 4326,
                     'table': 'fire_stations',
-                    'fields': 'name as label, address, station_ty as type, x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat',
+                    'fields': 'name as label, address, station_ty as type, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
                     'limit': '3'
                 },
                 success: function (data) {
@@ -157,7 +157,7 @@ function question(q) {
                     'y': activeRecord.lat,
                     'srid': 4326,
                     'table': 'police_stations',
-                    'fields': 'name as label, address, x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat',
+                    'fields': 'name as label, address, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
                     'limit': '3'
                 },
                 success: function (data) {
@@ -209,7 +209,7 @@ function question(q) {
                 dataType: 'jsonp',
                 data: {
                     'table': 'view_schools_magnet',
-                    'fields': "schlname as label, schl, address,ST_Distance(the_geom,ST_Transform(GeomFromText('POINT(" + activeRecord.lng + " " + activeRecord.lat + ")',4326), 2264)) as distance, x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat",
+                    'fields': "schlname as label, schl, address,ST_Distance(the_geom,ST_Transform(GeomFromText('POINT(" + activeRecord.lng + " " + activeRecord.lat + ")',4326), 2264)) as distance, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat",
                     'order': 'distance'
                 },
                 success: function (data) {
@@ -247,7 +247,7 @@ function question(q) {
                     'y': activeRecord.lat,
                     'srid': 4326,
                     'table': 'polling_locations,voting_precincts',
-                    'fields': "polling_locations.name as label,polling_locations.address,a.precno as precinct,x(transform(polling_locations.the_geom, 4326)) as lng, y(transform(polling_locations.the_geom, 4326)) as lat, ST_Distance(polling_locations.the_geom,ST_Transform(GeomFromText('POINT(" + activeRecord.lng + " " + activeRecord.lat + ")',4326), 2264)) as distance",
+                    'fields': "polling_locations.name as label,polling_locations.address,a.precno as precinct,st_x(st_transform(polling_locations.the_geom, 4326)) as lng, st_y(st_transform(polling_locations.the_geom, 4326)) as lat, ST_Distance(polling_locations.the_geom,ST_Transform(GeomFromText('POINT(" + activeRecord.lng + " " + activeRecord.lat + ")',4326), 2264)) as distance",
                     'parameters': 'a.precno = polling_locations.precno'
                 },
                 success: function (data) {
@@ -280,7 +280,8 @@ function question(q) {
                     'srid': 4326,
                     'table': 'elected_officials,national_congressional',
                     'fields': "elected_officials.district, elected_officials.representative",
-                    'parameters': "elected_officials.district_type = 'national_congressional' and (elected_officials.district = 'At-Large' or elected_officials.district = cast(a.district as varchar(5)))"
+                    'parameters': "elected_officials.district_type = 'national_congressional' and (elected_officials.district = 'At-Large' or elected_officials.district = cast(a.district as varchar(5)))",
+                    'order': "elected_officials.district"
                 },
                 success: function (data) {
                     report("voting-natc", data, ".voting-natc");
@@ -297,7 +298,8 @@ function question(q) {
                     'srid': 4326,
                     'table': 'elected_officials,state_senate',
                     'fields': "elected_officials.district,elected_officials.representative",
-                    'parameters': "elected_officials.district_type = 'state_senate' and elected_officials.district = cast(a.senate as varchar(5))"
+                    'parameters': "elected_officials.district_type = 'state_senate' and elected_officials.district = cast(a.senate as varchar(5))",
+                    'order': "elected_officials.district"
                 },
                 success: function (data) {
                     report("voting-state-senate", data, ".voting-senate");
@@ -314,7 +316,8 @@ function question(q) {
                     'srid': 4326,
                     'table': 'elected_officials,state_house',
                     'fields': "elected_officials.district,elected_officials.representative",
-                    'parameters': "elected_officials.district_type = 'state_house' and elected_officials.district = cast(a.house as varchar(5))"
+                    'parameters': "elected_officials.district_type = 'state_house' and elected_officials.district = cast(a.house as varchar(5))",
+                    'order': "elected_officials.district"
                 },
                 success: function (data) {
                     report("voting-house", data, ".voting-house");
@@ -331,7 +334,8 @@ function question(q) {
                     'srid': 4326,
                     'table': 'elected_officials,voting_precincts',
                     'fields': "elected_officials.district,elected_officials.representative,elected_officials.district",
-                    'parameters': "elected_officials.district_type = 'county_commission' and (elected_officials.district = cast(a.cc as varchar(5)) or elected_officials.district = 'At-Large')"
+                    'parameters': "elected_officials.district_type = 'county_commission' and (elected_officials.district = cast(a.cc as varchar(5)) or elected_officials.district = 'At-Large')",
+                    'order': "elected_officials.district"
                 },
                 success: function (data) {
                     report("voting-cc", data, ".voting-cc");
@@ -348,7 +352,8 @@ function question(q) {
                     'srid': 4326,
                     'table': 'elected_officials,voting_precincts',
                     'fields': "elected_officials.district,elected_officials.representative,elected_officials.district",
-                    'parameters': "elected_officials.district_type = 'board_of_education' and (elected_officials.district = cast(a.school as varchar(5)) or elected_officials.district = 'At-Large')"
+                    'parameters': "elected_officials.district_type = 'board_of_education' and (elected_officials.district = cast(a.school as varchar(5)) or elected_officials.district = 'At-Large')",
+                    'order': "elected_officials.district"
                 },
                 success: function (data) {
                     report("voting-sb", data, ".voting-sb");
@@ -366,7 +371,7 @@ function question(q) {
                     'table': 'elected_officials,city_council',
                     'fields': "elected_officials.district,elected_officials.representative,elected_officials.district",
                     'parameters': "elected_officials.district_type = 'charlotte_city_council' and (elected_officials.district = cast(a.citydist as varchar(5)) or elected_officials.district = 'At-Large')",
-                    'debug': 'true'
+                    'order': "elected_officials.district"
                 },
                 success: function (data) {
                     report("voting-city", data, ".voting-city");
@@ -549,7 +554,7 @@ function question(q) {
                     'srid': 4326,
                     'distance': 2640,
                     'table': 'air_pollution_facilities',
-                    'fields': "name, x(transform(the_geom, 4326)) as lng, y(transform(the_geom, 4326)) as lat, round(ST_Distance(ST_Transform(ST_GeomFromText('POINT(" + activeRecord.lng + " " + activeRecord.lat + ")',4326), 2264),ST_transform(the_geom, 2264))) as dist",
+                    'fields': "name, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat, round(ST_Distance(ST_Transform(ST_GeomFromText('POINT(" + activeRecord.lng + " " + activeRecord.lat + ")',4326), 2264),ST_transform(the_geom, 2264))) as dist",
                     'order': 'dist'
                 },
                 success: function (data) {
@@ -592,21 +597,21 @@ function question(q) {
                     report("env-land-soil", data, ".env-land-soil");
                 }
             });
-            $.ajax({
-                url: 'http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_rasterfeatureoverlay.php',
-                type: 'GET',
-                dataType: 'jsonp',
-                data: {
-                    'format': 'json',
-                    'from_geotable': 'tax_parcels',
-                    'to_raster': 'land_classification_2008',
-                    'to_table': 'soil',
-                    'parameters': "pid = '" + activeRecord.pid + "'"
-                },
-                success: function (data) {
-                    report("env-land-landuse", data.rows, ".env-land-landuse");
-                }
-            });
+//            $.ajax({
+//                url: 'http://maps.co.mecklenburg.nc.us/rest/v1/ws_geo_rasterfeatureoverlay.php',
+//                type: 'GET',
+//                dataType: 'jsonp',
+//                data: {
+//                    'format': 'json',
+//                    'from_geotable': 'tax_parcels',
+//                    'to_raster': 'land_classification_2008',
+//                    'to_table': 'soil',
+//                    'parameters': "pid = '" + activeRecord.pid + "'"
+//                },
+//                success: function (data) {
+//                    report("env-land-landuse", data.rows, ".env-land-landuse");
+//                }
+//            });
             break;
         case "qol":
             // quality of life

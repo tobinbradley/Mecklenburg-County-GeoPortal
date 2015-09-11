@@ -1,12 +1,12 @@
 <%
-    var elementary = _(rc).filter(function (x) { return x.type === "ELEMENTARY";});
-    var middle = _(rc).filter(function (x) { return x.type === "MIDDLE";});
-    var high = _(rc).filter(function (x) { return x.type === "HIGH";});
+    var elementary = _.filter(rc, function (x) { return x.type === "ELEMENTARY";});
+    var middle = _.filter(rc, function (x) { return x.type === "MIDDLE";});
+    var high = _.filter(rc, function (x) { return x.type === "HIGH";});
 %>
 <h3 class="visible-print">Home Schools</h3>
 <div class="details what">
     <table class="table table-condensed table-locations">
-        <caption class="text-left">Home School Assignments</caption>
+        <caption class="text-left">2014-15 Home School Assignments</caption>
 
         <tbody>
             <% if (high.length === 1) { %>
@@ -22,7 +22,7 @@
                 </tr>
             <% } else { %>
                 <tr>
-                    <th colspan="3">HIgh School</th>
+                    <th colspan="3">High School</th>
                 </tr>
                 <tr>
                     <td colspan="3">

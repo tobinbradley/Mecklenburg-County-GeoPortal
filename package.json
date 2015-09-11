@@ -14,8 +14,7 @@
     "gulp-replace": "*",
     "gulp-uglify": "*",
     "gulp-connect": "*",
-    "open": "*",
-    "psi": "*"
+    "open": "*"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

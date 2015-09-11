@@ -1,21 +1,27 @@
+<%
+    var current = _.filter(rc, function(item) { return item.jurisdiction !== 'future' });
+    var future = _.filter(rc, function(item) { return item.jurisdiction === 'future' });
+%>
+
 <h3 class="visible-print">Garbage/Recycling</h3>
 <div class="details what">
     <table class="table table-condensed">
-        <caption class="text-left">Garbage/Recycling Collection Days</caption>
-        <% if ( rc.length > 0 ) { %>
+        <caption class="text-left">Collection Days</caption>
+        <% if ( current.length > 0 ) { %>
         <tbody>
-            <% _.each( rc, function( item ){ %>
+            <% _.each( current, function( item ){ %>
                 <tr>
-                    <td><%= item.label.replace("ORANGE week", "<strong>ORANGE</strong> week (see calendar)").replace("GREEN week", "<strong>GREEN</strong> week (see calendar)") %></td>
+                <%
+                    var theText = item.label.replace("RED week", "<strong>ORANGE</strong> week (<a href='http://charmeck.org/city/charlotte/SWS/CurbIt/Recycling/Pages/Home.aspx' target='_blank'>see calendar</a>)")
+                                   .replace("GREEN week", "<strong>GREEN</strong> week (<a href='http://charmeck.org/city/charlotte/SWS/CurbIt/Recycling/Pages/Home.aspx' target='_blank'>see calendar</a>)")
+                                   .replace("A Week", '<a href="http://www.huntersville.org/LinkClick.aspx?fileticket=VohpMyJgBHc%3d&tabid=565&portalid=0&mid=1206" target="_blank">A Week</a>')
+                                   .replace("B Week", '<a href="http://www.huntersville.org/LinkClick.aspx?fileticket=ZQir5L4_LGw%3d&tabid=565&portalid=0&mid=1206">B Week</a>');
+                %>
+                    <td><%= theText %></td>
                 </tr>
             <% }); %>
         </tbody>
     </table>
-        <% if ( rc[0].jurisdiction === "charlotte" ) { %>
-        <p class="text-center">
-            <a href="images/solid_waste_calendar.gif" target="_blank"><img src="images/solid_waste_calendar.gif" alt="Solid Waste Calendar" width="95%" class="img-polaroid"></a>
-        </p>
-        <% } %>
     <% } else { %>
         <tbody>
             <tr>
@@ -24,11 +30,33 @@
         </tbody>
     </table>
     <% } %>
+
+    <!-- Temporary spot for changes -->
+    <% if ( future.length > 0 ) { %>
+        <table class="table table-condensed">
+            <caption class="text-left">*New Collection Days Effective July 31, 2015</caption>
+            <tbody>
+                <% _.each( future, function( item ){ %>
+                    <tr>
+                    <%
+                        var theText = item.label.replace("RED week", "<strong>ORANGE</strong> week (<a href='http://charmeck.org/city/charlotte/SWS/CurbIt/Recycling/Pages/Home.aspx' target='_blank'>see calendar</a>)")
+                                       .replace("GREEN week", "<strong>GREEN</strong> week (<a href='http://charmeck.org/city/charlotte/SWS/CurbIt/Recycling/Pages/Home.aspx' target='_blank'>see calendar</a>)")
+                                       .replace("A Week", '<a href="http://www.huntersville.org/LinkClick.aspx?fileticket=VohpMyJgBHc%3d&tabid=565&portalid=0&mid=1206" target="_blank">A Week</a>')
+                                       .replace("B Week", '<a href="http://www.huntersville.org/LinkClick.aspx?fileticket=ZQir5L4_LGw%3d&tabid=565&portalid=0&mid=1206">B Week</a>');
+                    %>
+                        <td><%= theText %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } %>
+    <!-- End temporary spot for changes -->
 </div>
 <div class="details resources">
     <h5>Additional Resources</h5>
     <ul class="list-unstyled">
         <li><a href="http://charmeck.org/city/charlotte/SWS" target="_blank">Charlotte Solid Waste Services</a></li>
+        <li><a href="http://www.cornelius.org/index.aspx?nid=208">Cornelius Solid Waste Services</a></li>
         <li><a href="http://www.huntersville.org/Departments/EngineeringPublicWorks/SolidWasteRecycling.aspx" target="_blank">Huntersville Solid Waste and Recycling Collection</a></li>
     </ul>
 </div>

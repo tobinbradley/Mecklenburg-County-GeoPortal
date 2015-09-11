@@ -1,8 +1,8 @@
 <div class="details what">
     <% if (rc.length !== 0 ) { %>
     <%
-            var district = _(rc).filter(function (x) { return x.district !== "At-Large";});
-            var atlarge = _(rc).filter(function (x) { return x.district === "At-Large";});
+            var district = _.filter(rc, function (x) { return x.district !== "At-Large";});
+            var atlarge = _.filter(rc, function (x) { return x.district === "At-Large";});
          %>
     <table class="table table-condensed">
         <caption class="text-left">Charlotte City Council District <%= district[0].district %></caption>

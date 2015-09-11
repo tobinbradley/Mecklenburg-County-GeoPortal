@@ -7,7 +7,6 @@ var gulp = require('gulp'),
     concat = require('gulp-concat'),
     imagemin = require('gulp-imagemin'),
     replace = require('gulp-replace'),
-    psi = require('psi'),
     open = require('open'),
     fs = require('fs');
 
@@ -24,13 +23,13 @@ var jsFiles = [
     'bower_components/bootstrap/js/carousel.js',
     'bower_components/jquery-placeholder/jquery.placeholder.js',
     'bower_components/leaflet/dist/leaflet.js',
-    'assets/scripts/vendor/chosen.jquery.js',
+    //'leaflet-1b1/leaflet.js',
     'bower_components/d3/d3.js',
     'assets/scripts/vendor/pubsub.js',
     'bower_components/topojson/topojson.js',
     'assets/scripts/vendor/typeahead.js',
     'assets/scripts/vendor/jquery-tourbus.js',
-    'bower_components/lodash/dist/lodash.underscore.js',
+    'bower_components/lodash/lodash.min.js',
     'bower_components/jquery.scrollTo/jquery.scrollTo.js',
     'assets/scripts/functions/*.js',
     'assets/scripts/page.js'
@@ -131,22 +130,6 @@ gulp.task('init', function() {
   });
 });
 
-// performace tests
-gulp.task('psi-mobile', function (cb) {
-       psi({
-           nokey: 'true', // or use key: ‘YOUR_API_KEY’
-           url: 'http://mcmap.org/qol',
-           strategy: 'mobile'
-       }, cb);
-  });
-// performace test
-gulp.task('psi-desktop', function (cb) {
-       psi({
-           nokey: 'true', // or use key: ‘YOUR_API_KEY’
-           url: 'http://mcmap.org/qol',
-           strategy: 'desktop'
-       }, cb);
-  });
 
 // controller tasks
 gulp.task('default', ['less', 'js', 'watch', 'connect', 'browser']);
