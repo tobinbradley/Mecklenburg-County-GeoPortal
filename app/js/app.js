@@ -38,11 +38,11 @@ var photos = React.render( < HousePhotos /> ,
 
 var theSearch = document.querySelector(".search-input");
 theSearch.addEventListener("input", function(e) {
-    searchComponent.getRecords(e.srcElement.value);
+    searchComponent.getRecords(e.target.value);
 });
 theSearch.addEventListener("click", function(e) {
-    e.srcElement.focus();
-    e.srcElement.select();
+    e.target.focus();
+    e.target.select();
 });
 
 // Data type switching links

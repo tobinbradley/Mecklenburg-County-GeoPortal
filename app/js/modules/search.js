@@ -14,7 +14,6 @@ var SearchTemplate = React.createClass({
     },
     handleClick: function(gid, latlng, label, pid, address) {
         if (typeof processRecord === 'function') {
-            var theItem = event.target;
             processRecord(gid, latlng, label, pid, address);
         }
     },

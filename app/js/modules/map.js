@@ -79,24 +79,24 @@ global.addMarker = function(latlng, label, pid, address) {
        map.removeLayer(tmpMarker);
     }
     var coords = latlng.split(",");
+	var gMaps=`https://www.google.com/maps/place/${address}/`;
 	if (label === address) {
 		address = '';
 	} else {
 		address = address.replace(",", "<br>");
 	}
 	label = label.replace(",", "<br>");
-    marker = L.marker(coords).bindPopup(`<div class="mdl-typography--text-center"><b>${label}</b><br>${address}</div>`).addTo(map).openPopup();
-    map.setView(coords, 16);
+	map.setView(coords, 16);
+    marker = L.marker(coords).bindPopup(`<div class="mdl-typography--text-center"><b>${label}</b><br>${address}<br><a href="${gMaps}" target="_blank">View on Google Maps</a></div>`).addTo(map).openPopup();
 };
 
 global.addtmpMarker = function(lat, lng, label, address) {
 	if (typeof tmpMarker === 'object') {
        map.removeLayer(tmpMarker);
     }
-
 	var dirLink = `https://maps.google.com/maps?saddr=${activeRecord.latlng.replace(",", "+")}&daddr=${lat}+${lng}`;
-    tmpMarker = L.marker([lat, lng]).bindPopup(`<div class="mdl-typography--text-center"><b>${label}</b><br>${address}<br><a href="${dirLink}" target="_blank">Directions</a></div>`).addTo(map).openPopup();
 	map.setView([lat, lng], 16);
+	tmpMarker = L.marker([lat, lng]).bindPopup(`<div class="mdl-typography--text-center"><b>${label}</b><br>${address}<br><a href="${dirLink}" target="_blank">Directions</a></div>`).addTo(map).openPopup();
 };
 
 
