@@ -1,19 +1,16 @@
-// Note in order to use MDL, this needs to be dropped onto the end of material.js:
-// if (typeof module === 'object') {
-//   module.exports = componentHandler;
-// }
+// __________________________________
+// / GeoPortal v3, by Tobin Bradley and \
+// \ Mecklenburg County GIS.            /
+// ----------------------------------
+//        \   ^__^
+//         \  (oo)\_______
+//            (__)\       )\/\
+//                ||----w |
+//                ||     ||
+//
 
-
-// global npm req's: gulp, tape
-
-// currently built with material design lite 1.0.4 with just the components needed
-
-//var componentHandler = require('../../bower_components/material-design-lite/material');
-var componentHandler = require('./modules/material');
-
-//var _ = require('underscore/underscore')._;
-
-var forEach = require('./modules/foreach'),
+let forEach = require('./modules/foreach'),
+    componentHandler = require('./modules/material'),
     getURLParameter = require('./modules/geturlparams'),
     React = require('react'),
     SearchTemplate = require('./modules/search'),
@@ -22,21 +19,22 @@ var forEach = require('./modules/foreach'),
     questionRun = require('./modules/question-run'),
     fetchNearest = require('./modules/nearest');
 
-// require dumps because stupid brains
+// map module just dumps because stupid brains
 require('./modules/map');
 
+// the selected location
 global.activeRecord = '';
 
-var searchComponent = React.render( < SearchTemplate /> ,
+// initial react components for search results and photos
+let searchComponent = React.render( < SearchTemplate /> ,
     document.getElementById('search-results')
 );
-
-var photos = React.render( < HousePhotos /> ,
+let photos = React.render( < HousePhotos /> ,
     document.querySelector('.photos')
 );
 
-
-var theSearch = document.querySelector(".search-input");
+// search box input and click events
+let theSearch = document.querySelector(".search-input");
 theSearch.addEventListener("input", function(e) {
     searchComponent.getRecords(e.target.value);
 });
@@ -45,32 +43,41 @@ theSearch.addEventListener("click", function(e) {
     e.target.select();
 });
 
-// Data type switching links
-var navlinks = document.querySelectorAll(".mdl-navigation__link");
+// Data type/sidebar switching links
+let navlinks = document.querySelectorAll(".mdl-navigation__link");
 forEach(navlinks, function(index, value) {
     navlinks[index].addEventListener("click", function(e) {
-        var item = navlinks[index];
+        let item = navlinks[index];
         if (!item.classList.contains('active')) {
-            var container = document.querySelector('.report-container');
-            var drawer = document.querySelector('.mdl-layout__drawer');
+            let container = document.querySelector('.report-container');
+            let drawer = document.querySelector('.mdl-layout__drawer');
             if (drawer) {
                 drawer.classList.remove('is-visible');
             }
             questionChange(item, navlinks, container, 'click');
             if (typeof activeRecord === 'object') {
-                var q = item.getAttribute("data-type");
+                let q = item.getAttribute("data-type");
+                scrollToElement(document.querySelector('.report-container'));
                 questionRun(q, activeRecord.latlng, activeRecord.label, activeRecord.pid, activeRecord.address, activeRecord.id);
             } else {
+                scrollToElement(document.querySelector('.search-container'));
                 document.querySelector(".search-input").focus();
             }
         }
     });
 });
 
+// scroll to element if top is past viewport available, otherwise it jumps
+function scrollToElement(elem) {
+    if (elem.getBoundingClientRect().top < 0) {
+        elem.scrollIntoView({block: "start", behavior: "smooth"});
+    }
+}
 
 
+// process a newly selected location
 global.processRecord = function(gid, latlng, label, pid, address) {
-    var q = document.querySelector(".mdl-navigation__link.active").getAttribute("data-type");
+    let q = document.querySelector(".mdl-navigation__link.active").getAttribute("data-type");
     activeRecord = {
         "id": gid,
         "latlng": latlng,
@@ -94,7 +101,7 @@ global.processRecord = function(gid, latlng, label, pid, address) {
     questionRun(q, latlng, label, pid, gid);
 };
 
-// handle url args
+// process URL arguments on page load
 if (getURLParameter('q') !== 'null') {
     var navs = document.querySelectorAll(".mdl-navigation__link"),
         q = getURLParameter('q'),
@@ -110,7 +117,7 @@ if (getURLParameter('latlng') !== 'null') {
     fetchNearest(latlng[0], latlng[1]);
 }
 
-// set focus to search input
+// set focus to search input after waiting a second
 window.onload = function() {
     setTimeout(function() {
         document.querySelector(".search-input").focus();

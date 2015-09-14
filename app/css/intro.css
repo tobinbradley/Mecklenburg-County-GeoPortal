@@ -1,0 +1,17 @@
+.introduction h3 {
+    font-weight: bold;
+    color: var(--reportHighlight);
+}
+.introduction h4, .introduction h5 {
+    line-height: normal;
+}
+.introduction h4 {
+    margin: 35px 0 6px;
+}
+.introduction h5 {
+    margin: 0 0 70px;
+}
+.credit {
+    font-size: 1.3em;
+    margin-bottom: 5px;
+}
