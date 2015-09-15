@@ -6,8 +6,7 @@ var React = require('react'),
     SchoolsInfo = require('./schools'),
     VotingComponent = require('./voting'),
     EnvironmentComponent = require('./environment'),
-    PropertyClass = require('./property'),
-    HousePhotos = require('./photos');
+    PropertyClass = require('./property');
 
 
 var questionRun = function(q, latlng, label, pid, gid) {
@@ -63,11 +62,6 @@ var questionRun = function(q, latlng, label, pid, gid) {
                 );
             break;
     }
-
-    // photos
-    let photos = React.render( <HousePhotos pid={pid} />,
-        document.querySelector('.photos')
-    );
 };
 
 module.exports = questionRun;
