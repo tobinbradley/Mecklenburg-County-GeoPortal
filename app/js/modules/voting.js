@@ -144,7 +144,8 @@ var VotingComponent = React.createClass({
                     'table': 'polling_locations,voting_precincts',
                     'geometryfield': 'the_geom',
 					'limit': 1,
-                    'fields': `polling_locations.name as label,polling_locations.address,a.precno as precinct,st_x(st_transform(polling_locations.the_geom, 4326)) as lng, st_y(st_transform(polling_locations.the_geom, 4326)) as lat, ST_Distance(polling_locations.the_geom,ST_Transform(GeomFromText('POINT(${lng} ${lat})',4326), 2264)) as distance`
+                    'fields': `polling_locations.name as label,polling_locations.address,a.precno as precinct,st_x(st_transform(polling_locations.the_geom, 4326)) as lng, st_y(st_transform(polling_locations.the_geom, 4326)) as lat, ST_Distance(polling_locations.the_geom,ST_Transform(GeomFromText('POINT(${lng} ${lat})',4326), 2264)) as distance`,
+                    'parameters': 'a.precno = polling_locations.precno'
                     };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php' + objectToURI(args),
