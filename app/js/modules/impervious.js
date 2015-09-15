@@ -5,10 +5,17 @@ var React = require('react'),
 
 
 var ImperviousInfo = React.createClass({
+    propTypes: {
+        pid: React.PropTypes.string.isRequired
+    },
     getInitialState: function() {
-        return {
-            theImpervious: ''
-        }
+        return {}
+    },
+    componentDidMount: function() {
+        this.getImpervious(this.props.pid);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.getImpervious(nextProps.pid);
     },
     getImpervious: function(pid) {
         var args = {

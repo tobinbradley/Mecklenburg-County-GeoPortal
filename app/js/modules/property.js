@@ -6,8 +6,19 @@ var React = require('react'),
 //var PropTypes = React.PropTypes;
 
 var PropertyClass = React.createClass({
+    propTypes: {
+        lat: React.PropTypes.number.isRequired,
+        lng: React.PropTypes.number.isRequired,
+        pid: React.PropTypes.string.isRequired
+    },
     getInitialState: function() {
         return {}
+    },
+    componentDidMount: function() {
+        this.getData(this.props.pid, this.props.lat, this.props.lng);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.getData(nextProps.pid, nextProps.lat, nextProps.lng);
     },
     getData: function(pid, lat, lng) {
         this.setState({pid: pid});

@@ -12,7 +12,6 @@
     "browser-sync": "^2.8.0",
     "browserify": "^11.0.0",
     "cssnext": "^1.8.4",
-    "get-json": "0.0.2",
     "gulp": "^3.9.0",
     "gulp-cssnano": "^1.1.0",
     "gulp-imagemin": "^2.3.0",

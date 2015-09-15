@@ -4,10 +4,18 @@ var React = require('react'),
     objectToURI = require('./objectToURI');
 
 var TrashInfo = React.createClass({
+    propTypes: {
+        lat: React.PropTypes.number.isRequired,
+        lng: React.PropTypes.number.isRequired
+    },
     getInitialState: function() {
-        return {
-            theTrash: ''
-        }
+        return {}
+    },
+    componentDidMount: function() {
+        this.getTrash(this.props.lat, this.props.lng);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.getTrash(nextProps.lat, nextProps.lng);
     },
     getTrash: function(lat, lng) {
         var args = {

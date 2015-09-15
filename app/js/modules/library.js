@@ -5,10 +5,18 @@ var React = require('react'),
 
 
 var LibraryInfo = React.createClass({
+    propTypes: {
+        lat: React.PropTypes.number.isRequired,
+        lng: React.PropTypes.number.isRequired
+    },
     getInitialState: function() {
-        return {
-            theLibraries: ''
-        }
+        return {}
+    },
+    componentDidMount: function() {
+        this.getLibraries(this.props.lat, this.props.lng);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.getLibraries(nextProps.lat, nextProps.lng);
     },
     getLibraries: function(lat, lng) {
         var args = {

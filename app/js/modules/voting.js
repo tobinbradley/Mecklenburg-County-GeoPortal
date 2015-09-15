@@ -114,17 +114,18 @@ var SenateComponent = React.createClass({
 
 
 var VotingComponent = React.createClass({
-	getInitialState: function() {
-        return {
-            pollingRecs: '',
-			natSenate: '',
-			natCongress: '',
-			stateSenate: '',
-			stateHouse: '',
-			countyCommission: '',
-			countySchool: '',
-			cityCharlotte: ''
-        }
+	propTypes: {
+        lat: React.PropTypes.number.isRequired,
+        lng: React.PropTypes.number.isRequired
+    },
+    getInitialState: function() {
+        return {}
+    },
+    componentDidMount: function() {
+        this.getData(this.props.lat, this.props.lng);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.getData(nextProps.lat, nextProps.lng);
     },
 	getData: function(lat, lng) {
 		this.getPollingLocation(lat, lng);

@@ -5,10 +5,18 @@ var React = require('react'),
 
 
 var ParkInfo = React.createClass({
+    propTypes: {
+        lat: React.PropTypes.number.isRequired,
+        lng: React.PropTypes.number.isRequired
+    },
     getInitialState: function() {
-        return {
-            theParks: ''
-        }
+        return {}
+    },
+    componentDidMount: function() {
+        this.getParks(this.props.lat, this.props.lng);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.getParks(nextProps.lat, nextProps.lng);
     },
     getParks: function(lat, lng) {
         var args = {

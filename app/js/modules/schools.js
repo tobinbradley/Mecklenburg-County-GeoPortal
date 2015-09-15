@@ -168,12 +168,18 @@ var ZoneDisplay = React.createClass({
 
 
 var SchoolInfo = React.createClass({
+    propTypes: {
+        lat: React.PropTypes.number.isRequired,
+        lng: React.PropTypes.number.isRequired
+    },
     getInitialState: function() {
-        return {
-            homeData: '',
-            magnetData: '',
-            zoneData: ''
-        }
+        return {}
+    },
+    componentDidMount: function() {
+        this.getData(this.props.lat, this.props.lng);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.getData(nextProps.lat, nextProps.lng);
     },
     getData: function(lat, lng) {
         this.getHomeData(lat, lng);

@@ -4,11 +4,17 @@ var React = require('react'),
     objectToURI = require('./objectToURI');
 
 var HousePhotos = React.createClass({
+    propTypes: {
+        pid: React.PropTypes.string.isRequired
+    },
     getInitialState: function() {
-        return {
-            thePhotos: [],
-            photoIndex: 0
-        }
+        return { photoIndex: 0 }
+    },
+    componentDidMount: function() {
+        this.getPhotos(this.props.pid);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.getPhotos(nextProps.pid);
     },
     getPhotos: function(thePid) {
         var args = {
@@ -26,16 +32,18 @@ var HousePhotos = React.createClass({
         var theItem = event.target;
         this.setState({photoIndex: theItem.getAttribute('data-index')});
     },
+    handleError: function(event) {
+        var theItem = event.target;
+        theItem.style.display = "none";
+    },
     render: function() {
-
         var photos = '';
-
-        if (this.state.thePhotos.length > 0) {
+        if (typeof this.state.thePhotos === 'object' && this.state.thePhotos.length > 0) {
             var bigPhoto = this.state.thePhotos[this.state.photoIndex];
             photos =  (
                 <div>
                     <div className="mdl-card__title mdl-color--teal-300 photo-big">
-                        <a href={bigPhoto.photo_url.trim()} target="_blank"><img className="mdl-shadow--2dp" src={bigPhoto.photo_url.trim()} /></a>
+                        <a href={bigPhoto.photo_url.trim()} target="_blank"><img className="mdl-shadow--2dp" src={bigPhoto.photo_url.trim()} onError={this.handleError} /></a>
 
                     </div>
                     <div className="mdl-card__supporting-text mdl-typography--text-center ">
@@ -45,7 +53,7 @@ var HousePhotos = React.createClass({
                         {
                             this.state.thePhotos.map(function(object, i){
                                 return (
-                                    <img className="mdl-shadow--2dp" key={i} src={object.photo_url.trim()} onClick={this.handleThumbClick} data-index={i} />
+                                    <img className="mdl-shadow--2dp" key={i} src={object.photo_url.trim()} onClick={this.handleThumbClick} data-index={i} onError={this.handleError} />
                                 );
                             }, this)
                         }

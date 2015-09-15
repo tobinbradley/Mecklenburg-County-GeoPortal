@@ -6,8 +6,20 @@ var React = require('react'),
 
 
 var EnvironmentComponent = React.createClass({
+    propTypes: {
+        lat: React.PropTypes.number.isRequired,
+        lng: React.PropTypes.number.isRequired,
+        pid: React.PropTypes.string.isRequired,
+        gid: React.PropTypes.number.isRequired
+    },
     getInitialState: function() {
         return {}
+    },
+    componentDidMount: function() {
+        this.getData(this.props.lat, this.props.lng, this.props.pid, this.props.gid);
+    },
+    componentWillReceiveProps: function(nextProps) {
+        this.getData(nextProps.lat, nextProps.lng, nextProps.pid, nextProps.gid);
     },
     getData(lat, lng, pid, gid) {
         this.setState({gid: gid});
@@ -19,9 +31,6 @@ var EnvironmentComponent = React.createClass({
         this.polyOverlay(pid, 'water_quality_buffers', 'distinct type,label', 'waterquality');
         // post construction
         this.polyOverlay(pid, 'post_construction_layers', 'type, name', 'postconstruction');
-    },
-    pointOverlay: function(lat, lng) {
-
     },
     polyOverlay: function(pid, table, fields, theState) {
         var args = {

@@ -14,7 +14,6 @@ let forEach = require('./modules/foreach'),
     getURLParameter = require('./modules/geturlparams'),
     React = require('react'),
     SearchTemplate = require('./modules/search'),
-    HousePhotos = require('./modules/photos'),
     questionChange = require('./modules/question-change'),
     questionRun = require('./modules/question-run'),
     fetchNearest = require('./modules/nearest');
@@ -25,13 +24,11 @@ require('./modules/map');
 // the selected location
 global.activeRecord = '';
 
-// initial react components for search results and photos
+// initial react components for search results
 let searchComponent = React.render( < SearchTemplate /> ,
     document.getElementById('search-results')
 );
-let photos = React.render( < HousePhotos /> ,
-    document.querySelector('.photos')
-);
+
 
 // search box input and click events
 let theSearch = document.querySelector(".search-input");
@@ -93,8 +90,6 @@ global.processRecord = function(gid, latlng, label, pid, address) {
     });
     // add map marker, popup, and zoom
     addMarker(latlng, label, pid, address);
-    // photos
-    photos.getPhotos(pid);
     // push state
     history.replaceState(null, null, `?q=${q}&latlng=${latlng}`);
     // reports
