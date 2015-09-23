@@ -53,7 +53,7 @@ var TrashInfo = React.createClass({
         var theDate = new Date().getTime();
         var check = this.checkOddEven(this.weekNumber(theDate));
 
-        if ((w === 'A' || w === 'GREEN') && check === 'even') {
+        if (((w === 'A' || w === 'GREEN') && check === 'even') || ((w !== 'A' && w !== 'GREEN') && check === 'odd')) {
             return 'this week';
         } else {
             return 'next week';

@@ -26,7 +26,7 @@ require('./modules/map');
 global.activeRecord = '';
 
 // initial react components for search results
-let searchComponent = React.render( < SearchTemplate /> ,
+let searchComponent = React.render( <SearchTemplate /> ,
     document.getElementById('search-results')
 );
 
