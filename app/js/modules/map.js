@@ -108,7 +108,11 @@ global.addMarker = function(latlng, label, pid, address) {
 		address = address.replace(",", "<br>");
 	}
 	label = label.replace(",", "<br>");
-	map.setView(coords, 16);
+    if (map.getZoom() < 16) {
+        map.setView(coords, 16);
+    } else {
+        map.setView(coords);
+    }
     marker = L.marker(coords).bindPopup(`<div class="mdl-typography--text-center"><b>${label}</b><br>${address}<br><a href="${gMaps}" target="_blank">View on Google Maps</a></div>`).addTo(map).openPopup();
 };
 

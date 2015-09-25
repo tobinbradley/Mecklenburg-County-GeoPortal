@@ -49,11 +49,19 @@ var TrashInfo = React.createClass({
       var weekN = Math.floor((d - a) / one_week);
       return weekN;
     },
+    weekEvenOdd: function(w) {
+        if (w === 'A' || w === 'GREEN') {
+            return 'even';
+        } else {
+            return 'odd';
+        }
+    },
     recyclingWeek: function(w) {
         var theDate = new Date().getTime();
-        var check = this.checkOddEven(this.weekNumber(theDate));
+        var currentWeek = this.checkOddEven(this.weekNumber(theDate));
+        var propertyWeek = this.weekEvenOdd(w);
 
-        if (((w === 'A' || w === 'GREEN') && check === 'even') || ((w !== 'A' && w !== 'GREEN') && check === 'odd')) {
+        if (currentWeek === propertyWeek) {
             return 'this week';
         } else {
             return 'next week';
