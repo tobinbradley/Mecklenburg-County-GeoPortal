@@ -13,7 +13,7 @@ var EnvironmentComponent = React.createClass({
         gid: React.PropTypes.number.isRequired
     },
     getInitialState: function() {
-        return {}
+        return {};
     },
     componentDidMount: function() {
         this.getData(this.props.lat, this.props.lng, this.props.pid, this.props.gid);
@@ -34,17 +34,17 @@ var EnvironmentComponent = React.createClass({
     },
     polyOverlay: function(pid, table, fields, theState) {
         var args = {
-                    'from_table': 'tax_parcels',
-                    'to_table': table,
-                    'fields': fields,
-                    'parameters': `f.pid = '${pid}'`,
-                    'from_geometryfield': 'the_geom',
-                    'to_geometryfield': 'the_geom'
-                    };
+            'from_table': 'tax_parcels',
+            'to_table': table,
+            'fields': fields,
+            'parameters': `f.pid = '${pid}'`,
+            'from_geometryfield': 'the_geom',
+            'to_geometryfield': 'the_geom'
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_featureoverlay.php' + objectToURI(args),
             function(err, res) {
-				this.setState({ [theState]: res.body });
+                this.setState({ [theState]: res.body });
             }.bind(this)
         );
     },
@@ -89,99 +89,99 @@ var EnvironmentComponent = React.createClass({
 
 
 var FloodplainComponent = React.createClass({
-	render: function() {
-		var returnVal;
+    render: function() {
+        var returnVal;
 
         if (typeof this.props.recs === 'object') {
             if (this.props.recs.length > 0) {
-                var fz = "http://meckmap.mecklenburgcountync.gov//3dfz/index.html#matid=" + this.props.gid;
+                var fz = 'http://meckmap.mecklenburgcountync.gov/3dfz/index.html#matid=' + this.props.gid;
                 returnVal = (
-    				<div className="report-record-highlight">
-    					<i className="icon icon-rain-inv" role="presentation"></i>
-    					<h2>This property is in a</h2>
+                    <div className="report-record-highlight">
+                        <i className="icon icon-rain-inv" role="presentation"></i>
+                        <h2>This property is in a</h2>
                         <h1>REGULATED FLOODPLAIN</h1>
                         <h4><a target="_blank" href={fz}>Special restrictions may apply</a>. For more information, please call 704.336.3728.</h4>
-    				</div>
-    			);
+                    </div>
+                );
             } else {
                 returnVal = (
-    				<div className="report-record-highlight">
-    					<i className="icon icon-rain-inv" role="presentation"></i>
-    					<h2>This property is not in a regulated floodplain.</h2>
-    				</div>
-    			);
+                    <div className="report-record-highlight">
+                        <i className="icon icon-rain-inv" role="presentation"></i>
+                        <h2>This property is not in a regulated floodplain.</h2>
+                    </div>
+                );
             }
-		}
+        }
 
-		return (
+        return (
 			<div>
 			{returnVal}
 			</div>
 		);
-	}
+    }
 });
 
 
 var PostConstructionComponent = React.createClass({
-	render: function() {
-		var returnVal;
+    render: function() {
+        var returnVal;
 
         if (typeof this.props.recs === 'object') {
             var uhoh = this.props.recs.filter(function(item) { return item.type === 'TRANSIT CORRIDOR' || item.type === 'BUSINESS CORRIDOR'; });
-            uhoh = uhoh.map(function(item) { return item.type });
+            uhoh = uhoh.map(function(item) { return item.type; });
 
             if (uhoh.length > 0) {
                 uhoh = uhoh.join(' and ').replace('BUSINESS CORRIDOR', 'Distressed Business District'.toUpperCase()).replace('TRANSIT CORRIDOR', 'Transit Station Area'.toUpperCase());
                 returnVal = (
-    				<div className="report-record-highlight">
-    					<i className="icon icon-tools" role="presentation"></i>
-    					<h2>This property is in a</h2>
+                    <div className="report-record-highlight">
+                        <i className="icon icon-tools" role="presentation"></i>
+                        <h2>This property is in a</h2>
                         <h1>{uhoh}</h1>
                         <h4><a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">PCCO mitigation options apply</a>. For more information, please call 704.432.5570.</h4>
-    				</div>
-    			);
+                    </div>
+                );
             } else {
                 returnVal = (
-    				<div className="report-record-highlight">
-    					<i className="icon icon-tools" role="presentation"></i>
-    					<h2>This property is not in a Distressed Business District or Transit Station Area.</h2>
-    				</div>
-    			);
+                    <div className="report-record-highlight">
+                        <i className="icon icon-tools" role="presentation"></i>
+                        <h2>This property is not in a Distressed Business District or Transit Station Area.</h2>
+                    </div>
+                );
             }
-		}
+        }
 
-		return (
+        return (
 			<div>
 			{returnVal}
 			</div>
 		);
-	}
+    }
 });
 
 
 var WaterQualityComponent = React.createClass({
-	render: function() {
-		var returnVal;
+    render: function() {
+        var returnVal;
 
         if (typeof this.props.recs === 'object') {
             if (this.props.recs.length > 0) {
                 returnVal = (
-    				<div className="report-record-highlight">
-    					<i className="icon icon-droplet" role="presentation"></i>
-    					<h2>This property is in a</h2>
+                    <div className="report-record-highlight">
+                        <i className="icon icon-droplet" role="presentation"></i>
+                        <h2>This property is in a</h2>
                         <h1>WATER QUALITY BUFFER</h1>
                         <h4><a target="_blank" href="ftp://ftp1.co.mecklenburg.nc.us/WaterQuality/WQ%20Buffers/WaterQualityBufferImplementationGuidelines.pdf">Special restrictions may apply</a>. For more information,
                         please call 704.336.5456 for existing single-family lots and those projects not needing a grading permit or call 704.432.5570 for
                         other projects.</h4>
-    				</div>
-    			);
+                </div>
+            );
             } else {
                 returnVal = (
-    				<div className="report-record-highlight">
-    					<i className="icon icon-droplet" role="presentation"></i>
-    					<h2>This property is not in a Water Quality Buffer.</h2>
-    				</div>
-    			);
+                    <div className="report-record-highlight">
+                        <i className="icon icon-droplet" role="presentation"></i>
+                        <h2>This property is not in a Water Quality Buffer.</h2>
+                    </div>
+                );
             }
 		}
 
@@ -195,8 +195,8 @@ var WaterQualityComponent = React.createClass({
 
 
 var SoilComponent = React.createClass({
-	render: function() {
-		var returnVal;
+    render: function() {
+        var returnVal;
 
         if (typeof this.props.recs === 'object') {
             returnVal = (
@@ -230,9 +230,9 @@ var SoilComponent = React.createClass({
                         </tbody>
                     </table>
             );
-		}
+        }
 
-		return (
+        return (
 			<div>
 			{returnVal}
 			</div>

@@ -12,7 +12,7 @@ var PropertyClass = React.createClass({
         pid: React.PropTypes.string.isRequired
     },
     getInitialState: function() {
-        return {}
+        return {};
     },
     componentDidMount: function() {
         this.getData(this.props.pid, this.props.lat, this.props.lng);
@@ -32,8 +32,8 @@ var PropertyClass = React.createClass({
     },
     getCamaRecords: function(pid, url, stateVar) {
         var args = {
-                        'pid': pid
-                   };
+            'pid': pid
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get(url + objectToURI(args),
             function(err, res) {
@@ -43,14 +43,14 @@ var PropertyClass = React.createClass({
     },
     getZoning: function(lat, lng) {
         var args = {
-                        'x': lng,
-                        'y': lat,
-                        'srid': 4326,
-                        'table': 'view_zoning',
-                        'fields': "zone_des, zone_class",
-                        'parameters': "zone_des <> 'sm_towns'",
-                        'geometryfield': 'the_geom'
-                   };
+            'x': lng,
+            'y': lat,
+            'srid': 4326,
+            'table': 'view_zoning',
+            'fields': 'zone_des, zone_class',
+            'parameters': "zone_des <> 'sm_towns'",
+            'geometryfield': 'the_geom'
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_pointoverlay.php' + objectToURI(args),
             function(err, res) {
@@ -60,15 +60,15 @@ var PropertyClass = React.createClass({
     },
     getPermits: function(pid) {
         var args = {
-                    'from_table': 'tax_parcels',
-                    'to_table': 'building_permits',
-                    'fields': "extract(year from t.date_completed_co_process) as theyear, t.project_name,t.square_footage,t.construction_cost",
-                    'parameters': `f.pid = '${pid}' and t.job_status = 'COMPL'`,
-                    'order': 't.date_completed_co_process desc',
-                    'limit': 10,
-                    'from_geometryfield': 'the_geom',
-                    'to_geometryfield': 'the_geom'
-                   };
+            'from_table': 'tax_parcels',
+            'to_table': 'building_permits',
+            'fields': 'extract(year from t.date_completed_co_process) as theyear, t.project_name,t.square_footage,t.construction_cost',
+            'parameters': `f.pid = '${pid}' and t.job_status = 'COMPL'`,
+            'order': 't.date_completed_co_process desc',
+            'limit': 10,
+            'from_geometryfield': 'the_geom',
+            'to_geometryfield': 'the_geom'
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_featureoverlay.php' + objectToURI(args),
             function(err, res) {

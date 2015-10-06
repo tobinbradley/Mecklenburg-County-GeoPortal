@@ -10,7 +10,7 @@ var SearchTemplate = React.createClass({
     getInitialState: function() {
         return {
             searchData: null
-        }
+        };
     },
     handleClick: function(gid, latlng, label, pid, address) {
         if (typeof processRecord === 'function') {
@@ -22,9 +22,9 @@ var SearchTemplate = React.createClass({
         this.timer = this.setTimeout( function() {
             if (query.trim().length >= 3) {
                 var args = {
-                            'searchtypes': 'address,park,library,school,pid,business',
-                            'query': query
-                            };
+                    'searchtypes': 'address,park,library,school,pid,business',
+                    'query': query
+                };
                 httpplease = httpplease.use(jsonresponse);
                 httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v5/ws_geo_ubersearch.php' + objectToURI(args),
                     function(err, data) {
@@ -34,7 +34,7 @@ var SearchTemplate = React.createClass({
             } else {
                 this.setState({ searchData: null });
             }
-        }, 150);
+        }, 250);
     },
     render: function() {
 

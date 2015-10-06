@@ -9,7 +9,7 @@ var SchoolDisplay = React.createClass({
         return {
             recs: '',
             type: ''
-        }
+        };
     },
     convertDistance: function(dist) {
         return (dist / 5280).toFixed(1) + ' miles';
@@ -64,7 +64,7 @@ var MagnetDisplay = React.createClass({
     getDefaultProps: function() {
         return {
             recs: ''
-        }
+        };
     },
     convertDistance: function(dist) {
         return (dist / 5280).toFixed(1) + ' miles';
@@ -85,7 +85,7 @@ var MagnetDisplay = React.createClass({
     render: function() {
         var magnet;
         if (typeof this.props.recs === 'object') {
-                magnet = (
+            magnet = (
                     <table className="mdl-data-table mdl-js-data-table">
                         <caption>Magnet Schools</caption>
                         <thead>
@@ -136,7 +136,7 @@ var ZoneDisplay = React.createClass({
     getDefaultProps: function() {
         return {
             recs: ''
-        }
+        };
     },
     getAsterik: function(id) {
         if ([4429, 8364, 5532, 8482, 7405, 7496, 5520].indexOf(Number(id)) !== -1) {
@@ -148,13 +148,13 @@ var ZoneDisplay = React.createClass({
     render: function() {
         var zone;
         if (typeof this.props.recs === 'object') {
-                zone = (
+            zone = (
                     <div className="report-record-highlight">
                         <i className="icon icon-bus" role="presentation"></i>
                         <h2>Your Transportation Zone is</h2>
                         <h1>{this.props.recs[0].choice_zone.toUpperCase()}</h1>
                     </div>
-                );
+            );
         }
 
         return (
@@ -173,7 +173,7 @@ var SchoolInfo = React.createClass({
         lng: React.PropTypes.number.isRequired
     },
     getInitialState: function() {
-        return {}
+        return {};
     },
     componentDidMount: function() {
         this.getData(this.props.lat, this.props.lng);
@@ -187,14 +187,14 @@ var SchoolInfo = React.createClass({
     },
     getHomeData: function(lat, lng) {
         var args = {
-                    'x': lng,
-                    'y': lat,
-                    'srid': 4326,
-                    'table': 'school_districts',
-                    'geometryfield': 'the_geom',
-                    'distance': 150,
-                    'fields': `type, schlname, choice_zone, address, city, x as lng, y as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${lng} ${lat})',4326), 2264), ST_transform(ST_GeomFromText('POINT(' || x || ' ' || y || ')',4326), 2264)) as dist`
-                    };
+            'x': lng,
+            'y': lat,
+            'srid': 4326,
+            'table': 'school_districts',
+            'geometryfield': 'the_geom',
+            'distance': 150,
+            'fields': `type, schlname, choice_zone, address, city, x as lng, y as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${lng} ${lat})',4326), 2264), ST_transform(ST_GeomFromText('POINT(' || x || ' ' || y || ')',4326), 2264)) as dist`
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_bufferpoint.php' + objectToURI(args),
             function(err, res) {
@@ -204,10 +204,10 @@ var SchoolInfo = React.createClass({
     },
     getMagnetData: function(lat, lng) {
         var args = {
-                    'table': 'view_schools_magnet',
-                    'fields': `schl, schlname, address, city, ST_Distance(the_geom,ST_Transform(GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat`,
-                    'order': 'distance'
-                    };
+            'table': 'view_schools_magnet',
+            'fields': `schl, schlname, address, city, ST_Distance(the_geom,ST_Transform(GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat`,
+            'order': 'distance'
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_attributequery.php' + objectToURI(args),
             function(err, res) {
@@ -232,11 +232,11 @@ var SchoolInfo = React.createClass({
 
         // school data
         if (typeof this.state.homeData === 'object') {
-            elementary = this.state.homeData.filter(function(item) { return item.type === 'ELEMENTARY' });
-            middle = this.state.homeData.filter(function(item) { return item.type === 'MIDDLE' });
-            high = this.state.homeData.filter(function(item) { return item.type === 'HIGH' });
+            elementary = this.state.homeData.filter(function(item) { return item.type === 'ELEMENTARY'; });
+            middle = this.state.homeData.filter(function(item) { return item.type === 'MIDDLE'; });
+            high = this.state.homeData.filter(function(item) { return item.type === 'HIGH'; });
             moreInfo = (
-    			<div className="report-moreinfo mdl-typography--text-left">
+                <div className="report-moreinfo mdl-typography--text-left">
                     <p>
                     Transportation eligibility is determined by the transportation zone in which you live. The county is divided into four transportation zones:  violet, grey, blue, and green. Magnet schools are assigned a zone to serve with transportation. If the distance is to the magnet greater than 5 miles, you may be assigned to a shuttle stop location. Some programs (*) provide county-wide transportation, meaning that regardless of your zone, you would receive transportation. For more information please contact Charlotte-Mecklenburg School Transportation Services at (980) 343-6715.
                     </p>
@@ -244,8 +244,8 @@ var SchoolInfo = React.createClass({
                     <ul className="list-unstyled">
                         <li><a href="http://www.cms.k12.nc.us/" target="_blank">Charlotte-Mecklenburg Schools</a></li>
                     </ul>
-    			</div>
-    		);
+                </div>
+            );
         }
 
         return (

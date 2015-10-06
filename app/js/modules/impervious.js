@@ -9,7 +9,7 @@ var ImperviousInfo = React.createClass({
         pid: React.PropTypes.string.isRequired
     },
     getInitialState: function() {
-        return {}
+        return {};
     },
     componentDidMount: function() {
         this.getImpervious(this.props.pid);
@@ -19,11 +19,11 @@ var ImperviousInfo = React.createClass({
     },
     getImpervious: function(pid) {
         var args = {
-                    'table': 'impervious_surface_area',
-                    'fields': "sum(sum_of_area) as area, subtheme",
-                    'parameters': `commonpid='${pid}' group by subtheme`,
-                    'order': 'subtheme'
-                    };
+            'table': 'impervious_surface_area',
+            'fields': 'sum(sum_of_area) as area, subtheme',
+            'parameters': `commonpid='${pid}' group by subtheme`,
+            'order': 'subtheme'
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_attributequery.php' + objectToURI(args),
             function(err, res) {
@@ -87,13 +87,13 @@ var ImperviousInfo = React.createClass({
                 </div>
             );
 
-			var moreInfo = (
+            var moreInfo = (
 				<div className="report-moreinfo mdl-typography--text-left">
 					<p>Impervious surfaces are mainly artificial structures, such as pavements (roads, sidewalks, driveways and parking lots) and rooftops that are covered by impenetrable materials such as asphalt, concrete, brick, wood and stone.</p>
                     <h5>For more information, please visit:</h5>
 					<ul className="list-unstyled">
-	        			<li><a href="http://charmeck.org/stormwater/FeesandBilling/Pages/Default.aspx" target="_blank">Charlotte-Mecklenburg Storm Water Services</a></li>
-	    			</ul>
+                        <li><a href="http://charmeck.org/stormwater/FeesandBilling/Pages/Default.aspx" target="_blank">Charlotte-Mecklenburg Storm Water Services</a></li>
+                    </ul>
 				</div>
 			);
         }

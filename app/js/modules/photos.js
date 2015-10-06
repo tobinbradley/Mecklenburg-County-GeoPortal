@@ -8,7 +8,7 @@ var HousePhotos = React.createClass({
         pid: React.PropTypes.string.isRequired
     },
     getInitialState: function() {
-        return { photoIndex: 0 }
+        return { photoIndex: 0 };
     },
     componentDidMount: function() {
         this.getPhotos(this.props.pid);
@@ -18,9 +18,9 @@ var HousePhotos = React.createClass({
     },
     getPhotos: function(thePid) {
         var args = {
-                    'pid': thePid,
-                    'photo_source': 'mvideo,ilookabout'
-                    };
+            'pid': thePid,
+            'photo_source': 'mvideo,ilookabout'
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v2/ws_misc_house_photos.php' + objectToURI(args),
             function(err, res) {
@@ -34,7 +34,7 @@ var HousePhotos = React.createClass({
     },
     handleError: function(event) {
         var theItem = event.target;
-        theItem.style.display = "none";
+        theItem.style.display = 'none';
     },
     render: function() {
         var photos = '';

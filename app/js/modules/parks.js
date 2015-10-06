@@ -10,7 +10,7 @@ var ParkInfo = React.createClass({
         lng: React.PropTypes.number.isRequired
     },
     getInitialState: function() {
-        return {}
+        return {};
     },
     componentDidMount: function() {
         this.getParks(this.props.lat, this.props.lng);
@@ -20,14 +20,14 @@ var ParkInfo = React.createClass({
     },
     getParks: function(lat, lng) {
         var args = {
-                    'x': lng,
-                    'y': lat,
-                    'srid': 4326,
-                    'table': 'parks_all',
-                    'geometryfield': 'geom',
-                    'fields': 'name, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',
-                    'limit': '6'
-                    };
+            'x': lng,
+            'y': lat,
+            'srid': 4326,
+            'table': 'parks_all',
+            'geometryfield': 'geom',
+            'fields': 'name, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',
+            'limit': '6'
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_nearest.php' + objectToURI(args),
             function(err, res) {
@@ -102,14 +102,14 @@ var ParkInfo = React.createClass({
             );
 
             var moreInfo = (
-    			<div className="report-moreinfo mdl-typography--text-left">
-    				<h5>For more information, please visit:</h5>
+                <div className="report-moreinfo mdl-typography--text-left">
+                    <h5>For more information, please visit:</h5>
                     <ul className="list-unstyled">
                         <li><a href="http://charmeck.org/mecklenburg/county/ParkandRec/Pages/default.aspx">Mecklenburg County Park and Recreation</a></li>
                         <li><a href="http://www.huntersville.org/Departments/ParksRecreation.aspx" target="_blank">Huntersville Parks and Recreation</a></li>
                     </ul>
-    			</div>
-    		);
+                </div>
+            );
         }
 
         return (

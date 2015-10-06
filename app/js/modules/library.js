@@ -10,7 +10,7 @@ var LibraryInfo = React.createClass({
         lng: React.PropTypes.number.isRequired
     },
     getInitialState: function() {
-        return {}
+        return {};
     },
     componentDidMount: function() {
         this.getLibraries(this.props.lat, this.props.lng);
@@ -20,14 +20,14 @@ var LibraryInfo = React.createClass({
     },
     getLibraries: function(lat, lng) {
         var args = {
-                    'x': lng,
-                    'y': lat,
-                    'srid': 4326,
-                    'table': 'libraries',
-                    'geometryfield': 'the_geom',
-                    'fields': 'name, address, city, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
-                    'limit': '6'
-                    };
+            'x': lng,
+            'y': lat,
+            'srid': 4326,
+            'table': 'libraries',
+            'geometryfield': 'the_geom',
+            'fields': 'name, address, city, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
+            'limit': '6'
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_nearest.php' + objectToURI(args),
             function(err, res) {
@@ -40,9 +40,9 @@ var LibraryInfo = React.createClass({
     },
     handleLocationClick: function(event) {
         if (typeof addtmpMarker === 'function') {
-			var theItem = event.target;
-	        addtmpMarker(theItem.getAttribute('data-lat'), theItem.getAttribute('data-lng'), theItem.getAttribute('data-label'), theItem.getAttribute('data-address'));
-		}
+            var theItem = event.target;
+            addtmpMarker(theItem.getAttribute('data-lat'), theItem.getAttribute('data-lng'), theItem.getAttribute('data-label'), theItem.getAttribute('data-address'));
+        }
     },
     render: function() {
 
@@ -101,12 +101,12 @@ var LibraryInfo = React.createClass({
                 </div>
             );
 
-			var moreInfo = (
+            var moreInfo = (
 				<div className="report-moreinfo mdl-typography--text-left">
 					<h5>For more information, please visit:</h5>
 					<ul className="list-unstyled">
-	        			<li><a href="http://www.plcmc.org/" target="_blank">Charlotte Mecklenburg Library</a></li>
-	    			</ul>
+                        <li><a href="http://www.plcmc.org/" target="_blank">Charlotte Mecklenburg Library</a></li>
+                    </ul>
 				</div>
 			);
         }

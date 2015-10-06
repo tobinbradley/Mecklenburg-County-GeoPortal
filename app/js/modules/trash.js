@@ -1,3 +1,7 @@
+// Test information
+// 3810 Warrington is orange (odd)
+// 5501 Ruth is green (even)
+
 var React = require('react'),
     httpplease = require('httpplease'),
     jsonresponse = require('httpplease/plugins/jsonresponse'),
@@ -9,7 +13,7 @@ var TrashInfo = React.createClass({
         lng: React.PropTypes.number.isRequired
     },
     getInitialState: function() {
-        return {}
+        return {};
     },
     componentDidMount: function() {
         this.getTrash(this.props.lat, this.props.lng);
@@ -19,13 +23,13 @@ var TrashInfo = React.createClass({
     },
     getTrash: function(lat, lng) {
         var args = {
-                    'x': lng,
-                    'y': lat,
-                    'srid': 4326,
-                    'table': 'solid_waste',
-                    'geometryfield': 'the_geom',
-                    'fields': 'jurisdiction, day, week, type'
-                    };
+            'x': lng,
+            'y': lat,
+            'srid': 4326,
+            'table': 'solid_waste',
+            'geometryfield': 'the_geom',
+            'fields': 'jurisdiction, day, week, type'
+        };
         httpplease = httpplease.use(jsonresponse);
         httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_pointoverlay.php' + objectToURI(args),
             function(err, res) {
@@ -35,19 +39,19 @@ var TrashInfo = React.createClass({
     },
     checkOddEven: function(num) {
         if(num % 2 === 0) {
-          return 'even';
+            return 'even';
         } else {
-          return 'odd';
+            return 'odd';
         }
     },
     weekNumber: function(d) {
-      // the length of a week
-      var one_week = 1000 * 60 * 60 * 24 * 7;
-      // the start of a Green or A week
-      var a = new Date('2015-08-30').getTime();
+        // the length of a week
+        var one_week = 1000 * 60 * 60 * 24 * 7;
+        // the start of a Green or A week
+        var a = new Date('2015-08-30').getTime();
 
-      var weekN = Math.floor((d - a) / one_week);
-      return weekN;
+        var weekN = Math.floor((d - a) / one_week);
+        return weekN;
     },
     weekEvenOdd: function(w) {
         if (w === 'A' || w === 'GREEN') {
@@ -122,10 +126,10 @@ var TrashInfo = React.createClass({
                     );
 
                 } else {
-                    var garbage = this.state.theTrash.filter(function(rec) { return rec.type === 'GARBAGE' });
-                    var recycling = this.state.theTrash.filter(function(rec) { return rec.type === 'RECYCLING' });
-                    var yard = this.state.theTrash.filter(function(rec) { return rec.type === 'YARD WASTE' });
-                    var bulk = this.state.theTrash.filter(function(rec) { return rec.type === 'BULKY' });
+                    var garbage = this.state.theTrash.filter(function(rec) { return rec.type === 'GARBAGE'; });
+                    var recycling = this.state.theTrash.filter(function(rec) { return rec.type === 'RECYCLING'; });
+                    var yard = this.state.theTrash.filter(function(rec) { return rec.type === 'YARD WASTE'; });
+                    var bulk = this.state.theTrash.filter(function(rec) { return rec.type === 'BULKY'; });
                     trash = (
                         <div>
                             <div className="mdl-grid">

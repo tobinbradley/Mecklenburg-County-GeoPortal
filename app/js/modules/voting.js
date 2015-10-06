@@ -5,10 +5,10 @@ var React = require('react'),
 
 
 var PollingComponent = React.createClass({
-	getDefaultProps: function() {
+    getDefaultProps: function() {
         return {
             recs: ''
-        }
+        };
     },
 	convertDistance: function(dist) {
         return (dist / 5280).toFixed(1) + ' miles';
@@ -20,7 +20,7 @@ var PollingComponent = React.createClass({
         }
     },
 	render: function() {
-		var returnVal;
+        var returnVal;
 
 		if (typeof this.props.recs === 'object' && this.props.recs.length !== 0) {
 			returnVal = (
@@ -52,7 +52,7 @@ var RepresentativeComponent = React.createClass({
         return {
             recs: '',
 			type: ''
-        }
+        };
     },
 	render: function() {
 		var returnVal;
@@ -62,7 +62,7 @@ var RepresentativeComponent = React.createClass({
 			var atLarge = this.props.recs.slice(0);
 
 			atLarge.shift();
-			atLarge = atLarge.map(function(item) { return item.representative });
+			atLarge = atLarge.map(function(item) { return item.representative; });
 
 			if ( atLarge.length > 0 ) {
 				atLargeText = 'At Large: ' + atLarge.join(', ');
@@ -91,7 +91,7 @@ var SenateComponent = React.createClass({
 	getDefaultProps: function() {
         return {
             recs: ''
-        }
+        };
     },
 	render: function() {
 		var returnVal;
@@ -119,7 +119,7 @@ var VotingComponent = React.createClass({
         lng: React.PropTypes.number.isRequired
     },
     getInitialState: function() {
-        return {}
+        return {};
     },
     componentDidMount: function() {
         this.getData(this.props.lat, this.props.lng);
