@@ -23,15 +23,11 @@ var TrashInfo = React.createClass({
     },
     getTrash: function(lat, lng) {
         var args = {
-            'x': lng,
-            'y': lat,
-            'srid': 4326,
-            'table': 'solid_waste',
-            'geometryfield': 'the_geom',
-            'fields': 'jurisdiction, day, week, type'
+            'geom_column': 'the_geom',
+            'columns': 'jurisdiction, day, week, type'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_pointoverlay.php' + objectToURI(args),
+        httpplease.get(`http://maps.co.mecklenburg.nc.us:80/api/intersect_point/v1/solid_waste/${lng},${lat}/4326` + objectToURI(args),
             function(err, res) {
                 this.setState({ theTrash: res.body });
             }.bind(this)
@@ -145,7 +141,7 @@ var TrashInfo = React.createClass({
                                         <i className="icon icon-recycle" role="presentation"></i>
                                         <h2>Your RECYCLING day is</h2>
                                         <h1>{recycling[0].day.toUpperCase()} {this.recyclingWeek(recycling[0].week)}</h1>
-                                        <h4>Recycling pickup is every other week.</h4>
+                                        <h4>Recycling pickup is every other week ({recycling[0].week})</h4>
                                     </div>
                                 </div>
                             </div>

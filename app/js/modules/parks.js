@@ -20,16 +20,11 @@ var ParkInfo = React.createClass({
     },
     getParks: function(lat, lng) {
         var args = {
-            'x': lng,
-            'y': lat,
-            'srid': 4326,
-            'table': 'parks_all',
-            'geometryfield': 'geom',
-            'fields': 'name, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',
+            'columns': 'name, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',
             'limit': '6'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_nearest.php' + objectToURI(args),
+        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/parks_all/${lng},${lat}/4326` + objectToURI(args),
             function(err, res) {
                 this.setState({ theParks: res.body });
             }.bind(this)

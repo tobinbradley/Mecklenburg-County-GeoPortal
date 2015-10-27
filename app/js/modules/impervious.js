@@ -19,13 +19,13 @@ var ImperviousInfo = React.createClass({
     },
     getImpervious: function(pid) {
         var args = {
-            'table': 'impervious_surface_area',
-            'fields': 'sum(sum_of_area) as area, subtheme',
-            'parameters': `commonpid='${pid}' group by subtheme`,
-            'order': 'subtheme'
+            'columns': 'sum(sum_of_area) as area, subtheme',
+            'filter': `commonpid='${pid}'`,
+            'sort': 'subtheme',
+            'group': 'subtheme'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_attributequery.php' + objectToURI(args),
+        httpplease.get('http://maps.co.mecklenburg.nc.us/api/query/v1/impervious_surface_area' + objectToURI(args),
             function(err, res) {
                 this.setState({ theImpervious: res.body });
             }.bind(this)

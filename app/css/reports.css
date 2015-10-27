@@ -1,6 +1,14 @@
 .report-container {
   padding: 32px;
 }
+@media (max-width: 500px) {
+    .report-container {
+        padding: 15px;
+    }
+    .col-responsive {
+        display: none;
+    }
+}
 
 /*tables*/
 .report-container table {

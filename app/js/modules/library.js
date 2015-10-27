@@ -20,16 +20,12 @@ var LibraryInfo = React.createClass({
     },
     getLibraries: function(lat, lng) {
         var args = {
-            'x': lng,
-            'y': lat,
-            'srid': 4326,
-            'table': 'libraries',
-            'geometryfield': 'the_geom',
-            'fields': 'name, address, city, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
+            'geom_column': 'the_geom',
+            'columns': 'name, address, city, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
             'limit': '6'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_nearest.php' + objectToURI(args),
+        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/libraries/${lng},${lat}/4326` + objectToURI(args),
             function(err, res) {
                 this.setState({ theLibraries: res.body });
             }.bind(this)

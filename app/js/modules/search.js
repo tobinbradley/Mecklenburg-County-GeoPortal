@@ -22,11 +22,10 @@ var SearchTemplate = React.createClass({
         this.timer = this.setTimeout( function() {
             if (query.trim().length >= 3) {
                 var args = {
-                    'searchtypes': 'address,park,library,school,pid,business',
-                    'query': query
+                    'tables': 'address,park,library,school,pid,business'
                 };
                 httpplease = httpplease.use(jsonresponse);
-                httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v5/ws_geo_ubersearch.php' + objectToURI(args),
+                httpplease.get(`http://maps.co.mecklenburg.nc.us:80/api/search/v1/${query}` + objectToURI(args),
                     function(err, data) {
                         this.setState({ searchData: data.body });
                     }.bind(this)

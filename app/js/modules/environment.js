@@ -183,14 +183,14 @@ var WaterQualityComponent = React.createClass({
                     </div>
                 );
             }
-		}
+        }
 
-		return (
+        return (
 			<div>
 			{returnVal}
 			</div>
 		);
-	}
+    }
 });
 
 
@@ -237,7 +237,7 @@ var SoilComponent = React.createClass({
 			{returnVal}
 			</div>
 		);
-	}
+    }
 });
 
 

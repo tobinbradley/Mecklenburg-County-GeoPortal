@@ -197,8 +197,8 @@ var AppraisalClass = React.createClass({
                         <tr>
                             <th className="mdl-data-table__cell--non-numeric">Year</th>
                             <th>Building</th>
-                            <th>Land</th>
-                            <th>Extra</th>
+                            <th className="col-responsive">Land</th>
+                            <th className="col-responsive">Extra</th>
                             <th>Total</th>
                         </tr>
                     </thead>
@@ -213,10 +213,10 @@ var AppraisalClass = React.createClass({
                                         <td>
                                             {this.money(object.building_value)}
                                         </td>
-                                        <td>
+                                        <td className="col-responsive">
                                             {this.money(object.land_value)}
                                         </td>
-                                        <td>
+                                        <td className="col-responsive">
                                             {this.money(object.extra_features_value)}
                                         </td>
                                         <td>
@@ -254,8 +254,8 @@ var SalesClass = React.createClass({
                         <tr>
                             <th className="mdl-data-table__cell--non-numeric">Date</th>
                             <th>Price</th>
-                            <th className="mdl-data-table__cell--non-numeric">Deed Book</th>
-                            <th className="mdl-data-table__cell--non-numeric">Legal Reference</th>
+                            <th className="mdl-data-table__cell--non-numeric col-responsive">Deed Book</th>
+                            <th className="mdl-data-table__cell--non-numeric col-responsive">Legal Reference</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -269,10 +269,10 @@ var SalesClass = React.createClass({
                                         <td>
                                             {this.money(Number(object.sale_price).toFixed(0))}
                                         </td>
-                                        <td className="mdl-data-table__cell--non-numeric">
+                                        <td className="mdl-data-table__cell--non-numeric col-responsive">
                                             {object.deed_book}
                                         </td>
-                                        <td className="mdl-data-table__cell--non-numeric">
+                                        <td className="mdl-data-table__cell--non-numeric col-responsive">
                                             {object.legal_reference}
                                         </td>
                                     </tr>
@@ -301,7 +301,7 @@ var LandUseClass = React.createClass({
                         <tr>
                             <th className="mdl-data-table__cell--non-numeric">Use</th>
                             <th>Units</th>
-                            <th className="mdl-data-table__cell--non-numeric">Neighborhood</th>
+                            <th className="mdl-data-table__cell--non-numeric col-responsive">Neighborhood</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -315,7 +315,7 @@ var LandUseClass = React.createClass({
                                         <td>
                                             {Number(object.units).toFixed(0)}
                                         </td>
-                                        <td className="mdl-data-table__cell--non-numeric">
+                                        <td className="mdl-data-table__cell--non-numeric col-responsive">
                                             {object.neighborhood}
                                         </td>
                                     </tr>
@@ -351,10 +351,10 @@ var BuildingsClass = React.createClass({
                         <tr>
                             <th className="mdl-data-table__cell--non-numeric">Structure</th>
                             <th>Year Built</th>
-                            <th className="mdl-data-table__cell--non-numeric">Exterior</th>
+                            <th className="mdl-data-table__cell--non-numeric col-responsive">Exterior</th>
                             <th className="mdl-data-table__cell--non-numeric">Area</th>
-                            <th>Beds</th>
-                            <th>Baths</th>
+                            <th className="col-responsive">Beds</th>
+                            <th className="col-responsive">Baths</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -368,16 +368,16 @@ var BuildingsClass = React.createClass({
                                         <td>
                                             {object.year_built}
                                         </td>
-                                        <td className="mdl-data-table__cell--non-numeric">
+                                        <td className="mdl-data-table__cell--non-numeric col-responsive">
                                             {object.exterior_wall_description}
                                         </td>
                                         <td>
                                             {this.commafy(object.total_square_feet)} ft<sup>2</sup>
                                         </td>
-                                        <td>
+                                        <td className="col-responsive">
                                             {object.bedrooms}
                                         </td>
-                                        <td>
+                                        <td className="col-responsive">
                                             {Number(object.full_baths) + Number(object.three_quarter_baths) + Number(object.half_baths)}
                                         </td>
                                     </tr>
@@ -414,7 +414,7 @@ var PermitsClass = React.createClass({
                         <tr>
                             <th className="mdl-data-table__cell--non-numeric">Year</th>
                             <th className="mdl-data-table__cell--non-numeric">Project</th>
-                            <th>Area</th>
+                            <th className="col-responsive">Area</th>
                             <th>Cost</th>
                         </tr>
                     </thead>
@@ -429,7 +429,7 @@ var PermitsClass = React.createClass({
                                         <td className="mdl-data-table__cell--non-numeric">
                                             {object.project_name}
                                         </td>
-                                        <td>
+                                        <td className="col-responsive">
                                             {this.commafy(object.square_footage)} ft<sup>2</sup>
                                         </td>
                                         <td>
