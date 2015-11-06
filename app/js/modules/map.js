@@ -113,7 +113,7 @@ global.addMarker = function(latlng, label, pid, address) {
     } else {
         map.setView(coords);
     }
-    marker = L.marker(coords).bindPopup(`<div class="mdl-typography--text-center"><b>${label}</b><br>${address}<br><a href="${gMaps}" target="_blank">View on Google Maps</a></div>`).addTo(map).openPopup();
+    marker = L.marker(coords).bindPopup(`<div class="mdl-typography--text-center"><b>${label}</b><br>${address}</div>`).addTo(map).openPopup();
 };
 
 // add point of interest (something like nearby park) marker

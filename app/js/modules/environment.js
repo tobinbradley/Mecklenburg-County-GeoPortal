@@ -34,15 +34,13 @@ var EnvironmentComponent = React.createClass({
     },
     polyOverlay: function(pid, table, fields, theState) {
         var args = {
-            'from_table': 'tax_parcels',
-            'to_table': table,
-            'fields': fields,
-            'parameters': `f.pid = '${pid}'`,
-            'from_geometryfield': 'the_geom',
-            'to_geometryfield': 'the_geom'
+            'columns': fields,
+            'filter': `f.pid = '${pid}'`,
+            'geom_column_from': 'the_geom',
+            'geom_column_to': 'the_geom'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_featureoverlay.php' + objectToURI(args),
+        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/${table}` + objectToURI(args),
             function(err, res) {
                 this.setState({ [theState]: res.body });
             }.bind(this)

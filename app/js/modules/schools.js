@@ -187,16 +187,12 @@ var SchoolInfo = React.createClass({
     },
     getHomeData: function(lat, lng) {
         var args = {
-            'x': lng,
-            'y': lat,
-            'srid': 4326,
-            'table': 'school_districts',
-            'geometryfield': 'the_geom',
+            'geom_column': 'the_geom',
             'distance': 150,
-            'fields': `type, schlname, choice_zone, address, city, x as lng, y as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${lng} ${lat})',4326), 2264), ST_transform(ST_GeomFromText('POINT(' || x || ' ' || y || ')',4326), 2264)) as dist`
+            'columns': `type, schlname, choice_zone, address, city, x as lng, y as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${lng} ${lat})',4326), 2264), ST_transform(ST_GeomFromText('POINT(' || x || ' ' || y || ')',4326), 2264)) as dist`
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_bufferpoint.php' + objectToURI(args),
+        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/school_districts/${lng},${lat}/4326` + objectToURI(args),
             function(err, res) {
                 this.setState({ homeData: res.body });
             }.bind(this)
@@ -204,12 +200,11 @@ var SchoolInfo = React.createClass({
     },
     getMagnetData: function(lat, lng) {
         var args = {
-            'table': 'view_schools_magnet',
-            'fields': `schl, schlname, address, city, ST_Distance(the_geom,ST_Transform(GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat`,
-            'order': 'distance'
+            'columns': `schl, schlname, address, city, ST_Distance(the_geom,ST_Transform(GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat`,
+            'sort': 'distance'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_attributequery.php' + objectToURI(args),
+        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/query/v1/view_schools_magnet` + objectToURI(args),
             function(err, res) {
                 this.setState({ magnetData: res.body });
             }.bind(this)

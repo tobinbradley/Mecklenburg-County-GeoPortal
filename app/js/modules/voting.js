@@ -57,23 +57,21 @@ var RepresentativeComponent = React.createClass({
     render: function() {
         var returnVal;
 
-        if (typeof this.props.recs === 'object' && this.props.recs.length !== 0) {
+        if (!isNaN(parseInt(this.props.recs))) {
+            var rep = this.props.officials.filter(function(r) { return r.district_type === this.props.filter && r.district == this.props.recs; }.bind(this));
+            var atlarge = this.props.officials.filter(function(r) { return r.district_type === this.props.filter && r.district === 'At-Large'; }.bind(this));
+
             var atLargeText = '';
-            var atLarge = this.props.recs.slice(0);
-
-            atLarge.shift();
-            atLarge = atLarge.map(function(item) { return item.representative; });
-
-            if ( atLarge.length > 0 ) {
-                atLargeText = 'At Large: ' + atLarge.join(', ');
+            if ( atlarge.length > 0 ) {
+                atLargeText = 'At Large: ' + atlarge.map(function(item) { return item.representative; }).join(', ');
             }
 
             returnVal = (
 				<div className="report-record-highlight">
 					<i className="icon icon-user" role="presentation"></i>
 					<h2>Your {this.props.type} Representative is</h2>
-					<h1>{this.props.recs[0].representative}</h1>
-					<h3>District {this.props.recs[0].district}</h3>
+					<h1>{rep[0].representative}</h1>
+					<h3>District {this.props.recs}</h3>
 					<h4>{atLargeText}</h4>
 				</div>
 			);
@@ -96,11 +94,12 @@ var SenateComponent = React.createClass({
     render: function() {
         var returnVal;
         if (typeof this.props.recs === 'object' && this.props.recs.length !== 0) {
+            var reps = this.props.recs.filter(function(r) { return r.district_type === 'national_senate'; });
             returnVal = (
 				<div className="report-record-highlight">
 					<i className="icon icon-user" role="presentation"></i>
 					<h2>Your US SENATE Representatives are</h2>
-					<h1>{this.props.recs[0].representative} <br /> {this.props.recs[1].representative}</h1>
+					<h1>{reps[0].representative} <br /> {reps[1].representative}</h1>
 				</div>
 			);
         }
@@ -128,61 +127,55 @@ var VotingComponent = React.createClass({
         this.getData(nextProps.lat, nextProps.lng);
     },
     getData: function(lat, lng) {
-        this.getPollingLocation(lat, lng);
+        this.getOfficials();
+        this.getPrecinct(lat, lng);
         this.getDistrict(lat, lng, 'national_congressional', 'national_congressional', 'natCongress', 'district');
-        this.getNationalSenate();
         this.getDistrict(lat, lng, 'state_senate', 'state_senate', 'stateSenate', 'senate');
         this.getDistrict(lat, lng, 'state_house', 'state_house', 'stateHouse', 'house');
-        this.getDistrict(lat, lng, 'county_commission', 'voting_precincts', 'countyCommission', 'cc');
-        this.getDistrict(lat, lng, 'board_of_education', 'voting_precincts', 'countySchool', 'school');
         this.getDistrict(lat, lng, 'charlotte_city_council', 'city_council', 'cityCharlotte', 'citydist');
     },
-    getPollingLocation: function(lat, lng) {
+    getOfficials: function() {
         var args = {
-            'x': lng,
-            'y': lat,
-            'srid': 4326,
-            'table': 'polling_locations,voting_precincts',
-            'geometryfield': 'the_geom',
-            'limit': 1,
-            'fields': `polling_locations.name as label,polling_locations.address,a.precno as precinct,st_x(st_transform(polling_locations.the_geom, 4326)) as lng, st_y(st_transform(polling_locations.the_geom, 4326)) as lat, ST_Distance(polling_locations.the_geom,ST_Transform(GeomFromText('POINT(${lng} ${lat})',4326), 2264)) as distance`,
-            'parameters': 'a.precno = polling_locations.precno'
+            'sort': 'district'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php' + objectToURI(args),
+        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/query/v1/elected_officials` + objectToURI(args),
             function(err, res) {
-                this.setState({ pollingRecs: res.body });
+                this.setState({ officials: res.body });
             }.bind(this)
         );
     },
-    getNationalSenate: function() {
+    getPrecinct: function(lat, lng) {
         var args = {
-            'table': 'elected_officials',
-            'fields': 'representative',
-            'parameters': `district_type = 'national_senate'`
+            'geom_column': 'the_geom',
+            'limit': 1,
+            'columns': `voting_precincts.cc, voting_precincts.school, polling_locations.name as label,polling_locations.address,voting_precincts.precno as precinct,st_x(st_transform(polling_locations.the_geom, 4326)) as lng, st_y(st_transform(polling_locations.the_geom, 4326)) as lat, ST_Distance(polling_locations.the_geom,ST_Transform(GeomFromText('POINT(${lng} ${lat})',4326), 2264)) as distance`,
+            'join': 'polling_locations;voting_precincts.precno = polling_locations.precno'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v4/ws_geo_attributequery.php' + objectToURI(args),
+        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/voting_precincts/${lng},${lat}/4326` + objectToURI(args),        
             function(err, res) {
-                this.setState({ natSenate: res.body });
+                this.setState({
+                    pollingRecs: res.body,
+                    countyCommission: res.body[0].cc,
+                    countySchool: res.body[0].school
+                });
             }.bind(this)
         );
     },
     getDistrict: function(lat, lng, type, layer, theState, distField) {
         var args = {
-            'x': lng,
-            'y': lat,
-            'srid': 4326,
-            'table': `elected_officials,${layer}`,
-            'geometryfield': 'the_geom',
-            'fields': 'elected_officials.district, elected_officials.representative',
-            'order': 'elected_officials.district',
-            'parameters': `elected_officials.district_type = '${type}' and (elected_officials.district = 'At-Large' or elected_officials.district = cast(a.${distField} as varchar(5)))`
+            'geom_column': 'the_geom',
+            'columns': `${distField} as district`
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v2/ws_geo_pointoverlay.php' + objectToURI(args),
+        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/${layer}/${lng},${lat}/4326` + objectToURI(args),
             function(err, res) {
-                this.setState({ [theState]: res.body });
+                if (res.body.length > 0) {
+                    this.setState({ [theState]: res.body[0].district });
+                } else {
+                    this.setState({ [theState]: null });
+                }
             }.bind(this)
         );
     },
@@ -207,30 +200,30 @@ var VotingComponent = React.createClass({
 				</div>
 				<div className="mdl-grid">
 					<div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-						<SenateComponent recs={this.state.natSenate} />
+						<SenateComponent recs={this.state.officials} />
 					</div>
 					<div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-						<RepresentativeComponent recs={this.state.natCongress} type='US CONGRESSIONAL DISTRICT' />
-					</div>
-				</div>
-				<div className="mdl-grid">
-					<div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-						<RepresentativeComponent recs={this.state.stateSenate} type='NC SENATE DISTRICT' />
-					</div>
-					<div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-						<RepresentativeComponent recs={this.state.stateHouse} type='NC HOUSE DISTRICT' />
+						<RepresentativeComponent recs={this.state.natCongress} type='US CONGRESSIONAL DISTRICT' officials={this.state.officials} filter='national_congressional' />
 					</div>
 				</div>
 				<div className="mdl-grid">
 					<div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-						<RepresentativeComponent recs={this.state.countyCommission} type='COUNTY COMMISSIONER DISTRICT' />
+						<RepresentativeComponent recs={this.state.stateSenate} type='NC SENATE DISTRICT' officials={this.state.officials} filter='state_senate' />
 					</div>
 					<div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-						<RepresentativeComponent recs={this.state.countySchool} type='SCHOOL BOARD DISTRICT' />
+						<RepresentativeComponent recs={this.state.stateHouse} type='NC HOUSE DISTRICT' officials={this.state.officials} filter='state_house' />
+					</div>
+				</div>
+				<div className="mdl-grid">
+					<div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
+						<RepresentativeComponent recs={this.state.countyCommission} type='COUNTY COMMISSIONER DISTRICT' officials={this.state.officials} filter='county_commission' />
+					</div>
+					<div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
+						<RepresentativeComponent recs={this.state.countySchool} type='SCHOOL BOARD DISTRICT' officials={this.state.officials} filter='board_of_education' />
 					</div>
 				</div>
 				<div className="mdl-typography--text-center">
-					<RepresentativeComponent recs={this.state.cityCharlotte} type='CHARLOTTE CITY COUNCIL DISTRICT' />
+					<RepresentativeComponent recs={this.state.cityCharlotte} type='CHARLOTTE CITY COUNCIL DISTRICT' officials={this.state.officials} filter='charlotte_city_council' />
 				</div>
 
 				{moreInfo}
