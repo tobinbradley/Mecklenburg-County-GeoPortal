@@ -17,7 +17,8 @@ let forEach = require('./modules/foreach'),
     HousePhotos = require('./modules/photos'),
     questionChange = require('./modules/question-change'),
     questionRun = require('./modules/question-run'),
-    fetchNearest = require('./modules/nearest');
+    fetchNearest = require('./modules/nearest'),
+    youtubeLoader = require('./modules/youtube');
 
 // map module just dumps because stupid brains
 require('./modules/map');
@@ -30,7 +31,8 @@ let searchComponent = React.render( <SearchTemplate /> ,
     document.getElementById('search-results')
 );
 
-
+// load youtube vid holder
+youtubeLoader('.youtube');
 
 // search box input and click events
 let theSearch = document.querySelector(".search-input");
