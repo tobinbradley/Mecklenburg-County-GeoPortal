@@ -92,7 +92,7 @@ var MagnetDisplay = React.createClass({
                             <tr>
                                 <th className="mdl-data-table__cell--non-numeric">School</th>
                                 <th className="mdl-data-table__cell--non-numeric">Address</th>
-                                <th>Distance</th>
+                                <th className="col-responsive">Distance</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -111,7 +111,7 @@ var MagnetDisplay = React.createClass({
                                                     data-address={object.address + ', ' + object.city}
                                                     onClick={this.handleLocationClick}>{object.address + ', ' + object.city}</a>
                                             </td>
-                                            <td className="nowrap">
+                                            <td className="nowrap col-responsive">
                                                 {this.convertDistance(object.distance)}
                                             </td>
                                         </tr>
