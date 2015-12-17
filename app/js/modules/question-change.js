@@ -1,4 +1,5 @@
 var React = require('react'),
+    ReactDOM = require('react-dom'),
 	forEach = require('./foreach'),
 	getURLParameter = require('./geturlparams');
 
@@ -20,7 +21,7 @@ var questionChange = function(elem, navs, container, changeType) {
 	}
 
     // clean up existing react content
-	React.unmountComponentAtNode(container);
+	ReactDOM.unmountComponentAtNode(container);
 
 	// history
 	if (changeType !== 'page') {

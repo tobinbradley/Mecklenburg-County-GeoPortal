@@ -17,7 +17,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="banner.svg"
-   inkscape:export-filename="/home/tobin/sync/code/geoportal3/public/img/banner.png"
+   inkscape:export-filename="/home/tobin/sync/code/geoportal/app/img/youtube-bg.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -321,15 +321,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98994949"
-     inkscape:cx="618.32111"
+     inkscape:cx="436.99873"
      inkscape:cy="367.14631"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      inkscape:window-width="1920"
-     inkscape:window-height="1051"
-     inkscape:window-x="1920"
+     inkscape:window-height="1016"
+     inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1" />
   <metadata
@@ -340,7 +340,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -2871,28 +2871,5 @@
          d="m 132.40391,512.00494 c 0.23256,1.5211 -7.51364,2.19241 -20.09584,8.88943 -4.21866,2.25243 -9.22247,5.44001 -13.193504,9.85387 3e-6,0 -9e-6,10e-6 -9e-6,10e-6 -3.002305,3.30742 -5.558335,7.49076 -7.118021,12.31482 -1.568881,4.77874 -2.148297,10.0836 -2.06228,15.84186 0.183097,10.27127 4.433588,21.33567 12.597064,29.33195 7.5634,7.46063 18.39692,12.03438 29.33194,12.01881 10.9697,0.0241 21.80056,-4.56615 29.35025,-12.0005 8.21226,-8.03064 12.44228,-19.1183 12.63673,-29.35025 0.26803,-11.70308 -5.32435,-21.77749 -11.99891,-27.7074 -7.60195,-6.86036 -16.78824,-9.67963 -22.1273,-10.99146 -5.79328,-1.42344 -8.90084,-1.61985 -8.93888,-2.2701 -0.0238,-0.40688 3.05171,-1.33192 9.33625,-0.86979 5.82886,0.42863 16.0201,2.33809 25.48849,9.5857 8.32439,6.47102 15.65831,17.91832 15.92587,32.25305 0.19488,12.22937 -4.39339,25.46478 -14.20972,35.46279 -9.09345,9.209 -21.97415,14.82177 -35.46278,14.84592 -13.44671,-0.0156 -26.34632,-5.58991 -35.481084,-14.82761 -9.785368,-9.95265 -14.432878,-23.17219 -14.249382,-35.48111 0.08594,-6.42057 1.073589,-12.56271 3.186278,-18.20174 2.180038,-5.75791 5.533216,-10.57222 9.357725,-14.27598 0,0 1.4e-5,-10e-6 1.4e-5,-10e-6 5.067776,-4.86785 10.829099,-7.92782 15.604519,-9.87374 14.0723,-5.75081 22.10208,-4.68255 22.12258,-4.54852 z"
          style="fill:url(#radialGradient4045);fill-opacity:1;stroke:none;stroke-opacity:1" />
     </g>
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:60px;line-height:125%;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="32.499767"
-       y="976.64142"
-       id="text5718"
-       sodipodi:linespacing="125%"><tspan
-         sodipodi:role="line"
-         id="tspan5720"
-         x="32.499767"
-         y="976.64142">GeoPortal</tspan></text>
-    <text
-       sodipodi:linespacing="125%"
-       id="text5722"
-       y="1019.0272"
-       x="36.36549"
-       style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:60px;line-height:125%;font-family:Roboto;-inkscape-font-specification:'Roboto Bold';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       xml:space="preserve"><tspan
-         y="1019.0272"
-         x="36.36549"
-         id="tspan5724"
-         sodipodi:role="line"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:35px;font-family:Roboto;-inkscape-font-specification:Roboto;fill:#7a7a7a;fill-opacity:1">Mecklenburg County GIS</tspan></text>
   </g>
 </svg>

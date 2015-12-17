@@ -26,7 +26,66 @@
  * @author Jason Mayes.
  */
 /* exported componentHandler */
-window.componentHandler = (function() {
+
+// Pre-defining the componentHandler interface, for closure documentation and
+// static verification.
+var componentHandler = {
+  /**
+   * Searches existing DOM for elements of our component type and upgrades them
+   * if they have not already been upgraded.
+   *
+   * @param {string=} optJsClass the programatic name of the element class we
+   * need to create a new instance of.
+   * @param {string=} optCssClass the name of the CSS class elements of this
+   * type will have.
+   */
+  upgradeDom: function(optJsClass, optCssClass) {},
+  /**
+   * Upgrades a specific element rather than all in the DOM.
+   *
+   * @param {!Element} element The element we wish to upgrade.
+   * @param {string=} optJsClass Optional name of the class we want to upgrade
+   * the element to.
+   */
+  upgradeElement: function(element, optJsClass) {},
+  /**
+   * Upgrades a specific list of elements rather than all in the DOM.
+   *
+   * @param {!Element|!Array<!Element>|!NodeList|!HTMLCollection} elements
+   * The elements we wish to upgrade.
+   */
+  upgradeElements: function(elements) {},
+  /**
+   * Upgrades all registered components found in the current DOM. This is
+   * automatically called on window load.
+   */
+  upgradeAllRegistered: function() {},
+  /**
+   * Allows user to be alerted to any upgrades that are performed for a given
+   * component type
+   *
+   * @param {string} jsClass The class name of the MDL component we wish
+   * to hook into for any upgrades performed.
+   * @param {function(!HTMLElement)} callback The function to call upon an
+   * upgrade. This function should expect 1 parameter - the HTMLElement which
+   * got upgraded.
+   */
+  registerUpgradedCallback: function(jsClass, callback) {},
+  /**
+   * Registers a class for future use and attempts to upgrade existing DOM.
+   *
+   * @param {componentHandler.ComponentConfigPublic} config the registration configuration
+   */
+  register: function(config) {},
+  /**
+   * Downgrade either a given node, an array of nodes, or a NodeList.
+   *
+   * @param {!Node|!Array<!Node>|!NodeList} nodes
+   */
+  downgradeElements: function(nodes) {}
+};
+
+componentHandler = (function() {
   'use strict';
 
   /** @type {!Array<componentHandler.ComponentConfig>} */
@@ -35,22 +94,22 @@ window.componentHandler = (function() {
   /** @type {!Array<componentHandler.Component>} */
   var createdComponents_ = [];
 
-  var downgradeMethod_ = 'mdlDowngrade_';
+  var downgradeMethod_ = 'mdlDowngrade';
   var componentConfigProperty_ = 'mdlComponentConfigInternal_';
 
   /**
    * Searches registered components for a class we are interested in using.
    * Optionally replaces a match with passed object if specified.
    *
-   * @param {String} name The name of a class we want to use.
+   * @param {string} name The name of a class we want to use.
    * @param {componentHandler.ComponentConfig=} optReplace Optional object to replace match with.
-   * @return {!Object|Boolean}
+   * @return {!Object|boolean}
    * @private
    */
   function findRegisteredClass_(name, optReplace) {
     for (var i = 0; i < registeredComponents_.length; i++) {
       if (registeredComponents_[i].className === name) {
-        if (optReplace !== undefined) {
+        if (typeof optReplace !== 'undefined') {
           registeredComponents_[i] = optReplace;
         }
         return registeredComponents_[i];
@@ -62,8 +121,8 @@ window.componentHandler = (function() {
   /**
    * Returns an array of the classNames of the upgraded classes on the element.
    *
-   * @param {!HTMLElement} element The element to fetch data from.
-   * @return {!Array<String>}
+   * @param {!Element} element The element to fetch data from.
+   * @return {!Array<string>}
    * @private
    */
   function getUpgradedListOfElement_(element) {
@@ -76,9 +135,9 @@ window.componentHandler = (function() {
    * Returns true if the given element has already been upgraded for the given
    * class.
    *
-   * @param {!HTMLElement} element The element we want to check.
-   * @param {String} jsClass The class to check for.
-   * @returns {Boolean}
+   * @param {!Element} element The element we want to check.
+   * @param {string} jsClass The class to check for.
+   * @returns {boolean}
    * @private
    */
   function isElementUpgraded_(element, jsClass) {
@@ -90,20 +149,21 @@ window.componentHandler = (function() {
    * Searches existing DOM for elements of our component type and upgrades them
    * if they have not already been upgraded.
    *
-   * @param {String=} optJsClass the programatic name of the element class we
+   * @param {string=} optJsClass the programatic name of the element class we
    * need to create a new instance of.
-   * @param {String=} optCssClass the name of the CSS class elements of this
+   * @param {string=} optCssClass the name of the CSS class elements of this
    * type will have.
    */
   function upgradeDomInternal(optJsClass, optCssClass) {
-    if (optJsClass === undefined && optCssClass === undefined) {
+    if (typeof optJsClass === 'undefined' &&
+        typeof optCssClass === 'undefined') {
       for (var i = 0; i < registeredComponents_.length; i++) {
         upgradeDomInternal(registeredComponents_[i].className,
             registeredComponents_[i].cssClass);
       }
     } else {
-      var jsClass = /** @type {String} */ (optJsClass);
-      if (optCssClass === undefined) {
+      var jsClass = /** @type {string} */ (optJsClass);
+      if (typeof optCssClass === 'undefined') {
         var registeredClass = findRegisteredClass_(jsClass);
         if (registeredClass) {
           optCssClass = registeredClass.cssClass;
@@ -120,8 +180,8 @@ window.componentHandler = (function() {
   /**
    * Upgrades a specific element rather than all in the DOM.
    *
-   * @param {!HTMLElement} element The element we wish to upgrade.
-   * @param {String=} optJsClass Optional name of the class we want to upgrade
+   * @param {!Element} element The element we wish to upgrade.
+   * @param {string=} optJsClass Optional name of the class we want to upgrade
    * the element to.
    */
   function upgradeElementInternal(element, optJsClass) {
@@ -180,7 +240,7 @@ window.componentHandler = (function() {
   /**
    * Upgrades a specific list of elements rather than all in the DOM.
    *
-   * @param {!HTMLElement|!Array<!HTMLElement>|!NodeList|!HTMLCollection} elements
+   * @param {!Element|!Array<!Element>|!NodeList|!HTMLCollection} elements
    * The elements we wish to upgrade.
    */
   function upgradeElementsInternal(elements) {
@@ -205,20 +265,32 @@ window.componentHandler = (function() {
   /**
    * Registers a class for future use and attempts to upgrade existing DOM.
    *
-   * @param {{constructor: !Function, classAsString: String, cssClass: String, widget: String}} config
+   * @param {componentHandler.ComponentConfigPublic} config
    */
   function registerInternal(config) {
+    // In order to support both Closure-compiled and uncompiled code accessing
+    // this method, we need to allow for both the dot and array syntax for
+    // property access. You'll therefore see the `foo.bar || foo['bar']`
+    // pattern repeated across this method.
+    var widgetMissing = (typeof config.widget === 'undefined' &&
+        typeof config['widget'] === 'undefined');
+    var widget = true;
+
+    if (!widgetMissing) {
+      widget = config.widget || config['widget'];
+    }
+
     var newConfig = /** @type {componentHandler.ComponentConfig} */ ({
-      'classConstructor': config.constructor,
-      'className': config.classAsString,
-      'cssClass': config.cssClass,
-      'widget': config.widget === undefined ? true : config.widget,
-      'callbacks': []
+      classConstructor: config.constructor || config['constructor'],
+      className: config.classAsString || config['classAsString'],
+      cssClass: config.cssClass || config['cssClass'],
+      widget: widget,
+      callbacks: []
     });
 
     registeredComponents_.forEach(function(item) {
       if (item.cssClass === newConfig.cssClass) {
-        throw new Error('The provided cssClass has already been registered.');
+        throw new Error('The provided cssClass has already been registered: ' + item.cssClass);
       }
       if (item.className === newConfig.className) {
         throw new Error('The provided className has already been registered');
@@ -243,7 +315,7 @@ window.componentHandler = (function() {
    * Allows user to be alerted to any upgrades that are performed for a given
    * component type
    *
-   * @param {String} jsClass The class name of the MDL component we wish
+   * @param {string} jsClass The class name of the MDL component we wish
    * to hook into for any upgrades performed.
    * @param {function(!HTMLElement)} callback The function to call upon an
    * upgrade. This function should expect 1 parameter - the HTMLElement which
@@ -270,7 +342,7 @@ window.componentHandler = (function() {
    * Finds a created component by a given DOM node.
    *
    * @param {!Node} node
-   * @return {*}
+   * @return {?componentHandler.Component}
    */
   function findCreatedComponentByNodeInternal(node) {
     for (var n = 0; n < createdComponents_.length; n++) {
@@ -279,6 +351,7 @@ window.componentHandler = (function() {
         return component;
       }
     }
+    return null;
   }
 
   /**
@@ -286,7 +359,7 @@ window.componentHandler = (function() {
    * Execute if found.
    * Remove component from createdComponents list.
    *
-   * @param {*} component
+   * @param {?componentHandler.Component} component
    */
   function deconstructComponentInternal(component) {
     if (component &&
@@ -315,6 +388,10 @@ window.componentHandler = (function() {
    * @param {!Node|!Array<!Node>|!NodeList} nodes
    */
   function downgradeNodesInternal(nodes) {
+    /**
+     * Auxiliary function to downgrade a single node.
+     * @param  {!Node} node the node to be downgraded
+     */
     var downgradeNode = function(node) {
       deconstructComponentInternal(findCreatedComponentByNodeInternal(node));
     };
@@ -342,6 +419,61 @@ window.componentHandler = (function() {
   };
 })();
 
+/**
+ * Describes the type of a registered component type managed by
+ * componentHandler. Provided for benefit of the Closure compiler.
+ *
+ * @typedef {{
+ *   constructor: Function,
+ *   classAsString: string,
+ *   cssClass: string,
+ *   widget: (string|boolean|undefined)
+ * }}
+ */
+componentHandler.ComponentConfigPublic;  // jshint ignore:line
+
+/**
+ * Describes the type of a registered component type managed by
+ * componentHandler. Provided for benefit of the Closure compiler.
+ *
+ * @typedef {{
+ *   constructor: !Function,
+ *   className: string,
+ *   cssClass: string,
+ *   widget: (string|boolean),
+ *   callbacks: !Array<function(!HTMLElement)>
+ * }}
+ */
+componentHandler.ComponentConfig;  // jshint ignore:line
+
+/**
+ * Created component (i.e., upgraded element) type as managed by
+ * componentHandler. Provided for benefit of the Closure compiler.
+ *
+ * @typedef {{
+ *   element_: !HTMLElement,
+ *   className: string,
+ *   classAsString: string,
+ *   cssClass: string,
+ *   widget: string
+ * }}
+ */
+componentHandler.Component;  // jshint ignore:line
+
+// Export all symbols, for the benefit of Closure compiler.
+// No effect on uncompiled code.
+componentHandler['upgradeDom'] = componentHandler.upgradeDom;
+componentHandler['upgradeElement'] = componentHandler.upgradeElement;
+componentHandler['upgradeElements'] = componentHandler.upgradeElements;
+componentHandler['upgradeAllRegistered'] =
+    componentHandler.upgradeAllRegistered;
+componentHandler['registerUpgradedCallback'] =
+    componentHandler.registerUpgradedCallback;
+componentHandler['register'] = componentHandler.register;
+componentHandler['downgradeElements'] = componentHandler.downgradeElements;
+window.componentHandler = componentHandler;
+window['componentHandler'] = componentHandler;
+
 window.addEventListener('load', function() {
   'use strict';
 
@@ -356,38 +488,16 @@ window.addEventListener('load', function() {
     document.documentElement.classList.add('mdl-js');
     componentHandler.upgradeAllRegistered();
   } else {
-    componentHandler.upgradeElement =
-        componentHandler.register = function() {};
+    /**
+     * Dummy function to avoid JS errors.
+     */
+    componentHandler.upgradeElement = function() {};
+    /**
+     * Dummy function to avoid JS errors.
+     */
+    componentHandler.register = function() {};
   }
 });
-
-/**
- * Describes the type of a registered component type managed by
- * componentHandler. Provided for benefit of the Closure compiler.
- *
- * @typedef {{
- *   constructor: !Function,
- *   className: String,
- *   cssClass: String,
- *   widget: String,
- *   callbacks: !Array<function(!HTMLElement)>
- * }}
- */
-componentHandler.ComponentConfig;  // jshint ignore:line
-
-/**
- * Created component (i.e., upgraded element) type as managed by
- * componentHandler. Provided for benefit of the Closure compiler.
- *
- * @typedef {{
- *   element_: !HTMLElement,
- *   className: String,
- *   classAsString: String,
- *   cssClass: String,
- *   widget: String
- * }}
- */
-componentHandler.Component;  // jshint ignore:line
 
 // Source: https://github.com/darius/requestAnimationFrame/blob/master/requestAnimationFrame.js
 // Adapted from https://gist.github.com/paulirish/1579671 which derived from
@@ -397,9 +507,14 @@ componentHandler.Component;  // jshint ignore:line
 // Fixes from Paul Irish, Tino Zijdel, Andrew Mao, Klemen Slavič, Darius Bacon
 // MIT license
 if (!Date.now) {
+    /**
+   * Date.now polyfill.
+   * @return {number} the current Date
+   */
     Date.now = function () {
         return new Date().getTime();
     };
+    Date['now'] = Date.now;
 }
 var vendors = [
     'webkit',
@@ -409,9 +524,15 @@ for (var i = 0; i < vendors.length && !window.requestAnimationFrame; ++i) {
     var vp = vendors[i];
     window.requestAnimationFrame = window[vp + 'RequestAnimationFrame'];
     window.cancelAnimationFrame = window[vp + 'CancelAnimationFrame'] || window[vp + 'CancelRequestAnimationFrame'];
+    window['requestAnimationFrame'] = window.requestAnimationFrame;
+    window['cancelAnimationFrame'] = window.cancelAnimationFrame;
 }
 if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) || !window.requestAnimationFrame || !window.cancelAnimationFrame) {
     var lastTime = 0;
+    /**
+   * requestAnimationFrame polyfill.
+   * @param  {!Function} callback the callback function.
+   */
     window.requestAnimationFrame = function (callback) {
         var now = Date.now();
         var nextTime = Math.max(lastTime + 16, now);
@@ -420,6 +541,8 @@ if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) || !window.requestAn
         }, nextTime - now);
     };
     window.cancelAnimationFrame = clearTimeout;
+    window['requestAnimationFrame'] = window.requestAnimationFrame;
+    window['cancelAnimationFrame'] = window.cancelAnimationFrame;
 }
 /**
  * @license
@@ -449,11 +572,11 @@ var MaterialButton = function MaterialButton(element) {
     // Initialize instance.
     this.init();
 };
-window.MaterialButton = MaterialButton;
+window['MaterialButton'] = MaterialButton;
 /**
    * Store constants in one place so they can be updated easily.
    *
-   * @enum {String | Number}
+   * @enum {string | number}
    * @private
    */
 MaterialButton.prototype.Constant_ = {};
@@ -462,7 +585,7 @@ MaterialButton.prototype.Constant_ = {};
    * JavaScript. This allows us to simply change it in one place should we
    * decide to modify at a later date.
    *
-   * @enum {String}
+   * @enum {string}
    * @private
    */
 MaterialButton.prototype.CssClasses_ = {
@@ -490,6 +613,7 @@ MaterialButton.prototype.blurHandler_ = function (event) {
 MaterialButton.prototype.disable = function () {
     this.element_.disabled = true;
 };
+MaterialButton.prototype['disable'] = MaterialButton.prototype.disable;
 /**
    * Enable button.
    *
@@ -498,6 +622,7 @@ MaterialButton.prototype.disable = function () {
 MaterialButton.prototype.enable = function () {
     this.element_.disabled = false;
 };
+MaterialButton.prototype['enable'] = MaterialButton.prototype.enable;
 /**
    * Initialize element.
    */
@@ -530,6 +655,13 @@ MaterialButton.prototype.mdlDowngrade_ = function () {
     this.element_.removeEventListener('mouseup', this.boundButtonBlurHandler);
     this.element_.removeEventListener('mouseleave', this.boundButtonBlurHandler);
 };
+/**
+   * Public alias for the downgrade method.
+   *
+   * @public
+   */
+MaterialButton.prototype.mdlDowngrade = MaterialButton.prototype.mdlDowngrade_;
+MaterialButton.prototype['mdlDowngrade'] = MaterialButton.prototype.mdlDowngrade;
 // The component registers itself. It can assume componentHandler is available
 // in the global scope.
 componentHandler.register({
@@ -559,6 +691,7 @@ componentHandler.register({
    * Implements MDL component design pattern defined at:
    * https://github.com/jasonmayes/mdl-component-design-pattern
    *
+   * @constructor
    * @param {HTMLElement} element The element that will be upgraded.
    */
 var MaterialLayout = function MaterialLayout(element) {
@@ -566,24 +699,35 @@ var MaterialLayout = function MaterialLayout(element) {
     // Initialize instance.
     this.init();
 };
-window.MaterialLayout = MaterialLayout;
+window['MaterialLayout'] = MaterialLayout;
 /**
    * Store constants in one place so they can be updated easily.
    *
-   * @enum {String | Number}
+   * @enum {string | number}
    * @private
    */
 MaterialLayout.prototype.Constant_ = {
     MAX_WIDTH: '(max-width: 1024px)',
     TAB_SCROLL_PIXELS: 100,
-    MENU_ICON: 'menu',
+    MENU_ICON: '&#xE5D2;',
     CHEVRON_LEFT: 'chevron_left',
     CHEVRON_RIGHT: 'chevron_right'
 };
 /**
+   * Keycodes, for code readability.
+   *
+   * @enum {number}
+   * @private
+   */
+MaterialLayout.prototype.Keycodes_ = {
+    ENTER: 13,
+    ESCAPE: 27,
+    SPACE: 32
+};
+/**
    * Modes.
    *
-   * @enum {Number}
+   * @enum {number}
    * @private
    */
 MaterialLayout.prototype.Mode_ = {
@@ -597,7 +741,7 @@ MaterialLayout.prototype.Mode_ = {
    * JavaScript. This allows us to simply change it in one place should we
    * decide to modify at a later date.
    *
-   * @enum {String}
+   * @enum {string}
    * @private
    */
 MaterialLayout.prototype.CssClasses_ = {
@@ -656,6 +800,17 @@ MaterialLayout.prototype.contentScrollHandler_ = function () {
     }
 };
 /**
+   * Handles a keyboard event on the drawer.
+   *
+   * @param {Event} evt The event that fired.
+   * @private
+   */
+MaterialLayout.prototype.keyboardEventHandler_ = function (evt) {
+    if (evt.keyCode === this.Keycodes_.ESCAPE) {
+        this.toggleDrawer();
+    }
+};
+/**
    * Handles changes in screen size.
    *
    * @private
@@ -668,16 +823,27 @@ MaterialLayout.prototype.screenSizeHandler_ = function () {
         // Collapse drawer (if any) when moving to a large screen size.
         if (this.drawer_) {
             this.drawer_.classList.remove(this.CssClasses_.IS_DRAWER_OPEN);
+            this.obfuscator_.classList.remove(this.CssClasses_.IS_DRAWER_OPEN);
         }
     }
 };
 /**
-   * Handles toggling of the drawer.
+   * Handles events of of drawer button.
    *
+   * @param {Event} evt The event that fired.
    * @private
    */
-MaterialLayout.prototype.drawerToggleHandler_ = function () {
-    this.drawer_.classList.toggle(this.CssClasses_.IS_DRAWER_OPEN);
+MaterialLayout.prototype.drawerToggleHandler_ = function (evt) {
+    if (evt && evt.type === 'keydown') {
+        if (evt.keyCode === this.Keycodes_.SPACE || evt.keyCode === this.Keycodes_.ENTER) {
+            // prevent scrolling in drawer nav
+            evt.preventDefault();
+        } else {
+            // prevent other keys
+            return;
+        }
+    }
+    this.toggleDrawer();
 };
 /**
    * Handles (un)setting the `is-animating` class
@@ -719,6 +885,30 @@ MaterialLayout.prototype.resetPanelState_ = function (panels) {
     }
 };
 /**
+  * Toggle drawer state
+  *
+  * @public
+  */
+MaterialLayout.prototype.toggleDrawer = function () {
+    var drawerButton = this.element_.querySelector('.' + this.CssClasses_.DRAWER_BTN);
+    var firstLink = document.querySelector('.' + this.CssClasses_.DRAWER + ' a');
+    this.drawer_.classList.toggle(this.CssClasses_.IS_DRAWER_OPEN);
+    this.obfuscator_.classList.toggle(this.CssClasses_.IS_DRAWER_OPEN);
+    // focus first link if drawer will be opened otherwise focus the drawer button
+    if (this.drawer_.classList.contains(this.CssClasses_.IS_DRAWER_OPEN)) {
+        this.drawer_.setAttribute('aria-hidden', 'false');
+        drawerButton.setAttribute('aria-expanded', 'true');
+        if (firstLink) {
+            firstLink.focus();
+        }
+    } else {
+        this.drawer_.setAttribute('aria-hidden', 'true');
+        drawerButton.setAttribute('aria-expanded', 'false');
+        drawerButton.focus();
+    }
+};
+MaterialLayout.prototype['toggleDrawer'] = MaterialLayout.prototype.toggleDrawer;
+/**
    * Initialize element.
    */
 MaterialLayout.prototype.init = function () {
@@ -729,7 +919,8 @@ MaterialLayout.prototype.init = function () {
         this.element_.parentElement.removeChild(this.element_);
         container.appendChild(this.element_);
         var directChildren = this.element_.childNodes;
-        for (var c = 0; c < directChildren.length; c++) {
+        var numChildren = directChildren.length;
+        for (var c = 0; c < numChildren; c++) {
             var child = directChildren[c];
             if (child.classList && child.classList.contains(this.CssClasses_.HEADER)) {
                 this.header_ = child;
@@ -745,11 +936,6 @@ MaterialLayout.prototype.init = function () {
             this.tabBar_ = this.header_.querySelector('.' + this.CssClasses_.TAB_BAR);
         }
         var mode = this.Mode_.STANDARD;
-        // Keep an eye on screen size, and add/remove auxiliary class for styling
-        // of small screens.
-        this.screenSizeMediaQuery_ = window.matchMedia(this.Constant_.MAX_WIDTH);
-        this.screenSizeMediaQuery_.addListener(this.screenSizeHandler_.bind(this));
-        this.screenSizeHandler_();
         if (this.header_) {
             if (this.header_.classList.contains(this.CssClasses_.HEADER_SEAMED)) {
                 mode = this.Mode_.SEAMED;
@@ -779,18 +965,18 @@ MaterialLayout.prototype.init = function () {
                 this.contentScrollHandler_();
             }
         }
-        var eatEvent = function (ev) {
-            ev.preventDefault();
-        };
         // Add drawer toggling button to our layout, if we have an openable drawer.
         if (this.drawer_) {
             var drawerButton = this.element_.querySelector('.' + this.CssClasses_.DRAWER_BTN);
-            if (typeof drawerButton === 'undefined' || drawerButton === null) {
+            if (!drawerButton) {
                 drawerButton = document.createElement('div');
+                drawerButton.setAttribute('aria-expanded', 'false');
+                drawerButton.setAttribute('role', 'button');
+                drawerButton.setAttribute('tabindex', '0');
                 drawerButton.classList.add(this.CssClasses_.DRAWER_BTN);
                 var drawerButtonIcon = document.createElement('i');
                 drawerButtonIcon.classList.add(this.CssClasses_.ICON);
-                drawerButtonIcon.textContent = this.Constant_.MENU_ICON;
+                drawerButtonIcon.innerHTML = this.Constant_.MENU_ICON;
                 drawerButton.appendChild(drawerButtonIcon);
             }
             if (this.drawer_.classList.contains(this.CssClasses_.ON_LARGE_SCREEN)) {
@@ -801,6 +987,7 @@ MaterialLayout.prototype.init = function () {
                 drawerButton.classList.add(this.CssClasses_.ON_SMALL_SCREEN);
             }
             drawerButton.addEventListener('click', this.drawerToggleHandler_.bind(this));
+            drawerButton.addEventListener('keydown', this.drawerToggleHandler_.bind(this));
             // Add a class if the layout has a drawer, for altering the left padding.
             // Adds the HAS_DRAWER to the elements since this.header_ may or may
             // not be present.
@@ -816,8 +1003,15 @@ MaterialLayout.prototype.init = function () {
             obfuscator.classList.add(this.CssClasses_.OBFUSCATOR);
             this.element_.appendChild(obfuscator);
             obfuscator.addEventListener('click', this.drawerToggleHandler_.bind(this));
-            obfuscator.addEventListener('mousewheel', eatEvent);
+            this.obfuscator_ = obfuscator;
+            this.drawer_.addEventListener('keydown', this.keyboardEventHandler_.bind(this));
+            this.drawer_.setAttribute('aria-hidden', 'true');
         }
+        // Keep an eye on screen size, and add/remove auxiliary class for styling
+        // of small screens.
+        this.screenSizeMediaQuery_ = window.matchMedia(this.Constant_.MAX_WIDTH);
+        this.screenSizeMediaQuery_.addListener(this.screenSizeHandler_.bind(this));
+        this.screenSizeHandler_();
         // Initialize tabs, if any.
         if (this.header_ && this.tabBar_) {
             this.element_.classList.add(this.CssClasses_.HAS_TABS);
@@ -877,7 +1071,19 @@ MaterialLayout.prototype.init = function () {
         this.element_.classList.add(this.CssClasses_.IS_UPGRADED);
     }
 };
+/**
+   * Constructor for an individual tab.
+   *
+   * @constructor
+   * @param {HTMLElement} tab The HTML element for the tab.
+   * @param {!Array<HTMLElement>} tabs Array with HTML elements for all tabs.
+   * @param {!Array<HTMLElement>} panels Array with HTML elements for all panels.
+   * @param {MaterialLayout} layout The MaterialLayout object that owns the tab.
+   */
 function MaterialLayoutTab(tab, tabs, panels, layout) {
+    /**
+     * Auxiliary method to programmatically select a tab in the UI.
+     */
     function selectTab() {
         var href = tab.href.split('#')[1];
         var panel = layout.content_.querySelector('#' + href);
@@ -886,23 +1092,33 @@ function MaterialLayoutTab(tab, tabs, panels, layout) {
         tab.classList.add(layout.CssClasses_.IS_ACTIVE);
         panel.classList.add(layout.CssClasses_.IS_ACTIVE);
     }
-    if (tab) {
-        if (layout.tabBar_.classList.contains(layout.CssClasses_.JS_RIPPLE_EFFECT)) {
-            var rippleContainer = document.createElement('span');
-            rippleContainer.classList.add(layout.CssClasses_.RIPPLE_CONTAINER);
-            rippleContainer.classList.add(layout.CssClasses_.JS_RIPPLE_EFFECT);
-            var ripple = document.createElement('span');
-            ripple.classList.add(layout.CssClasses_.RIPPLE);
-            rippleContainer.appendChild(ripple);
-            tab.appendChild(rippleContainer);
-        }
-        tab.addEventListener('click', function (e) {
+    if (layout.tabBar_.classList.contains(layout.CssClasses_.JS_RIPPLE_EFFECT)) {
+        var rippleContainer = document.createElement('span');
+        rippleContainer.classList.add(layout.CssClasses_.RIPPLE_CONTAINER);
+        rippleContainer.classList.add(layout.CssClasses_.JS_RIPPLE_EFFECT);
+        var ripple = document.createElement('span');
+        ripple.classList.add(layout.CssClasses_.RIPPLE);
+        rippleContainer.appendChild(ripple);
+        tab.appendChild(rippleContainer);
+    }
+    tab.addEventListener('click', function (e) {
+        if (tab.getAttribute('href').charAt(0) === '#') {
             e.preventDefault();
             selectTab();
-        });
-        tab.show = selectTab;
-    }
+        }
+    });
+    tab.show = selectTab;
+    tab.addEventListener('click', function (e) {
+        e.preventDefault();
+        var href = tab.href.split('#')[1];
+        var panel = layout.content_.querySelector('#' + href);
+        layout.resetTabState_(tabs);
+        layout.resetPanelState_(panels);
+        tab.classList.add(layout.CssClasses_.IS_ACTIVE);
+        panel.classList.add(layout.CssClasses_.IS_ACTIVE);
+    });
 }
+window['MaterialLayoutTab'] = MaterialLayoutTab;
 // The component registers itself. It can assume componentHandler is available
 // in the global scope.
 componentHandler.register({
@@ -931,18 +1147,19 @@ componentHandler.register({
    * Implements MDL component design pattern defined at:
    * https://github.com/jasonmayes/mdl-component-design-pattern
    *
-   * @param {HTMLElement} element The element that will be upgraded.
+   * @constructor
+   * @param {Element} element The element that will be upgraded.
    */
 var MaterialDataTable = function MaterialDataTable(element) {
     this.element_ = element;
     // Initialize instance.
     this.init();
 };
-window.MaterialDataTable = MaterialDataTable;
+window['MaterialDataTable'] = MaterialDataTable;
 /**
    * Store constants in one place so they can be updated easily.
    *
-   * @enum {String | Number}
+   * @enum {string | number}
    * @private
    */
 MaterialDataTable.prototype.Constant_ = {};
@@ -951,12 +1168,13 @@ MaterialDataTable.prototype.Constant_ = {};
    * JavaScript. This allows us to simply change it in one place should we
    * decide to modify at a later date.
    *
-   * @enum {String}
+   * @enum {string}
    * @private
    */
 MaterialDataTable.prototype.CssClasses_ = {
     DATA_TABLE: 'mdl-data-table',
     SELECTABLE: 'mdl-data-table--selectable',
+    SELECT_ELEMENT: 'mdl-data-table__select',
     IS_SELECTED: 'is-selected',
     IS_UPGRADED: 'is-upgraded'
 };
@@ -964,12 +1182,12 @@ MaterialDataTable.prototype.CssClasses_ = {
    * Generates and returns a function that toggles the selection state of a
    * single row (or multiple rows).
    *
-   * @param {HTMLElement} checkbox Checkbox that toggles the selection state.
-   * @param {HTMLElement} row Row to toggle when checkbox changes.
-   * @param {HTMLElement[]} rows Rows to toggle when checkbox changes.
+   * @param {Element} checkbox Checkbox that toggles the selection state.
+   * @param {Element} row Row to toggle when checkbox changes.
+   * @param {(Array<Object>|NodeList)=} opt_rows Rows to toggle when checkbox changes.
    * @private
    */
-MaterialDataTable.prototype.selectRow_ = function (checkbox, row, rows) {
+MaterialDataTable.prototype.selectRow_ = function (checkbox, row, opt_rows) {
     if (row) {
         return function () {
             if (checkbox.checked) {
@@ -979,21 +1197,21 @@ MaterialDataTable.prototype.selectRow_ = function (checkbox, row, rows) {
             }
         }.bind(this);
     }
-    if (rows) {
+    if (opt_rows) {
         return function () {
             var i;
             var el;
             if (checkbox.checked) {
-                for (i = 0; i < rows.length; i++) {
-                    el = rows[i].querySelector('td').querySelector('.mdl-checkbox');
-                    el.MaterialCheckbox.check();
-                    rows[i].classList.add(this.CssClasses_.IS_SELECTED);
+                for (i = 0; i < opt_rows.length; i++) {
+                    el = opt_rows[i].querySelector('td').querySelector('.mdl-checkbox');
+                    el['MaterialCheckbox'].check();
+                    opt_rows[i].classList.add(this.CssClasses_.IS_SELECTED);
                 }
             } else {
-                for (i = 0; i < rows.length; i++) {
-                    el = rows[i].querySelector('td').querySelector('.mdl-checkbox');
-                    el.MaterialCheckbox.uncheck();
-                    rows[i].classList.remove(this.CssClasses_.IS_SELECTED);
+                for (i = 0; i < opt_rows.length; i++) {
+                    el = opt_rows[i].querySelector('td').querySelector('.mdl-checkbox');
+                    el['MaterialCheckbox'].uncheck();
+                    opt_rows[i].classList.remove(this.CssClasses_.IS_SELECTED);
                 }
             }
         }.bind(this);
@@ -1003,30 +1221,27 @@ MaterialDataTable.prototype.selectRow_ = function (checkbox, row, rows) {
    * Creates a checkbox for a single or or multiple rows and hooks up the
    * event handling.
    *
-   * @param {HTMLElement} row Row to toggle when checkbox changes.
-   * @param {HTMLElement[]} rows Rows to toggle when checkbox changes.
+   * @param {Element} row Row to toggle when checkbox changes.
+   * @param {(Array<Object>|NodeList)=} opt_rows Rows to toggle when checkbox changes.
    * @private
    */
-MaterialDataTable.prototype.createCheckbox_ = function (row, rows) {
+MaterialDataTable.prototype.createCheckbox_ = function (row, opt_rows) {
     var label = document.createElement('label');
-    label.classList.add('mdl-checkbox');
-    label.classList.add('mdl-js-checkbox');
-    label.classList.add('mdl-js-ripple-effect');
-    label.classList.add('mdl-data-table__select');
+    var labelClasses = [
+        'mdl-checkbox',
+        'mdl-js-checkbox',
+        'mdl-js-ripple-effect',
+        this.CssClasses_.SELECT_ELEMENT
+    ];
+    label.className = labelClasses.join(' ');
     var checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.classList.add('mdl-checkbox__input');
     if (row) {
         checkbox.checked = row.classList.contains(this.CssClasses_.IS_SELECTED);
         checkbox.addEventListener('change', this.selectRow_(checkbox, row));
-        if (row.dataset.mdlDataTableSelectableName) {
-            checkbox.name = row.dataset.mdlDataTableSelectableName;
-        }
-        if (row.dataset.mdlDataTableSelectableValue) {
-            checkbox.value = row.dataset.mdlDataTableSelectableValue;
-        }
-    } else if (rows) {
-        checkbox.addEventListener('change', this.selectRow_(checkbox, null, rows));
+    } else if (opt_rows) {
+        checkbox.addEventListener('change', this.selectRow_(checkbox, null, opt_rows));
     }
     label.appendChild(checkbox);
     componentHandler.upgradeElement(label, 'MaterialCheckbox');

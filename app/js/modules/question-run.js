@@ -1,4 +1,5 @@
 var React = require('react'),
+    ReactDOM = require('react-dom'),
     TrashInfo = require('./trash'),
     ParkInfo = require('./parks'),
     LibraryInfo = require('./library'),
@@ -10,53 +11,53 @@ var React = require('react'),
 
 
 var questionRun = function(q, latlng, label, pid, gid) {
-    var lat = Number(latlng.split(",")[0]);
-    var lng = Number(latlng.split(",")[1]);
+    var lat = Number(latlng.split(',')[0]);
+    var lng = Number(latlng.split(',')[1]);
     switch(q) {
         case 'property':
-            var propertyComponent = React.render(
+            var propertyComponent = ReactDOM.render(
                         <PropertyClass lat={lat} lng={lng} pid={pid} />,
                         document.querySelector('.report-container')
                 );
             break;
         case 'trash':
-            var trashInfo = React.render(
+            var trashInfo = ReactDOM.render(
                         <TrashInfo lat={lat} lng={lng} />,
                         document.querySelector('.report-container')
                 );
             break;
         case 'parks':
-            var parkInfo = React.render(
+            var parkInfo = ReactDOM.render(
                     <ParkInfo lat={lat} lng={lng} />,
                     document.querySelector('.report-container')
                 );
             break;
         case 'libraries':
-            var libraryInfo = React.render(
+            var libraryInfo = ReactDOM.render(
                         <LibraryInfo lat={lat} lng={lng} />,
                         document.querySelector('.report-container')
                 );
             break;
         case 'impervious':
-            var imperviousInfo = React.render(
+            var imperviousInfo = ReactDOM.render(
                         <ImperviousInfo pid={pid} />,
                         document.querySelector('.report-container')
                 );
             break;
         case 'schools':
-            var schoolsInfo = React.render(
+            var schoolsInfo = ReactDOM.render(
                         <SchoolsInfo lat={lat} lng={lng} />,
                         document.querySelector('.report-container')
                 );
             break;
         case 'voting':
-            var votingInfo = React.render(
+            var votingInfo = ReactDOM.render(
                         <VotingComponent lat={lat} lng={lng} />,
                         document.querySelector('.report-container')
                 );
             break;
         case 'environment':
-            var environmentInfo = React.render(
+            var environmentInfo = ReactDOM.render(
                         <EnvironmentComponent lat={lat} lng={lng} pid={pid} gid={Number(gid)} />,
                         document.querySelector('.report-container')
                 );

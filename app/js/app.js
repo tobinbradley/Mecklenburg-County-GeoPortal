@@ -13,6 +13,7 @@ let forEach = require('./modules/foreach'),
     componentHandler = require('./modules/material'),
     getURLParameter = require('./modules/geturlparams'),
     React = require('react'),
+    ReactDOM = require('react-dom'),
     SearchTemplate = require('./modules/search'),
     HousePhotos = require('./modules/photos'),
     questionChange = require('./modules/question-change'),
@@ -27,7 +28,7 @@ require('./modules/map');
 global.activeRecord = '';
 
 // initial react components for search results
-let searchComponent = React.render( <SearchTemplate /> ,
+let searchComponent = ReactDOM.render( <SearchTemplate /> ,
     document.getElementById('search-results')
 );
 
@@ -45,24 +46,25 @@ theSearch.addEventListener("click", function(e) {
 });
 
 // Data type/sidebar switching links
-let navlinks = document.querySelectorAll(".mdl-navigation__link");
+let navlinks = document.querySelectorAll('.mdl-navigation__link');
 forEach(navlinks, function(index, value) {
-    navlinks[index].addEventListener("click", function(e) {
+    navlinks[index].addEventListener('click', function(e) {
         let item = navlinks[index];
         if (!item.classList.contains('active')) {
             let container = document.querySelector('.report-container');
             let drawer = document.querySelector('.mdl-layout__drawer');
             if (drawer) {
                 drawer.classList.remove('is-visible');
+                document.querySelector('.mdl-layout__obfuscator').classList.remove('is-visible');
             }
             questionChange(item, navlinks, container, 'click');
             if (typeof activeRecord === 'object') {
-                let q = item.getAttribute("data-type");
+                let q = item.getAttribute('data-type');
                 scrollToElement(document.querySelector('.report-container'));
                 questionRun(q, activeRecord.latlng, activeRecord.label, activeRecord.pid, activeRecord.address, activeRecord.id);
             } else {
                 scrollToElement(document.querySelector('.search-container'));
-                document.querySelector(".search-input").focus();
+                document.querySelector('.search-input').focus();
             }
         }
     });
@@ -71,14 +73,14 @@ forEach(navlinks, function(index, value) {
 // scroll to element if top is past viewport available, otherwise it jumps
 function scrollToElement(elem) {
     if (elem.getBoundingClientRect().top < 0) {
-        elem.scrollIntoView({block: "start", behavior: "smooth"});
+        elem.scrollIntoView({block: 'start', behavior: 'smooth'});
     }
 }
 
 
 // process a newly selected location
 global.processRecord = function(gid, latlng, label, pid, address) {
-    let q = document.querySelector(".mdl-navigation__link.active").getAttribute("data-type");
+    let q = document.querySelector('.mdl-navigation__link.active').getAttribute('data-type');
     activeRecord = {
         "id": gid,
         "latlng": latlng,
@@ -99,7 +101,7 @@ global.processRecord = function(gid, latlng, label, pid, address) {
     // reports
     questionRun(q, latlng, label, pid, gid);
     // photos
-    let photos = React.render( <HousePhotos pid={pid} />,
+    let photos = ReactDOM.render( <HousePhotos pid={pid} />,
         document.querySelector('.photos')
     );
 };

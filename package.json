@@ -26,6 +26,7 @@
     "leaflet": "^0.7.7",
     "leaflet-fullscreen": "^0.0.4",
     "react": "^0.14.3",
+    "react-dom": "^0.14.3",
     "react-timer-mixin": "^0.13.2",
     "reactify": "^1.1.1",
     "tap-spec": "^4.0.2",

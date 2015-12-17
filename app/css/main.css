@@ -12,7 +12,7 @@ ____________________________________
 
 @import 'material.css';
 @import '../../node_modules/leaflet/dist/leaflet.css';
-@import '../../node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css';
+/*@import '../../node_modules/leaflet-fullscreen/dist/leaflet.fullscreen.css';*/
 @import 'fontello.css';
 @import 'variables.css';
 @import 'oldie.css';

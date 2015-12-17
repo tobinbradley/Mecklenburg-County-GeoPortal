@@ -1,5 +1,6 @@
 let L = require('leaflet/dist/leaflet'),
     fetchNearest = require('./nearest'),
+    customFullscreenToggle = require('./fullscreen-control'),
     getURLParameter = require('./geturlparams');
 
 /* dump leaflet fullscreen */
@@ -64,13 +65,17 @@ if (!mapElem.requestFullscreen && !mapElem.mozRequestFullScreen && !mapElem.webk
     document.querySelector('.mdl-card-map').removeChild(document.querySelector('.mdl-card__actions'));
 }
 
+
 // change map transparency and enable/disable scrollwheel on fullscreen change
+var customFullscreen = new customFullscreenToggle();
 map.on('fullscreenchange', function() {
     if (map.isFullscreen()) {
         document.querySelector('#map').classList.remove('map-transparent');
+        map.addControl(customFullscreen);
         map.scrollWheelZoom.enable();
     } else {
         document.querySelector('#map').classList.add('map-transparent');
+        map.removeControl(customFullscreen);
         map.scrollWheelZoom.disable();
     }
 });
