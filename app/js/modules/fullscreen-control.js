@@ -1,4 +1,3 @@
-
 let L = require('leaflet/dist/leaflet');
 
 var customFullscreenToggle = L.Control.extend({
@@ -12,6 +11,8 @@ var customFullscreenToggle = L.Control.extend({
         var container = L.DomUtil.create('button', 'mdl-button mdl-js-button mdl-button--raised mdl-button--colored');
 
         container.innerHTML = 'Exit Full Screen';
+
+        L.DomEvent.disableClickPropagation(container);
 
         container.onclick = function() {
             map.toggleFullscreen();

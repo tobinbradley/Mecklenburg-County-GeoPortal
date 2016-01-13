@@ -123,6 +123,7 @@ global.addMarker = function(latlng, label, pid, address) {
 
 // add point of interest (something like nearby park) marker
 global.addtmpMarker = function(lat, lng, label, address) {
+    //document.querySelector('#map').scrollIntoView({ behavior: 'smooth', block: 'start' });
     if (typeof tmpMarker === 'object') {
        map.removeLayer(tmpMarker);
     }
