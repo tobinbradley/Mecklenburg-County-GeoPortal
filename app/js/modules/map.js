@@ -40,6 +40,7 @@ var baseMaps = {
     'Streets': meckbase,
     'Earth': aerials
 };
+
 L.control.layers(baseMaps).addTo(map);
 global.addOverlay = function (theLayers) {
     removeOverlay();

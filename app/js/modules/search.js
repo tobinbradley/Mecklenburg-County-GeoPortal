@@ -25,7 +25,7 @@ var SearchTemplate = React.createClass({
                     'tables': 'address,park,library,school,pid,business'
                 };
                 httpplease = httpplease.use(jsonresponse);
-                httpplease.get(`http://maps.co.mecklenburg.nc.us:80/api/search/v1/${query}` + objectToURI(args),
+                httpplease.get(`http://maps.co.mecklenburg.nc.us:80/api/search/v1/${query.toLowerCase()}` + objectToURI(args),
                     function(err, data) {
                         this.setState({ searchData: data.body });
                     }.bind(this)

@@ -35,7 +35,7 @@ var PropertyClass = React.createClass({
             'pid': pid
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get(url + objectToURI(args),
+        httpplease.get({'url': url + objectToURI(args), timeout: 2500},
             function(err, res) {
                 this.setState({ [stateVar]: res.body });
             }.bind(this)
@@ -52,7 +52,7 @@ var PropertyClass = React.createClass({
             'geometryfield': 'the_geom'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_pointoverlay.php' + objectToURI(args),
+        httpplease.get({url: 'http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_pointoverlay.php' + objectToURI(args), timeout: 2500},
             function(err, res) {
                 this.setState({ zoning: res.body });
             }.bind(this)
@@ -70,7 +70,7 @@ var PropertyClass = React.createClass({
             'to_geometryfield': 'the_geom'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_featureoverlay.php' + objectToURI(args),
+        httpplease.get({url: 'http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_featureoverlay.php' + objectToURI(args), timeout: 2500},
             function(err, res) {
                 this.setState({ permits: res.body });
             }.bind(this)
