@@ -18,7 +18,7 @@ var postcss = require("gulp-postcss"),
 // main controller tasks
 // add "--type production" to compress CSs and uglify JS
 gulp.task('default', ['watch', 'browser-sync']);
-gulp.task('build', ['css', 'js', 'replace', 'imagemin', 'fonts']);
+gulp.task('build', ['css', 'js', 'replace', 'imagemin', 'fonts', 'mapstyle']);
 
 // Live reload server
 gulp.task('browser-sync', function() {
@@ -35,6 +35,7 @@ gulp.task('watch', function () {
     gulp.watch(['./app/css/**/*.css'], ['css']);
     gulp.watch(['./app/js/**/*.js', './app/js/**/*.jsx'], ['js']);
     gulp.watch('./app/img/**/*', ['imagemin']);
+    gulp.watch('./app/style/**/*.json', ['stylefile']);
 });
 
 // process HTML with cache busting
@@ -50,13 +51,25 @@ gulp.task('fonts', function() {
         .pipe(gulp.dest('public/fonts/'));
 });
 
+// move map style stuff
+gulp.task('mapstyle', function() {
+    return gulp.src(['app/style/**/*'], {base: 'app'})
+        .pipe(gulp.dest('public'));
+});
+
+// move map style stuff
+gulp.task('stylefile', function() {
+    return gulp.src(['app/style/**/*.json'], {base: 'app'})
+        .pipe(gulp.dest('public'));
+});
+
 // JavaScript
 gulp.task('js', function () {
-  var b = browserify({
-    entries: ['./app/js/app.js'],
-    debug: true,
-    transform: [reactify, babelify.configure({'only': './app/js/'})]
-  });
+    var b = browserify({
+        entries: ['./app/js/app.js'],
+        debug: true,
+        transform: [babelify.configure({'only': './app/js/', presets: ["es2015", "react"]})]
+    });
   return b.bundle()
     .pipe(source('app.js'))
     .pipe(buffer())

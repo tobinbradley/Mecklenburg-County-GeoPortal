@@ -1,134 +1,241 @@
-let L = require('leaflet/dist/leaflet'),
-    fetchNearest = require('./nearest'),
-    customFullscreenToggle = require('./fullscreen-control'),
-    getURLParameter = require('./geturlparams');
+import React from 'react';
+import mapboxgl from 'mapbox-gl';
+import directions from './directions';
+let fetchNearest = require('./nearest');
 
-/* dump leaflet fullscreen */
-require('leaflet-fullscreen');
 
-// globals for markers and overlay layers
-global.marker = '';
-global.overlay = '';
-global.tmpMarker = '';
+var markers = {
+    "type": "FeatureCollection",
+    "features": []
+};
 
-// set map default center and zoom
-// use latlng from url if available
-let defaultCenter = [35.272, -80.827];
-let defaultZoom = 9;
-if (getURLParameter('latlng') !== 'null') {
-    defaultCenter = getURLParameter('latlng').split(',');
-    defaultZoom = 16;
+
+class GLMap extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+
+    componentDidMount() {
+        let view = {
+            container: this.props.container,
+            style: this.props.style,
+            center: this.props.center,
+            zoom: this.props.zoom,
+            hash: this.props.hash
+        };
+
+        this.map = new mapboxgl.Map(view);
+        //map.addControl(new mapboxgl.Navigation());
+        this.popup = new mapboxgl.Popup();
+        let popup = this.popup;
+        let map = this.map;
+        this.map.on('click', function (e) {
+            map.featuresAt(e.point, {
+                radius: 20, // Half the marker size (15px).
+                includeGeometry: true,
+                layer: 'markers'
+            }, function (err, features) {
+                if (err || !features.length) {
+                    popup.remove();
+                    if (map.getZoom() >= 14) {
+                        fetchNearest(e.lngLat.lat, e.lngLat.lng);
+                    }
+                    return;
+                }
+
+                var feature = features[0];
+
+                // Populate the popup and set its coordinates
+                popup.setLngLat(feature.geometry.coordinates)
+                    .setHTML(feature.properties.description)
+                    .addTo(map);
+            });
+        });
+        this.map.on('style.load', function () {
+            this.pastInitialLoad = true;
+            this.map.addSource("markers", {
+                "type": "geojson",
+                "data": markers }
+            );
+            this.map.addLayer({
+                "id": "markers",
+                "type": "symbol",
+                "source": "markers",
+                "interactive": true,
+                "layout": {
+                    "icon-image": "{marker-symbol}"
+                }
+            });
+            if (this.layers) {
+                this.overlayLayer(this.layers);
+            }
+        }.bind(this));
+    }
+
+    componentWillUnmount() {
+        this.map.remove();
+    }
+
+    setStyle(style) {
+        this.map.setStyle(style);
+    }
+
+    setOverlayLayer(layers) {
+        this.layers = layers;
+        if (this.pastInitialLoad) {
+            this.overlayLayer(layers);
+        }
+    }
+
+    clearOverlay() {
+        if (this.map.getLayer("overlay")) {
+            this.map.removeLayer("overlay");
+            this.map.removeSource("overlay");
+        }
+    }
+
+    overlayLayer(layers) {
+        this.layers = layers;
+        this.clearOverlay();
+        if (layers) {
+            this.map.addSource('overlay', {
+                "type": "raster",
+                "tiles": [`http://maps.co.mecklenburg.nc.us/zxy2wms/${layers}/{z}/{x}/{y}.png`],
+                "tileSize": 256,
+                "maxzoom": 18
+            });
+            this.map.addLayer({
+                "id": "overlay",
+                "type": "raster",
+                "source": "overlay",
+                "minzoom": 15,
+                "maxzoom": 22,
+                "paint": {
+                    "raster-opacity": 0.5
+                }
+            });
+        } else {
+            this.layers = null;
+            this.clearOverlay();
+        }
+    }
+
+    geolocation() {
+        if ('geolocation' in navigator) {
+            /* geolocation is available */
+            var geo_options = {
+                enableHighAccuracy: true,
+                maximumAge        : 30000,
+                timeout           : 27000
+            };
+            navigator.geolocation.getCurrentPosition(function(position) {
+                fetchNearest(position.coords.latitude, position.coords.longitude);
+            }, null, geo_options);
+        }
+    }
+
+    pitch() {
+        this.map.getPitch() === 0 ? this.map.easeTo({pitch: 60}) : this.map.easeTo({pitch: 0});
+    }
+
+    fullScreen() {
+        var elem = document.querySelector(".map-container");
+        if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            }
+        } else {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }
+    }
+
+    addressMarker(lngLat, label) {
+        let map = this.map;
+        map.flyTo({
+            center: lngLat,
+            zoom: 17.5
+        });
+        let theLabel = `
+        <div class="marker-title">ADDRESS</div>
+        ${label.replace(',', '<br />')}
+        `;
+        markers.features = [];
+        markers.features.push({
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": lngLat
+            },
+            "properties": {
+                "marker-symbol": "marker",
+                "description": theLabel,
+                "type": "address"
+            }
+        });
+        map.getSource("markers").setData(markers);
+        this.popup.setLngLat(lngLat)
+            .setHTML(theLabel)
+            .addTo(map);
+    }
+
+    interestMarker(lngLat, label) {
+        let map = this.map;
+        var cleanFeatures = markers.features.filter(function(el) {
+            return el.properties['type'] === 'address';
+        });
+        label += `<br><a href="${directions(cleanFeatures[0].geometry.coordinates, lngLat)}" target="_blank" title="directions">Directions</a>`;
+        cleanFeatures.push({
+            "type": "Feature",
+            "geometry": {
+                "type": "Point",
+                "coordinates": lngLat
+            },
+            "properties": {
+                "marker-symbol": "poi",
+                "description": label,
+                "type": "poi"
+            }
+        });
+        markers.features = cleanFeatures;
+        map.getSource("markers").setData(markers);
+        let ext = [];
+        for (let i = 0; i < markers.features.length; i++) {
+            ext.push(markers.features[i].geometry.coordinates);
+        }
+        map.fitBounds(ext, {
+            padding: 40
+        });
+
+        this.popup.setLngLat(lngLat)
+            .setHTML(label)
+            .addTo(map);
+    }
+
+    render() {
+        return <div id='map'></div>;
+    }
 }
 
-// set up the map
-L.Icon.Default.imagePath = './img';
-global.map = L.map('map', {
-    attributionControl: false,
-    scrollWheelZoom: false
-}).setView(defaultCenter, defaultZoom);
-
-// add and manage map layers
-var meckbase = L.tileLayer('http://tiles.mcmap.org/meckbase/{z}/{x}/{y}.png', {
-    'minZoom': 9,
-    'maxZoom': 18,
-    'attribution': `<a href='http://emaps.charmeck.org' target='_blank'>Mecklenburg County GIS</a>`
-}).addTo(map);
-var aerials = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-    attribution: `<a href='http://emaps.charmeck.org' target='_blank'>Mecklenburg County GIS</a>`
-});
-var baseMaps = {
-    'Streets': meckbase,
-    'Earth': aerials
+GLMap.defaultProps = {
+    container: "map",
+    style: "./style/bright/style.json",
+    center: [-80.827, 35.272],
+    zoom: 8,
+    hash: false
 };
 
-L.control.layers(baseMaps).addTo(map);
-global.addOverlay = function (theLayers) {
-    removeOverlay();
-    overlay = L.tileLayer.wms('http://maps.co.mecklenburg.nc.us/geoserver/wms', {
-        layers: theLayers,
-        format: 'image/png',
-        transparent: true,
-        opacity: 0.7,
-        minZoom: 15
-    }).addTo(map).bringToFront();
-};
-global.removeOverlay = function() {
-    if (typeof overlay === 'object') {
-        map.removeLayer(overlay);
-    }
-    overlay = '';
-};
-
-
-// toast the fullscreen button if not supported
-var mapElem = document.querySelector('#map');
-if (!mapElem.requestFullscreen && !mapElem.mozRequestFullScreen && !mapElem.webkitRequestFullScreen && !mapElem.msRequestFullscreen) {
-    document.querySelector('.mdl-card-map').removeChild(document.querySelector('.mdl-card__actions'));
-}
-
-
-// change map transparency and enable/disable scrollwheel on fullscreen change
-var customFullscreen = new customFullscreenToggle();
-map.on('fullscreenchange', function() {
-    if (map.isFullscreen()) {
-        document.querySelector('#map').classList.remove('map-transparent');
-        map.addControl(customFullscreen);
-        map.scrollWheelZoom.enable();
-    } else {
-        document.querySelector('#map').classList.add('map-transparent');
-        map.removeControl(customFullscreen);
-        map.scrollWheelZoom.disable();
-    }
-});
-
-// map click to identify
-map.on('click', function(event) {
-    if (map.getZoom() >= 16) {
-        fetchNearest(event.latlng.lat, event.latlng.lng);
-    }
-});
-
-// move overlay layer to front on baselayer change
-map.on('baselayerchange', function() {
-    if (overlay) { overlay.bringToFront(); }
-});
-
-// get nearest address point to geolocation
-map.on('locationfound', function(event) {
-	fetchNearest(event.latlng.lat, event.latlng.lng);
-});
-
-// add main location marker
-global.addMarker = function(latlng, label, pid, address) {
-    if (typeof marker === 'object') {
-       map.removeLayer(marker);
-    }
-    if (typeof tmpMarker === 'object') {
-        map.removeLayer(tmpMarker);
-    }
-    var coords = latlng.split(',');
-    var gMaps=`https://www.google.com/maps/place/${address}/`;
-    if (label === address) {
-        address = '';
-    } else {
-        address = address.replace(',', '<br>');
-    }
-    label = label.replace(',', '<br>');
-    if (map.getZoom() < 16) {
-        map.setView(coords, 16);
-    } else {
-        map.setView(coords);
-    }
-    marker = L.marker(coords).bindPopup(`<div class="mdl-typography--text-center"><b>${label}</b><br>${address}</div>`).addTo(map).openPopup();
-};
-
-// add point of interest (something like nearby park) marker
-global.addtmpMarker = function(lat, lng, label, address) {
-    //document.querySelector('#map').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    if (typeof tmpMarker === 'object') {
-       map.removeLayer(tmpMarker);
-    }
-    var dirLink = `https://maps.google.com/maps?saddr=${activeRecord.latlng.replace(',', '+')}&daddr=${lat}+${lng}`;
-    map.setView([lat, lng], 16);
-    tmpMarker = L.marker([lat, lng]).bindPopup(`<div class="mdl-typography--text-center"><b>${label}</b><br>${address}<br><a href="${dirLink}" target="_blank">Directions</a></div>`).addTo(map).openPopup();
-};
+export default GLMap;

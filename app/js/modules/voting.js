@@ -14,9 +14,13 @@ var PollingComponent = React.createClass({
         return (dist / 5280).toFixed(1) + ' miles';
     },
     handleLocationClick: function(event) {
-        if (typeof addtmpMarker === 'function') {
-            var theItem = event.target;
-            addtmpMarker(theItem.getAttribute('data-lat'), theItem.getAttribute('data-lng'), theItem.getAttribute('data-label'), theItem.getAttribute('data-address'));
+        if (typeof map === 'object') {
+            let theItem = event.target;
+            let label = `
+                <div class="marker-title">${theItem.getAttribute('data-label')}</div>
+                ${theItem.getAttribute('data-address').replace(',', '<br />')}
+            `;
+            map.interestMarker([theItem.getAttribute('data-lng'), theItem.getAttribute('data-lat')], label);
         }
     },
     render: function() {
@@ -153,7 +157,7 @@ var VotingComponent = React.createClass({
             'join': 'polling_locations;voting_precincts.precno = polling_locations.precno'
         };
         httpplease = httpplease.use(jsonresponse);
-        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/voting_precincts/${lng},${lat}/4326` + objectToURI(args),        
+        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/voting_precincts/${lng},${lat}/4326` + objectToURI(args),
             function(err, res) {
                 this.setState({
                     pollingRecs: res.body,

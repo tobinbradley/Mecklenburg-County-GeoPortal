@@ -34,9 +34,13 @@ var ParkInfo = React.createClass({
         return (dist / 5280).toFixed(1) + ' miles';
     },
     handleLocationClick: function(event) {
-        if (typeof addtmpMarker === 'function') {
-            var theItem = event.target;
-            addtmpMarker(theItem.getAttribute('data-lat'), theItem.getAttribute('data-lng'), theItem.getAttribute('data-label'), theItem.getAttribute('data-address'));
+        if (typeof map === 'object') {
+            let theItem = event.target;
+            let label = `
+                <div class="marker-title">${theItem.getAttribute('data-label')}</div>
+                ${theItem.getAttribute('data-address').replace(',', '<br />')}
+            `;
+            map.interestMarker([theItem.getAttribute('data-lng'), theItem.getAttribute('data-lat')], label);
         }
     },
     render: function() {
@@ -84,8 +88,7 @@ var ParkInfo = React.createClass({
                                                     data-address={object.address + ', ' + object.city}
                                                     onClick={this.handleLocationClick}>{object.address + ', ' + object.city}</a>
                                             </td>
-                                            <td className="nowrap col-responsive">
-                                                {this.convertDistance(object.distance)}
+                                            <td className="nowrap col-responsive">                                                {this.convertDistance(object.distance)}
                                             </td>
                                         </tr>
                                     );
