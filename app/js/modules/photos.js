@@ -43,7 +43,7 @@ var HousePhotos = React.createClass({
             photos =  (
                 <div>
                     <div className="mdl-card__title mdl-color--teal-300 photo-big">
-                        <a href={bigPhoto.photo_url.trim()} target="_blank"><img className="mdl-shadow--2dp" src={bigPhoto.photo_url.trim()} onError={this.handleError} /></a>
+                        <a href={bigPhoto.photo_url.trim()} target="_blank"><img src={bigPhoto.photo_url.trim()} onError={this.handleError} /></a>
 
                     </div>
                     <div className="mdl-card__supporting-text mdl-typography--text-center ">

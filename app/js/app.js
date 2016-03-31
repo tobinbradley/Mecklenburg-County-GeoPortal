@@ -32,9 +32,16 @@ try {
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     // map in the House
-    global.map = ReactDOM.render( < GLMap / > ,
-        document.querySelector('.map-catcher')
-    );
+    if (getURLParameter('latlng') !== 'null') {
+        let lnglat = getURLParameter('latlng').split(',').reverse();
+        global.map = ReactDOM.render(<GLMap center={lnglat} zoom={17} /> ,
+            document.querySelector('.map-catcher')
+        );
+    } else {
+        global.map = ReactDOM.render( <GLMap /> ,
+            document.querySelector('.map-catcher')
+        );
+    }
 }
 catch (e) {
     //hide map and show message
@@ -244,8 +251,8 @@ if (getURLParameter('latlng') !== 'null') {
 }
 
 // set focus to search input after waiting a second
-window.onload = function() {
-    setTimeout(function() {
-        document.querySelector(".search-input").focus();
-    }, 1000);
-};
+// window.onload = function() {
+//     setTimeout(function() {
+//         document.querySelector(".search-input").focus();
+//     }, 1000);
+// };

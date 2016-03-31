@@ -44,7 +44,8 @@
 		</header>
 		<div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
 			<header class="drawer-header">
-				<a href="./">GeoPortal</a><br />
+				<a href="./">GeoPortal</a>
+				<br />
 				<span>Mecklenburg County GIS</span>
 			</header>
 			<nav class="navigation mdl-navigation mdl-color--blue-grey-800">
@@ -55,7 +56,7 @@
 				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="impervious" data-layers="postgis:impervious_surface" href="javascript:void(0)"><i class="icon icon-rain-1" role="presentation"></i>Impervious Surface</a>
 				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="voting" href="javascript:void(0)"><i class="icon icon-check" role="presentation"></i>Voting</a>
 				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="parks" href="javascript:void(0)"><i class="icon icon-tree-2" role="presentation"></i>Parks</a>
-                <a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="libraries" href="javascript:void(0)"><i  class="icon icon-library" role="presentation"></i>Libraries</a>
+				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="libraries" href="javascript:void(0)"><i  class="icon icon-library" role="presentation"></i>Libraries</a>
 				<div class="mdl-layout-spacer"></div>
 				<a class="mdl-typography--text-center mdl-color-text--blue-grey-300 nav-link" href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal"><i class="icon icon-github"></i> Source Code on Github</a>
 			</nav>
@@ -66,7 +67,7 @@
 					<div class="mdl-cell mdl-cell--12-col">
 						<div class="search-container mdl-typography--text-center">
 							<div class="search-input-container">
-								<input type="text" aria-label="search" name="search-input" class="search-input"  autocomplete="off" placeholder="Tell me about..." />
+								<input type="text" aria-label="search" name="search-input" class="search-input" autocomplete="off" placeholder="Tell me about..." />
 								<span class="bar"></span>
 								<p class="mdl-typography--text-left muted">Try typing part of an address, like <em>700 N</em>. Or we can <a href="javascript:void(0)" onclick="map.geolocation()">take a guess</a>.</p>
 							</div>
@@ -96,22 +97,24 @@
 					</div>
 				</div>
 
-				<div class="demo-cards mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet">
-					<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop mdl-color--teal-300 mdl-card-map">
-						<div class="mdl-color-text--grey-800 map-container">
-							<div class="map-catcher"></div>
-							<button id="map-menu" style="position: absolute; top: 25px; right: 25px"
-							        class="mdl-button mdl-js-button mdl-button--icon">
-							  <i class="mdl-color-text--teal-300 icon icon-menu" role="presentation"></i>
-							</button>
-							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect map-menu"
-							    for="map-menu">
-							  <li class="mdl-menu__item map-fullscreen" onclick="map.fullScreen()">Full Screen</li>
-							  <li class="mdl-menu__item" onclick="map.pitch()">Pitch</li>
-							  <li class="mdl-menu__item" onclick="map.setStyle('./style/bright/style.json')">Road Map</li>
-								<li class="mdl-menu__item" onclick="map.setStyle('./style/aerial/style.json')">Aerial Map</li>
-							</ul>
+				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+					<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop mdl-color--blue-grey-800 mdl-card-map">
+						<div class="map-container">
+                            <div class="map-catcher"></div>
+                            <div class="mdl-card__menu">
+                                <button id="map-menu" class="mdl-button mdl-js-button mdl-button--icon">
+    								<i class="mdl-color-text--orange-400 icon icon-menu" role="presentation"></i>
+    							</button>
+    							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect map-menu-list" for="map-menu">
+    								<li class="mdl-menu__item map-fullscreen" onclick="map.fullScreen()">Full Screen</li>
+    								<li class="mdl-menu__item" onclick="map.pitch()">Pitch</li>
+    								<li class="mdl-menu__item" onclick="map.setStyle('./style/bright/style.json')">Road Map</li>
+    								<li class="mdl-menu__item" onclick="map.setStyle('./style/aerial/style.json')">Aerial Map</li>
+    								<li class="mdl-menu__item" onclick="map.setStyle('./style/blueprint/style.json')">Blueprint</li>
+    							</ul>
+                            </div>
 						</div>
+
 					</div>
 
 					<div class="demo-separator mdl-cell--1-col"></div>
@@ -127,13 +130,20 @@
 	<script async src="js/app.js?foo={{cachebuster}}"></script>
 	<!--   Google Analytics -->
 	<script>
-	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		(function(i, s, o, g, r, a, m) {
+			i['GoogleAnalyticsObject'] = r;
+			i[r] = i[r] || function() {
+				(i[r].q = i[r].q || []).push(arguments)
+			}, i[r].l = 1 * new Date();
+			a = s.createElement(o),
+				m = s.getElementsByTagName(o)[0];
+			a.async = 1;
+			a.src = g;
+			m.parentNode.insertBefore(a, m)
+		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-	ga('create', 'UA-42311520-2', 'auto');
-	ga('send', 'pageview');
+		ga('create', 'UA-42311520-2', 'auto');
+		ga('send', 'pageview');
 	</script>
 
 </body>

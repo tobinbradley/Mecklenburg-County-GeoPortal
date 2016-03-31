@@ -25,31 +25,28 @@ class GLMap extends React.Component {
         };
 
         this.map = new mapboxgl.Map(view);
-        //map.addControl(new mapboxgl.Navigation());
+        //map.addControl(new Mapmenu());
         this.popup = new mapboxgl.Popup();
         let popup = this.popup;
         let map = this.map;
+        this.map.on('mousemove', function(e) {
+            let features = map.queryRenderedFeatures(e.point, { layers: ['markers'] });
+            map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+            if (!features.length) {
+                return;
+            }
+
+            var feature = features[0];
+            popup.setLngLat(feature.geometry.coordinates)
+                .setHTML(feature.properties.description)
+                .addTo(map);
+        });
         this.map.on('click', function (e) {
-            map.featuresAt(e.point, {
-                radius: 20, // Half the marker size (15px).
-                includeGeometry: true,
-                layer: 'markers'
-            }, function (err, features) {
-                if (err || !features.length) {
-                    popup.remove();
-                    if (map.getZoom() >= 14) {
-                        fetchNearest(e.lngLat.lat, e.lngLat.lng);
-                    }
-                    return;
-                }
-
-                var feature = features[0];
-
-                // Populate the popup and set its coordinates
-                popup.setLngLat(feature.geometry.coordinates)
-                    .setHTML(feature.properties.description)
-                    .addTo(map);
-            });
+            popup.remove();
+            if (map.getZoom() >= 14) {
+                fetchNearest(e.lngLat.lat, e.lngLat.lng);
+            }
         });
         this.map.on('style.load', function () {
             this.pastInitialLoad = true;
@@ -167,7 +164,7 @@ class GLMap extends React.Component {
         let map = this.map;
         map.flyTo({
             center: lngLat,
-            zoom: 17.5
+            zoom: 17
         });
         let theLabel = `
         <div class="marker-title">ADDRESS</div>
@@ -230,12 +227,21 @@ class GLMap extends React.Component {
     }
 }
 
+// GLMap.defaultProps = {
+//     container: "map",
+//     style: "./style/blueprint/style.json",
+//     center: [-80.827, 35.272],
+//     zoom: 8,
+//     hash: true
+// };
+
 GLMap.defaultProps = {
     container: "map",
-    style: "./style/bright/style.json",
-    center: [-80.827, 35.272],
-    zoom: 8,
+    style: "./style/blueprint/style.json",
+    center: [-80.8447, 35.2293],
+    zoom: 12,
     hash: false
 };
+
 
 export default GLMap;

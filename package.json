@@ -25,7 +25,7 @@
     "gulp-uglify": "^1.4.1",
     "gulp-util": "^3.0.6",
     "httpplease": "^0.16.4",
-    "mapbox-gl": "^0.15.0",
+    "mapbox-gl": "^0.16.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-timer-mixin": "^0.13.2",

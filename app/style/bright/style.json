@@ -4,7 +4,8 @@
     "sources": {
         "mapbox": {
             "tiles": [
-                "http://maps.co.mecklenburg.nc.us/tiles/united_states_of_america/{z}/{x}/{y}.pbf"
+                "http://maps.co.mecklenburg.nc.us/tiles/united_states_of_america/{z}/{x}/{y}.pbf",
+                "http://tiles.mcmap.org/united_states_of_america/{z}/{x}/{y}.pbf"
             ],
             "type": "vector",
             "maxzoom": 14

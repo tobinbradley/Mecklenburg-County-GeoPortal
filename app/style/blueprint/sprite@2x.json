@@ -1,0 +1,58 @@
+{
+  "motorway_6": {
+    "width": 100,
+    "height": 36,
+    "x": 0,
+    "y": 0,
+    "pixelRatio": 2
+  },
+  "motorway_5": {
+    "width": 90,
+    "height": 36,
+    "x": 0,
+    "y": 36,
+    "pixelRatio": 2
+  },
+  "motorway_4": {
+    "width": 78,
+    "height": 36,
+    "x": 100,
+    "y": 0,
+    "pixelRatio": 2
+  },
+  "marker": {
+    "width": 41,
+    "height": 63,
+    "x": 0,
+    "y": 72,
+    "pixelRatio": 2
+  },
+  "poi": {
+    "width": 43,
+    "height": 57,
+    "x": 41,
+    "y": 72,
+    "pixelRatio": 2
+  },
+  "motorway_3": {
+    "width": 64,
+    "height": 36,
+    "x": 100,
+    "y": 36,
+    "pixelRatio": 2
+  },
+  "motorway_2": {
+    "width": 50,
+    "height": 36,
+    "x": 84,
+    "y": 72,
+    "pixelRatio": 2
+  },
+  "motorway_1": {
+    "width": 36,
+    "height": 36,
+    "x": 134,
+    "y": 72,
+    "pixelRatio": 2
+  }
+}
