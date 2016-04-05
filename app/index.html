@@ -101,20 +101,17 @@
 					<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop mdl-color--blue-grey-800 mdl-card-map">
 						<div class="map-container">
                             <div class="map-catcher"></div>
-                            <div class="mdl-card__menu">
-                                <button id="map-menu" class="mdl-button mdl-js-button mdl-button--icon">
-    								<i class="mdl-color-text--orange-400 icon icon-menu" role="presentation"></i>
-    							</button>
-    							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect map-menu-list" for="map-menu">
-    								<li class="mdl-menu__item map-fullscreen" onclick="map.fullScreen()">Full Screen</li>
-    								<li class="mdl-menu__item" onclick="map.pitch()">Pitch</li>
-    								<li class="mdl-menu__item" onclick="map.setStyle('./style/bright/style.json')">Road Map</li>
-    								<li class="mdl-menu__item" onclick="map.setStyle('./style/aerial/style.json')">Aerial Map</li>
-    								<li class="mdl-menu__item" onclick="map.setStyle('./style/blueprint/style.json')">Blueprint</li>
-    							</ul>
-                            </div>
+                            <button id="map-menu" class="mdl-button mdl-js-button mdl-button--icon">
+								<i class="mdl-color-text--orange-400 icon icon-menu" role="presentation"></i>
+							</button>
+							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect map-menu-list" for="map-menu">
+								<li class="mdl-menu__item map-fullscreen" onclick="map.fullScreen()">Full Screen</li>
+								<li class="mdl-menu__item" onclick="map.pitch()">Pitch</li>
+								<li class="mdl-menu__item" onclick="map.setStyle('./style/bright/style.json')">Road Map</li>
+								<li class="mdl-menu__item" onclick="map.setStyle('./style/aerial/style.json')">Aerial Map</li>
+								<li class="mdl-menu__item" onclick="map.setStyle('./style/blueprint/style.json')">Blueprint</li>
+							</ul>
 						</div>
-
 					</div>
 
 					<div class="demo-separator mdl-cell--1-col"></div>

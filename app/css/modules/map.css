@@ -22,7 +22,11 @@
     font-weight: 700;
     padding-bottom: 5px;
 }
-
+#map-menu {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
 .map-menu-list li {
     font-size: 0.8em;
     padding: 10px;

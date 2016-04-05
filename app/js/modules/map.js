@@ -227,19 +227,11 @@ class GLMap extends React.Component {
     }
 }
 
-// GLMap.defaultProps = {
-//     container: "map",
-//     style: "./style/blueprint/style.json",
-//     center: [-80.827, 35.272],
-//     zoom: 8,
-//     hash: true
-// };
-
 GLMap.defaultProps = {
     container: "map",
-    style: "./style/blueprint/style.json",
-    center: [-80.8447, 35.2293],
-    zoom: 12,
+    style: "./style/bright/style.json",
+    center: [-80.827, 35.272],
+    zoom: 8,
     hash: false
 };
 
