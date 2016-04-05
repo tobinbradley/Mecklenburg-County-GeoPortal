@@ -1,7 +1,5 @@
-var React = require('react'),
-    httpplease = require('httpplease'),
-    jsonresponse = require('httpplease/plugins/jsonresponse'),
-    objectToURI = require('./objectToURI');
+import React from 'react';
+import axios from 'axios';
 
 
 var PollingComponent = React.createClass({
@@ -9,9 +7,6 @@ var PollingComponent = React.createClass({
         return {
             recs: ''
         };
-    },
-    convertDistance: function(dist) {
-        return (dist / 5280).toFixed(1) + ' miles';
     },
     handleLocationClick: function(event) {
         if (typeof map === 'object') {
@@ -139,49 +134,55 @@ var VotingComponent = React.createClass({
         this.getDistrict(lat, lng, 'charlotte_city_council', 'city_council', 'cityCharlotte', 'citydist');
     },
     getOfficials: function() {
-        var args = {
-            'sort': 'district'
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/query/v1/elected_officials` + objectToURI(args),
-            function(err, res) {
-                this.setState({ officials: res.body });
-            }.bind(this)
-        );
+        let _this = this;
+        axios
+            .get(`http://maps.co.mecklenburg.nc.us/api/query/v1/elected_officials`,
+            {
+                params: {
+                    'sort': 'district'
+                }
+            })
+            .then(function(response) {
+                _this.setState({ officials: response.data });
+            });
     },
     getPrecinct: function(lat, lng) {
-        var args = {
-            'geom_column': 'the_geom',
-            'limit': 1,
-            'columns': `voting_precincts.cc, voting_precincts.school, polling_locations.name as label,polling_locations.address,voting_precincts.precno as precinct,st_x(st_transform(polling_locations.the_geom, 4326)) as lng, st_y(st_transform(polling_locations.the_geom, 4326)) as lat, ST_Distance(polling_locations.the_geom,ST_Transform(GeomFromText('POINT(${lng} ${lat})',4326), 2264)) as distance`,
-            'join': 'polling_locations;voting_precincts.precno = polling_locations.precno'
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/voting_precincts/${lng},${lat}/4326` + objectToURI(args),
-            function(err, res) {
-                this.setState({
-                    pollingRecs: res.body,
-                    countyCommission: res.body[0].cc,
-                    countySchool: res.body[0].school
+        let _this = this;
+        axios
+            .get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/voting_precincts/${lng},${lat}/4326`,
+            {
+                params: {
+                    'geom_column': 'the_geom',
+                    'limit': 1,
+                    'columns': `voting_precincts.cc, voting_precincts.school, polling_locations.name as label,polling_locations.address,voting_precincts.precno as precinct,st_x(st_transform(polling_locations.the_geom, 4326)) as lng, st_y(st_transform(polling_locations.the_geom, 4326)) as lat, ST_Distance(polling_locations.the_geom,ST_Transform(GeomFromText('POINT(${lng} ${lat})',4326), 2264)) as distance`,
+                    'join': 'polling_locations;voting_precincts.precno = polling_locations.precno'
+                }
+            })
+            .then(function(response) {
+                _this.setState({
+                    pollingRecs: response.data,
+                    countyCommission: response.data[0].cc,
+                    countySchool: response.data[0].school
                 });
-            }.bind(this)
-        );
+            });
     },
     getDistrict: function(lat, lng, type, layer, theState, distField) {
-        var args = {
-            'geom_column': 'the_geom',
-            'columns': `${distField} as district`
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/${layer}/${lng},${lat}/4326` + objectToURI(args),
-            function(err, res) {
-                if (res.body.length > 0) {
-                    this.setState({ [theState]: res.body[0].district });
-                } else {
-                    this.setState({ [theState]: null });
+        let _this = this;
+        axios
+            .get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/${layer}/${lng},${lat}/4326`,
+            {
+                params: {
+                    'geom_column': 'the_geom',
+                    'columns': `${distField} as district`
                 }
-            }.bind(this)
-        );
+            })
+            .then(function(response) {
+                if (response.data.length > 0) {
+                    _this.setState({ [theState]: response.data[0].district });
+                } else {
+                    _this.setState({ [theState]: null });
+                }
+            });
     },
     render: function() {
         var moreInfo;

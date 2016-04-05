@@ -28,15 +28,12 @@ class PID extends React.Component {
                     'fields': 'zone_des, zone_class',
                     'parameters': "zone_des <> 'sm_towns'",
                     'geometryfield': 'the_geom'
-                }
+                },
+                timeout: 3000
             })
             .then(function(response) {
                 _this.setState({ recs: response.data });
             });
-    }
-
-    componentWillUnmount() {
-        this.serverRequest.abort();
     }
 
     render() {

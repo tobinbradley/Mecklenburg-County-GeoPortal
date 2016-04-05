@@ -1,44 +1,39 @@
-var React = require('react'),
-    httpplease = require('httpplease'),
-    jsonresponse = require('httpplease/plugins/jsonresponse'),
-    objectToURI = require('./objectToURI');
+import React from 'react';
+import axios from 'axios';
+import format from 'format-number';
 
+class ImperviousInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
-var ImperviousInfo = React.createClass({
-    propTypes: {
-        pid: React.PropTypes.string.isRequired
-    },
-    getInitialState: function() {
-        return {};
-    },
-    componentDidMount: function() {
-        this.getImpervious(this.props.pid);
-    },
-    componentWillReceiveProps: function(nextProps) {
-        this.getImpervious(nextProps.pid);
-    },
-    getImpervious: function(pid) {
-        var args = {
-            'columns': 'sum(sum_of_area) as area, subtheme',
-            'filter': `commonpid='${pid}'`,
-            'sort': 'subtheme',
-            'group': 'subtheme'
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/api/query/v1/impervious_surface_area' + objectToURI(args),
-            function(err, res) {
-                this.setState({ theImpervious: res.body });
-            }.bind(this)
-        );
-    },
-    prettyNumber: function(val) {
-        while (/(\d+)(\d{3})/.test(val.toString())){
-            val = parseInt(val).toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
-        }
-        return val;
-    },
-    render: function() {
+    componentWillReceiveProps(nextProps) {
+        this.fetchData(nextProps.pid);
+    }
 
+    componentDidMount() {
+        this.fetchData(this.props.pid);
+    }
+
+    fetchData(pid) {
+        let _this = this;
+        this.serverRequest = axios
+            .get('http://maps.co.mecklenburg.nc.us/api/query/v1/impervious_surface_area',
+            {
+                params: {
+                    'columns': 'sum(sum_of_area) as area, subtheme',
+                    'filter': `commonpid='${pid}'`,
+                    'sort': 'subtheme',
+                    'group': 'subtheme'
+                }
+            })
+            .then(function(response) {
+                _this.setState({ theImpervious: response.data });
+            });
+    }
+
+    render() {
         var tableStyle={
             'minWidth': '300px',
             'maxWidth': '100%'
@@ -55,7 +50,7 @@ var ImperviousInfo = React.createClass({
                     <div className="report-record-highlight">
                         <i className="icon icon-rain-1" role="presentation"></i>
                         <h2>You have</h2>
-                        <h1>{this.prettyNumber(theTotal)}  ft<sup>2</sup></h1>
+                        <h1>{format({'truncate': 0, 'suffix': ' Sq. Ft.'})(theTotal)}</h1>
                         <h3>of Impervious Surface</h3>
                         <h4></h4>
                     </div>
@@ -76,7 +71,7 @@ var ImperviousInfo = React.createClass({
                                                 {object.subtheme}
                                             </td>
                                             <td className="nowrap">
-                                                {this.prettyNumber(object.area)} ft<sup>2</sup>
+                                                {format({'truncate': 0, 'suffix': ' Sq. Ft.'})(object.area)}
                                             </td>
                                         </tr>
                                     );
@@ -107,6 +102,10 @@ var ImperviousInfo = React.createClass({
 
     }
 
-});
+}
+
+ImperviousInfo.propTypes = {
+    pid: React.PropTypes.string.isRequired
+};
 
 module.exports = ImperviousInfo;

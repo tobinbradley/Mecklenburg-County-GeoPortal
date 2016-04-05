@@ -2,45 +2,47 @@
 // 3810 Warrington is orange (odd)
 // 5501 Ruth is green (even)
 
-var React = require('react'),
-    httpplease = require('httpplease'),
-    jsonresponse = require('httpplease/plugins/jsonresponse'),
-    objectToURI = require('./objectToURI');
+import React from 'react';
+import axios from 'axios';
 
-var TrashInfo = React.createClass({
-    propTypes: {
-        lat: React.PropTypes.number.isRequired,
-        lng: React.PropTypes.number.isRequired
-    },
-    getInitialState: function() {
-        return {};
-    },
-    componentDidMount: function() {
-        this.getTrash(this.props.lat, this.props.lng);
-    },
-    componentWillReceiveProps: function(nextProps) {
-        this.getTrash(nextProps.lat, nextProps.lng);
-    },
-    getTrash: function(lat, lng) {
-        var args = {
-            'geom_column': 'the_geom',
-            'columns': 'jurisdiction, day, week, type'
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get(`http://maps.co.mecklenburg.nc.us:80/api/intersect_point/v1/solid_waste/${lng},${lat}/4326` + objectToURI(args),
-            function(err, res) {
-                this.setState({ theTrash: res.body });
-            }.bind(this)
-        );
-    },
-    checkOddEven: function(num) {
+class TrashInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.fetchData(nextProps.lng, nextProps.lat);
+    }
+
+    componentDidMount() {
+        this.fetchData(this.props.lng, this.props.lat);
+    }
+
+    fetchData(lng, lat) {
+        let _this = this;
+        this.serverRequest = axios
+            .get(`http://maps.co.mecklenburg.nc.us:80/api/intersect_point/v1/solid_waste/${lng},${lat}/4326`,
+            {
+                params: {
+                    'geom_column': 'the_geom',
+                    'columns': 'jurisdiction, day, week, type'
+                }
+            })
+            .then(function(response) {
+                _this.setState({ theTrash: response.data });
+            });
+    }
+
+    checkOddEven(num) {
         if(num % 2 === 0) {
             return 'even';
         } else {
             return 'odd';
         }
-    },
-    weekNumber: function(d) {
+    }
+
+    weekNumber(d) {
         // the length of a week
         var one_week = 1000 * 60 * 60 * 24 * 7;
         // the start of a Green or A week
@@ -48,15 +50,17 @@ var TrashInfo = React.createClass({
 
         var weekN = Math.floor((d - a) / one_week);
         return weekN;
-    },
-    weekEvenOdd: function(w) {
+    }
+
+    weekEvenOdd(w) {
         if (w === 'A' || w === 'GREEN') {
             return 'even';
         } else {
             return 'odd';
         }
-    },
-    recyclingWeek: function(w) {
+    }
+
+    recyclingWeek(w) {
         var theDate = new Date().getTime();
         var currentWeek = this.checkOddEven(this.weekNumber(theDate));
         var propertyWeek = this.weekEvenOdd(w);
@@ -66,8 +70,9 @@ var TrashInfo = React.createClass({
         } else {
             return 'next week';
         }
-    },
-    render: function() {
+    }
+
+    render() {
         var trash, moreInfo;
 
         if (typeof this.state.theTrash === 'object') {
@@ -198,6 +203,13 @@ var TrashInfo = React.createClass({
 
     }
 
-});
+}
+
+
+TrashInfo.propTypes = {
+    lat: React.PropTypes.number.isRequired,
+    lng: React.PropTypes.number.isRequired
+};
+
 
 module.exports = TrashInfo;

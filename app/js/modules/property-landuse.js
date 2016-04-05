@@ -19,14 +19,10 @@ class Landuse extends React.Component {
     fetchData(pid) {
         let _this = this;
         this.serverRequest = axios
-            .get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_cama_landuse.php', {params: {'pid': pid}})
+            .get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_cama_landuse.php', {params: {'pid': pid}, timeout: 3000})
             .then(function(response) {
                 _this.setState({ recs: response.data });
             });
-    }
-
-    componentWillUnmount() {
-        this.serverRequest.abort();
     }
 
     render() {

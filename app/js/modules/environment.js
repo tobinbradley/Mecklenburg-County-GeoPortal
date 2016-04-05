@@ -1,7 +1,5 @@
-var React = require('react'),
-    httpplease = require('httpplease'),
-    jsonresponse = require('httpplease/plugins/jsonresponse'),
-    objectToURI = require('./objectToURI');
+import React from 'react';
+import axios from 'axios';
 
 
 
@@ -33,18 +31,20 @@ var EnvironmentComponent = React.createClass({
         this.polyOverlay(pid, 'post_construction_layers', 'type, name', 'postconstruction');
     },
     polyOverlay: function(pid, table, fields, theState) {
-        var args = {
-            'columns': fields,
-            'filter': `f.pid = '${pid}'`,
-            'geom_column_from': 'the_geom',
-            'geom_column_to': 'the_geom'
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/${table}` + objectToURI(args),
-            function(err, res) {
-                this.setState({ [theState]: res.body });
-            }.bind(this)
-        );
+        let _this = this;
+        axios
+            .get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/${table}`,
+            {
+                params: {
+                    'columns': fields,
+                    'filter': `f.pid = '${pid}'`,
+                    'geom_column_from': 'the_geom',
+                    'geom_column_to': 'the_geom'
+                }
+            })
+            .then(function(response) {
+                _this.setState({ [theState]: response.data });
+            });
     },
     render: function() {
         var moreInfo;

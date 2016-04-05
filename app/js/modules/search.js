@@ -1,8 +1,6 @@
-var React = require('react'),
-    TimerMixin = require('react-timer-mixin'),
-    httpplease = require('httpplease'),
-    jsonresponse = require('httpplease/plugins/jsonresponse'),
-    objectToURI = require('./objectToURI');
+import React from 'react';
+import axios from 'axios';
+import TimerMixin from 'react-timer-mixin';
 
 
 var SearchTemplate = React.createClass({
@@ -21,15 +19,17 @@ var SearchTemplate = React.createClass({
         this.clearTimeout(this.timer);
         this.timer = this.setTimeout( function() {
             if (query.trim().length >= 3) {
-                var args = {
-                    'tables': 'address,park,library,school,pid,business'
-                };
-                httpplease = httpplease.use(jsonresponse);
-                httpplease.get(`http://maps.co.mecklenburg.nc.us:80/api/search/v1/${query.toLowerCase()}` + objectToURI(args),
-                    function(err, data) {
-                        this.setState({ searchData: data.body });
-                    }.bind(this)
-                );
+                let _this = this;
+                this.serverRequest = axios
+                    .get(`http://maps.co.mecklenburg.nc.us:80/api/search/v1/${query.toLowerCase()}`,
+                    {
+                        params: {
+                            'tables': 'address,park,library,school,pid,business'
+                        }
+                    })
+                    .then(function(response) {
+                        _this.setState({ searchData: response.data });
+                    });
             } else {
                 this.setState({ searchData: null });
             }

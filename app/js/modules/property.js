@@ -45,6 +45,6 @@ PropertyClass.propTypes = {
     lat: React.PropTypes.number.isRequired,
     lng: React.PropTypes.number.isRequired,
     pid: React.PropTypes.string.isRequired
-}
+};
 
 module.exports = PropertyClass;

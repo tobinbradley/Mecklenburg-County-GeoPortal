@@ -1,39 +1,37 @@
-var React = require('react'),
-    httpplease = require('httpplease'),
-    jsonresponse = require('httpplease/plugins/jsonresponse'),
-    objectToURI = require('./objectToURI');
+import React from 'react';
+import axios from 'axios';
+import format from 'format-number';
 
+class ParkInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
-var ParkInfo = React.createClass({
-    propTypes: {
-        lat: React.PropTypes.number.isRequired,
-        lng: React.PropTypes.number.isRequired
-    },
-    getInitialState: function() {
-        return {};
-    },
-    componentDidMount: function() {
-        this.getParks(this.props.lat, this.props.lng);
-    },
-    componentWillReceiveProps: function(nextProps) {
-        this.getParks(nextProps.lat, nextProps.lng);
-    },
-    getParks: function(lat, lng) {
-        var args = {
-            'columns': 'name, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',
-            'limit': '6'
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/parks_all/${lng},${lat}/4326` + objectToURI(args),
-            function(err, res) {
-                this.setState({ theParks: res.body });
-            }.bind(this)
-        );
-    },
-    convertDistance: function(dist) {
-        return (dist / 5280).toFixed(1) + ' miles';
-    },
-    handleLocationClick: function(event) {
+    componentWillReceiveProps(nextProps) {
+        this.fetchData(nextProps.lng, nextProps.lat);
+    }
+
+    componentDidMount() {
+        this.fetchData(this.props.lng, this.props.lat);
+    }
+
+    fetchData(lng, lat) {
+        let _this = this;
+        this.serverRequest = axios
+            .get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/parks_all/${lng},${lat}/4326`,
+            {
+                params: {
+                    'columns': 'name, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',
+                    'limit': '6'
+                }
+            })
+            .then(function(response) {
+                _this.setState({ theParks: response.data });
+            });
+    }
+
+    handleLocationClick(event) {
         if (typeof map === 'object') {
             let theItem = event.target;
             let label = `
@@ -42,8 +40,9 @@ var ParkInfo = React.createClass({
             `;
             map.interestMarker([theItem.getAttribute('data-lng'), theItem.getAttribute('data-lat')], label);
         }
-    },
-    render: function() {
+    }
+
+    render() {
 
         if (typeof this.state.theParks === 'object') {
             var otherParks = this.state.theParks.slice(0);
@@ -61,7 +60,7 @@ var ParkInfo = React.createClass({
                             data-label={this.state.theParks[0].name}
                             data-address={this.state.theParks[0].address + ', ' + this.state.theParks[0].city}
                             onClick={this.handleLocationClick}>{this.state.theParks[0].address + ', ' + this.state.theParks[0].city}</a></h3>
-                        <h4>{this.convertDistance(this.state.theParks[0].distance)}</h4>
+                        <h4>{format({'truncate': 1, 'suffix': ' miles'})(this.state.theParks[0].distance / 5280)}</h4>
                     </div>
                     <table className="mdl-data-table mdl-js-data-table">
                         <caption>Other Parks Nearby</caption>
@@ -88,7 +87,8 @@ var ParkInfo = React.createClass({
                                                     data-address={object.address + ', ' + object.city}
                                                     onClick={this.handleLocationClick}>{object.address + ', ' + object.city}</a>
                                             </td>
-                                            <td className="nowrap col-responsive">                                                {this.convertDistance(object.distance)}
+                                            <td className="nowrap col-responsive">
+                                                {format({'truncate': 1, 'suffix': ' miles'})(object.distance / 5280)}
                                             </td>
                                         </tr>
                                     );
@@ -119,6 +119,11 @@ var ParkInfo = React.createClass({
 
     }
 
-});
+}
+
+ParkInfo.propTypes = {
+    lat: React.PropTypes.number.isRequired,
+    lng: React.PropTypes.number.isRequired
+};
 
 module.exports = ParkInfo;

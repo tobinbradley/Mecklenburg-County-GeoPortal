@@ -1,7 +1,6 @@
-var React = require('react'),
-    httpplease = require('httpplease'),
-    jsonresponse = require('httpplease/plugins/jsonresponse'),
-    objectToURI = require('./objectToURI');
+import React from 'react';
+import axios from 'axios';
+import format from 'format-number';
 
 
 var SchoolDisplay = React.createClass({
@@ -10,9 +9,6 @@ var SchoolDisplay = React.createClass({
             recs: '',
             type: ''
         };
-    },
-    convertDistance: function(dist) {
-        return (dist / 5280).toFixed(1) + ' miles';
     },
     handleLocationClick: function(event) {
         if (typeof map === 'object') {
@@ -40,7 +36,7 @@ var SchoolDisplay = React.createClass({
                             data-label={this.props.recs[0].schlname}
                             data-address={this.props.recs[0].address}
                             onClick={this.handleLocationClick}>{this.props.recs[0].address}</a></h3>
-                        <h4>{this.convertDistance(this.props.recs[0].dist)}</h4>
+                        <h4>{format({'truncate': 1, 'suffix': ' miles'})(this.props.recs[0].dist / 5280)}</h4>
                     </div>
                 );
             } else {
@@ -69,9 +65,6 @@ var MagnetDisplay = React.createClass({
         return {
             recs: ''
         };
-    },
-    convertDistance: function(dist) {
-        return (dist / 5280).toFixed(1) + ' miles';
     },
     handleLocationClick: function(event) {
         if (typeof map === 'object') {
@@ -120,7 +113,7 @@ var MagnetDisplay = React.createClass({
                                                     onClick={this.handleLocationClick}>{object.address + ', ' + object.city}</a>
                                             </td>
                                             <td className="nowrap col-responsive">
-                                                {this.convertDistance(object.distance)}
+                                                {format({'truncate': 1, 'suffix': ' miles'})(object.distance / 5280)}
                                             </td>
                                         </tr>
                                     );
@@ -194,32 +187,33 @@ var SchoolInfo = React.createClass({
         this.getMagnetData(lat, lng);
     },
     getHomeData: function(lat, lng) {
-        var args = {
-            'geom_column': 'the_geom',
-            'distance': 150,
-            'columns': `type, schlname, choice_zone, address, city, x as lng, y as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${lng} ${lat})',4326), 2264), ST_transform(ST_GeomFromText('POINT(' || x || ' ' || y || ')',4326), 2264)) as dist`
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/school_districts/${lng},${lat}/4326` + objectToURI(args),
-            function(err, res) {
-                this.setState({ homeData: res.body });
-            }.bind(this)
-        );
+        let _this = this;
+        this.serverRequest = axios
+            .get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/school_districts/${lng},${lat}/4326`,
+            {
+                params: {
+                    'geom_column': 'the_geom',
+                    'distance': 150,
+                    'columns': `type, schlname, choice_zone, address, city, x as lng, y as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${lng} ${lat})',4326), 2264), ST_transform(ST_GeomFromText('POINT(' || x || ' ' || y || ')',4326), 2264)) as dist`
+                }
+            })
+            .then(function(response) {
+                _this.setState({ homeData: response.data });
+            });
     },
     getMagnetData: function(lat, lng) {
-        var args = {
-            'columns': `schl, schlname, address, city, ST_Distance(the_geom,ST_Transform(GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat`,
-            'sort': 'distance'
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/query/v1/view_schools_magnet` + objectToURI(args),
-            function(err, res) {
-                this.setState({ magnetData: res.body });
-            }.bind(this)
-        );
-    },
-    convertDistance: function(dist) {
-        return (dist / 5280).toFixed(1) + ' miles';
+        let _this = this;
+        this.serverRequest = axios
+            .get(`http://maps.co.mecklenburg.nc.us/api/query/v1/view_schools_magnet`,
+            {
+                params: {
+                    'columns': `schl, schlname, address, city, ST_Distance(the_geom,ST_Transform(GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat`,
+                    'sort': 'distance'
+                }
+            })
+            .then(function(response) {
+                _this.setState({ magnetData: response.data });
+            });
     },
     handleLocationClick: function(event) {
         if (typeof map === 'object') {

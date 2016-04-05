@@ -31,15 +31,12 @@ class Permits extends React.Component {
                     'limit': 10,
                     'from_geometryfield': 'the_geom',
                     'to_geometryfield': 'the_geom'
-                }
+                },
+                timeout: 3000
             })
             .then(function(response) {
                 _this.setState({ permits: response.data });
             });
-    }
-
-    componentWillUnmount() {
-        this.serverRequest.abort();
     }
 
     render() {

@@ -1,42 +1,48 @@
-var React = require('react'),
-    httpplease = require('httpplease'),
-    jsonresponse = require('httpplease/plugins/jsonresponse'),
-    objectToURI = require('./objectToURI');
+import React from 'react';
+import axios from 'axios';
 
-var HousePhotos = React.createClass({
-    propTypes: {
-        pid: React.PropTypes.string.isRequired
-    },
-    getInitialState: function() {
-        return { photoIndex: 0 };
-    },
-    componentDidMount: function() {
-        this.getPhotos(this.props.pid);
-    },
-    componentWillReceiveProps: function(nextProps) {
-        this.getPhotos(nextProps.pid);
-    },
-    getPhotos: function(thePid) {
-        var args = {
-            'pid': thePid,
-            'photo_source': 'mvideo,ilookabout'
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get('http://maps.co.mecklenburg.nc.us/rest/v2/ws_misc_house_photos.php' + objectToURI(args),
-            function(err, res) {
-                this.setState({ thePhotos: res.body });
-            }.bind(this)
-        );
-    },
-    handleThumbClick: function(event) {
+class HousePhotos extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = { photoIndex: 0 };
+        this.handleThumbClick = this.handleThumbClick.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.fetchData(nextProps.pid);
+    }
+
+    componentDidMount() {
+        this.fetchData(this.props.pid);
+    }
+
+    fetchData(pid) {
+        let _this = this;
+        this.serverRequest = axios
+            .get('http://maps.co.mecklenburg.nc.us/rest/v2/ws_misc_house_photos.php',
+            {
+                params: {
+                    'pid': pid,
+                    'photo_source': 'mvideo,ilookabout'
+                },
+                timeout: 3000
+            })
+            .then(function(response) {
+                _this.setState({ thePhotos: response.data });
+            });
+    }
+
+    handleThumbClick(event) {
         var theItem = event.target;
         this.setState({photoIndex: theItem.getAttribute('data-index')});
-    },
-    handleError: function(event) {
+    }
+
+    handleError(event) {
         var theItem = event.target;
         theItem.style.display = 'none';
-    },
-    render: function() {
+    }
+
+    render() {
         var photos = '';
         if (typeof this.state.thePhotos === 'object' && this.state.thePhotos.length > 0) {
             var bigPhoto = this.state.thePhotos[this.state.photoIndex];
@@ -70,6 +76,10 @@ var HousePhotos = React.createClass({
 
     }
 
-});
+}
+
+HousePhotos.propTypes = {
+    pid: React.PropTypes.string.isRequired
+};
 
 module.exports = HousePhotos;

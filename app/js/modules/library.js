@@ -1,40 +1,38 @@
-var React = require('react'),
-    httpplease = require('httpplease'),
-    jsonresponse = require('httpplease/plugins/jsonresponse'),
-    objectToURI = require('./objectToURI');
+import React from 'react';
+import axios from 'axios';
+import format from 'format-number';
 
+class LibraryInfo extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
 
-var LibraryInfo = React.createClass({
-    propTypes: {
-        lat: React.PropTypes.number.isRequired,
-        lng: React.PropTypes.number.isRequired
-    },
-    getInitialState: function() {
-        return {};
-    },
-    componentDidMount: function() {
-        this.getLibraries(this.props.lat, this.props.lng);
-    },
-    componentWillReceiveProps: function(nextProps) {
-        this.getLibraries(nextProps.lat, nextProps.lng);
-    },
-    getLibraries: function(lat, lng) {
-        var args = {
-            'geom_column': 'the_geom',
-            'columns': 'name, address, city, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
-            'limit': '6'
-        };
-        httpplease = httpplease.use(jsonresponse);
-        httpplease.get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/libraries/${lng},${lat}/4326` + objectToURI(args),
-            function(err, res) {
-                this.setState({ theLibraries: res.body });
-            }.bind(this)
-        );
-    },
-    convertDistance: function(dist) {
-        return (dist / 5280).toFixed(1) + ' miles';
-    },
-    handleLocationClick: function(event) {
+    componentWillReceiveProps(nextProps) {
+        this.fetchData(nextProps.lng, nextProps.lat);
+    }
+
+    componentDidMount() {
+        this.fetchData(this.props.lng, this.props.lat);
+    }
+
+    fetchData(lng, lat) {
+        let _this = this;
+        this.serverRequest = axios
+            .get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/libraries/${lng},${lat}/4326`,
+            {
+                params: {
+                    'geom_column': 'the_geom',
+                    'columns': 'name, address, city, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
+                    'limit': '6'
+                }
+            })
+            .then(function(response) {
+                _this.setState({ theLibraries: response.data });
+            });
+    }
+
+    handleLocationClick(event) {
         if (typeof map === 'object') {
             let theItem = event.target;
             let label = `
@@ -43,9 +41,9 @@ var LibraryInfo = React.createClass({
             `;
             map.interestMarker([theItem.getAttribute('data-lng'), theItem.getAttribute('data-lat')], label);
         }
-    },
-    render: function() {
+    }
 
+    render() {
         if (typeof this.state.theLibraries === 'object') {
             var otherLibraries = this.state.theLibraries.slice(0);
             otherLibraries.shift();
@@ -62,7 +60,7 @@ var LibraryInfo = React.createClass({
                             data-label={this.state.theLibraries[0].name}
                             data-address={this.state.theLibraries[0].address + ', ' + this.state.theLibraries[0].city}
                             onClick={this.handleLocationClick}>{this.state.theLibraries[0].address + ', ' + this.state.theLibraries[0].city}</a></h3>
-                        <h4>{this.convertDistance(this.state.theLibraries[0].distance)}</h4>
+                        <h4>{format({'truncate': 1, 'suffix': ' miles'})(this.state.theLibraries[0].distance / 5280)}</h4>
                     </div>
                     <table className="mdl-data-table mdl-js-data-table">
                         <caption>Other Libraries Nearby</caption>
@@ -90,7 +88,7 @@ var LibraryInfo = React.createClass({
                                                     onClick={this.handleLocationClick}>{object.address + ', ' + object.city}</a>
                                             </td>
                                             <td className="nowrap col-responsive">
-                                                {this.convertDistance(object.distance)}
+                                                {format({'truncate': 1, 'suffix': ' miles'})(object.distance / 5280)}
                                             </td>
                                         </tr>
                                     );
@@ -119,7 +117,12 @@ var LibraryInfo = React.createClass({
         );
 
     }
+}
 
-});
+LibraryInfo.propTypes = {
+    lat: React.PropTypes.number.isRequired,
+    lng: React.PropTypes.number.isRequired
+};
+
 
 module.exports = LibraryInfo;
