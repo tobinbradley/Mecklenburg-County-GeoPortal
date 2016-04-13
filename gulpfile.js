@@ -10,7 +10,6 @@ var postcss = require("gulp-postcss"),
     source = require('vinyl-source-stream'),
     buffer = require('vinyl-buffer'),
     babelify = require('babelify'),
-    reactify = require('reactify'),
     uglify = require('gulp-uglify'),
     nano = require('gulp-cssnano');
 
