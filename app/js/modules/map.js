@@ -132,7 +132,7 @@ class GLMap extends React.Component {
     }
 
     pitch() {
-        this.map.getPitch() === 0 ? this.map.easeTo({pitch: 60}) : this.map.easeTo({pitch: 0});
+        this.map.getPitch() === 0 ? this.map.easeTo({pitch: 90}) : this.map.easeTo({pitch: 0});
     }
 
     fullScreen() {

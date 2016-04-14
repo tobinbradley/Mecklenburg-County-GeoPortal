@@ -94,6 +94,9 @@
 						<p>
 							It's open source! <a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal">Fork it on GitHub</a>
 						</p>
+                        <p class="credits">
+							With much &#9829; for the projects that make this site possible: <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>, <a href="http://osm2vectortiles.org/" target="_blank">OSM2VectorTiles</a>, <a href="https://www.digitalglobe.com/" target="_blank">DigitalGlobe</a>, <a href="https://www.mapbox.com/mapbox-gl-js/api/" target="_blank">Mapbox GL JS</a>, <a href="https://facebook.github.io/react/" target="_blank">React</a>, <a href="http://getmdl.io/" target="_blank">Material Design Lite</a>
+						</p>
 					</div>
 				</div>
 
@@ -107,8 +110,8 @@
 							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect map-menu-list" for="map-menu">
 								<li class="mdl-menu__item map-fullscreen" onclick="map.fullScreen()">Full Screen</li>
 								<li class="mdl-menu__item" onclick="map.pitch()">Pitch</li>
-								<li class="mdl-menu__item" onclick="map.setStyle('./style/bright/style.json')">Road Map</li>
-								<li class="mdl-menu__item" onclick="map.setStyle('./style/aerial/style.json')">Aerial Map</li>
+								<li class="mdl-menu__item" onclick="map.setStyle('./style/bright/style.json')">Streets</li>
+                                <li class="mdl-menu__item" onclick="map.setStyle('./style/digiglobe/style.json')">Satellite</li>
 								<li class="mdl-menu__item" onclick="map.setStyle('./style/blueprint/style.json')">Blueprint</li>
 							</ul>
 						</div>

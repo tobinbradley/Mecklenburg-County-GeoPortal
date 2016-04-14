@@ -5,7 +5,7 @@ Created by Mecklenburg County GIS. Online [over here](http://mcmap.org/geoportal
 Built using:
 
 * Material Design Lite
-* Leaflet
+* Mapbox GL JS
 * React
 
 ## Building the Project
