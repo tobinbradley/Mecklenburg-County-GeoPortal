@@ -11,10 +11,15 @@
 }
 
 /*tables*/
+.mdl-data-table {
+    border: 0;
+}
+.mdl-data-table td {
+    border-bottom: 0;
+}
 .report-container table {
     white-space: normal;
     margin: 60px auto;
-
 }
 .report-container table caption {
     text-align: left;
@@ -24,11 +29,6 @@
 .report-container table .nowrap {
     white-space: nowrap;
 }
-.report-container table tbody tr:hover {
-    background-color:  inherit;
-}
-
-
 
 /*highlight record*/
 .report-record-highlight {
