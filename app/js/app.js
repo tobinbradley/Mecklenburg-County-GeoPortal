@@ -9,6 +9,9 @@
 //                ||     ||
 //
 
+// Fix for axios on IE11
+require('es6-promise').polyfill();
+
 let componentHandler = require('./modules/material'),
     getURLParameter = require('./modules/geturlparams'),
     React = require('react'),

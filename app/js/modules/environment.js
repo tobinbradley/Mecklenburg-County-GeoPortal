@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import WaterQuality from './environment-waterquality';
 import Floodplain from './environment-floodplain';
 import PostConstruction from './environment-postconstruction';
