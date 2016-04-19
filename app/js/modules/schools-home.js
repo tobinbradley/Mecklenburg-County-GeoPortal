@@ -69,7 +69,7 @@ class HomeSchool extends React.Component {
                     <div className="mdl-typography--text-center">
                         <div className="report-record-highlight">
                             <i className="icon icon-school" role="presentation"></i>
-                            <h2>This address is too close to a school district boundary to give an accurate {this.props.type} school assignment.</h2>
+                            <h2>This address is too close to a school district boundary to give an accurate {this.props.filter} school assignment.</h2>
                             <h4>To locate your student&#39;s home school, email your address to planning@cms.k12.nc.us or call 980-343-6246.</h4>
                         </div>
                     </div>
