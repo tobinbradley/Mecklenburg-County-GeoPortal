@@ -3,6 +3,7 @@ import WaterQuality from './environment-waterquality';
 import Floodplain from './environment-floodplain';
 import PostConstruction from './environment-postconstruction';
 import Soil from './environment-soil';
+import Watershed from './environment-watershed';
 
 
 
@@ -30,15 +31,18 @@ var EnvironmentComponent = React.createClass({
 
         return (
             <div>
-                <div className="mdl-typography--text-center">
-                    <Floodplain pid={this.props.pid} />
-                </div>
                 <div className="mdl-grid">
+                    <div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
+                        <Floodplain pid={this.props.pid} />
+                    </div>                    
                     <div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                         <WaterQuality pid={this.props.pid} />
                     </div>
                     <div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                         <PostConstruction pid={this.props.pid} />
+                    </div>
+                    <div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
+                        <Watershed lat={this.props.lat} lng={this.props.lng} />
                     </div>
                 </div>
                 <div className="mdl-typography--text-center">
