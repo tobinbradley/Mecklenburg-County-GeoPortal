@@ -61,8 +61,9 @@ class TrashInfo extends React.Component {
     }
 
     recyclingWeek(w) {
-        var theDate = new Date().getTime();
-        var currentWeek = this.checkOddEven(this.weekNumber(theDate));
+        var theDate = new Date();
+        theDate.setHours(0, 0, 0, 0);
+        var currentWeek = this.checkOddEven(this.weekNumber(theDate.getTime()));
         var propertyWeek = this.weekEvenOdd(w);
 
         if (currentWeek === propertyWeek) {

@@ -125,7 +125,6 @@ function questionChange(elem, navs, container, changeType) {
     // activate layers
     if (global.map) {
         if (elem.getAttribute("data-layers")) {
-            //console.log("hi");
             global.map.setOverlayLayer(elem.getAttribute("data-layers"));
         } else {
             global.map.setOverlayLayer();

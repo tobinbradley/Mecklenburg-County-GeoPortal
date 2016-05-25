@@ -3,7 +3,10 @@
   "version": "1.5.4",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+      "server": "gulp",
+      "build": "gulp build --type=production"
+  },
   "author": "",
   "license": "MIT",
   "dependencies": {
@@ -27,7 +30,7 @@
     "gulp-sourcemaps": "^1.5.2",
     "gulp-uglify": "^1.4.1",
     "gulp-util": "^3.0.6",
-    "mapbox-gl": "^0.16.0",
+    "mapbox-gl": "^0.18.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-timer-mixin": "^0.13.2",

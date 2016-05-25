@@ -10,15 +10,7 @@ Built using:
 
 ## Building the Project
 
-GeoPortal is strictly HTML/CSS/JS and can run locally via `gulp`.
-
-First, install the global dependencies. You'll need Node and npm (if separate with your distro) installed before you begin.
-
-``` bash
-npm install -g gulp tape
-```
-
-Next install the required modules.
+First, install the project dependencies.
 
 ``` bash
 npm install
@@ -27,11 +19,17 @@ npm install
 Then build the public folder.
 
 ``` bash
-gulp build
+npm run build
 ```
 
-Now you can launch a development environment at any time by typing `gulp`. To build the app for deployment (minifying CSS and uglifying JS), add a type of production to your build.
+Now you can launch a development environment at any time by typing:
 
 ``` bash
-gulp build --type production
+npm run server
+```
+
+ To build the app for deployment (minifying CSS and uglifying JS), run the build again:
+
+``` bash
+npm run build
 ```
