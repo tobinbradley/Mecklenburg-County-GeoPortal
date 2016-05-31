@@ -5,8 +5,7 @@
         "mapbox": {
             "type": "vector",
             "tiles": [
-                "http://maps.co.mecklenburg.nc.us/tiles/united_states_of_america/{z}/{x}/{y}.pbf",
-                "http://tiles.mcmap.org/united_states_of_america/{z}/{x}/{y}.pbf"
+                "http://tiles.mcmap.org/united_states_of_america_v2/{z}/{x}/{y}.pbf"
             ],
             "maxzoom": 14
         },
@@ -175,9 +174,28 @@
         "source": "mapbox",
         "source-layer": "road",
         "filter": [
-            "==",
-            "class",
-            "main"
+            "all",
+            [
+                "==",
+                "$type",
+                "LineString"
+            ],
+            [
+                "all",
+                [
+                    "in",
+                    "class",
+                    "primary",
+                    "secondary",
+                    "tertiary"
+                ],
+                [
+                    "!in",
+                    "structure",
+                    "bridge",
+                    "tunnel"
+                ]
+            ]
         ],
         "layout": {
             "line-cap": "round",

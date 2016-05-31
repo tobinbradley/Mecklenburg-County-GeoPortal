@@ -21,7 +21,9 @@ class GLMap extends React.Component {
             style: this.props.style,
             center: this.props.center,
             zoom: this.props.zoom,
-            hash: this.props.hash
+            hash: this.props.hash,
+            minZoom: this.props.minZoom,
+            maxBounds: this.props.maxBounds
         };
 
         this.map = new mapboxgl.Map(view);
@@ -48,6 +50,10 @@ class GLMap extends React.Component {
                 fetchNearest(e.lngLat.lat, e.lngLat.lng);
             }
         });
+        // this.map.on('click', function (e) {
+        //     var features = map.queryRenderedFeatures(e.point);
+        //     console.log(JSON.stringify(features, null, 2));
+        // });
         this.map.on('style.load', function () {
             this.pastInitialLoad = true;
             this.map.addSource("markers", {
@@ -231,7 +237,9 @@ GLMap.defaultProps = {
     container: "map",
     style: "./style/bright/style.json",
     center: [-80.827, 35.272],
+    maxBounds: [[-78.255, 37.384],[-83.285, 33.180]],
     zoom: 8,
+    minZoom: 7,
     hash: false
 };
 
