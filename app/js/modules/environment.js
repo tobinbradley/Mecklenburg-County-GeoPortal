@@ -23,8 +23,9 @@ var EnvironmentComponent = React.createClass({
                 <h5>For more information, please visit:</h5>
                 <ul className="list-unstyled">
                     <li><a href="http://charmeck.org/stormwater/Pages/default.aspx" target="_blank">Storm Water Services</a></li>
-                    <li><a href="http://charmeck.org/mecklenburg/county/WaterandLandResources/Pages/default.aspx" target="_blank">Water &amp; Land Resources</a></li>
-                    <li><a href="ftp://ftp1.co.mecklenburg.nc.us/WaterQuality/WQ%20Buffers/WaterQualityBufferImplementationGuidelines.pdf" target="_blank">Water Quality Buffer Implementation Guidelines</a></li>
+                    <li><a href="http://charmeck.org/mecklenburg/county/LUESA/WaterandLandResources/Pages/default.aspx" target="_blank">Water &amp; Land Resources</a></li>
+                    <li><a href="http://charmeck.org/mecklenburg/county/HealthDepartment/EnvironmentalHealth/GWS/Pages/default.aspx" target="_blank">Groundwater &amp; Wastewater Services</a></li>
+                    <li><a href="https://mecklenburgcounty.exavault.com/p/waterquality%252FWQ%2520Buffers/WaterQualityBufferImplementationGuidelines.pdf" target="_blank">Water Quality Buffer Implementation Guidelines</a></li>
                 </ul>
             </div>
         );
@@ -34,7 +35,7 @@ var EnvironmentComponent = React.createClass({
                 <div className="mdl-grid">
                     <div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                         <Floodplain pid={this.props.pid} />
-                    </div>                    
+                    </div>
                     <div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                         <WaterQuality pid={this.props.pid} />
                     </div>
