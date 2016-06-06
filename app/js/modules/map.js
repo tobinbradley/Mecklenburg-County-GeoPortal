@@ -70,7 +70,7 @@ class GLMap extends React.Component {
                 }
             });
             if (this.layers) {
-                this.overlayLayer(this.layers);
+                this.overlayLayer(this.layers, this.layerPosition);
             }
         }.bind(this));
     }
@@ -83,10 +83,11 @@ class GLMap extends React.Component {
         this.map.setStyle(style);
     }
 
-    setOverlayLayer(layers) {
+    setOverlayLayer(layers, layerPosition) {
         this.layers = layers;
+        this.layerPosition = layerPosition;
         if (this.pastInitialLoad) {
-            this.overlayLayer(layers);
+            this.overlayLayer(layers, layerPosition);
         }
     }
 
@@ -97,7 +98,7 @@ class GLMap extends React.Component {
         }
     }
 
-    overlayLayer(layers) {
+    overlayLayer(layers, layerPosition) {
         this.layers = layers;
         this.clearOverlay();
         if (layers) {
@@ -116,7 +117,7 @@ class GLMap extends React.Component {
                 "paint": {
                     "raster-opacity": 0.5
                 }
-            });
+            }, layerPosition);
         } else {
             this.layers = null;
             this.clearOverlay();
