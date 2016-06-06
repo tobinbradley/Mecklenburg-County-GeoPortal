@@ -25,7 +25,7 @@ npm run build
 Now you can launch a development environment at any time by typing:
 
 ``` bash
-npm run server
+npm start
 ```
 
  To build the app for deployment (minifying CSS and uglifying JS), run the build again:
