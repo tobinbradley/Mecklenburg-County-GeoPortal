@@ -241,7 +241,8 @@ GLMap.defaultProps = {
     maxBounds: [[-78.255, 37.384],[-83.285, 33.180]],
     zoom: 8,
     minZoom: 7,
-    hash: false
+    hash: false,
+    preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf('firefox') > -1  // fix for Firefox print
 };
 
 
