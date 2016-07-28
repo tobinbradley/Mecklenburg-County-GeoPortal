@@ -20,13 +20,12 @@ class HomeSchool extends React.Component {
     fetchData(lat, lng, filter) {
         let _this = this;
         this.serverRequest = axios
-            .get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/school_districts/${lng},${lat}/4326`,
+            .get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/cms_${filter.toLowerCase()}_districts/${lng},${lat}/4326`,
             {
                 params: {
-                    'geom_column': 'the_geom',
-                    'distance': 150,
-                    'columns': `type, schlname, choice_zone, address, city, x as lng, y as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${lng} ${lat})',4326), 2264), ST_transform(ST_GeomFromText('POINT(' || x || ' ' || y || ')',4326), 2264)) as dist`,
-                    'filter': `type = '${filter}'`
+                    'columns': `name, address, ST_X(ST_Transform(schools.the_geom, 4326)) as lng, ST_Y(ST_Transform(schools.the_geom, 4326)) as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${lng} ${lat})',4326), 2264), schools.the_geom) as dist`,
+                    'limit': 1,
+                    'join': `schools;cms_${filter.toLowerCase()}_districts.num = schools.schl`
                 }
             })
             .then(function(response) {
@@ -53,12 +52,12 @@ class HomeSchool extends React.Component {
                 school = (
                     <div className="report-record-highlight">
                         <i className="icon icon-school" role="presentation"></i>
-                        <h2>Your {this.props.filter} school is</h2>
-                        <h1>{this.state.recs[0].schlname}</h1>
+                        <h2>Your {this.props.filter.toUpperCase()} school is</h2>
+                        <h1>{this.state.recs[0].name.toUpperCase()}</h1>
                         <h3><a href="javascript:void(0)"
                             data-lat={this.state.recs[0].lat}
                             data-lng={this.state.recs[0].lng}
-                            data-label={this.state.recs[0].schlname}
+                            data-label={this.state.recs[0].name}
                             data-address={this.state.recs[0].address}
                             onClick={this.handleLocationClick}>{this.state.recs[0].address}</a></h3>
                         <h4>{format({'truncate': 1, 'suffix': ' miles'})(this.state.recs[0].dist / 5280)}</h4>
@@ -69,7 +68,7 @@ class HomeSchool extends React.Component {
                     <div className="mdl-typography--text-center">
                         <div className="report-record-highlight">
                             <i className="icon icon-school" role="presentation"></i>
-                            <h2>This address is too close to a school district boundary to give an accurate {this.props.filter} school assignment.</h2>
+                            <h2>We can find a {this.props.filter.toUpperCase()} school assignment for this address.</h2>
                             <h4>To locate your student&#39;s home school, email your address to planning@cms.k12.nc.us or call 980-343-6246.</h4>
                         </div>
                     </div>

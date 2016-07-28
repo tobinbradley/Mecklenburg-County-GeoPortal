@@ -19,12 +19,11 @@ class Transportation extends React.Component {
     fetchData(lat, lng) {
         let _this = this;
         this.serverRequest = axios
-            .get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/high_school_districts/${lng},${lat}/4326`,
+            .get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/cms_high_districts/${lng},${lat}/4326`,
             {
                 params: {
-                    'geom_column': 'the_geom',
-                    'distance': 150,
-                    'columns': 'choice_zone'
+                    'columns': 'zone',
+                    'limit': 1
                 }
             })
             .then(function(response) {
@@ -39,7 +38,7 @@ class Transportation extends React.Component {
                     <div className="report-record-highlight">
                         <i className="icon icon-bus" role="presentation"></i>
                         <h2>Your Transportation Zone is</h2>
-                        <h1>{this.state.recs[0].choice_zone.toUpperCase()}</h1>
+                        <h1>{this.state.recs[0].zone.toUpperCase()}</h1>
                     </div>
             );
         }

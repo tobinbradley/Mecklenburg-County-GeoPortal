@@ -40,10 +40,10 @@ var SchoolInfo = React.createClass({
                         <HomeSchool lat={this.props.lat} lng={this.props.lng} filter="HIGH" layer="high_school_districts" />
                     </div>
                 </div>
-                <Magnet lat={this.props.lat} lng={this.props.lng} />
                 <div className="mdl-typography--text-center">
                     <Transportation lat={this.props.lat} lng={this.props.lng} />
                 </div>
+                <Magnet lat={this.props.lat} lng={this.props.lng} />
                 {moreInfo}
             </div>
         );
