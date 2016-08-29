@@ -37,12 +37,16 @@ class WaterQuality extends React.Component {
 
         if (typeof this.state.recs === 'object') {
             if (this.state.recs.length > 0) {
+                let typesArr = [];
+                for (let i = 0; i < this.state.recs.length; i++) {
+                    typesArr.push(`${this.state.recs[i].label} ${this.state.recs[i].type}`);
+                }
                 returnVal = (
                     <div className="report-record-highlight">
                         <i className="icon icon-droplet" role="presentation"></i>
                         <h2>This property is in a</h2>
                         <h1>WATER QUALITY BUFFER</h1>
-                        <h4><a target="_blank" href="ftp://ftp1.co.mecklenburg.nc.us/WaterQuality/WQ%20Buffers/WaterQualityBufferImplementationGuidelines.pdf">Special restrictions may apply</a>. For more information,
+                        <h4>The buffer(s) are: <strong>{typesArr.join(', ')}</strong>. <a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">Special restrictions may apply</a>. For more information,
                         please call 704.336.5456 for existing single-family lots and those projects not needing a grading permit or call 704.432.5570 for
                         other projects.</h4>
                 </div>
