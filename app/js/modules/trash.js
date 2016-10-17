@@ -99,14 +99,14 @@ class TrashInfo extends React.Component {
                         <div className="mdl-grid">
                             <div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                                 <div className="report-record-highlight">
-                                    <i className="icon icon-trash" role="presentation"></i>
+                                    <i role="presentation" className="material-icons">delete</i>
                                     <h2>Your TRASH day is</h2>
                                     <h1>{item.day.toUpperCase()}</h1>
                                 </div>
                             </div>
                             <div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                                 <div className="report-record-highlight">
-                                    <i className="icon icon-recycle" role="presentation"></i>
+                                    <i role="presentation" className="material-icons">refresh</i>
                                     <h2>Your RECYCLING day is</h2>
                                     <h1>{item.day.toUpperCase()}  {this.recyclingWeek(item.week)}</h1>
                                     <h4>Recycling pickup is every other week.</h4>
@@ -118,7 +118,7 @@ class TrashInfo extends React.Component {
                     trash = (
                         <div className="mdl-typography--text-center">
                             <div className="report-record-highlight">
-                                <i className="icon icon-trash" role="presentation"></i>
+                                <i role="presentation" className="material-icons">delete</i>
                                 <h2>Your collection day is</h2>
                                 <h1>{item.day.toUpperCase()}</h1>
                                 <h3>for {item.type}</h3>
@@ -137,14 +137,14 @@ class TrashInfo extends React.Component {
                             <div className="mdl-grid">
                                 <div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                                     <div className="report-record-highlight">
-                                        <i className="icon icon-trash" role="presentation"></i>
+                                        <i role="presentation" className="material-icons">delete</i>
                                         <h2>Your TRASH day is</h2>
                                         <h1>{garbage[0].day.toUpperCase()}</h1>
                                     </div>
                                 </div>
                                 <div className="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                                     <div className="report-record-highlight">
-                                        <i className="icon icon-recycle" role="presentation"></i>
+                                        <i role="presentation" className="material-icons">refresh</i>
                                         <h2>Your RECYCLING day is</h2>
                                         <h1>{recycling[0].day.toUpperCase()} {this.recyclingWeek(recycling[0].week)}</h1>
                                         <h4>Recycling pickup is every other week ({recycling[0].week})</h4>

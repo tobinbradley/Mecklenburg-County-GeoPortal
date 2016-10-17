@@ -43,7 +43,7 @@ class WaterQuality extends React.Component {
                 }
                 returnVal = (
                     <div className="report-record-highlight">
-                        <i className="icon icon-droplet" role="presentation"></i>
+                        <i role="presentation" className="material-icons">invert_colors</i>
                         <h2>This property is in a</h2>
                         <h1>WATER QUALITY BUFFER</h1>
                         <h4>The buffer(s) are: <strong>{typesArr.join(', ')}</strong>. <a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">Special restrictions may apply</a>. For more information,

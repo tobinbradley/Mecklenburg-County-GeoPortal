@@ -51,7 +51,7 @@ class ParkInfo extends React.Component {
             var parks = (
                 <div className="mdl-typography--text-center">
                     <div className="report-record-highlight">
-                        <i className="icon icon-tree-2" role="presentation"></i>
+                        <i role="presentation" className="material-icons">nature_people</i>
                         <h2>Your closest park is</h2>
                         <h1>{this.state.theParks[0].name}</h1>
                         <h3><a href="javascript:void(0)"

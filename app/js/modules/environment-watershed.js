@@ -37,7 +37,7 @@ class Watershed extends React.Component {
         if (typeof this.state.recs === 'object' && this.state.recs.length > 0) {
             returnVal = (
                 <div className="report-record-highlight">
-                    <i className="icon icon-rain-inv" role="presentation"></i>
+                    <i role="presentation" className="material-icons">terrain</i>
                     <h2>This property is in the</h2>
                     <h1>{this.state.recs[0].name.toUpperCase()} WATERSHED</h1>
                     <h4>A watershed, or drainage basin, is an area of land where all surface water converges to a single point at a lower elevation,

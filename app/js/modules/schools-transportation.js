@@ -36,7 +36,7 @@ class Transportation extends React.Component {
         if (typeof this.state.recs === 'object') {
             zone = (
                     <div className="report-record-highlight">
-                        <i className="icon icon-bus" role="presentation"></i>
+                        <i role="presentation" className="material-icons">directions_bus</i>
                         <h2>Your Transportation Zone is</h2>
                         <h1>{this.state.recs[0].zone.toUpperCase()}</h1>
                     </div>

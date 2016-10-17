@@ -10,9 +10,8 @@ ____________________________________
                ||     ||
 */
 
-@import 'modules/material.css';
+@import '../../node_modules/material-design-lite/material.css';
 @import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-@import 'modules/fontello.css';
 @import 'modules/variables.css';
 @import 'modules/oldie.css';
 @import 'modules/sidebar.css';
@@ -25,6 +24,7 @@ ____________________________________
 @import 'modules/print.css';
 @import 'modules/youtube.css';
 @import 'modules/credits.css';
+@import 'modules/select.css';
 
 
 /*body treatments*/
@@ -46,4 +46,32 @@ body {
 .muted {
     font-size: 0.9em;
     color: #666;
+}
+
+.mdl-selectfield {
+    margin: 0 0 10px;
+}
+
+tr[data-qolgroup='Neighborhood'] td {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.mdl-layout__drawer-button {
+    top: 8px;
+    background-color: rgba(0,0,0,0) !important;
+    outline: none;
+}
+
+.sport-tab-card {
+  width: 512px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5%;
+  padding: 30px;
+}
+.sport-tab > .mdl-tabs__panel {
+  padding-top: 20px;
 }

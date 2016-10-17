@@ -51,7 +51,7 @@ class LibraryInfo extends React.Component {
             var libraries = (
                 <div className="mdl-typography--text-center">
                     <div className="report-record-highlight">
-                        <i className="icon icon-library" role="presentation"></i>
+                        <i role="presentation" className="material-icons">local_library</i>
                         <h2>Your closest library is</h2>
                         <h1>{this.state.theLibraries[0].name}</h1>
                         <h3><a href="javascript:void(0)"

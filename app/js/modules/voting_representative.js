@@ -58,7 +58,7 @@ class Representative extends React.Component {
 
                     returnVal = (
                         <div className="report-record-highlight">
-                            <i className="icon icon-user" role="presentation"></i>
+                            <i role="presentation" className="material-icons">person</i>
                             <h2>Your {this.props.label} Representative is</h2>
                             <h1>{reps[0].representative}</h1>
                             <h3>District {this.state.recs[0].district}</h3>
@@ -71,7 +71,7 @@ class Representative extends React.Component {
                 let reps = _this.props.officials.filter(function(r) { return r.district_type === _this.props.filter; });
                 returnVal = (
                     <div className="report-record-highlight">
-                    <i className="icon icon-user" role="presentation"></i>
+                    <i role="presentation" className="material-icons">person</i>
                     <h2>Your {this.props.label} Representatives are</h2>
                         {
                             reps.map(function(object, i){

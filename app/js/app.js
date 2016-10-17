@@ -11,9 +11,9 @@
 
 // Fix for axios on IE11
 require('es6-promise').polyfill();
+require('material-design-lite');
 
-let componentHandler = require('./modules/material'),
-    getURLParameter = require('./modules/geturlparams'),
+let getURLParameter = require('./modules/geturlparams'),
     React = require('react'),
     ReactDOM = require('react-dom'),
     SearchTemplate = require('./modules/search'),
@@ -175,6 +175,12 @@ function questionRun(q, latlng, label, pid, gid) {
         case 'libraries':
             let LibraryInfo = require('./modules/library');
             let libraryInfo = ReactDOM.render( < LibraryInfo lat={lat} lng={lng} />,
+                document.querySelector('.report-container')
+            );
+            break;
+        case 'qualityoflife':
+            let QualityOfLife = require('./modules/qualityoflife');
+            let qolInfo = ReactDOM.render( < QualityOfLife lat={lat} lng={lng} />,
                 document.querySelector('.report-container')
             );
             break;

@@ -48,7 +48,7 @@ class ImperviousInfo extends React.Component {
             var impervious = (
                 <div className="mdl-typography--text-center">
                     <div className="report-record-highlight">
-                        <i className="icon icon-rain-1" role="presentation"></i>
+                        <i role="presentation" className="material-icons">invert_colors_off</i>
                         <h2>You have</h2>
                         <h1>{format({'truncate': 0, 'suffix': ' Sq. Ft.'})(theTotal)}</h1>
                         <h3>of Impervious Surface</h3>

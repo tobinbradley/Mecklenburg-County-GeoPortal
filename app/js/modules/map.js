@@ -22,8 +22,8 @@ class GLMap extends React.Component {
             center: this.props.center,
             zoom: this.props.zoom,
             hash: this.props.hash,
-            minZoom: this.props.minZoom,
-            maxBounds: this.props.maxBounds
+            minZoom: this.props.minZoom
+            //maxBounds: this.props.maxBounds
         };
 
         this.map = new mapboxgl.Map(view);
@@ -216,13 +216,11 @@ class GLMap extends React.Component {
         });
         markers.features = cleanFeatures;
         map.getSource("markers").setData(markers);
-        let ext = [];
+        let bounds = new mapboxgl.LngLatBounds();
         for (let i = 0; i < markers.features.length; i++) {
-            ext.push(markers.features[i].geometry.coordinates);
+            bounds.extend(markers.features[i].geometry.coordinates);
         }
-        map.fitBounds(ext, {
-            padding: 40
-        });
+        map.fitBounds(bounds, {padding: 40});
 
         this.popup.setLngLat(lngLat)
             .setHTML(label)

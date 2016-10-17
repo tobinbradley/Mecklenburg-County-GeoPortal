@@ -51,7 +51,7 @@ class HomeSchool extends React.Component {
             if (this.state.recs.length === 1) {
                 school = (
                     <div className="report-record-highlight">
-                        <i className="icon icon-school" role="presentation"></i>
+                        <i role="presentation" className="material-icons">school</i>
                         <h2>Your {this.props.filter.toUpperCase()} school is</h2>
                         <h1>{this.state.recs[0].name.toUpperCase()}</h1>
                         <h3><a href="javascript:void(0)"

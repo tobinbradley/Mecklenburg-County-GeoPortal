@@ -41,7 +41,7 @@ class PID extends React.Component {
         if (typeof this.state.recs === 'object' && this.state.recs.length > 0) {
             returnVal = (
                 <div className="report-record-highlight">
-                    <i className="icon-home"></i>
+                    <i role="presentation" className="material-icons">business</i>
                     <h2>Tax Parcel</h2>
                     <h1>{this.props.pid}</h1>
                     <h3>Zoned as {this.state.recs[0].zone_class} {this.state.recs[0].zone_des}</h3>

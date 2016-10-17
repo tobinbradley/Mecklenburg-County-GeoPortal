@@ -41,7 +41,7 @@ class Floodplain extends React.Component {
                 var fz = 'http://meckmap.mecklenburgcountync.gov/3dfz/index.html#matid=' + this.props.gid;
                 returnVal = (
                     <div className="report-record-highlight">
-                        <i className="icon icon-rain-inv" role="presentation"></i>
+                        <i role="presentation" className="material-icons">flash_on</i>
                         <h2>This property is in a</h2>
                         <h1>REGULATED FLOODPLAIN</h1>
                         <h4><a target="_blank" href={fz}>Special restrictions may apply</a>. For more information, please call 704.336.3728.</h4>

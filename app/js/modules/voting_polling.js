@@ -50,7 +50,7 @@ class PollingLocation extends React.Component {
         if (typeof this.state.recs === 'object' && this.state.recs.length !== 0) {
             returnVal = (
 				<div className="report-record-highlight">
-					<i className="icon icon-check" role="presentation"></i>
+                    <i role="presentation" className="material-icons">check_box</i>
 					<h2>Your Polling Location is</h2>
 					<h1>{this.state.recs[0].label}</h1>
 					<h3><a href="javascript:void(0)"
