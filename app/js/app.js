@@ -13,94 +13,113 @@
 require('es6-promise').polyfill();
 require('material-design-lite');
 
-let getURLParameter = require('./modules/geturlparams'),
-    React = require('react'),
-    ReactDOM = require('react-dom'),
-    SearchTemplate = require('./modules/search'),
-    HousePhotos = require('./modules/photos'),
-    fetchNearest = require('./modules/nearest'),
-    youtubeLoader = require('./modules/youtube');
+//import Vue from 'vue/dist/vue.js';
+import Vue from 'vue';
+import getURLParameter from './modules/geturlparams';
+import fetchNearest from './modules/nearest';
+import Search from './components/search.vue';
+import Introduction from './components/introduction.vue';
+import Map from './components/map.vue';
+import Parks from './components/parks.vue';
+import Libraries from './components/libraries.vue';
+import Property from './components/property.vue';
+import Impervious from './components/impervious.vue';
+import Photos from './components/photos.vue';
+import Schools from './components/schools.vue';
+import Trash from './components/trash.vue';
+import Environment from './components/environment.vue';
+import Voting from './components/voting.vue';
+import QualityOfLife from './components/qualityoflife.vue';
 
-import GLMap from './modules/map.js';
 
-// murder fullscreen button if not available
-var elem = document.querySelector('.map-container');
-if (!elem.requestFullscreen && !elem.mozRequestFullScreen && !elem.webkitRequestFullScreen && !elem.msRequestFullscreen) {
-    document.querySelector('.map-fullscreen').setAttribute("disabled", true);
-    document.querySelector('.map-fullscreen').removeAttribute("onclick");
-}
+// the shared state between components
+let appState = {
+    selected: {
+        'lnglat': null,
+        'label': null,
+        'address': null,
+        'pid': null
+    },
+    poi: {
+        lnglat: null,
+        'label': null,
+        'address': null
+    },
+    show: ["introduction", "property"],
+    mapOverlay: null
+};
 
-// load map if able to
-try {
-    let canvas = document.createElement('canvas');
-    let ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    // map in the House
-    if (getURLParameter('latlng') !== 'null') {
-        let lnglat = getURLParameter('latlng').split(',').reverse();
-        global.map = ReactDOM.render(<GLMap center={lnglat} zoom={17} /> ,
-            document.querySelector('.map-catcher')
-        );
-    } else {
-        global.map = ReactDOM.render( <GLMap /> ,
-            document.querySelector('.map-catcher')
-        );
+// process URL arguments on page load
+if (getURLParameter('q') !== 'null') {
+    let q = getURLParameter('q');
+    let navs = document.querySelectorAll(".mdl-navigation__link");
+    let elem =  document.querySelector(`.mdl-navigation__link[data-type="${q}"]`);
+
+    if (elem) {
+        for (let i = 0; i < navs.length; i++) {
+            navs[i].classList.remove('active');
+        }
+        elem.classList.add('active');
+        appState.show = ["introduction", q];
     }
 }
-catch (e) {
-    //hide map and show message
-    let el = document.querySelector('body');
-    let elChild = document.createElement('div');
-    elChild.classList.add('oldie');
-    elChild.innerHTML = 'You are using an outdated browser. <a href="http://whatbrowser.org/">Upgrade your browser today</a> to better experience this site.';
-    el.insertBefore(elChild, el.firstChild);
-    let elMap = document.querySelector('.mdl-card-map');
-    elMap.parentNode.removeChild(elMap);
+if (getURLParameter('latlng') !== 'null') {
+    let latlng = getURLParameter('latlng').split(',');
+    let index = appState.show.indexOf("introduction");
+
+    if (index !== -1) {
+        appState.show.splice(index, 1);
+    }
+    fetchNearest(latlng[0], latlng[1], appState);
 }
 
-// the selected location
-global.activeRecord = '';
+// for debugging
+window.appState = appState;
 
-// initial react components for search results
-let searchComponent = ReactDOM.render( < SearchTemplate / > ,
-    document.getElementById('search-results')
-);
-
-// load youtube vid holder
-youtubeLoader('.youtube');
-
-// search box input and click events
-let theSearch = document.querySelector(".search-input");
-theSearch.addEventListener("input", function(e) {
-    searchComponent.getRecords(e.target.value);
-});
-theSearch.addEventListener("click", function(e) {
-    e.target.focus();
-    e.target.select();
-});
-
-// Data type/sidebar switching links
+// navigation
 let navlinks = document.querySelectorAll('.mdl-navigation__link');
 for (let i = 0; i < navlinks.length; i++) {
     navlinks[i].addEventListener('click', function() {
         let item = navlinks[i];
+
         if (!item.classList.contains('active')) {
-            let container = document.querySelector('.report-container');
-            let drawer = document.querySelector('.mdl-layout__drawer');
-            if (drawer) {
-                drawer.classList.remove('is-visible');
-                document.querySelector('.mdl-layout__obfuscator').classList.remove('is-visible');
+
+            for (let i = 0; i < navlinks.length; i++) {
+                navlinks[i].classList.remove('active');
             }
-            questionChange(item, navlinks, container, 'click');
-            if (typeof activeRecord === 'object') {
-                let q = item.getAttribute('data-type');
+            item.classList.add('active');
+
+            let q = item.getAttribute('data-type');
+
+            // push state
+            if (appState.selected.lnglat) {
+                history.replaceState(null, null, `?q=${q}&latlng=${appState.selected.lnglat[1]},${appState.selected.lnglat[0]}`);
+            } else {
+                history.replaceState(null, null, `?q=${q}`);
+            }
+            if (window.ga) {
+                ga('send', 'event', q, 'question');
+            }
+
+
+            // load overlays
+            if (item.getAttribute('data-layers')) {
+                appState.mapOverlay = item.getAttribute('data-layers');
+            } else {
+                appState.mapOverlay = null;
+            }
+
+            if (appState.selected.lnglat) {
+                appState.show = [q];
                 scrollToElement(document.querySelector('.report-container'));
-                questionRun(q, activeRecord.latlng, activeRecord.label, activeRecord.pid, activeRecord.address, activeRecord.id);
             } else {
                 scrollToElement(document.querySelector('.search-container'));
+                appState.show.push(q);
                 document.querySelector('.search-input').focus();
             }
         }
     });
+
 }
 
 // scroll to element if top is past viewport available, otherwise it jumps
@@ -113,154 +132,216 @@ function scrollToElement(elem) {
     }
 }
 
-function questionChange(elem, navs, container, changeType) {
-    var q = elem.getAttribute('data-type');
 
-    // add active class
-    for (let i = 0; i < navs.length; i++) {
-        navs[i].classList.remove('active');
-    }
-    elem.classList.add('active');
-
-    // activate layers
-    if (global.map) {
-        if (elem.getAttribute("data-layers")) {
-            global.map.setOverlayLayer(elem.getAttribute("data-layers"), elem.getAttribute("data-layers-position"));
-        } else {
-            global.map.setOverlayLayer();
-        }
-    }
-
-    // clean up existing react content
-    ReactDOM.unmountComponentAtNode(container);
-
-    // history
-    if (changeType !== 'page') {
-        var matArg = '';
-        if (getURLParameter('latlng') !== 'null') {
-            matArg = '&latlng=' + getURLParameter('latlng');
-        }
-        history.replaceState(null, null, `?q=${q}${matArg}`);
-    }
-
-    // analytics
-    if (window.ga) {
-        ga('send', 'event', q, changeType);
-    }
-}
-
-// mount react data components
-function questionRun(q, latlng, label, pid, gid) {
-    var lat = Number(latlng.split(',')[0]);
-    var lng = Number(latlng.split(',')[1]);
-    switch (q) {
-        case 'property':
-            let PropertyClass = require('./modules/property');
-            let propertyComponent = ReactDOM.render( < PropertyClass lat={lat} lng={lng} pid={pid} gid={Number(gid)} />,
-                document.querySelector('.report-container')
-            );
-            break;
-        case 'trash':
-            let TrashInfo = require('./modules/trash');
-            let trashInfo = ReactDOM.render( < TrashInfo lat={lat} lng={lng} />,
-                document.querySelector('.report-container')
-            );
-            break;
-        case 'parks':
-            let ParkInfo = require('./modules/parks');
-            let parkInfo = ReactDOM.render( < ParkInfo lat={lat} lng={lng} />,
-                document.querySelector('.report-container')
-            );
-            break;
-        case 'libraries':
-            let LibraryInfo = require('./modules/library');
-            let libraryInfo = ReactDOM.render( < LibraryInfo lat={lat} lng={lng} />,
-                document.querySelector('.report-container')
-            );
-            break;
-        case 'qualityoflife':
-            let QualityOfLife = require('./modules/qualityoflife');
-            let qolInfo = ReactDOM.render( < QualityOfLife lat={lat} lng={lng} />,
-                document.querySelector('.report-container')
-            );
-            break;
-        case 'impervious':
-            let ImperviousInfo = require('./modules/impervious');
-            let imperviousInfo = ReactDOM.render( < ImperviousInfo pid={pid} />,
-                document.querySelector('.report-container')
-            );
-            break;
-        case 'schools':
-            let SchoolsInfo = require('./modules/schools');
-            let schoolsInfo = ReactDOM.render( < SchoolsInfo lat={lat} lng={lng} />,
-                document.querySelector('.report-container')
-            );
-            break;
-        case 'voting':
-            let VotingComponent = require('./modules/voting');
-            let votingInfo = ReactDOM.render( < VotingComponent lat = {lat} lng = {lng} />,
-                document.querySelector('.report-container')
-            );
-            break;
-        case 'environment':
-            let EnvironmentComponent = require('./modules/environment');
-            let environmentInfo = ReactDOM.render( < EnvironmentComponent lat={lat} lng={lng} pid={pid} gid={Number(gid)} />,
-                document.querySelector('.report-container')
-            );
-            break;
-    }
-}
-
-
-// process a newly selected location
-global.processRecord = function(gid, latlng, label, pid, address) {
-    let q = document.querySelector('.mdl-navigation__link.active').getAttribute('data-type');
-    activeRecord = {
-        "id": gid,
-        "latlng": latlng,
-        "label": label,
-        "pid": pid,
-        "address": address
+// show map if webgl supported
+try {
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    // webgl in the House
+    Map.data = function() {
+        return {
+            privateState: {
+                map: null,
+                locationMarker: null,
+                poiMarker: null,
+                fullScreen: true,
+                markerClicked: false
+            },
+            sharedState: appState
+        };
     };
-    // populate search box
-    document.querySelector('.search-input').value = label;
-    // clear search results
-    searchComponent.setState({
-        searchData: null
+    new Vue({
+        el: 'sc-map',
+        render: h => h(Map)
     });
-    // add map marker, popup, and zoom
-    if (global.map) {
-        global.map.addressMarker(latlng.split(',').reverse(), label);
-    }
-    // push state
-    history.replaceState(null, null, `?q=${q}&latlng=${latlng}`);
-    // reports
-    questionRun(q, latlng, label, pid, gid);
-    // photos
-    let photos = ReactDOM.render( < HousePhotos pid = {pid} />,
-        document.querySelector('.photos')
-    );
+}
+catch (e) {
+    // drop the map
+    let elMap = document.querySelector('.mdl-card-map');
+    elMap.parentNode.removeChild(elMap);
+    let elMapSpacer = document.querySelector('#map-spacer');
+    elMapSpacer.parentNode.removeChild(elMapSpacer);
+}
+
+
+
+// set component data
+Search.data = function() {
+    return {
+        privateState: {
+            query: '',
+            results: [],
+            gps: false
+        },
+        sharedState: appState
+    };
 };
+new Vue({
+    el: 'sc-search',
+    render: h => h(Search)
+});
 
-// process URL arguments on page load
-if (getURLParameter('q') !== 'null') {
-    var navs = document.querySelectorAll(".mdl-navigation__link"),
-        q = getURLParameter('q'),
-        elem = document.querySelector(`.mdl-navigation__link[data-type="${q}"]`),
-        container = document.querySelector('.report-container');
+Introduction.data = function() {
+    return {
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-introduction',
+    render: h => h(Introduction)
+});
 
-    if (elem) {
-        questionChange(elem, navs, container, 'page');
-    }
-}
-if (getURLParameter('latlng') !== 'null') {
-    let latlng = getURLParameter('latlng').split(',');
-    fetchNearest(latlng[0], latlng[1]);
-}
 
-// set focus to search input after waiting a second
-// window.onload = function() {
-//     setTimeout(function() {
-//         document.querySelector(".search-input").focus();
-//     }, 1000);
-// };
+
+Parks.data = function() {
+    return {
+        privateState: {
+            results: null
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-parks',
+    render: h => h(Parks)
+});
+
+Libraries.data = function() {
+    return {
+        privateState: {
+            results: null
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-libraries',
+    render: h => h(Libraries)
+});
+
+Photos.data = function() {
+    return {
+        privateState: {
+            results: [],
+            photoIndex: 0
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-photos',
+    render: h => h(Photos)
+});
+
+Trash.data = function() {
+    return {
+        privateState: {
+            results: []
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-trash',
+    render: h => h(Trash)
+});
+
+Schools.data = function() {
+    return {
+        privateState: {
+            resultsMagnet: [],
+            resultsElementary: [],
+            resultsMiddle: [],
+            resultsHigh: []
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-schools',
+    render: h => h(Schools)
+});
+
+Voting.data = function() {
+    return {
+        privateState: {
+            resultsOfficials: [],
+            resultsPrecinct: [],
+            resultsNatlcong: [],
+            resultsNCSenate: [],
+            resultsNCHouse: [],
+            resultsCharlotte: []
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-voting',
+    render: h => h(Voting)
+});
+
+Impervious.data = function() {
+    return {
+        privateState: {
+            results: null
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-impervious',
+    render: h => h(Impervious)
+});
+
+QualityOfLife.data = function() {
+    return {
+        privateState: {
+            trends: null,
+            neighborhood: null,
+            metric: '37',
+            embedURL: null,
+            embedBase: 'http://mcmap.org/qol-embed/embed.html'
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-qualityoflife',
+    render: h => h(QualityOfLife)
+});
+
+Property.data = function() {
+    return {
+        privateState: {
+            resultsZoning: [],
+            resultsOwnership: [],
+            resultsAppraisal: [],
+            resultsSales: [],
+            resultsLanduse: [],
+            resultsBuildings: [],
+            resultsPermits: []
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-property',
+    render: h => h(Property)
+});
+
+Environment.data = function() {
+    return {
+        privateState: {
+            resultsFloodplain: null,
+            resultsSoil: null,
+            resultsWaterquality: null,
+            resultsPostconstruction: null,
+            resultsWatershed: null
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-environment',
+    render: h => h(Environment)
+});

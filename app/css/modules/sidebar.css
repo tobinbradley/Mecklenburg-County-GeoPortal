@@ -59,7 +59,7 @@
   box-sizing: border-box;
   padding: 105px 12px 0;
   height: 151px;
-  background: url(../../img/bgicon.png) center center;
+  background: url(../img/bgicon.png) center center;
 }
 .drawer-header a {
     text-decoration: none;
@@ -83,7 +83,7 @@
 }
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover,
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link.active {
-  background-color: var(--navHighlight);
+  background-color: rgb(255,183,77);
   color: #37474F !important;
 }
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link .material-icons,

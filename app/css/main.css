@@ -12,12 +12,10 @@ ____________________________________
 
 @import '../../node_modules/material-design-lite/material.css';
 @import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
-@import 'modules/variables.css';
 @import 'modules/oldie.css';
 @import 'modules/sidebar.css';
 @import 'modules/intro.css';
 @import 'modules/cards.css';
-@import 'modules/search.css';
 @import 'modules/map.css';
 @import 'modules/photos.css';
 @import 'modules/reports.css';
@@ -25,7 +23,6 @@ ____________________________________
 @import 'modules/youtube.css';
 @import 'modules/credits.css';
 @import 'modules/select.css';
-
 
 /*body treatments*/
 html, body {

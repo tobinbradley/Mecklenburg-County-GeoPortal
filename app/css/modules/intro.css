@@ -1,6 +1,6 @@
 .introduction h3 {
     font-weight: bold;
-    color: var(--reportHighlight);
+    color: rgb(0,145,234);
 }
 .introduction h4, .introduction h5 {
     line-height: normal;
@@ -9,9 +9,14 @@
     margin: 35px 0 6px;
 }
 .introduction h5 {
-    margin: 10px 0;     
+    margin: 10px 0;
 }
 .credit {
     font-size: 1.3em;
     margin-bottom: 5px;
+}
+
+.credits .material-icons {
+    font-size: 1.2em;
+    vertical-align: top;
 }

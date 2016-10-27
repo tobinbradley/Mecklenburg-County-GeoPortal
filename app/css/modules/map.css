@@ -3,6 +3,7 @@
     height: 100%;
 }
 .map-container, .map-catcher, #map {
+    position: relative;
     width: 100%;
     height: 100%;
 }
@@ -18,18 +19,9 @@
     font-family: 'Roboto', 'Helvetica', 'sans-serif';
     line-height: 15px;
 }
-.marker-title {
-    font-weight: 700;
-    padding-bottom: 5px;
-}
+
 #map-menu {
     position: absolute;
     top: 15px;
     right: 15px;
-}
-.map-menu-list li {
-    font-size: 0.8em;
-    padding: 10px;
-    margin: 0;
-    height: 10px;
 }

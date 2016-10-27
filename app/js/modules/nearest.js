@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-function fetchNearest(lat, lng) {
+export default function fetchNearest(lat, lng, appState) {
     axios
         .get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/master_address_table/${lng},${lat}/4326`,
         {
@@ -12,8 +12,11 @@ function fetchNearest(lat, lng) {
         })
         .then(function(response) {
             var item = response.data[0];
-            processRecord(item.objectid, item.lat + ',' + item.lng, item.full_address, item.num_parent_parcel, item.full_address);
+            appState.selected = {
+                'lnglat': [item.lng, item.lat],
+                'label': 'ADDRESS',
+                'address': item.full_address,
+                'pid': item.num_parent_parcel
+            };
         });
 }
-
-module.exports = fetchNearest;

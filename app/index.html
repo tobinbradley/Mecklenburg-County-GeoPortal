@@ -9,7 +9,7 @@
 	<title>GeoPortal</title>
 
 	<!-- favicon -->
-	<link rel="icon" type="image/png" href="img/favicon.png">
+	<link rel="icon" type="img/png" href="img/favicon.png">
 
 	<!-- Add to homescreen for Chrome on Android -->
 	<meta name="mobile-web-app-capable" content="yes">
@@ -67,63 +67,27 @@
 		</div>
 		<main class="mdl-layout__content mdl-color--grey-100">
 			<div class="mdl-grid">
-				<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
-					<div class="mdl-cell mdl-cell--12-col">
-						<div class="search-container mdl-typography--text-center">
-							<div class="search-input-container">
-								<input type="text" aria-label="search" name="search-input" class="search-input" autocomplete="off" placeholder="Tell me about..." />
-								<span class="bar"></span>
-								<p class="mdl-typography--text-left muted">Try typing part of an address, like <em>700 N</em>. Or we can <a href="javascript:void(0)" onclick="map.geolocation()">take a guess</a>.</p>
-                                <p class="mdl-typography--text-center muted print-only">GeoPortal &bull; Mecklenburg County GIS</p>
-							</div>
-						</div>
-					</div>
-					<div class="mdl-cell mdl-cell--12-col">
-						<div id="search-results"></div>
-					</div>
-				</div>
+				<sc-search></sc-search>
 
 				<div class="mdl-color-text--blue-grey-500 mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col mdl-typography--text-center report report-container">
-					<div class="introduction">
-						<!-- <h3>Welcome to GeoPortal</h3> -->
-						<h4>
-							Discover data about <strong>places</strong> in your community.
-						</h4>
-						<h5>
-							Search for an address or place to get started!
-						</h5>
-						<div class="youtube" id="DtEIu-h2FQo" data-params="controls=0&showinfo=0&rel=0" data-background="img/youtube-bg.png"></div>
-						<p class="credit">
-							Created by <a href="http://emaps.charmeck.org" target="_blank">Mecklenburg County GIS</a>
-						</p>
-						<p>
-							It's open source! <a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal">Fork it on GitHub</a>
-						</p>
-                        <p class="credits">
-							With much &#9829; for the projects that make this site possible: <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>, <a href="http://osm2vectortiles.org/" target="_blank">OSM2VectorTiles</a>, <a href="https://www.digitalglobe.com/" target="_blank">DigitalGlobe</a>, <a href="https://www.mapbox.com/mapbox-gl-js/api/" target="_blank">Mapbox GL JS</a>, <a href="https://facebook.github.io/react/" target="_blank">React</a>, <a href="http://getmdl.io/" target="_blank">Material Design Lite</a>
-						</p>
-					</div>
+					<sc-introduction></sc-introduction>
+                    <sc-voting></sc-voting>
+                    <sc-environment></sc-environment>
+                    <sc-schools></sc-schools>
+                    <sc-trash></sc-trash>
+                    <sc-property></sc-property>
+                    <sc-impervious></sc-impervious>
+                    <sc-parks></sc-parks>
+                    <sc-libraries></sc-libraries>
+                    <sc-qualityoflife></sc-qualityoflife>
 				</div>
 				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
 					<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop mdl-color--blue-grey-800 mdl-card-map">
-						<div class="map-container">
-                            <div class="map-catcher"></div>
-                            <button id="map-menu" class="mdl-button mdl-js-button mdl-button--icon">
-								<i class="mdl-color-text--orange-400 icon icon-menu" role="presentation"></i>
-							</button>
-							<ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect map-menu-list" for="map-menu">
-								<li class="mdl-menu__item map-fullscreen" onclick="map.fullScreen()">Full Screen</li>
-								<li class="mdl-menu__item" onclick="map.pitch()">Pitch</li>
-								<li class="mdl-menu__item" onclick="map.setStyle('./style/bright/style.json')">Streets</li>
-                                <li class="mdl-menu__item" onclick="map.setStyle('./style/digiglobe/style.json')">Satellite</li>
-								<li class="mdl-menu__item" onclick="map.setStyle('./style/blueprint/style.json')">Blueprint</li>
-							</ul>
-						</div>
+                        <sc-map></sc-map>
 					</div>
+					<div class="demo-separator mdl-cell--1-col" id="map-spacer"></div>
+					<sc-photos></sc-photos>
 
-					<div class="demo-separator mdl-cell--1-col"></div>
-
-					<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop mdl-color-text--blue-grey-50 photos"></div>
 				</div>
 			</div>
 
