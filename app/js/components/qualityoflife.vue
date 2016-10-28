@@ -2,9 +2,8 @@
     <div v-if="sharedState.selected.lnglat && sharedState.show.indexOf('qualityoflife') !== -1">
         <div class="qol">
             <div class="mdl-typography--text-center">
-                <div class="report-record-highlight">
-                    <i role="presentation" class="material-icons">favorite</i>
-                    <h2>Quality of Life</h2>
+                <div class="report-record-highlight qol-highlight">
+                    <h2><i role="presentation" class="material-icons qol-icon">favorite</i> Quality of Life</h2>
                 </div>
             </div>
 
@@ -158,7 +157,7 @@ export default {
             }
         },
         setIframe: function() {
-            this.privateState.embedURL = `${this.privateState.embedBase}?m=${this.privateState.metric}&s=${this.privateState.neighborhood}`;
+            this.privateState.embedURL = `${this.privateState.embedBase}?m=${this.privateState.metric}&s=${this.privateState.neighborhood}&pitch=true&smaxzoom=11`;
         },
         passMetric: function() {
             let _this = this;
@@ -169,4 +168,11 @@ export default {
 </script>
 
 <style lang="css">
+.qol-icon {
+    font-size: 1.2em !important;
+    vertical-align: middle;
+}
+.qol-highlight {
+    margin-bottom: 20px;
+}
 </style>
