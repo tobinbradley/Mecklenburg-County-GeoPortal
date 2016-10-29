@@ -114,7 +114,7 @@ for (let i = 0; i < navlinks.length; i++) {
                 scrollToElement(document.querySelector('.report-container'));
             } else {
                 scrollToElement(document.querySelector('.search-container'));
-                appState.show.push(q);
+                appState.show = ["introduction", q];
                 document.querySelector('.search-input').focus();
             }
         }

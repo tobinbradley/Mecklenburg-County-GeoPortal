@@ -16,7 +16,7 @@
     "build:css": "mkdirp public/css && postcss -u postcss-import -u cssnano -u autoprefixer --autoprefixer.browsers '> 5%' -o public/css/main.css app/css/main.css",
     "build": "npm-run-all --parallel build:*"
   },
-  "author": "",
+  "author": "Tobin Bradley",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.15.2",
