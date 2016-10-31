@@ -300,7 +300,7 @@ QualityOfLife.data = function() {
             neighborhood: null,
             metric: '37',
             embedURL: null,
-            embedBase: 'http://mcmap.org/qol-embed/embed.html'
+            embedBase: 'http://mcmap.org/qol-embed-meck/embed.html'
         },
         sharedState: appState
     };
