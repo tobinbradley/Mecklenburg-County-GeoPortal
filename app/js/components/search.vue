@@ -51,7 +51,7 @@ export default {
         },
         getResults: function(query) {
             let _this = this;
-            axios.get(`http://maps.co.mecklenburg.nc.us/api/search/v1/${query}`, {
+            axios.get(`http://maps.co.mecklenburg.nc.us/api/search/v1/${query.toLowerCase()}`, {
                 params: {
                   'tables': 'address,park,library,school,pid,business'
                 }
