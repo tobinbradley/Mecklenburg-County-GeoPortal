@@ -297,6 +297,8 @@ QualityOfLife.data = function() {
     return {
         privateState: {
             trends: null,
+            chartData: null,
+            chartCompare: 'County',
             neighborhood: null,
             metric: '37',
             embedURL: null,

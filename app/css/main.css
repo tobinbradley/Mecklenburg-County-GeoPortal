@@ -12,6 +12,7 @@ ____________________________________
 
 @import '../../node_modules/material-design-lite/material.css';
 @import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+@import '../../node_modules/chartist/dist/chartist.css';
 @import 'modules/oldie.css';
 @import 'modules/sidebar.css';
 @import 'modules/intro.css';
@@ -47,12 +48,6 @@ body {
 
 .mdl-selectfield {
     margin: 0 0 10px;
-}
-
-tr[data-qolgroup='Neighborhood'] td {
-    font-weight: bold;
-    font-size: 1.2em;
-    color: #555;
 }
 
 .mdl-layout__drawer-button {

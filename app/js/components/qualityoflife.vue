@@ -69,11 +69,17 @@
             </div>
             <iframe v-if="privateState.neighborhood" class="iframe-qol" v-bind:src="privateState.embedURL" style="width: 100%; height: 500px; border: 1px solid #595959"></iframe>
         </div>
+        <div class="mdl-typography--text-center trendchart" v-show="privateState.chartData && privateState.chartData.years.length > 1">
+            <h1>Trend</h1>
+            <span class="legend"><i class="material-icons legend-county">trending_up</i> {{privateState.chartCompare}}</span>
+            <span class="legend"><i class="material-icons legend-selected">trending_up</i> Neighborhood</span>
+            <div class="qol-chart-trend"></div>
+        </div>
         <div class="mdl-typography--text-center" v-if="privateState.trends">
                <table class="mdl-data-table" style="min-width: 350px; max-width: 100%;">
                    <caption>Comparing Your Neighborhood</caption>
                    <tbody>
-                       <tr v-for="(item, index) in privateState.trends" v-bind:data-qolgroup="item[0]">
+                       <tr v-for="(item, index) in privateState.trends" v-bind:data-qolgroup="item[0]" v-on:click="setCompare(item[0])">
                            <td class="mdl-data-table__cell--non-numeric">
                                {{item[0]}}
                            </td>
@@ -95,6 +101,7 @@
 
 <script>
 import axios from 'axios';
+import Chartist from 'chartist';
 import naturalSort from '../modules/naturalsort';
 
 export default {
@@ -104,12 +111,9 @@ export default {
         _this.getResults();
         window.onmessage = function(e){
             let data = e.data;
-            if (data.summary) {
-                // let compareKeys: Object.keys(data.summary.values);
-                // let compare: data.summary.values;
-                //
-                // let years = Object.keys(e.data.summary.years);
+            _this.privateState.chartData = data.summary;
 
+            if (data.summary) {
                 let compare = data.summary.values;
                 let compareKeys = Object.keys(compare)
                 let compareData = [];
@@ -117,19 +121,11 @@ export default {
                     compareData.push([ compareKeys[i], compare[compareKeys[i]][compare[compareKeys[i]].length - 1] ]);
                 }
                 compareData = compareData.sort(function(a, b) {
-                    // if (parseFloat(b[1].replace(/[^0-9-.]/g, '')) && parseFloat(a[1].replace(/[^0-9-.]/g, ''))) {
-                    //     return parseFloat(b[1].replace(/[^0-9-.]/g, '')) - parseFloat(a[1].replace(/[^0-9-.]/g, ''));
-                    // } else {
-                    //     console.log('nan');
-                    //     return -1;
-                    // }
-
-                    return naturalSort(b[1], a[1]);
+                    return naturalSort(b[1].replace(/[^0-9-.]/g, ''), a[1].replace(/[^0-9-.]/g, ''));
+                    //return parseFloat(b[1].replace(/[^0-9-.]/g, '')) - parseFloat(a[1].replace(/[^0-9-.]/g, ''));
                 });
 
                 _this.privateState.trends = compareData;
-
-                //_this.setState({ compareKeys: Object.keys(data.summary.values), compare: data.summary.values });
                 // Remove non-numeric chars (except decimal point/minus sign):
                 //priceVal = parseFloat(price.replace(/[^0-9-.]/g, '')); // 12345.99
             }
@@ -140,6 +136,8 @@ export default {
         "sharedState.selected.lnglat": "getResults",
         "sharedState.show": "getResults",
         "privateState.metric": "passMetric",
+        "privateState.chartData": "chart",
+        "privateState.chartCompare": "chart"
     },
     methods: {
         getResults: function() {
@@ -156,23 +154,84 @@ export default {
                 });
             }
         },
+        setCompare: function(compare) {
+            if (compare !== 'Neighborhood') {
+                this.privateState.chartCompare = compare;
+            }
+        },
         setIframe: function() {
             this.privateState.embedURL = `${this.privateState.embedBase}?m=${this.privateState.metric}&s=${this.privateState.neighborhood}&pitch=true&smaxzoom=11`;
         },
         passMetric: function() {
             let _this = this;
             document.querySelector(".iframe-qol").contentWindow.postMessage({"metric": _this.privateState.metric}, '*');
+        },
+        chart: function() {
+            let _this = this;
+
+            if (_this.privateState.chartData && _this.privateState.chartData.years.length > 1) {
+                new Chartist.Line('.qol-chart-trend', {
+                  labels:  _this.privateState.chartData.years,
+                  series: [
+                    _this.privateState.chartData.values[_this.privateState.chartCompare].map(function(num) { return parseFloat(num.replace(/[^0-9-.]/g, ''));  }),
+                    _this.privateState.chartData.values['Neighborhood'].map(function(num) { return parseFloat(num.replace(/[^0-9-.]/g, ''));  })
+                  ]
+                }, {
+                  fullWidth: true,
+                  chartPadding: {
+                    right: 40
+                  }
+                });
+            }
+
         }
     }
 }
 </script>
 
 <style lang="css">
+.qol-chart-trend .ct-series-b .ct-line, .qol-chart-trend .ct-series-b .ct-point {
+    stroke: #ba00e4;
+}
+
 .qol-icon {
     font-size: 1.2em !important;
     vertical-align: middle;
 }
 .qol-highlight {
     margin-bottom: 20px;
+}
+
+tr {
+    cursor: pointer;
+}
+
+tr[data-qolgroup='Neighborhood'] td {
+    font-weight: bold;
+    font-size: 1.2em;
+    color: #555;
+    background-color: #CDDC38;
+    cursor: default;
+}
+</style>
+
+<style lang="css" scoped>
+h1 {
+    font-size: 1.5em;
+    margin: 25px 0 0;
+}
+span.legend {
+    font-size: 0.8em;
+    display: inline !important;
+}
+.material-icons {
+    vertical-align: middle;
+    font-size: 1.5em;
+}
+.legend-selected {
+    color: #ba00e4;
+}
+.legend-county {
+    color: #d70206;
 }
 </style>

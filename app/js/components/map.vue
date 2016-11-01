@@ -80,20 +80,6 @@ export default {
                 _this.privateState.markerClicked = false;
             });
 
-
-            // after map initiated, grab geography and intiate/style neighborhoods
-            // map.on('style.load', function () {
-            //     axios.get('data/geography.geojson.json')
-            //         .then(function(response) {
-            //             _this.privateState.mapLoaded = true;
-            //             _this.privateState.geoJSON = response.data;
-            //             _this.initNeighborhoods();
-            //             _this.selectNeighborhoods();
-            //             _this.styleNeighborhoods();
-            //             _this.initMapEvents();
-            //         });
-            // });
-
         },
         mapPitch: function() {
             this.privateState.map.getPitch() === 0 ? this.privateState.map.easeTo({pitch: 90}) : this.privateState.map.easeTo({pitch: 0, bearing: 0});
