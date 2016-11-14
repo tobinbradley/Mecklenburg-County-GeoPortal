@@ -56,14 +56,12 @@ body {
     outline: none;
 }
 
-.sport-tab-card {
-  width: 512px;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: center;
-  margin-top: 5%;
-  padding: 30px;
+
+/*condensed table*/
+.table-condensed td {
+    padding: 10px;
+    height: 20px !important;
 }
-.sport-tab > .mdl-tabs__panel {
-  padding-top: 20px;
+.table-condensed tr {
+    height: 25px !important;
 }

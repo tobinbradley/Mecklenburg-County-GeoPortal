@@ -133,6 +133,14 @@ function scrollToElement(elem) {
 }
 
 
+// pass newly created mdl elements through mdl
+Vue.directive('mdl', {
+    bind: function(el) {
+        componentHandler.upgradeElement(el);
+    }
+});
+
+
 // show map if webgl supported
 try {
     let canvas = document.createElement('canvas');
@@ -300,7 +308,8 @@ QualityOfLife.data = function() {
             chartData: null,
             chartCompare: 'County',
             neighborhood: null,
-            metric: '37',
+            metric: '47',
+            showChart: false,
             embedURL: null,
             embedBase: 'http://mcmap.org/qol-embed-meck/embed.html'
         },

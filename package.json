@@ -6,14 +6,14 @@
   "scripts": {
     "start": "npm-run-all --parallel watch:*",
     "watch:js": "watchify app/js/app.js -o public/js/app.js",
-    "watch:css": "onchange 'app/css/**/*.css' -- postcss -m -u postcss-import -u autoprefixer --autoprefixer.browsers \"last 2 versions\" -o public/css/main.css app/css/main.css",
-    "watch:html": "onchange 'app/*.html' -- npm run build:html",
+    "watch:css": "onchange \"app/css/**/*.css\" -- postcss -m -u postcss-import -u autoprefixer --autoprefixer.browsers \"last 2 versions\" -o public/css/main.css app/css/main.css",
+    "watch:html": "onchange \"app/*.html\" -- npm run build:html",
     "watch:serve": "browser-sync --server \"public\" start --files \"public/**/*.html\" \"public/**/*.css\" \"public/**/*.js\" ",
     "build:html": "mkdirp public && node build/cachebuster.js",
     "build:copy": "ncp app/style public/style",
     "build:imagemin": "mkdirp public/img && imagemin app/img/* --out-dir=public/img",
     "build:js": "mkdirp public/js && cross-env NODE_ENV=production browserify -g envify app/js/app.js | uglifyjs -c warnings=false -m > public/js/app.js",
-    "build:css": "mkdirp public/css && postcss -u postcss-import -u cssnano -u autoprefixer --autoprefixer.browsers '> 5%' -o public/css/main.css app/css/main.css",
+    "build:css": "mkdirp public/css && postcss -u postcss-import -u cssnano -u autoprefixer --autoprefixer.browsers \"last 2 versions\" -o public/css/main.css app/css/main.css",
     "build": "npm-run-all --parallel build:*"
   },
   "author": "Tobin Bradley",
