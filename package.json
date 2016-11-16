@@ -24,9 +24,9 @@
     "es6-promise": "^4.0.5",
     "format-number": "^2.0.1",
     "lodash.debounce": "^4.0.8",
-    "mapbox-gl": "^0.26.0",
+    "mapbox-gl": "^0.27.0",
     "material-design-lite": "^1.2.1",
-    "vue": "^2.0.3"
+    "vue": "^2.0.6"
   },
   "devDependencies": {
     "autoprefixer": "^6.5.1",
@@ -47,7 +47,7 @@
     "postcss-cli": "^2.6.0",
     "postcss-import": "^8.1.2",
     "uglify-js": "^2.7.3",
-    "vueify": "^9.2.4",
+    "vueify": "^9.3.0",
     "watchify": "^3.7.0"
   },
   "babel": {

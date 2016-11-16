@@ -180,7 +180,7 @@
 
                     <div class="mdl-typography--text-center" style="padding: 10px 20px;" v-if="privateState.trends">
                        <table class="mdl-data-table table-condensed qol-comparison" style="width: 100%;">
-                           <caption>Comparing Your Neighborhood</caption>
+                           <caption>Compare Your Neighborhood</caption>
                            <tbody>
                                <tr v-for="(item, index) in privateState.trends" v-bind:data-qolgroup="item[0]" v-on:click="setCompare(item[0])">
                                    <td class="mdl-data-table__cell--non-numeric">

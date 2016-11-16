@@ -53,26 +53,6 @@ export default {
             _this.privateState.map = new mapboxgl.Map(mapOptions);
             let map = _this.privateState.map;
 
-            map.on('style.load', function () {
-                // markers layer
-                map.addSource("markers", {
-                    "type": "geojson",
-                    "data": {
-                        "type": "FeatureCollection",
-                        "features": []
-                    }
-                });
-                map.addLayer({
-                    "id": "markers",
-                    "type": "symbol",
-                    "source": "markers",
-                    "interactive": true,
-                    "layout": {
-                        "icon-image": "marker"
-                    }
-                });
-            });
-
             map.on('click', function (e) {
                 if (map.getZoom() >= 14 && !_this.privateState.markerClicked) {
                      fetchNearest(e.lngLat.lat, e.lngLat.lng, _this.sharedState);
