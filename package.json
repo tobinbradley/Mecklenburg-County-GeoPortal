@@ -24,7 +24,7 @@
     "es6-promise": "^4.0.5",
     "format-number": "^2.0.1",
     "lodash.debounce": "^4.0.8",
-    "mapbox-gl": "^0.27.0",
+    "mapbox-gl": "^0.28.0",
     "material-design-lite": "^1.2.1",
     "vue": "^2.0.6"
   },

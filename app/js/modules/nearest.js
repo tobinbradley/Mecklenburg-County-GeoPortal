@@ -11,6 +11,9 @@ export default function fetchNearest(lat, lng, appState) {
             }
         })
         .then(function(response) {
+            if (appState.show.indexOf("introduction") !== -1) {
+                appState.show.splice(appState.show.indexOf("introduction"), 1);
+            }
             var item = response.data[0];
             appState.selected = {
                 'lnglat': [item.lng, item.lat],
