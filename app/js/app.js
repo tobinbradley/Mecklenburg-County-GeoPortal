@@ -308,7 +308,7 @@ QualityOfLife.data = function() {
             chartData: null,
             chartCompare: 'County',
             neighborhood: null,
-            metric: '47',
+            metric: '37',
             showChart: false,
             embedURL: null,
             embedBase: 'http://mcmap.org/qol-embed-meck/embed.html'
