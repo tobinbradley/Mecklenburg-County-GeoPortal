@@ -6,3 +6,5 @@ deploy.sh
 public
 app/style/digiglobe
 TODO.md
+.vscode
+yarn.lock
