@@ -311,7 +311,7 @@ QualityOfLife.data = function() {
             metric: '37',
             showChart: false,
             embedURL: null,
-            embedBase: 'http://mcmap.org/qol-embed-meck/embed.html'
+            embedBase: 'http://mcmap.org/qol-embed/embed.html'
         },
         sharedState: appState
     };
@@ -355,4 +355,4 @@ Environment.data = function() {
 new Vue({
     el: 'sc-environment',
     render: h => h(Environment)
-});
+}); 
