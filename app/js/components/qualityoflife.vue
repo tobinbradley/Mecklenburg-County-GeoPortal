@@ -345,6 +345,9 @@ export default {
 .mdl-tabs__panel button {
     cursor: pointer;
 }
+.mdl-tabs__panel button:hover {
+    background-color: rgb(255,183,77);
+}
 .mdl-tabs__panel button span {
     pointer-events: none;
 }
