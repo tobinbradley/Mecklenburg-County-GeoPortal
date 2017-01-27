@@ -311,7 +311,10 @@ QualityOfLife.data = function() {
             metric: '37',
             showChart: false,
             embedURL: null,
-            embedBase: 'http://mcmap.org/qol-embed/embed.html'
+            metaURL: `http://mcmap.org/qol-mecklenburg/embed/data/meta/m37.html`,
+            reportURL: `http://mcmap.org/qol-mecklenburg/report/?m=37`,
+            neighborhoodCompare: 'Jurisdiction',            
+            embedBase: 'http://mcmap.org/qol-mecklenburg/embed/'
         },
         sharedState: appState
     };
