@@ -305,16 +305,18 @@ QualityOfLife.data = function() {
     return {
         privateState: {
             trends: null,
-            chartData: null,
-            chartCompare: 'County',
+            chartData: null,            
             neighborhood: null,
             metric: '37',
             showChart: false,
-            embedURL: null,
-            metaURL: `http://mcmap.org/qol-mecklenburg/embed/data/meta/m37.html`,
-            reportURL: `http://mcmap.org/qol-mecklenburg/report/?m=37`,
+            metaURL: '',
+            reportURL: '',
+            embedURL: '',
+            iframeURL: null,
             neighborhoodCompare: 'Jurisdiction',            
-            embedBase: 'http://mcmap.org/qol-mecklenburg/embed/'
+            chartCompare: 'County',
+            year: '',
+            qolData: null
         },
         sharedState: appState
     };

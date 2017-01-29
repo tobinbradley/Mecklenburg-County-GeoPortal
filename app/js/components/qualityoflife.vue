@@ -174,7 +174,7 @@
                         </div>
                       </div>
                     </div>
-                    <iframe v-if="privateState.neighborhood" class="iframe-qol" v-bind:src="privateState.embedURL" style="width: 100%; height: 500px; border: 1px solid #ccc"></iframe>
+                    <iframe v-if="privateState.neighborhood" class="iframe-qol" v-bind:src="privateState.iframeURL" style="width: 100%; height: 600px; border: 1px solid #ccc"></iframe>
                 </div>
                 <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet">
 
@@ -215,6 +215,12 @@
                        <a class="mdl-button mdl-js-button" v-bind:href="privateState.reportURL" target="_blank">Report</a>
                        <a class="mdl-button mdl-js-button" v-bind:href="privateState.metaURL" target="_blank">META</a>
                    </div>
+                   <div class="mdl-typography--text-center" style="margin-top: 20px;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-focused" id="embed-textarea" style="margin-left: 20px;" v-mdl>
+                            <textarea class="mdl-textfield__input" type="text" rows= "4" id="embedIframeCode" onclick="this.select()" v-on:keypress.stop.prevent autocomplete="off">{{ privateState.embedURL }}</textarea>
+                            <label class="mdl-textfield__label" for="embedIframeCode">Embed this Map</label>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -240,13 +246,14 @@ export default {
         window.onmessage = function(e){
             let data = e.data;
             if (data.summary) {
-                _this.setData(data.summary);
+                _this.privateState.qolData = data.summary;
             }            
         };
 
         
     },
     watch: {
+        "privateState.qolData": "dataReceived",
         "privateState.neighborhood": "setIframe",
         "sharedState.selected.lnglat": "getResults",
         "sharedState.show": "getResults",
@@ -255,6 +262,42 @@ export default {
         "privateState.chartCompare": "chart"
     },
     methods: {
+        dataReceived: function() {
+            let _this = this;
+
+            // set variables
+            _this.privateState.year = _this.privateState.qolData.year;
+
+            // set links
+            _this.privateState.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.privateState.metric}&s=${this.privateState.qolData.selected.join(",")}`;            
+            _this.privateState.embedURL = `<iframe src="http://mcmap.org/qol-mecklenburg/embed/?m=${this.privateState.metric}&y=${this.privateState.year}&s=${this.privateState.qolData.selected.join(",")}" style="width: 500px; height: 500px; border: 1px solid #595959"></iframe>`;
+
+            // set chart data
+            _this.privateState.chartData = _this.privateState.qolData;
+
+            // set trend data
+            _this.privateState.trends = _this.setTrendData(_this.privateState.qolData);
+
+        },
+        setTrendData: function(data) {
+            let _this = this;
+
+            let compare = data.values[_this.privateState.neighborhoodCompare];
+            let compareKeys = Object.keys(compare);
+            let compareData = [];
+            for (let i = 0; i < compareKeys.length; i++) {
+                compareData.push([ compareKeys[i], compare[compareKeys[i]][data.years.indexOf(data.year)] ]);
+            }
+            if (data.values["Neighborhood"].length > 0) {
+                compareData.push([ 'Neighborhood', data.values["Neighborhood"][data.years.indexOf(data.year)]]);
+            }        
+            compareData = compareData.sort(function(a, b) {
+                return naturalSort(b[1].replace(/[^0-9-.]/g, ''), a[1].replace(/[^0-9-.]/g, ''));
+            });
+
+            return compareData;
+
+        },
         getResults: function() {
             let el = document.querySelector('.report-container');
             if (this.sharedState.selected.lnglat && this.sharedState.show.indexOf('qualityoflife') !== -1) {
@@ -275,25 +318,7 @@ export default {
                 el.classList.add('mdl-cell--8-col');
             }
         },
-        setData: function(data) {
-            let _this = this;
-
-            _this.privateState.chartData = data;
-            let compare = data.values[_this.privateState.neighborhoodCompare];
-            let compareKeys = Object.keys(compare);
-            let compareData = [];
-            for (let i = 0; i < compareKeys.length; i++) {
-                compareData.push([ compareKeys[i], compare[compareKeys[i]][compare[compareKeys[i]].length - 1] ]);
-            }
-            if (data.values["Neighborhood"].length > 0) {
-                compareData.push([ 'Neighborhood', data.values["Neighborhood"][data.values["Neighborhood"].length - 1]]);
-            }        
-            compareData = compareData.sort(function(a, b) {
-                return naturalSort(b[1].replace(/[^0-9-.]/g, ''), a[1].replace(/[^0-9-.]/g, ''));
-            });
-
-            _this.privateState.trends = compareData;
-        },
+        
         changeNeighborhoodCompare: function(comparetype) {
             let _this = this;
             this.privateState.neighborhoodCompare = comparetype;
@@ -304,7 +329,7 @@ export default {
                 this.privateState.chartCompare = "District 1";
             }
 
-            this.setData(_this.privateState.chartData);
+            this.dataReceived();
         },
         setCompare: function(compare) {
             if (compare !== 'Neighborhood') {
@@ -312,23 +337,21 @@ export default {
             }
         },
         setIframe: function() {
-            let _this = this;
-            if (!this.privateState.embedURL) {
-                this.privateState.embedURL = `${this.privateState.embedBase}?m=${this.privateState.metric}&s=${this.privateState.neighborhood}&pitch=true&smaxzoom=11`;
+            let _this = this;                            
+            if (!this.privateState.iframeURL) {
+                this.privateState.iframeURL = `http://mcmap.org/qol-mecklenburg/embed/?m=${this.privateState.metric}&s=${this.privateState.neighborhood}`;
             } else {                
                 document.querySelector(".iframe-qol").contentWindow.postMessage({"selected": [_this.privateState.neighborhood.toString()]}, '*');
             }
             
-            this.privateState.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.privateState.metric}&s=${this.privateState.neighborhood}`;
+            // this.privateState.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.privateState.metric}&s=${this.privateState.neighborhood}`;
         },
-        removeIframe: function() {
-            this.privateState.embedURL = '';
+        createIframe: function() {
+            return `http://mcmap.org/qol-mecklenburg/embed/?m=${this.privateState.metric}&s=${this.privateState.neighborhood}&y=${this.privateState.year}`;
         },
         passMetric: function() {
             let _this = this;
-            document.querySelector(".iframe-qol").contentWindow.postMessage({"metric": _this.privateState.metric}, '*');
-            _this.privateState.metaURL = `http://mcmap.org/qol-mecklenburg/embed/data/meta/m${_this.privateState.metric}.html`;
-            _this.privateState.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${_this.privateState.metric}&s=${_this.privateState.neighborhood}`;
+            document.querySelector(".iframe-qol").contentWindow.postMessage({"metric": _this.privateState.metric}, '*');            
         },
         selectMetric: function(m, event) {
             this.privateState.metric = m;
@@ -457,5 +480,13 @@ span.legend {
 .qol-comparison {
     margin-top: 10px;
     margin-bottom: 0;
+}
+textarea {
+    font-size: 0.8em;
+}
+#embed-textarea .mdl-textfield__label {
+  top: 4px;
+  color: #3f51b5;
+  font-size: 12px;
 }
 </style>
