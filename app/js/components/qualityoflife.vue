@@ -269,8 +269,9 @@ export default {
             _this.privateState.year = _this.privateState.qolData.year;
 
             // set links
-            _this.privateState.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.privateState.metric}&s=${this.privateState.qolData.selected.join(",")}`;            
+            _this.privateState.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.privateState.metric}&s=${this.privateState.qolData.selected.join(",")}&y=${this.privateState.year}`;            
             _this.privateState.embedURL = `<iframe src="http://mcmap.org/qol-mecklenburg/embed/?m=${this.privateState.metric}&y=${this.privateState.year}&s=${this.privateState.qolData.selected.join(",")}" style="width: 500px; height: 500px; border: 1px solid #595959"></iframe>`;
+            _this.privateState.metaURL = `http://mcmap.org/qol-mecklenburg/embed/data/meta/m${_this.privateState.metric}.html`;
 
             // set chart data
             _this.privateState.chartData = _this.privateState.qolData;
