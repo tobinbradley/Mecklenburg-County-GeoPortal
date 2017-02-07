@@ -1,14 +1,22 @@
 <template lang="html">
-    <div v-if="privateState.results && sharedState.show.indexOf('impervious') !== -1">
+    <div>
+        <div v-if="!$parent.sharedState.selected.pid">
+            <Introduction>
+                <div class='intro-slot'>
+                    To view <strong>Impervious Surface</strong> information, use the search above to find a location.
+                </div>
+            </Introduction>
+        </div>
+        <div v-else>
         <div class="mdl-typography--text-center">
           <div class="report-record-highlight">
               <i role="presentation" class="material-icons">invert_colors_off</i>
               <h2>You have</h2>
-              <h1>{{ total() | area }}</h1>
+              <h1 v-if="results">{{ total() | area }}</h1>
               <h3>of Impervious Surface</h3>
               <h4></h4>
           </div>
-          <table v-if="privateState.results.length > 0" class="mdl-data-table mdl-js-data-table" style="min-width: 300px; max-width: 100%;">
+          <table v-if="results" class="mdl-data-table mdl-js-data-table" style="min-width: 300px; max-width: 100%;">
               <caption>Details</caption>
               <thead>
                   <tr>
@@ -17,7 +25,7 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr v-for="(item, index) in privateState.results">
+                  <tr v-for="(item, index) in results">
                       <td class="mdl-data-table__cell--non-numeric">
                           {{item.subtheme}}
                       </td>
@@ -41,17 +49,26 @@
 <script>
 import axios from 'axios';
 import format from 'format-number';
+import Welcome from './introduction.vue';
 
 export default {
     name: 'impervious',
+    data: function() {
+        return {
+            results: null
+        }
+    },
+    components: {
+        Introduction: Welcome
+    },
     filters: {
         area: function(num) {
             return format({'truncate': 0, 'suffix': ' Sq. Ft.'})(num);
         }
     },
     watch: {
-        'sharedState.selected.lnglat': 'getResults',
-        'sharedState.show': 'getResults'
+        '$parent.sharedState.selected.lnglat': 'getResults',
+        '$parent.sharedState.show': 'getResults'
     },
     mounted: function() {
         this.getResults();
@@ -59,25 +76,25 @@ export default {
     methods: {
         getResults: function() {
             let _this = this;
-            if (_this.sharedState.selected.lnglat && _this.sharedState.show.indexOf('impervious') !== -1) {
+            if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('impervious') !== -1) {
                 axios
                   .get('http://maps.co.mecklenburg.nc.us/api/query/v1/impervious_surface_area',
                   {
                       params: {
                           'columns': 'sum(sum_of_area) as area, subtheme',
-                          'filter': `commonpid='${_this.sharedState.selected.pid}'`,
+                          'filter': `commonpid='${_this.$parent.sharedState.selected.pid}'`,
                           'sort': 'subtheme',
                           'group': 'subtheme'
                       }
                   })
                   .then(function(response) {
-                      _this.privateState.results = response.data;
+                      _this.results = response.data;
                   });
               }
         },
         total: function() {
             let total = 0;
-            this.privateState.results.forEach(function(item) {
+            this.results.forEach(function(item) {
                 total = total + Number(item.area);
             });
             return total;

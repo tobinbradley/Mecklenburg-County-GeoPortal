@@ -40,9 +40,8 @@ export default {
             let _this = this;
 
             let mapOptions = {
-                container: 'map',
-                //style: './style/bright/style.json',
-                style: './style/osm-liberty.json',
+                container: 'map',                
+                style: './style/osm-mecklenburg.json',
                 attributionControl: false,
                 center: [-80.84, 35.26],
                 zoom: 8.5,
@@ -176,7 +175,7 @@ export default {
             });
 
             // push state
-            history.replaceState(null, null, `?q=${_this.sharedState.show[0]}&latlng=${selected.lnglat[1]},${selected.lnglat[0]}`);
+            history.replaceState(null, null, `?q=${_this.sharedState.show}&latlng=${selected.lnglat[1]},${selected.lnglat[0]}`);
 
             // create the popup
             let popup = new mapboxgl.Popup({offset:[2, -23]})

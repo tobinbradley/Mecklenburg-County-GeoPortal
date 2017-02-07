@@ -1,17 +1,25 @@
 <template lang="html">
-    <div v-if="privateState.results && sharedState.show.indexOf('libraries') !== -1">
-        <div class="mdl-typography--text-center">
+    <div>
+        <div v-if="!$parent.sharedState.selected.pid">
+            <Introduction>
+                <div class='intro-slot'>
+                    To view <strong>Library</strong> information, use the search above to find a location.
+                </div>
+            </Introduction>
+        </div>
+        <div v-else>
+        <div class="mdl-typography--text-center" v-if="results">
             <div class="report-record-highlight">
                 <i role="presentation" class="material-icons">local_library</i>
                 <h2>Your closest library is</h2>
-                <h1>{{ privateState.results[0].name }}</h1>
+                <h1>{{ results[0].name }}</h1>
                 <h3>
                     <a href="javascript:void(0)" v-on:click="locationClick(0)">
-                        {{ privateState.results[0].address }}, {{ privateState.results[0].city}}
+                        {{ results[0].address }}, {{ results[0].city}}
                     </a>
                 </h3>
                 <h4>
-                    {{ privateState.results[0].distance | distance }}
+                    {{ results[0].distance | distance }}
                 </h4>
             </div>
             <table class="mdl-data-table mdl-js-data-table">
@@ -24,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, index) in privateState.results">
+                    <tr v-for="(item, index) in results">
                         <td class="mdl-data-table__cell--non-numeric">
                             {{ item.name }}
                         </td>
@@ -52,17 +60,26 @@
 <script>
 import axios from 'axios';
 import format from 'format-number';
+import Welcome from './introduction.vue';
 
 export default {
   name: 'libraries',
+  data: function() {
+        return {
+            results: null
+        }
+  },
+  components: {
+        Introduction: Welcome
+  },
   filters: {
       distance: function(dist) {
           return format({'truncate': 1, 'suffix': ' miles'})(dist / 5280);
       }
   },
   watch: {
-      'sharedState.selected.lnglat': 'getResults',
-      'sharedState.show': 'getResults'
+      '$parent.sharedState.selected.lnglat': 'getResults',
+      '$parent.sharedState.show': 'getResults'
   },
   mounted: function() {
       this.getResults();
@@ -70,9 +87,9 @@ export default {
   methods: {
       getResults: function() {
           let _this = this;
-          if (_this.sharedState.selected.lnglat && _this.sharedState.show.indexOf('libraries') !== -1) {
+          if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('libraries') !== -1) {
               axios
-                .get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/libraries/${_this.sharedState.selected.lnglat.join(',')}/4326`,
+                .get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/libraries/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                 {
                     params: {
                         'geom_column': 'the_geom',
@@ -81,13 +98,13 @@ export default {
                     }
                 })
                 .then(function(response) {
-                    _this.privateState.results = response.data;
+                    _this.results = response.data;
                 });
             }
       },
       locationClick: function(index) {
-          let poi = this.privateState.results[index];
-          this.sharedState.poi = {
+          let poi = this.results[index];
+          this.$parent.sharedState.poi = {
               'lnglat': [poi.lng, poi.lat],
               'address': poi.address,
               'label': poi.name

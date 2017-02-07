@@ -1,5 +1,13 @@
 <template lang="html">
-    <div v-show="sharedState.selected.lnglat && sharedState.show.indexOf('qualityoflife') !== -1">
+    <div>
+        <div v-if="!$parent.sharedState.selected.lnglat">
+            <Introduction>
+                <div class='intro-slot'>
+                    To view <strong>Quality of Life</strong> information, use the search above to find a location.
+                </div>
+            </Introduction>
+        </div>
+        <div v-else>
         <div class="qol">
             <div class="mdl-typography--text-center">
                 <div class="report-record-highlight qol-highlight">
@@ -174,27 +182,23 @@
                         </div>
                       </div>
                     </div>
-                    <iframe v-if="privateState.neighborhood" class="iframe-qol" v-bind:src="privateState.iframeURL" style="width: 100%; height: 600px; border: 1px solid #ccc"></iframe>
+                    <iframe v-if="neighborhood" class="iframe-qol" v-bind:src="iframeURL" style="width: 100%; height: 600px; border: 1px solid #ccc"></iframe>
                 </div>
-                <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet">
-
-                           
-                    <div class="mdl-typography--text-center" style="padding: 10px 20px;">
-                        <div>
-                        Neighborhood vs <br>
-                               <button id="qol-compare" class="mdl-button mdl-js-button" v-mdl>
-                                    Jurisdictions <i class="material-icons">keyboard_arrow_down</i>
-                                </button>
-                           <ul class="mdl-menu mdl-menu--bottom-left mdl-js-menu mdl-js-ripple-effect" for="qol-compare">
-                               <li class="mdl-menu__item" v-on:click="changeNeighborhoodCompare('Jurisdiction')">Jurisdiction</li>
-                               <li class="mdl-menu__item" v-on:click="changeNeighborhoodCompare('City Council')">City Council</li>
-                               <li class="mdl-menu__item" v-on:click="changeNeighborhoodCompare('County Commission')">County Commission</li>
-                           </ul>
-                        </div>
+                <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet">                           
+                    <div class="mdl-typography--text-center" style="padding: 10px 20px;">                        
+                        Neighborhood vs                         
+                               <div class="dropdown">
+                                <button class="dropdown-button">{{ neighborhoodCompare }} &#x25BC</button>
+                                <div class="dropdown-content">
+                                    <a href="javascript:void(0)" v-on:click="changeNeighborhoodCompare('Jurisdiction')">Jurisdiction</a>
+                                    <a href="javascript:void(0)" v-on:click="changeNeighborhoodCompare('City Council')">Charlotte City Council</a>
+                                    <a href="javascript:void(0)" v-on:click="changeNeighborhoodCompare('County Commission')">County Commission</a>
+                                </div>
+                            </div>                            
 
                        <table class="mdl-data-table table-condensed qol-comparison" style="width: 100%;">
                            <tbody>
-                               <tr v-for="(item, index) in privateState.trends" v-bind:data-qolgroup="item[0]" v-on:click="setCompare(item[0])">
+                               <tr v-for="(item, index) in trends" v-bind:data-qolgroup="item[0]" v-on:click="setCompare(item[0])">
                                    <td class="mdl-data-table__cell--non-numeric">
                                        {{item[0]}}
                                    </td>
@@ -205,19 +209,19 @@
                            </tbody>
                        </table>
                    </div>
-                   <div class="mdl-typography--text-center trendchart" v-show="privateState.showChart">
+                   <div class="mdl-typography--text-center trendchart" v-show="showChart">
                        <h1>Trend</h1>
-                       <span class="legend"><i class="material-icons legend-county">trending_up</i> {{privateState.chartCompare}}</span>
+                       <span class="legend"><i class="material-icons legend-county">trending_up</i> {{chartCompare}}</span>
                        <span class="legend"><i class="material-icons legend-selected">trending_up</i> Neighborhood</span>
                        <div class="qol-chart-trend"></div>
                    </div>
                    <div class="mdl-typography--text-center" style="margin-top: 20px">
-                       <a class="mdl-button mdl-js-button" v-bind:href="privateState.reportURL" target="_blank">Report</a>
-                       <a class="mdl-button mdl-js-button" v-bind:href="privateState.metaURL" target="_blank">META</a>
+                       <a class="mdl-button mdl-js-button" v-bind:href="reportURL" target="_blank">Report</a>
+                       <a class="mdl-button mdl-js-button" v-bind:href="metaURL" target="_blank">META</a>
                    </div>
                    <div class="mdl-typography--text-center" style="margin-top: 20px;">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-focused" id="embed-textarea" style="margin-left: 20px;" v-mdl>
-                            <textarea class="mdl-textfield__input" type="text" rows= "4" id="embedIframeCode" onclick="this.select()" v-on:keypress.stop.prevent autocomplete="off">{{ privateState.embedURL }}</textarea>
+                            <textarea class="mdl-textfield__input" type="text" rows= "4" id="embedIframeCode" onclick="this.select()" v-on:keypress.stop.prevent autocomplete="off">{{ embedURL }}</textarea>
                             <label class="mdl-textfield__label" for="embedIframeCode">Embed this Map</label>
                         </div>
                     </div>
@@ -237,53 +241,84 @@
 import axios from 'axios';
 import Chartist from 'chartist';
 import naturalSort from '../modules/naturalsort';
+import getURLParameter from '../modules/geturlparams';
+import Welcome from './introduction.vue';
 
 export default {
     name: 'quality_of_life',
+    data: function() {
+        return {
+            trends: null,
+            chartData: null,            
+            neighborhood: null,
+            metric: getURLParameter('qolm') !== 'null' ? getURLParameter('qolm') : '37',
+            showChart: false,
+            metaURL: '',
+            reportURL: '',
+            embedURL: '',
+            iframeURL: null,
+            neighborhoodCompare: 'Jurisdiction',            
+            chartCompare: 'County',
+            year: '',
+            qolData: null
+        }
+    },
+    components: {
+        Introduction: Welcome
+    },
     mounted: function() {
         let _this = this;
+
+        // set app area
+        let el = document.querySelector('.report-container');
+        el.classList.remove('mdl-cell--8-col');
+        el.classList.add('mdl-cell--12-col');
+
         _this.getResults();
         window.onmessage = function(e){
             let data = e.data;
             if (data.summary) {
-                _this.privateState.qolData = data.summary;
+                _this.qolData = data.summary;
             }            
-        };
-
-        
+        };        
+    },
+    beforeDestroy: function() {
+        let el = document.querySelector('.report-container');
+        el.classList.remove('mdl-cell--12-col');
+        el.classList.add('mdl-cell--8-col');
     },
     watch: {
-        "privateState.qolData": "dataReceived",
-        "privateState.neighborhood": "setIframe",
-        "sharedState.selected.lnglat": "getResults",
-        "sharedState.show": "getResults",
-        "privateState.metric": "passMetric",
-        "privateState.chartData": "chart",
-        "privateState.chartCompare": "chart"
+        "qolData": "dataReceived",
+        "neighborhood": "setIframe",
+        "$parent.sharedState.selected.lnglat": "getResults",
+        "$parent.sharedState.show": "getResults",
+        "metric": "passMetric",
+        "chartData": "chart",
+        "chartCompare": "chart"
     },
     methods: {
         dataReceived: function() {
             let _this = this;
 
             // set variables
-            _this.privateState.year = _this.privateState.qolData.year;
+            _this.year = _this.qolData.year;
 
             // set links
-            _this.privateState.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.privateState.metric}&s=${this.privateState.qolData.selected.join(",")}&y=${this.privateState.year}`;            
-            _this.privateState.embedURL = `<iframe src="http://mcmap.org/qol-mecklenburg/embed/?m=${this.privateState.metric}&y=${this.privateState.year}&s=${this.privateState.qolData.selected.join(",")}" style="width: 500px; height: 500px; border: 1px solid #595959"></iframe>`;
-            _this.privateState.metaURL = `http://mcmap.org/qol-mecklenburg/embed/data/meta/m${_this.privateState.metric}.html`;
+            _this.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.metric}&s=${this.qolData.selected.join(",")}&y=${this.year}`;            
+            _this.embedURL = `<iframe src="http://mcmap.org/qol-mecklenburg/embed/?m=${this.metric}&y=${this.year}&s=${this.qolData.selected.join(",")}" style="width: 500px; height: 500px; border: 1px solid #595959"></iframe>`;
+            _this.metaURL = `http://mcmap.org/qol-mecklenburg/embed/data/meta/m${_this.metric}.html`;
 
             // set chart data
-            _this.privateState.chartData = _this.privateState.qolData;
+            _this.chartData = _this.qolData;
 
             // set trend data
-            _this.privateState.trends = _this.setTrendData(_this.privateState.qolData);
+            _this.trends = _this.setTrendData(_this.qolData);
 
         },
         setTrendData: function(data) {
             let _this = this;
 
-            let compare = data.values[_this.privateState.neighborhoodCompare];
+            let compare = data.values[_this.neighborhoodCompare];
             let compareKeys = Object.keys(compare);
             let compareData = [];
             for (let i = 0; i < compareKeys.length; i++) {
@@ -300,62 +335,55 @@ export default {
 
         },
         getResults: function() {
-            let el = document.querySelector('.report-container');
-            if (this.sharedState.selected.lnglat && this.sharedState.show.indexOf('qualityoflife') !== -1) {
+            if (this.$parent.sharedState.selected.lnglat && this.$parent.sharedState.show.indexOf('qualityoflife') !== -1) {
                 let _this = this;
-                el.classList.remove('mdl-cell--8-col');
-                el.classList.add('mdl-cell--12-col');
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/neighborhoods/${_this.sharedState.selected.lnglat.join(',')}/4326`, {
+                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/neighborhoods/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`, {
                     params: {
                         'geom_column': 'the_geom',
                         'columns': 'id',
                         'limit': 1
                     }
                 }).then(function(response) {
-                    _this.privateState.neighborhood = response.data[0].id;
+                    _this.neighborhood = response.data[0].id;
                 });
-            } else {
-                el.classList.remove('mdl-cell--12-col');
-                el.classList.add('mdl-cell--8-col');
-            }
+            } 
         },
         
         changeNeighborhoodCompare: function(comparetype) {
             let _this = this;
-            this.privateState.neighborhoodCompare = comparetype;
-            document.querySelector("#qol-compare").innerHTML = comparetype + ' <i class="material-icons">keyboard_arrow_down</i>';
+            this.neighborhoodCompare = comparetype;
             if (comparetype === 'Jurisdiction') {
-                this.privateState.chartCompare = "County";
+                this.chartCompare = "County";
             } else {
-                this.privateState.chartCompare = "District 1";
+                this.chartCompare = "District 1";
             }
 
             this.dataReceived();
         },
         setCompare: function(compare) {
             if (compare !== 'Neighborhood') {
-                this.privateState.chartCompare = compare;
+                this.chartCompare = compare;
             }
         },
         setIframe: function() {
             let _this = this;                            
-            if (!this.privateState.iframeURL) {
-                this.privateState.iframeURL = `http://mcmap.org/qol-mecklenburg/embed/?m=${this.privateState.metric}&s=${this.privateState.neighborhood}`;
+            if (!this.iframeURL) {
+                this.iframeURL = `http://mcmap.org/qol-mecklenburg/embed/?m=${this.metric}&s=${this.neighborhood}`;
             } else {                
-                document.querySelector(".iframe-qol").contentWindow.postMessage({"selected": [_this.privateState.neighborhood.toString()]}, '*');
+                document.querySelector(".iframe-qol").contentWindow.postMessage({"selected": [_this.neighborhood.toString()]}, '*');
             }
             
-            // this.privateState.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.privateState.metric}&s=${this.privateState.neighborhood}`;
+            // this.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.metric}&s=${this.neighborhood}`;
         },
         createIframe: function() {
-            return `http://mcmap.org/qol-mecklenburg/embed/?m=${this.privateState.metric}&s=${this.privateState.neighborhood}&y=${this.privateState.year}`;
+            return `http://mcmap.org/qol-mecklenburg/embed/?m=${this.metric}&s=${this.neighborhood}&y=${this.year}`;
         },
         passMetric: function() {
             let _this = this;
-            document.querySelector(".iframe-qol").contentWindow.postMessage({"metric": _this.privateState.metric}, '*');            
+            document.querySelector(".iframe-qol").contentWindow.postMessage({"metric": _this.metric}, '*');            
         },
         selectMetric: function(m, event) {
-            this.privateState.metric = m;
+            this.metric = m;
             let btns = document.querySelectorAll('.mdl-tabs__panel button');
             for (let i = 0; i < btns.length; i++) {
                 btns[i].classList.remove("qol-chip-active");
@@ -364,8 +392,8 @@ export default {
         },
         chart: function() {
             let _this = this;
-            if (_this.privateState.chartData && _this.privateState.chartData.years.length > 1) {
-                _this.privateState.showChart = true;
+            if (_this.chartData && _this.chartData.years.length > 1) {
+                _this.showChart = true;
 
                 let options = {
                     fullWidth: true,
@@ -374,7 +402,7 @@ export default {
                     },
                     axisX: {
                         labelInterpolationFnc: function(value, index) {
-                            if (_this.privateState.chartData.years.length > 6) {
+                            if (_this.chartData.years.length > 6) {
                                 return index % 2 === 0 ? value : null;
                             } else {
                                 return value;
@@ -384,27 +412,27 @@ export default {
                 };
 
                 let data = {
-                    labels:  _this.privateState.chartData.years,
+                    labels:  _this.chartData.years,
                     series: [
                                                 
                     ]
                 };
 
                 // set compare series
-                if (_this.privateState.chartData.values[_this.privateState.neighborhoodCompare][_this.privateState.chartCompare]) {
-                    data.series.push(_this.privateState.chartData.values[_this.privateState.neighborhoodCompare][_this.privateState.chartCompare].map(function(num) { return parseFloat(num.replace(/[^0-9-.]/g, ''));  }));
+                if (_this.chartData.values[_this.neighborhoodCompare][_this.chartCompare]) {
+                    data.series.push(_this.chartData.values[_this.neighborhoodCompare][_this.chartCompare].map(function(num) { return parseFloat(num.replace(/[^0-9-.]/g, ''));  }));
                 } else {
-                    data.series.push(_this.privateState.chartData.values['Jurisdiction']['County'].map(function(num) { return parseFloat(num.replace(/[^0-9-.]/g, ''));  }));
+                    data.series.push(_this.chartData.values['Jurisdiction']['County'].map(function(num) { return parseFloat(num.replace(/[^0-9-.]/g, ''));  }));
                 }
 
                 // set selected series
-                if (_this.privateState.chartData.values.Neighborhood.length > 0) {
-                    data.series.push(_this.privateState.chartData.values.Neighborhood.map(function(num) { return parseFloat(num.replace(/[^0-9-.]/g, ''));  }));
+                if (_this.chartData.values.Neighborhood.length > 0) {
+                    data.series.push(_this.chartData.values.Neighborhood.map(function(num) { return parseFloat(num.replace(/[^0-9-.]/g, ''));  }));
                 }
 
                 new Chartist.Line('.qol-chart-trend', data, options);
-            } else if (_this.privateState.chartData){
-                _this.privateState.showChart = false;
+            } else if (_this.chartData){
+                _this.showChart = false;
             }
         }
     }

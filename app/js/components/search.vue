@@ -75,7 +75,7 @@ export default {
                 _this.sharedState.show.splice(intro, 1);
             }
             // push state
-            history.replaceState(null, null, `?q=${_this.sharedState.show[0]}&latlng=${_this.sharedState.selected.lnglat[1]},${_this.sharedState.selected.lnglat[0]}`);
+            history.replaceState(null, null, `?q=${_this.sharedState.show}&latlng=${_this.sharedState.selected.lnglat[1]},${_this.sharedState.selected.lnglat[0]}`);
         }
     }
 }

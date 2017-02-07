@@ -1,26 +1,34 @@
 <template lang="html">
-    <div v-if="sharedState.selected.lnglat && sharedState.show.indexOf('environment') !== -1">
-       <div class="mdl-grid">
+    <div>
+        <div v-if="!$parent.sharedState.selected.pid">
+            <Introduction>
+                <div class='intro-slot'>
+                    To view <strong>Environmental</strong> information, use the search above to find a location.
+                </div>
+            </Introduction>
+        </div>
+        <div v-else>
+        <div class="mdl-grid">
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-              <div v-if="privateState.resultsFloodplain">
+              <div v-if="resultsFloodplain">
                   <div class="report-record-highlight">
                         <i role="presentation" class="material-icons">flash_on</i>
-                        <h2 v-if="privateState.resultsFloodplain.length > 0">This property is in a</h2>
+                        <h2 v-if="resultsFloodplain.length > 0">This property is in a</h2>
                         <h2 v-else>This property is not in a regulated floodplain.</h2>
-                        <h1 v-if="privateState.resultsFloodplain.length > 0">REGULATED FLOODPLAIN</h1>
-                        <h4 v-if="privateState.resultsFloodplain.length > 0"><a target="_blank" href={fz}>Special restrictions may apply</a>. For more information, please call 704.336.3728.</h4>
+                        <h1 v-if="resultsFloodplain.length > 0">REGULATED FLOODPLAIN</h1>
+                        <h4 v-if="resultsFloodplain.length > 0"><a target="_blank" href={fz}>Special restrictions may apply</a>. For more information, please call 704.336.3728.</h4>
                     </div>
               </div>
            </div>
 
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-               <div v-if="privateState.resultsWaterquality">
+               <div v-if="resultsWaterquality">
                    <div class="report-record-highlight">
                          <i role="presentation" class="material-icons">invert_colors</i>
-                         <template v-if="privateState.resultsWaterquality.length > 0">
+                         <template v-if="resultsWaterquality.length > 0">
                              <h2>This property is in a</h2>
                              <h1>WATER QUALITY BUFFER</h1>
-                             <h4>The buffer(s) are: <strong>{{ privateState.resultsWaterquality | waterquality }}</strong>. <a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">Special restrictions may apply</a>. For more information,
+                             <h4>The buffer(s) are: <strong>{{ resultsWaterquality | waterquality }}</strong>. <a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">Special restrictions may apply</a>. For more information,
                              please call 980.721.4191 for existing single-family lots and those projects not needing a grading permit or call 704.432.5570 for
                              other projects.</h4>
                          </template>
@@ -32,12 +40,12 @@
            </div>
 
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-               <div v-if="privateState.resultsPostconstruction">
+               <div v-if="resultsPostconstruction">
                    <div class="report-record-highlight">
                         <i role="presentation" class="material-icons">build</i>
-                        <template v-if="privateState.resultsPostconstruction.length > 0">
+                        <template v-if="resultsPostconstruction.length > 0">
                             <h2>This property is in a</h2>
-                            <h1>{{ privateState.resultsPostconstruction | postconstruction }}</h1>
+                            <h1>{{ resultsPostconstruction | postconstruction }}</h1>
                             <h4><a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">PCCO mitigation options apply</a>. For more information, please call 704.432.5571.</h4>
                         </template>
                         <template v-else>
@@ -48,10 +56,10 @@
            </div>
 
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-               <div class="report-record-highlight" v-if="privateState.resultsWatershed">
+               <div class="report-record-highlight" v-if="resultsWatershed">
                     <i role="presentation" class="material-icons">terrain</i>
                     <h2>This property is in the</h2>
-                    <h1>{{privateState.resultsWatershed[0].name.toUpperCase()}} WATERSHED</h1>
+                    <h1>{{resultsWatershed[0].name.toUpperCase()}} WATERSHED</h1>
                     <h4>A watershed, or drainage basin, is an area of land where all surface water converges to a single point at a lower elevation,
                     usually the exit of the basin such as a river, lake, or wetland.</h4>
                 </div>
@@ -59,7 +67,7 @@
 
        </div>
        <div class="mdl-typography--text-center">
-           <div v-if="privateState.resultsSoil">
+           <div v-if="resultsSoil">
                <table class="mdl-data-table mdl-js-data-table">
                     <caption>Soil Types</caption>
                     <thead>
@@ -70,7 +78,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in privateState.resultsSoil">
+                        <tr v-for="(item, index) in resultsSoil">
                             <td class="mdl-data-table__cell--non-numeric">
                                 {{item.name}}
                             </td>
@@ -99,12 +107,25 @@
 
 <script>
 import axios from 'axios';
+import Welcome from './introduction.vue';
 
 export default {
     name: 'environment',
+    data: function() {
+        return {
+            resultsFloodplain: null,
+            resultsSoil: null,
+            resultsWaterquality: null,
+            resultsPostconstruction: null,
+            resultsWatershed: null
+        }
+    },
+    components: {
+        Introduction: Welcome
+    },
     watch: {
-        'sharedState.selected.lnglat': 'getResults',
-        'sharedState.show': 'getResults'
+        '$parent.sharedState.selected.lnglat': 'getResults',
+        '$parent.sharedState.show': 'getResults'
     },
     filters: {
         postconstruction: function(items) {
@@ -128,60 +149,60 @@ export default {
     methods: {
         getResults: function() {
             let _this = this;
-            if (_this.sharedState.selected.lnglat && _this.sharedState.show.indexOf('environment') !== -1) {
+            if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('environment') !== -1) {
                 axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/view_regulated_floodplains`,
                     {
                         params: {
                             'columns': 't.gid',
-                            'filter': `f.pid = '${_this.sharedState.selected.pid}'`,
+                            'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
                             'geom_column_from': 'the_geom',
                             'geom_column_to': 'the_geom'
                         }
                     })
                     .then(function(response) {
-                        _this.privateState.resultsFloodplain = response.data;
+                        _this.resultsFloodplain = response.data;
                     });
 
                 axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/post_construction_layers`,
                     {
                         params: {
                             'columns': 'type, name',
-                            'filter': `f.pid = '${_this.sharedState.selected.pid}' and t.type in ('TRANSIT CORRIDOR', 'BUSINESS CORRIDOR') `,
+                            'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}' and t.type in ('TRANSIT CORRIDOR', 'BUSINESS CORRIDOR') `,
                             'geom_column_from': 'the_geom',
                             'geom_column_to': 'the_geom'
                         }
                     })
                     .then(function(response) {
-                        _this.privateState.resultsPostconstruction = response.data;
+                        _this.resultsPostconstruction = response.data;
                     });
 
                 axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/soil`,
                     {
                         params: {
                             'columns': 'distinct name,description,hydrologic_group',
-                            'filter': `f.pid = '${_this.sharedState.selected.pid}'`,
+                            'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
                             'geom_column_from': 'the_geom',
                             'geom_column_to': 'the_geom'
                         }
                     })
                     .then(function(response) {
-                        _this.privateState.resultsSoil = response.data;
+                        _this.resultsSoil = response.data;
                     });
 
                 axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/water_quality_buffers`,
                     {
                         params: {
                             'columns': 'distinct type,label',
-                            'filter': `f.pid = '${_this.sharedState.selected.pid}'`,
+                            'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
                             'geom_column_from': 'the_geom',
                             'geom_column_to': 'the_geom'
                         }
                     })
                     .then(function(response) {
-                        _this.privateState.resultsWaterquality = response.data;
+                        _this.resultsWaterquality = response.data;
                     });
 
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/watersheds/${_this.sharedState.selected.lnglat.join(',')}/4326`,
+                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/watersheds/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                     {
                         params: {
                             'columns': 'name',
@@ -189,7 +210,7 @@ export default {
                         }
                     })
                     .then(function(response) {
-                        _this.privateState.resultsWatershed = response.data;
+                        _this.resultsWatershed = response.data;
                     });
             }
         }

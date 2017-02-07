@@ -1,20 +1,28 @@
 <template lang="html">
-    <div v-if="privateState.results && sharedState.show.indexOf('parks') !== -1">
+    <div>
+        <div v-if="!$parent.sharedState.selected.pid">
+            <Introduction>
+                <div class='intro-slot'>
+                    To view <strong>Park</strong> information, use the search above to find a location.
+                </div>
+            </Introduction>
+        </div>
+        <div v-else>
         <div class="mdl-typography--text-center">
-            <div class="report-record-highlight">
+            <div class="report-record-highlight" v-if="results">
                 <i role="presentation" class="material-icons">nature_people</i>
                 <h2>Your closest park is</h2>
-                <h1>{{ privateState.results[0].name }}</h1>
+                <h1>{{ results[0].name }}</h1>
                 <h3>
                     <a href="javascript:void(0)"v-on:click="locationClick(0)">
-                        {{ privateState.results[0].address }}, {{ privateState.results[0].city}}
+                        {{ results[0].address }}, {{ results[0].city}}
                     </a>
                 </h3>
                 <h4>
-                    {{ privateState.results[0].distance | distance }}
+                    {{ results[0].distance | distance }}
                 </h4>
             </div>
-            <table class="mdl-data-table mdl-js-data-table">
+            <table class="mdl-data-table mdl-js-data-table" v-if="results">
                 <caption>Parks Nearby</caption>
                 <thead>
                     <tr>
@@ -24,7 +32,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, index) in privateState.results">
+                    <tr v-for="(item, index) in results">
                         <td class="mdl-data-table__cell--non-numeric">
                             {{ item.name }}
                         </td>
@@ -53,17 +61,26 @@
 <script>
 import axios from 'axios';
 import format from 'format-number';
+import Welcome from './introduction.vue';
 
 export default {
   name: 'parks',
+  data: function() {
+        return {
+            results: null
+        }
+    },
+  components: {
+      Introduction: Welcome
+  },
   filters: {
       distance: function(dist) {
           return format({'truncate': 1, 'suffix': ' miles'})(dist / 5280);
       }
   },
   watch: {
-      'sharedState.selected.lnglat': 'getResults',
-      'sharedState.show': 'getResults'
+      '$parent.sharedState.selected.lnglat': 'getResults',
+      '$parent.sharedState.show': 'getResults'
   },
   mounted: function() {
       this.getResults();
@@ -71,9 +88,9 @@ export default {
   methods: {
       getResults: function() {
           let _this = this;
-          if (_this.sharedState.selected.lnglat && _this.sharedState.show.indexOf('parks') !== -1) {
+          if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('parks') !== -1) {
               axios
-                .get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/parks_all/${_this.sharedState.selected.lnglat.join(',')}/4326`,
+                .get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/parks_all/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                 {
                     params: {
                         'columns': 'name, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',
@@ -81,13 +98,13 @@ export default {
                     }
                 })
                 .then(function(response) {
-                    _this.privateState.results = response.data;
+                    _this.results = response.data;
                 });
             }
       },
       locationClick: function(index) {
-          let poi = this.privateState.results[index];
-          this.sharedState.poi = {
+          let poi = this.results[index];
+          this.$parent.sharedState.poi = {
               'lnglat': [poi.lng, poi.lat],
               'address': poi.address,
               'label': poi.name

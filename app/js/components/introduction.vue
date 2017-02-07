@@ -1,6 +1,6 @@
 <template lang="html">
-    <div class="introduction" v-show="sharedState.show.indexOf('introduction') !== -1">
-        <!-- <h3>Welcome to GeoPortal</h3> -->
+    <div class="introduction">
+        <slot></slot>        
         <h4>
             Discover data about <strong>places</strong> in your community.
         </h4>
@@ -29,7 +29,7 @@
 import youtubeLoader from '../modules/youtube';
 
 export default {
-    name: 'introduction',
+    name: 'welcome',
     mounted: function() {
         youtubeLoader('.youtube');
     }
@@ -37,4 +37,12 @@ export default {
 </script>
 
 <style lang="css">
+    .intro-slot {
+        padding: 14px 20px;
+        background: #0097A7;
+        font-size: 1.2em;
+        border-radius: 5px;
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+        color: white;
+    }
 </style>

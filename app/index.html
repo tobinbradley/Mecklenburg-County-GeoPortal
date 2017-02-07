@@ -52,8 +52,9 @@
 				<span>Mecklenburg County GIS</span>
 			</header>
 			<nav class="navigation mdl-navigation mdl-color--blue-grey-800">
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200 active" data-type="property" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">business</i>Property</a>
+				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="welcome" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">face</i>Welcome</a>
 				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="schools" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">school</i>Schools</a>
+				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="property" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">business</i>Property</a>				
 				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="trash" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">delete</i>Trash and Recycling</a>
 				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="environment" data-layers="postgis:view_regulated_floodplains" data-layers-position="building" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">terrain</i>Environment</a>
 				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="impervious" data-layers="postgis:impervious_surface" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">invert_colors_off</i></i>Impervious Surface</a>
@@ -69,16 +70,7 @@
 			<div class="mdl-grid">
 				<sc-search></sc-search>
 				<div class="mdl-color-text--blue-grey-500 mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col mdl-typography--text-center report report-container">
-					<sc-introduction></sc-introduction>
-                    <sc-voting></sc-voting>
-                    <sc-environment></sc-environment>
-                    <sc-schools></sc-schools>
-                    <sc-trash></sc-trash>
-                    <sc-property></sc-property>
-                    <sc-impervious></sc-impervious>
-                    <sc-parks></sc-parks>
-                    <sc-libraries></sc-libraries>
-                    <sc-qualityoflife></sc-qualityoflife>
+					<sc-app></sc-app>            
 				</div>
 				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
 					<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop mdl-color--blue-grey-800 mdl-card-map">
@@ -86,7 +78,6 @@
 					</div>
 					<div class="demo-separator mdl-cell--1-col" id="map-spacer"></div>
 					<sc-photos></sc-photos>
-
 				</div>
 			</div>
 

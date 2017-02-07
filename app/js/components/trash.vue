@@ -1,13 +1,19 @@
 <template lang="html">
-    <div v-if="sharedState.selected.lnglat && sharedState.show.indexOf('trash') !== -1">
-        <div v-if="privateState.results.length > 0">
-
-            <div class="mdl-grid" v-if="privateState.results[0].jurisdiction === 'huntersville'">
+    <div v-if="!$parent.sharedState.selected.lnglat">
+            <Introduction>
+                <div class='intro-slot'>
+                    To view <strong>Trash and Recycling Pickup</strong> information, use the search above to find a location.
+                </div>
+            </Introduction>
+    </div>
+    <div v-else>
+        <div v-if="results.length > 0">
+            <div class="mdl-grid" v-if="results[0].jurisdiction === 'huntersville'">
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                     <div class="report-record-highlight">
                         <i role="presentation" class="material-icons">delete</i>
                         <h2>Your TRASH day is</h2>
-                        <h1>{{ privateState.results[0].day }}</h1>
+                        <h1>{{ results[0].day }}</h1>
                     </div>
                 </div>
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
@@ -15,39 +21,39 @@
                         <i role="presentation" class="material-icons">refresh</i>
                         <h2>Your RECYCLING day is</h2>
                         <h1>
-                        {{ privateState.results[0].day }}
-                        {{ recyclingWeek(privateState.results[0].week) }}
+                        {{ results[0].day }}
+                        {{ recyclingWeek(results[0].week) }}
                     </h1>
                         <h4>Recycling pickup is every other week.</h4>
                     </div>
                 </div>
             </div>
 
-            <div class="mdl-typography--text-center" v-if="privateState.results[0].jurisdiction === 'cornelius'">
+            <div class="mdl-typography--text-center" v-if="results[0].jurisdiction === 'cornelius'">
                 <div class="report-record-highlight">
                     <i role="presentation" class="material-icons">delete</i>
                     <h2>Your collection day is</h2>
-                    <h1>{{privateState.results[0].day.toUpperCase()}}</h1>
-                    <h3>for {{privateState.results[0].type}}</h3>
+                    <h1>{{results[0].day.toUpperCase()}}</h1>
+                    <h3>for {{results[0].type}}</h3>
                     <h4></h4>
                 </div>
             </div>
 
-            <div v-if="privateState.results[0].jurisdiction === 'charlotte'">
+            <div v-if="results[0].jurisdiction === 'charlotte'">
                 <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                         <div class="report-record-highlight">
                             <i role="presentation" class="material-icons">delete</i>
                             <h2>Your TRASH day is</h2>
-                            <h1>{{ privateState.results | typeFilter('GARBAGE') | itemFilter('day') }}</h1>
+                            <h1>{{ results | typeFilter('GARBAGE') | itemFilter('day') }}</h1>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                         <div class="report-record-highlight">
                             <i role="presentation" class="material-icons">refresh</i>
                             <h2>Your RECYCLING day is</h2>
-                            <h1>{{ privateState.results | typeFilter('RECYCLING') | itemFilter('day') }} {{ recyclingWeek(privateState.results) }}</h1>
-                            <h4>Recycling pickup is every other week ({{ privateState.results | typeFilter('RECYCLING') | itemFilter('week')}})</h4>
+                            <h1>{{ results | typeFilter('RECYCLING') | itemFilter('day') }} {{ recyclingWeek(results) }}</h1>
+                            <h4>Recycling pickup is every other week ({{ results | typeFilter('RECYCLING') | itemFilter('week')}})</h4>
                         </div>
                     </div>
                 </div>
@@ -65,7 +71,7 @@
                                 Yard Waste
                             </td>
                             <td class="mdl-data-table__cell--non-numeric">
-                                {{ privateState.results | typeFilter('YARD WASTE') | itemFilter('day') }}
+                                {{ results | typeFilter('YARD WASTE') | itemFilter('day') }}
                             </td>
                         </tr>
                         <tr>
@@ -73,7 +79,7 @@
                                 Bulky Items
                             </td>
                             <td class="mdl-data-table__cell--non-numeric">
-                                {{ privateState.results | typeFilter('BULKY') | itemFilter('day') }} <br /> Call 311 to schedule.
+                                {{ results | typeFilter('BULKY') | itemFilter('day') }} <br /> Call 311 to schedule.
                             </td>
                         </tr>
                     </tbody>
@@ -109,12 +115,21 @@
 // 5501 Ruth is green (even)
 
 import axios from 'axios';
+import Welcome from './introduction.vue';
 
 export default {
     name: 'trash',
+    data: function() {
+        return {
+            results: []
+        }
+    },
+    components: {
+        Introduction: Welcome
+    },
     watch: {
-        'sharedState.selected.lnglat': 'getResults',
-        'sharedState.show': 'getResults'
+        '$parent.sharedState.selected.lnglat': 'getResults',
+        '$parent.sharedState.show': 'getResults'
     },
     filters: {
         typeFilter: function(items, val) {
@@ -131,8 +146,8 @@ export default {
     methods: {
         getResults: function() {
             let _this = this;
-            if (_this.sharedState.selected.lnglat && _this.sharedState.show.indexOf('trash') !== -1) {
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/solid_waste/${_this.sharedState.selected.lnglat.join(',')}/4326`,
+            if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('trash') !== -1) {
+                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/solid_waste/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                     {
                         params: {
                             'geom_column': 'the_geom',
@@ -140,7 +155,7 @@ export default {
                         }
                     })
                     .then(function(response) {
-                        _this.privateState.results = response.data;
+                        _this.results = response.data;
                     });
             }
         },

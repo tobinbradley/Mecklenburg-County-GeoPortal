@@ -18,18 +18,9 @@ import Vue from 'vue';
 import getURLParameter from './modules/geturlparams';
 import fetchNearest from './modules/nearest';
 import Search from './components/search.vue';
-import Introduction from './components/introduction.vue';
 import Map from './components/map.vue';
-import Parks from './components/parks.vue';
-import Libraries from './components/libraries.vue';
-import Property from './components/property.vue';
-import Impervious from './components/impervious.vue';
+import App from './components/app.vue';
 import Photos from './components/photos.vue';
-import Schools from './components/schools.vue';
-import Trash from './components/trash.vue';
-import Environment from './components/environment.vue';
-import Voting from './components/voting.vue';
-import QualityOfLife from './components/qualityoflife.vue';
 
 
 // the shared state between components
@@ -45,23 +36,21 @@ let appState = {
         'label': null,
         'address': null
     },
-    show: ["introduction", "property"],
+    show: "welcome",
     mapOverlay: null
 };
 
 // process URL arguments on page load
 if (getURLParameter('q') !== 'null') {
     let q = getURLParameter('q');
-    let navs = document.querySelectorAll(".mdl-navigation__link");
     let elem =  document.querySelector(`.mdl-navigation__link[data-type="${q}"]`);
-
     if (elem) {
-        for (let i = 0; i < navs.length; i++) {
-            navs[i].classList.remove('active');
-        }
         elem.classList.add('active');
-        appState.show = ["introduction", q];
+        appState.show = q;
     }
+} else {
+    let elem =  document.querySelector(`.mdl-navigation__link[data-type="${appState.show}"]`);
+    elem.classList.add('active');
 }
 if (getURLParameter('latlng') !== 'null') {
     let latlng = getURLParameter('latlng').split(',');
@@ -91,7 +80,7 @@ for (let i = 0; i < navlinks.length; i++) {
 
             let q = item.getAttribute('data-type');
 
-            // push state
+            // push state and GA
             if (appState.selected.lnglat) {
                 history.replaceState(null, null, `?q=${q}&latlng=${appState.selected.lnglat[1]},${appState.selected.lnglat[0]}`);
             } else {
@@ -109,14 +98,8 @@ for (let i = 0; i < navlinks.length; i++) {
                 appState.mapOverlay = null;
             }
 
-            if (appState.selected.lnglat) {
-                appState.show = [q];
-                scrollToElement(document.querySelector('.report-container'));
-            } else {
-                scrollToElement(document.querySelector('.search-container'));
-                appState.show = ["introduction", q];
-                document.querySelector('.search-input').focus();
-            }
+            appState.show = q;
+            scrollToElement(document.querySelector('.report-container'));
         }
     });
 
@@ -135,13 +118,54 @@ function scrollToElement(elem) {
 
 // pass newly created mdl elements through mdl
 Vue.directive('mdl', {
-    bind: function(el) {
+    inserted: function (el) {
         componentHandler.upgradeElement(el);
     }
 });
 
+// initialize search
+Search.data = function() {
+    return {
+        privateState: {
+            query: '',
+            results: [],
+            gps: false
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-search',
+    render: h => h(Search)
+});
 
-// show map if webgl supported
+// initialize main app
+App.data = function() {
+    return {       
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-app',
+    render: h => h(App)
+});
+
+// initialize photos
+Photos.data = function() {
+    return {
+        privateState: {
+            results: [],
+            photoIndex: 0
+        },
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-photos',
+    render: h => h(Photos)
+});
+
+// initialize map if webgl supported
 try {
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
@@ -172,192 +196,3 @@ catch (e) {
 }
 
 
-
-// set component data
-Search.data = function() {
-    return {
-        privateState: {
-            query: '',
-            results: [],
-            gps: false
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-search',
-    render: h => h(Search)
-});
-
-Introduction.data = function() {
-    return {
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-introduction',
-    render: h => h(Introduction)
-});
-
-
-
-Parks.data = function() {
-    return {
-        privateState: {
-            results: null
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-parks',
-    render: h => h(Parks)
-});
-
-Libraries.data = function() {
-    return {
-        privateState: {
-            results: null
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-libraries',
-    render: h => h(Libraries)
-});
-
-Photos.data = function() {
-    return {
-        privateState: {
-            results: [],
-            photoIndex: 0
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-photos',
-    render: h => h(Photos)
-});
-
-Trash.data = function() {
-    return {
-        privateState: {
-            results: []
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-trash',
-    render: h => h(Trash)
-});
-
-Schools.data = function() {
-    return {
-        privateState: {
-            resultsMagnet: [],
-            resultsElementary: [],
-            resultsMiddle: [],
-            resultsHigh: []
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-schools',
-    render: h => h(Schools)
-});
-
-Voting.data = function() {
-    return {
-        privateState: {
-            resultsOfficials: [],
-            resultsPrecinct: [],
-            resultsNatlcong: [],
-            resultsNCSenate: [],
-            resultsNCHouse: [],
-            resultsCharlotte: []
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-voting',
-    render: h => h(Voting)
-});
-
-Impervious.data = function() {
-    return {
-        privateState: {
-            results: null
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-impervious',
-    render: h => h(Impervious)
-});
-
-QualityOfLife.data = function() {
-    return {
-        privateState: {
-            trends: null,
-            chartData: null,            
-            neighborhood: null,
-            metric: '37',
-            showChart: false,
-            metaURL: '',
-            reportURL: '',
-            embedURL: '',
-            iframeURL: null,
-            neighborhoodCompare: 'Jurisdiction',            
-            chartCompare: 'County',
-            year: '',
-            qolData: null
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-qualityoflife',
-    render: h => h(QualityOfLife)
-});
-
-Property.data = function() {
-    return {
-        privateState: {
-            resultsZoning: [],
-            resultsOwnership: [],
-            resultsAppraisal: [],
-            resultsSales: [],
-            resultsLanduse: [],
-            resultsBuildings: [],
-            resultsPermits: []
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-property',
-    render: h => h(Property)
-});
-
-Environment.data = function() {
-    return {
-        privateState: {
-            resultsFloodplain: null,
-            resultsSoil: null,
-            resultsWaterquality: null,
-            resultsPostconstruction: null,
-            resultsWatershed: null
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-environment',
-    render: h => h(Environment)
-}); 

@@ -24,6 +24,7 @@ ____________________________________
 @import 'modules/youtube.css';
 @import 'modules/credits.css';
 @import 'modules/select.css';
+@import 'modules/dropdown.css';
 
 /*body treatments*/
 html, body {
