@@ -21,5 +21,6 @@ export default function fetchNearest(lat, lng, appState) {
                 'address': item.full_address,
                 'pid': item.num_parent_parcel
             };
+            appState.initLnglatFlag = false;
         });
 }

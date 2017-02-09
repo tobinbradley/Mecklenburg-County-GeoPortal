@@ -37,7 +37,8 @@ let appState = {
         'address': null
     },
     show: "welcome",
-    mapOverlay: null
+    mapOverlay: null,
+    initLnglatFlag: false
 };
 
 // process URL arguments on page load
@@ -54,11 +55,8 @@ if (getURLParameter('q') !== 'null') {
 }
 if (getURLParameter('latlng') !== 'null') {
     let latlng = getURLParameter('latlng').split(',');
-    let index = appState.show.indexOf("introduction");
+    appState.initLnglatFlag = true;
 
-    if (index !== -1) {
-        appState.show.splice(index, 1);
-    }
     fetchNearest(latlng[0], latlng[1], appState);
 }
 
