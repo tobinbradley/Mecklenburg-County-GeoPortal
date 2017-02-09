@@ -44,6 +44,10 @@
                <i role="presentation" class="material-icons">directions_bus</i>
                <h2>Your Transportation Zone is</h2>
                <h1>{{resultsHigh[0].zone.toUpperCase()}}</h1>
+               <p v-if="tmpTransportationZone && resultsHigh[0].zone.toUpperCase() !== tmpTransportationZone[0].choicezn.toUpperCase()">
+                   For the 2017-2018 school year, your <strong>Transportation Zone</strong> will
+                   change to <strong>{{ tmpTransportationZone[0].choicezn.toUpperCase() }}</strong>.
+               </p>
            </div>
         </div>
 
@@ -101,7 +105,8 @@ export default {
           resultsMagnet: [],
           resultsElementary: [],
           resultsMiddle: [],
-          resultsHigh: []
+          resultsHigh: [],
+          tmpTransportationZone: null
       }
   },
   filters: {
@@ -173,6 +178,18 @@ export default {
                     })
                     .then(function(response) {
                         _this.resultsHigh = response.data;
+                    });
+
+                // temporary for transportation zone
+                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/tmp_cms_transportation_2017/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                    {
+                        params: {
+                            'columns': 'choicezn',
+                            'limit': 1
+                        }
+                    })
+                    .then(function(response) {
+                        _this.tmpTransportationZone = response.data;
                     });
             }
       },
