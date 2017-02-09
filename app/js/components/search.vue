@@ -1,5 +1,5 @@
 <template lang="html">
-    <div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col mdl-grid">
+    <div style="width: 100%;">
         <div class="mdl-cell mdl-cell--12-col">
             <div class="search-container mdl-typography--text-center">
                 <div class="search-input-container">
