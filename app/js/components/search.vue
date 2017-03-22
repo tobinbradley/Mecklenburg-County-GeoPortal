@@ -5,7 +5,7 @@
                 <div class="search-input-container">
                     <input type="text" aria-label="search" name="search-input" class="search-input" autocomplete="off" placeholder="Tell me about..." v-on:focus="search()" v-model="privateState.query" />
                     <span class="bar"></span>
-                    <p class="mdl-typography--text-left muted">Try typing part of an address, like <em>700 N</em>. <span v-if="privateState.gps">Or we can <a href="javascript:void(0)" onclick="map.geolocation()">take a guess</a>.</span></p>
+                    <p class="mdl-typography--text-left muted">Try typing part of an address, like <em>700 N</em>. <span v-if="privateState.gps">Or we can <a href="javascript:void(0)" @click="geoLocation">take a guess</a>.</span></p>
                     <p class="mdl-typography--text-center muted print-only">GeoPortal &bull; Mecklenburg County GIS</p>
                 </div>
             </div>
@@ -28,6 +28,7 @@
 <script>
 import axios from 'axios';
 import debounce from 'lodash.debounce';
+import fetchNearest from '../modules/nearest';
 
 export default {
     name: 'search',
@@ -49,9 +50,17 @@ export default {
             }, 250);
             if(query.length >= 4) { debounceSearch(); }
         },
+        geoLocation: function() {
+            let _this = this;
+            if ("geolocation" in navigator) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    fetchNearest(position.coords.latitude, position.coords.longitude, _this.sharedState);
+                });
+            }
+        },
         getResults: function(query) {
             let _this = this;
-            axios.get(`http://maps.co.mecklenburg.nc.us/api/search/v1/${query.toLowerCase()}`, {
+            axios.get(`https://mcmap.org/api/search/v1/${query.toLowerCase()}`, {
                 params: {
                   'tables': 'address,park,library,school,pid,business'
                 }
@@ -69,6 +78,7 @@ export default {
                 'address': rec.address,
                 'pid': rec.pid
             };
+            console.log(rec.lng, rec.lat);
             _this.privateState.results = [];
             let intro = _this.sharedState.show.indexOf('introduction');
             if (intro !== -1) {

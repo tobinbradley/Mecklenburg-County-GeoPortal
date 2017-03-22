@@ -18,7 +18,7 @@
     "openmaptiles": {
       "type": "vector",
           "tiles": [
-            "http://tiles.mcmap.org/united_states_of_america_v4/{z}/{x}/{y}.pbf"
+            "https://tiles.mcmap.org/united_states_of_america_v4/{z}/{x}/{y}.pbf"
           ],
           "maxzoom": 14,
           "minzoom": 0
@@ -26,15 +26,14 @@
     "parcels": {
           "type": "vector",
           "tiles": [
-            "http://maps.co.mecklenburg.nc.us/tiles/parcels_and_buildings/{z}/{x}/{y}.pbf",
-            "http://tiles.mcmap.org/parcels_and_buildings/{z}/{x}/{y}.pbf"
+            "https://tiles.mcmap.org/parcels_and_buildings/{z}/{x}/{y}.pbf"
           ],
           "maxzoom": 14,
           "minzoom": 13
         }
   },
-  "sprite": "https://rawgit.com/lukasmartinelli/osm-liberty/gh-pages/sprites/osm-liberty",
-  "glyphs": "https://orangemug.github.io/font-glyphs/glyphs/{fontstack}/{range}.pbf",
+  "sprite": "https://mcmap.org/gl-styles/sprites/osm-liberty",
+  "glyphs": "https://mcmap.org/gl-styles/fonts/{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",

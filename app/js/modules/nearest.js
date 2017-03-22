@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export default function fetchNearest(lat, lng, appState) {
     axios
-        .get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/master_address_table/${lng},${lat}/4326`,
+        .get(`https://mcmap.org/api/nearest/v1/master_address_table/${lng},${lat}/4326`,
         {
             params: {
                 'geom_column': 'the_geom',

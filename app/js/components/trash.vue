@@ -147,7 +147,7 @@ export default {
         getResults: function() {
             let _this = this;
             if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('trash') !== -1) {
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/solid_waste/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                axios.get(`https://mcmap.org/api/intersect_point/v1/solid_waste/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                     {
                         params: {
                             'geom_column': 'the_geom',

@@ -140,7 +140,7 @@ export default {
   methods: {
       getOfficials: function() {
           let _this = this;
-          axios.get(`http://maps.co.mecklenburg.nc.us/api/query/v1/elected_officials`,
+          axios.get(`https://mcmap.org/api/query/v1/elected_officials`,
               {
                   params: {
                       'sort': 'district'
@@ -153,7 +153,7 @@ export default {
       getResults: function() {
           let _this = this;
           if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('voting') !== -1) {
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/voting_precincts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                axios.get(`https://mcmap.org/api/intersect_point/v1/voting_precincts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                     {
                         params: {
                             'geom_column': 'the_geom',
@@ -166,7 +166,7 @@ export default {
                         _this.resultsPrecinct = response.data;
                     });
 
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/national_congressional/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                axios.get(`https://mcmap.org/api/intersect_point/v1/national_congressional/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                     {
                         params: {
                             'geom_column': 'the_geom',
@@ -177,7 +177,7 @@ export default {
                         _this.resultsNatlcong = response.data;
                     });
 
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/state_senate/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                axios.get(`https://mcmap.org/api/intersect_point/v1/state_senate/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                     {
                         params: {
                             'geom_column': 'the_geom',
@@ -188,7 +188,7 @@ export default {
                         _this.resultsNCSenate = response.data;
                     });
 
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/state_house/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                axios.get(`https://mcmap.org/api/intersect_point/v1/state_house/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                     {
                         params: {
                             'geom_column': 'the_geom',
@@ -199,7 +199,7 @@ export default {
                         _this.resultsNCHouse = response.data;
                     });
 
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/city_council/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                axios.get(`https://mcmap.org/api/intersect_point/v1/city_council/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                     {
                         params: {
                             'geom_column': 'the_geom',

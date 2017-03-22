@@ -14,7 +14,8 @@
 
 <script>
 import Axios from 'axios';
-import mapboxgl from 'mapbox-gl';
+//import mapboxgl from 'mapbox-gl';
+import mapboxgl from 'mapbox-gl/src/index.js';
 import directions from '../modules/directions';
 import fetchNearest from '../modules/nearest';
 
@@ -52,6 +53,10 @@ export default {
             _this.privateState.map = new mapboxgl.Map(mapOptions);
             let map = _this.privateState.map;
 
+            map.on('load', function() { 
+                _this.mapOverlay();
+            });
+
             map.on('click', function (e) {
                 if (map.getZoom() >= 14 && !_this.privateState.markerClicked) {
                      fetchNearest(e.lngLat.lat, e.lngLat.lng, _this.sharedState);
@@ -72,23 +77,69 @@ export default {
                 map.removeSource("overlay");
             }
 
-            if (_this.sharedState.mapOverlay) {
-                map.addSource('overlay', {
-                    "type": "raster",
-                    "tiles": [`http://maps.co.mecklenburg.nc.us/zxy2wms/${_this.sharedState.mapOverlay}/{z}/{x}/{y}.png`],
-                    "tileSize": 256,
-                    "maxzoom": 18
-                });
+            if (_this.sharedState.mapOverlay && _this.sharedState.mapOverlay === 'view_regulated_floodplains') {                
+                map.addLayer({
+                    "id": "overlay",
+                    "type": "fill",
+                    "source": {
+                    "type": "vector",
+                        "tiles": [
+                            "https://mcmap.org/api/mvt/v1/view_regulated_floodplains/{z}/{x}/{y}?geom_column=the_geom"
+                        ],
+                        "maxzoom": 14,
+                        "minzoom": 14
+                    },
+                    "source-layer": "view_regulated_floodplains",
+                    "minzoom": 14,
+                    "maxzoom": 22,
+                    "paint": {
+                        "fill-color": "#DDF7F7",
+                    }
+                }, 'waterway_river');
+            }
+
+            if (_this.sharedState.mapOverlay && _this.sharedState.mapOverlay === 'impervious_surface') {                
                 map.addLayer({
                     "id": "overlay",
                     "type": "raster",
-                    "source": "overlay",
+                    "source": {
+                        "type": "raster",
+                        "tiles": [`https://mcmap.org/geoserver/postgis/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&width=256&height=256&layers=postgis:impervious_surface&transparent=true`],
+                        "tileSize": 256,
+                        "maxzoom": 18
+                    },
                     "minzoom": 15,
                     "maxzoom": 22,
                     "paint": {
-                        "raster-opacity": 0.5
+                        "raster-opacity": 1
                     }
                 }, 'water_label');
+                
+                // map.addLayer({
+                //     "id": "overlay",
+                //     "type": "fill",
+                //     "source": {
+                //     "type": "vector",
+                //         "tiles": [
+                //             "https://mcmap.org/api/mvt/v1/impervious_surface/{z}/{x}/{y}?columns=type"
+                //         ],
+                //         "maxzoom": 14,
+                //         "minzoom": 14
+                //     },
+                //     "source-layer": "impervious_surface",
+                //     "minzoom": 14,
+                //     "maxzoom": 22,
+                //     "paint": {
+                //         "fill-color": {
+                //             property: 'type',
+                //             type: 'categorical',
+                //             stops: [
+                //                 ['Residential', '#CBD9A5'],
+                //                 ['Commercial', '#DAB2C4']
+                //             ]
+                //         }
+                //     }
+                // }, 'water_label');
             }
         },
         mapSatellite: function() {

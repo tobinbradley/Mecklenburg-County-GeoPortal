@@ -90,7 +90,7 @@ export default {
           let _this = this;
           if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('parks') !== -1) {
               axios
-                .get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/parks_all/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                .get(`https://mcmap.org/api/nearest/v1/parks_all/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                 {
                     params: {
                         'columns': 'name, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',

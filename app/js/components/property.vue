@@ -13,6 +13,7 @@
                 <h2>Tax Parcel</h2>
                 <h1>{{$parent.sharedState.selected.pid}}</h1>
                 <h3 v-if="resultsZoning.length > 0">Zoned as {{ resultsZoning[0].zone_class}} {{resultsZoning[0].zone_des}}</h3>
+                <Photos></Photos>
             </div>
 
             <div v-if="resultsOwnership.length > 0">
@@ -213,6 +214,7 @@
 import axios from 'axios';
 import format from 'format-number';
 import Welcome from './introduction.vue';
+import Photos from './photos.vue';
 
 export default {
     name: 'property',
@@ -228,7 +230,8 @@ export default {
         }
     },
     components: {
-        Introduction: Welcome
+        Introduction: Welcome,
+        Photos: Photos
     },
     filters: {
         money: function(num) {
@@ -252,7 +255,7 @@ export default {
         getResults: function() {
             let _this = this;
             if (_this.$parent.sharedState.selected.pid && _this.$parent.sharedState.show.indexOf('property') !== -1) {
-                axios.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_pointoverlay.php',
+                axios.get('https://mcmap.org/rest/v3/ws_geo_pointoverlay.php',
                   {
                       params: {
                           'x': _this.$parent.sharedState.selected.lnglat[0],
@@ -268,32 +271,32 @@ export default {
                       _this.resultsZoning = response.data;
                   });
 
-                  axios.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_cama_ownership.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
+                  axios.get('https://mcmap.org/rest/v3/ws_cama_ownership.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
                     .then(function(response) {
                          _this.resultsOwnership = response.data;
                     });
 
-                    axios.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_cama_appraisal.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
+                    axios.get('https://mcmap.org/rest/v3/ws_cama_appraisal.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
                       .then(function(response) {
                           _this.resultsAppraisal = response.data;
                       });
 
-                    axios.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_cama_saleshistory.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
+                    axios.get('https://mcmap.org/rest/v3/ws_cama_saleshistory.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
                         .then(function(response) {
                             _this.resultsSales = response.data;
                         });
 
-                    axios.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_cama_landuse.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
+                    axios.get('https://mcmap.org/rest/v3/ws_cama_landuse.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
                         .then(function(response) {
                             _this.resultsLanduse = response.data;
                         });
 
-                    axios.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_cama_building.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
+                    axios.get('https://mcmap.org/rest/v3/ws_cama_building.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
                         .then(function(response) {
                             _this.resultsBuildings = response.data;
                         });
 
-                    axios.get('http://maps.co.mecklenburg.nc.us/rest/v3/ws_geo_featureoverlay.php',
+                    axios.get('https://mcmap.org/rest/v3/ws_geo_featureoverlay.php',
                         {
                             params: {
                                 'from_table': 'tax_parcels',

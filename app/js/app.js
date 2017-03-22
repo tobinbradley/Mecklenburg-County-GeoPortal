@@ -127,7 +127,7 @@ Search.data = function() {
         privateState: {
             query: '',
             results: [],
-            gps: false
+            gps: true
         },
         sharedState: appState
     };
@@ -148,20 +148,6 @@ new Vue({
     render: h => h(App)
 });
 
-// initialize photos
-Photos.data = function() {
-    return {
-        privateState: {
-            results: [],
-            photoIndex: 0
-        },
-        sharedState: appState
-    };
-};
-new Vue({
-    el: 'sc-photos',
-    render: h => h(Photos)
-});
 
 // initialize map if webgl supported
 try {

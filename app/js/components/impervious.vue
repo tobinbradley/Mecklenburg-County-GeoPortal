@@ -78,7 +78,7 @@ export default {
             let _this = this;
             if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('impervious') !== -1) {
                 axios
-                  .get('http://maps.co.mecklenburg.nc.us/api/query/v1/impervious_surface_area',
+                  .get('https://mcmap.org/api/query/v1/impervious_surface_area',
                   {
                       params: {
                           'columns': 'sum(sum_of_area) as area, subtheme',

@@ -89,7 +89,7 @@ export default {
           let _this = this;
           if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('libraries') !== -1) {
               axios
-                .get(`http://maps.co.mecklenburg.nc.us/api/nearest/v1/libraries/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                .get(`https://mcmap.org/api/nearest/v1/libraries/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                 {
                     params: {
                         'geom_column': 'the_geom',

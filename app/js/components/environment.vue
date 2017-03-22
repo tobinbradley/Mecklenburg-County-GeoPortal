@@ -150,7 +150,7 @@ export default {
         getResults: function() {
             let _this = this;
             if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('environment') !== -1) {
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/view_regulated_floodplains`,
+                axios.get(`https://mcmap.org/api/intersect_feature/v1/tax_parcels/view_regulated_floodplains`,
                     {
                         params: {
                             'columns': 't.gid',
@@ -163,7 +163,7 @@ export default {
                         _this.resultsFloodplain = response.data;
                     });
 
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/post_construction_layers`,
+                axios.get(`https://mcmap.org/api/intersect_feature/v1/tax_parcels/post_construction_layers`,
                     {
                         params: {
                             'columns': 'type, name',
@@ -176,7 +176,7 @@ export default {
                         _this.resultsPostconstruction = response.data;
                     });
 
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/soil`,
+                axios.get(`https://mcmap.org/api/intersect_feature/v1/tax_parcels/soil`,
                     {
                         params: {
                             'columns': 'distinct name,description,hydrologic_group',
@@ -189,7 +189,7 @@ export default {
                         _this.resultsSoil = response.data;
                     });
 
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_feature/v1/tax_parcels/water_quality_buffers`,
+                axios.get(`https://mcmap.org/api/intersect_feature/v1/tax_parcels/water_quality_buffers`,
                     {
                         params: {
                             'columns': 'distinct type,label',
@@ -202,7 +202,7 @@ export default {
                         _this.resultsWaterquality = response.data;
                     });
 
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/watersheds/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                axios.get(`https://mcmap.org/api/intersect_point/v1/watersheds/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                     {
                         params: {
                             'columns': 'name',

@@ -276,7 +276,6 @@ export default {
         // if you have lnglat or the init flag is set, 
         if (!_this.$parent.sharedState.selected.lnglat && !_this.$parent.sharedState.initLnglatFlag) {
             _this.setIframe();
-            console.log('set iframe');
         }
         
         window.onmessage = function(e){
@@ -308,9 +307,9 @@ export default {
             _this.year = _this.qolData.year;
 
             // set links
-            _this.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.metric}&s=${this.qolData.selected.join(",")}&y=${this.year}`;            
-            _this.embedURL = `<iframe src="http://mcmap.org/qol-mecklenburg/embed/?m=${this.metric}&y=${this.year}&s=${this.qolData.selected.join(",")}" style="width: 500px; height: 500px; border: 1px solid #595959"></iframe>`;
-            _this.metaURL = `http://mcmap.org/qol-mecklenburg/embed/data/meta/m${_this.metric}.html`;
+            _this.reportURL = `https://mcmap.org/qol-mecklenburg/report/?m=${this.metric}&s=${this.qolData.selected.join(",")}&y=${this.year}`;            
+            _this.embedURL = `<iframe src="https://mcmap.org/qol-mecklenburg/embed/?m=${this.metric}&y=${this.year}&s=${this.qolData.selected.join(",")}" style="width: 500px; height: 500px; border: 1px solid #595959"></iframe>`;
+            _this.metaURL = `https://mcmap.org/qol-mecklenburg/embed/data/meta/m${_this.metric}.html`;
 
             // set chart data
             _this.chartData = _this.qolData;
@@ -341,7 +340,7 @@ export default {
         getResults: function() {
             if (this.$parent.sharedState.selected.lnglat && this.$parent.sharedState.show.indexOf('qualityoflife') !== -1) {
                 let _this = this;
-                axios.get(`http://maps.co.mecklenburg.nc.us/api/intersect_point/v1/neighborhoods/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`, {
+                axios.get(`https://mcmap.org/api/intersect_point/v1/neighborhoods/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`, {
                     params: {
                         'geom_column': 'the_geom',
                         'columns': 'id',
@@ -372,15 +371,13 @@ export default {
         setIframe: function() {
             let _this = this;                            
             if (!this.iframeURL) {
-                this.iframeURL = `http://mcmap.org/qol-mecklenburg/embed/?m=${this.metric}&s=${this.neighborhood}`;
+                this.iframeURL = `https://mcmap.org/qol-mecklenburg/embed/?m=${this.metric}&s=${this.neighborhood}`;
             } else {                
                 document.querySelector(".iframe-qol").contentWindow.postMessage({"selected": [_this.neighborhood.toString()]}, '*');
-            }
-            
-            // this.reportURL = `http://mcmap.org/qol-mecklenburg/report/?m=${this.metric}&s=${this.neighborhood}`;
+            }            
         },
         createIframe: function() {
-            return `http://mcmap.org/qol-mecklenburg/embed/?m=${this.metric}&s=${this.neighborhood}&y=${this.year}`;
+            return `https://mcmap.org/qol-mecklenburg/embed/?m=${this.metric}&s=${this.neighborhood}&y=${this.year}`;
         },
         passMetric: function() {
             let _this = this;
