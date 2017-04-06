@@ -261,6 +261,7 @@ export default {
         let el = document.querySelector('.report-container');
         el.classList.remove('mdl-cell--8-col');
         el.classList.add('mdl-cell--12-col');
+        document.querySelector('.mdl-card-map').style.visibility = 'hidden';
 
         // highlight selected metrics
         let chip = document.querySelector(`.mdl-chip[data-metric="${_this.metric}"]`);
@@ -289,6 +290,7 @@ export default {
         let el = document.querySelector('.report-container');
         el.classList.remove('mdl-cell--12-col');
         el.classList.add('mdl-cell--8-col');
+        document.querySelector('.mdl-card-map').style.visibility = 'visible';
     },
     watch: {
         "qolData": "dataReceived",
