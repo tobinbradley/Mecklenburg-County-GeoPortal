@@ -35,6 +35,9 @@ body {
     width: 100%;
     scroll-behavior: smooth;
 }
+a {
+    text-decoration-skip: ink;
+}
 
 
 /* general good ideas */
