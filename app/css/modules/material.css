@@ -1,6 +1,6 @@
 /**
  * material-design-lite - Material Design Components in CSS, JS and HTML
- * @version v1.1.2
+ * @version v1.3.0
  * @license Apache-2.0
  * @copyright 2015 Google, Inc.
  * @link https://github.com/google/material-design-lite
@@ -64,6 +64,8 @@
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -120,13 +122,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
 /* ==========  IMAGES  ========== */
 /* ==========  Color & Themes  ========== */
 /* ==========  Typography  ========== */
@@ -179,6 +174,7 @@
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
+/* CHIP */
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -270,6 +266,8 @@
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -326,13 +324,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
 /* ==========  IMAGES  ========== */
 /* ==========  Color & Themes  ========== */
 /* ==========  Typography  ========== */
@@ -385,6 +376,7 @@
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
+/* CHIP */
 /*
  * What follows is the result of much research on cross-browser styling.
  * Credit left inline and big thanks to Nicolas Gallagher, Jonathan Neal,
@@ -394,7 +386,7 @@
    Base styles: opinionated defaults
    ========================================================================== */
 html {
-  color: rgba(0, 0, 0, 0.87);
+  color: rgba(0,0,0, 0.87);
   font-size: 1em;
   line-height: 1.4; }
 
@@ -531,6 +523,12 @@ textarea {
    These examples override the primary ('mobile first') styles.
    Modify as content requires.
    ========================================================================== */
+@media only screen and (min-width: 35em) {
+  /* Style adjustments for viewports that meet the condition */ }
+
+@media print, (-webkit-min-device-pixel-ratio: 1.25), (min-resolution: 1.25dppx), (min-resolution: 120dpi) {
+  /* Style adjustments for high resolution devices */ }
+
 /* ==========================================================================
    Print styles.
    Inlined to avoid the additional HTTP request:
@@ -612,6 +610,7 @@ a, .mdl-accordion, .mdl-button, .mdl-card, .mdl-checkbox, .mdl-dropdown-menu,
 html {
   width: 100%;
   height: 100%;
+  -ms-touch-action: manipulation;
   touch-action: manipulation; }
 
 /*
@@ -694,6 +693,8 @@ main {
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -750,13 +751,6 @@ main {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
 /* ==========  IMAGES  ========== */
 /* ==========  Color & Themes  ========== */
 /* ==========  Typography  ========== */
@@ -809,6 +803,7 @@ main {
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
+/* CHIP */
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -910,7 +905,7 @@ p {
   margin-bottom: 16px; }
 
 a {
-  color: #ff4081;
+  color: rgb(255,64,129);
   font-weight: 500; }
 
 blockquote {
@@ -1220,7 +1215,8 @@ ul, ol {
   text-transform: none;
   display: inline-block;
   word-wrap: normal;
-  font-feature-settings: 'liga';
+  -moz-font-feature-settings: 'liga';
+       font-feature-settings: 'liga';
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased; }
 
@@ -1281,6 +1277,8 @@ ul, ol {
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -1337,13 +1335,6 @@ ul, ol {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
 /* ==========  IMAGES  ========== */
 /* ==========  Color & Themes  ========== */
 /* ==========  Typography  ========== */
@@ -1396,1685 +1387,1686 @@ ul, ol {
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
+/* CHIP */
 .mdl-color-text--red {
-  color: #f44336 !important; }
+  color: rgb(244,67,54) !important; }
 
 .mdl-color--red {
-  background-color: #f44336 !important; }
+  background-color: rgb(244,67,54) !important; }
 
 .mdl-color-text--red-50 {
-  color: #ffebee !important; }
+  color: rgb(255,235,238) !important; }
 
 .mdl-color--red-50 {
-  background-color: #ffebee !important; }
+  background-color: rgb(255,235,238) !important; }
 
 .mdl-color-text--red-100 {
-  color: #ffcdd2 !important; }
+  color: rgb(255,205,210) !important; }
 
 .mdl-color--red-100 {
-  background-color: #ffcdd2 !important; }
+  background-color: rgb(255,205,210) !important; }
 
 .mdl-color-text--red-200 {
-  color: #ef9a9a !important; }
+  color: rgb(239,154,154) !important; }
 
 .mdl-color--red-200 {
-  background-color: #ef9a9a !important; }
+  background-color: rgb(239,154,154) !important; }
 
 .mdl-color-text--red-300 {
-  color: #e57373 !important; }
+  color: rgb(229,115,115) !important; }
 
 .mdl-color--red-300 {
-  background-color: #e57373 !important; }
+  background-color: rgb(229,115,115) !important; }
 
 .mdl-color-text--red-400 {
-  color: #ef5350 !important; }
+  color: rgb(239,83,80) !important; }
 
 .mdl-color--red-400 {
-  background-color: #ef5350 !important; }
+  background-color: rgb(239,83,80) !important; }
 
 .mdl-color-text--red-500 {
-  color: #f44336 !important; }
+  color: rgb(244,67,54) !important; }
 
 .mdl-color--red-500 {
-  background-color: #f44336 !important; }
+  background-color: rgb(244,67,54) !important; }
 
 .mdl-color-text--red-600 {
-  color: #e53935 !important; }
+  color: rgb(229,57,53) !important; }
 
 .mdl-color--red-600 {
-  background-color: #e53935 !important; }
+  background-color: rgb(229,57,53) !important; }
 
 .mdl-color-text--red-700 {
-  color: #d32f2f !important; }
+  color: rgb(211,47,47) !important; }
 
 .mdl-color--red-700 {
-  background-color: #d32f2f !important; }
+  background-color: rgb(211,47,47) !important; }
 
 .mdl-color-text--red-800 {
-  color: #c62828 !important; }
+  color: rgb(198,40,40) !important; }
 
 .mdl-color--red-800 {
-  background-color: #c62828 !important; }
+  background-color: rgb(198,40,40) !important; }
 
 .mdl-color-text--red-900 {
-  color: #b71c1c !important; }
+  color: rgb(183,28,28) !important; }
 
 .mdl-color--red-900 {
-  background-color: #b71c1c !important; }
+  background-color: rgb(183,28,28) !important; }
 
 .mdl-color-text--red-A100 {
-  color: #ff8a80 !important; }
+  color: rgb(255,138,128) !important; }
 
 .mdl-color--red-A100 {
-  background-color: #ff8a80 !important; }
+  background-color: rgb(255,138,128) !important; }
 
 .mdl-color-text--red-A200 {
-  color: #ff5252 !important; }
+  color: rgb(255,82,82) !important; }
 
 .mdl-color--red-A200 {
-  background-color: #ff5252 !important; }
+  background-color: rgb(255,82,82) !important; }
 
 .mdl-color-text--red-A400 {
-  color: #ff1744 !important; }
+  color: rgb(255,23,68) !important; }
 
 .mdl-color--red-A400 {
-  background-color: #ff1744 !important; }
+  background-color: rgb(255,23,68) !important; }
 
 .mdl-color-text--red-A700 {
-  color: #d50000 !important; }
+  color: rgb(213,0,0) !important; }
 
 .mdl-color--red-A700 {
-  background-color: #d50000 !important; }
+  background-color: rgb(213,0,0) !important; }
 
 .mdl-color-text--pink {
-  color: #e91e63 !important; }
+  color: rgb(233,30,99) !important; }
 
 .mdl-color--pink {
-  background-color: #e91e63 !important; }
+  background-color: rgb(233,30,99) !important; }
 
 .mdl-color-text--pink-50 {
-  color: #fce4ec !important; }
+  color: rgb(252,228,236) !important; }
 
 .mdl-color--pink-50 {
-  background-color: #fce4ec !important; }
+  background-color: rgb(252,228,236) !important; }
 
 .mdl-color-text--pink-100 {
-  color: #f8bbd0 !important; }
+  color: rgb(248,187,208) !important; }
 
 .mdl-color--pink-100 {
-  background-color: #f8bbd0 !important; }
+  background-color: rgb(248,187,208) !important; }
 
 .mdl-color-text--pink-200 {
-  color: #f48fb1 !important; }
+  color: rgb(244,143,177) !important; }
 
 .mdl-color--pink-200 {
-  background-color: #f48fb1 !important; }
+  background-color: rgb(244,143,177) !important; }
 
 .mdl-color-text--pink-300 {
-  color: #f06292 !important; }
+  color: rgb(240,98,146) !important; }
 
 .mdl-color--pink-300 {
-  background-color: #f06292 !important; }
+  background-color: rgb(240,98,146) !important; }
 
 .mdl-color-text--pink-400 {
-  color: #ec407a !important; }
+  color: rgb(236,64,122) !important; }
 
 .mdl-color--pink-400 {
-  background-color: #ec407a !important; }
+  background-color: rgb(236,64,122) !important; }
 
 .mdl-color-text--pink-500 {
-  color: #e91e63 !important; }
+  color: rgb(233,30,99) !important; }
 
 .mdl-color--pink-500 {
-  background-color: #e91e63 !important; }
+  background-color: rgb(233,30,99) !important; }
 
 .mdl-color-text--pink-600 {
-  color: #d81b60 !important; }
+  color: rgb(216,27,96) !important; }
 
 .mdl-color--pink-600 {
-  background-color: #d81b60 !important; }
+  background-color: rgb(216,27,96) !important; }
 
 .mdl-color-text--pink-700 {
-  color: #c2185b !important; }
+  color: rgb(194,24,91) !important; }
 
 .mdl-color--pink-700 {
-  background-color: #c2185b !important; }
+  background-color: rgb(194,24,91) !important; }
 
 .mdl-color-text--pink-800 {
-  color: #ad1457 !important; }
+  color: rgb(173,20,87) !important; }
 
 .mdl-color--pink-800 {
-  background-color: #ad1457 !important; }
+  background-color: rgb(173,20,87) !important; }
 
 .mdl-color-text--pink-900 {
-  color: #880e4f !important; }
+  color: rgb(136,14,79) !important; }
 
 .mdl-color--pink-900 {
-  background-color: #880e4f !important; }
+  background-color: rgb(136,14,79) !important; }
 
 .mdl-color-text--pink-A100 {
-  color: #ff80ab !important; }
+  color: rgb(255,128,171) !important; }
 
 .mdl-color--pink-A100 {
-  background-color: #ff80ab !important; }
+  background-color: rgb(255,128,171) !important; }
 
 .mdl-color-text--pink-A200 {
-  color: #ff4081 !important; }
+  color: rgb(255,64,129) !important; }
 
 .mdl-color--pink-A200 {
-  background-color: #ff4081 !important; }
+  background-color: rgb(255,64,129) !important; }
 
 .mdl-color-text--pink-A400 {
-  color: #f50057 !important; }
+  color: rgb(245,0,87) !important; }
 
 .mdl-color--pink-A400 {
-  background-color: #f50057 !important; }
+  background-color: rgb(245,0,87) !important; }
 
 .mdl-color-text--pink-A700 {
-  color: #c51162 !important; }
+  color: rgb(197,17,98) !important; }
 
 .mdl-color--pink-A700 {
-  background-color: #c51162 !important; }
+  background-color: rgb(197,17,98) !important; }
 
 .mdl-color-text--purple {
-  color: #9c27b0 !important; }
+  color: rgb(156,39,176) !important; }
 
 .mdl-color--purple {
-  background-color: #9c27b0 !important; }
+  background-color: rgb(156,39,176) !important; }
 
 .mdl-color-text--purple-50 {
-  color: #f3e5f5 !important; }
+  color: rgb(243,229,245) !important; }
 
 .mdl-color--purple-50 {
-  background-color: #f3e5f5 !important; }
+  background-color: rgb(243,229,245) !important; }
 
 .mdl-color-text--purple-100 {
-  color: #e1bee7 !important; }
+  color: rgb(225,190,231) !important; }
 
 .mdl-color--purple-100 {
-  background-color: #e1bee7 !important; }
+  background-color: rgb(225,190,231) !important; }
 
 .mdl-color-text--purple-200 {
-  color: #ce93d8 !important; }
+  color: rgb(206,147,216) !important; }
 
 .mdl-color--purple-200 {
-  background-color: #ce93d8 !important; }
+  background-color: rgb(206,147,216) !important; }
 
 .mdl-color-text--purple-300 {
-  color: #ba68c8 !important; }
+  color: rgb(186,104,200) !important; }
 
 .mdl-color--purple-300 {
-  background-color: #ba68c8 !important; }
+  background-color: rgb(186,104,200) !important; }
 
 .mdl-color-text--purple-400 {
-  color: #ab47bc !important; }
+  color: rgb(171,71,188) !important; }
 
 .mdl-color--purple-400 {
-  background-color: #ab47bc !important; }
+  background-color: rgb(171,71,188) !important; }
 
 .mdl-color-text--purple-500 {
-  color: #9c27b0 !important; }
+  color: rgb(156,39,176) !important; }
 
 .mdl-color--purple-500 {
-  background-color: #9c27b0 !important; }
+  background-color: rgb(156,39,176) !important; }
 
 .mdl-color-text--purple-600 {
-  color: #8e24aa !important; }
+  color: rgb(142,36,170) !important; }
 
 .mdl-color--purple-600 {
-  background-color: #8e24aa !important; }
+  background-color: rgb(142,36,170) !important; }
 
 .mdl-color-text--purple-700 {
-  color: #7b1fa2 !important; }
+  color: rgb(123,31,162) !important; }
 
 .mdl-color--purple-700 {
-  background-color: #7b1fa2 !important; }
+  background-color: rgb(123,31,162) !important; }
 
 .mdl-color-text--purple-800 {
-  color: #6a1b9a !important; }
+  color: rgb(106,27,154) !important; }
 
 .mdl-color--purple-800 {
-  background-color: #6a1b9a !important; }
+  background-color: rgb(106,27,154) !important; }
 
 .mdl-color-text--purple-900 {
-  color: #4a148c !important; }
+  color: rgb(74,20,140) !important; }
 
 .mdl-color--purple-900 {
-  background-color: #4a148c !important; }
+  background-color: rgb(74,20,140) !important; }
 
 .mdl-color-text--purple-A100 {
-  color: #ea80fc !important; }
+  color: rgb(234,128,252) !important; }
 
 .mdl-color--purple-A100 {
-  background-color: #ea80fc !important; }
+  background-color: rgb(234,128,252) !important; }
 
 .mdl-color-text--purple-A200 {
-  color: #e040fb !important; }
+  color: rgb(224,64,251) !important; }
 
 .mdl-color--purple-A200 {
-  background-color: #e040fb !important; }
+  background-color: rgb(224,64,251) !important; }
 
 .mdl-color-text--purple-A400 {
-  color: #d500f9 !important; }
+  color: rgb(213,0,249) !important; }
 
 .mdl-color--purple-A400 {
-  background-color: #d500f9 !important; }
+  background-color: rgb(213,0,249) !important; }
 
 .mdl-color-text--purple-A700 {
-  color: #aa00ff !important; }
+  color: rgb(170,0,255) !important; }
 
 .mdl-color--purple-A700 {
-  background-color: #aa00ff !important; }
+  background-color: rgb(170,0,255) !important; }
 
 .mdl-color-text--deep-purple {
-  color: #673ab7 !important; }
+  color: rgb(103,58,183) !important; }
 
 .mdl-color--deep-purple {
-  background-color: #673ab7 !important; }
+  background-color: rgb(103,58,183) !important; }
 
 .mdl-color-text--deep-purple-50 {
-  color: #ede7f6 !important; }
+  color: rgb(237,231,246) !important; }
 
 .mdl-color--deep-purple-50 {
-  background-color: #ede7f6 !important; }
+  background-color: rgb(237,231,246) !important; }
 
 .mdl-color-text--deep-purple-100 {
-  color: #d1c4e9 !important; }
+  color: rgb(209,196,233) !important; }
 
 .mdl-color--deep-purple-100 {
-  background-color: #d1c4e9 !important; }
+  background-color: rgb(209,196,233) !important; }
 
 .mdl-color-text--deep-purple-200 {
-  color: #b39ddb !important; }
+  color: rgb(179,157,219) !important; }
 
 .mdl-color--deep-purple-200 {
-  background-color: #b39ddb !important; }
+  background-color: rgb(179,157,219) !important; }
 
 .mdl-color-text--deep-purple-300 {
-  color: #9575cd !important; }
+  color: rgb(149,117,205) !important; }
 
 .mdl-color--deep-purple-300 {
-  background-color: #9575cd !important; }
+  background-color: rgb(149,117,205) !important; }
 
 .mdl-color-text--deep-purple-400 {
-  color: #7e57c2 !important; }
+  color: rgb(126,87,194) !important; }
 
 .mdl-color--deep-purple-400 {
-  background-color: #7e57c2 !important; }
+  background-color: rgb(126,87,194) !important; }
 
 .mdl-color-text--deep-purple-500 {
-  color: #673ab7 !important; }
+  color: rgb(103,58,183) !important; }
 
 .mdl-color--deep-purple-500 {
-  background-color: #673ab7 !important; }
+  background-color: rgb(103,58,183) !important; }
 
 .mdl-color-text--deep-purple-600 {
-  color: #5e35b1 !important; }
+  color: rgb(94,53,177) !important; }
 
 .mdl-color--deep-purple-600 {
-  background-color: #5e35b1 !important; }
+  background-color: rgb(94,53,177) !important; }
 
 .mdl-color-text--deep-purple-700 {
-  color: #512da8 !important; }
+  color: rgb(81,45,168) !important; }
 
 .mdl-color--deep-purple-700 {
-  background-color: #512da8 !important; }
+  background-color: rgb(81,45,168) !important; }
 
 .mdl-color-text--deep-purple-800 {
-  color: #4527a0 !important; }
+  color: rgb(69,39,160) !important; }
 
 .mdl-color--deep-purple-800 {
-  background-color: #4527a0 !important; }
+  background-color: rgb(69,39,160) !important; }
 
 .mdl-color-text--deep-purple-900 {
-  color: #311b92 !important; }
+  color: rgb(49,27,146) !important; }
 
 .mdl-color--deep-purple-900 {
-  background-color: #311b92 !important; }
+  background-color: rgb(49,27,146) !important; }
 
 .mdl-color-text--deep-purple-A100 {
-  color: #b388ff !important; }
+  color: rgb(179,136,255) !important; }
 
 .mdl-color--deep-purple-A100 {
-  background-color: #b388ff !important; }
+  background-color: rgb(179,136,255) !important; }
 
 .mdl-color-text--deep-purple-A200 {
-  color: #7c4dff !important; }
+  color: rgb(124,77,255) !important; }
 
 .mdl-color--deep-purple-A200 {
-  background-color: #7c4dff !important; }
+  background-color: rgb(124,77,255) !important; }
 
 .mdl-color-text--deep-purple-A400 {
-  color: #651fff !important; }
+  color: rgb(101,31,255) !important; }
 
 .mdl-color--deep-purple-A400 {
-  background-color: #651fff !important; }
+  background-color: rgb(101,31,255) !important; }
 
 .mdl-color-text--deep-purple-A700 {
-  color: #6200ea !important; }
+  color: rgb(98,0,234) !important; }
 
 .mdl-color--deep-purple-A700 {
-  background-color: #6200ea !important; }
+  background-color: rgb(98,0,234) !important; }
 
 .mdl-color-text--indigo {
-  color: #3f51b5 !important; }
+  color: rgb(63,81,181) !important; }
 
 .mdl-color--indigo {
-  background-color: #3f51b5 !important; }
+  background-color: rgb(63,81,181) !important; }
 
 .mdl-color-text--indigo-50 {
-  color: #e8eaf6 !important; }
+  color: rgb(232,234,246) !important; }
 
 .mdl-color--indigo-50 {
-  background-color: #e8eaf6 !important; }
+  background-color: rgb(232,234,246) !important; }
 
 .mdl-color-text--indigo-100 {
-  color: #c5cae9 !important; }
+  color: rgb(197,202,233) !important; }
 
 .mdl-color--indigo-100 {
-  background-color: #c5cae9 !important; }
+  background-color: rgb(197,202,233) !important; }
 
 .mdl-color-text--indigo-200 {
-  color: #9fa8da !important; }
+  color: rgb(159,168,218) !important; }
 
 .mdl-color--indigo-200 {
-  background-color: #9fa8da !important; }
+  background-color: rgb(159,168,218) !important; }
 
 .mdl-color-text--indigo-300 {
-  color: #7986cb !important; }
+  color: rgb(121,134,203) !important; }
 
 .mdl-color--indigo-300 {
-  background-color: #7986cb !important; }
+  background-color: rgb(121,134,203) !important; }
 
 .mdl-color-text--indigo-400 {
-  color: #5c6bc0 !important; }
+  color: rgb(92,107,192) !important; }
 
 .mdl-color--indigo-400 {
-  background-color: #5c6bc0 !important; }
+  background-color: rgb(92,107,192) !important; }
 
 .mdl-color-text--indigo-500 {
-  color: #3f51b5 !important; }
+  color: rgb(63,81,181) !important; }
 
 .mdl-color--indigo-500 {
-  background-color: #3f51b5 !important; }
+  background-color: rgb(63,81,181) !important; }
 
 .mdl-color-text--indigo-600 {
-  color: #3949ab !important; }
+  color: rgb(57,73,171) !important; }
 
 .mdl-color--indigo-600 {
-  background-color: #3949ab !important; }
+  background-color: rgb(57,73,171) !important; }
 
 .mdl-color-text--indigo-700 {
-  color: #303f9f !important; }
+  color: rgb(48,63,159) !important; }
 
 .mdl-color--indigo-700 {
-  background-color: #303f9f !important; }
+  background-color: rgb(48,63,159) !important; }
 
 .mdl-color-text--indigo-800 {
-  color: #283593 !important; }
+  color: rgb(40,53,147) !important; }
 
 .mdl-color--indigo-800 {
-  background-color: #283593 !important; }
+  background-color: rgb(40,53,147) !important; }
 
 .mdl-color-text--indigo-900 {
-  color: #1a237e !important; }
+  color: rgb(26,35,126) !important; }
 
 .mdl-color--indigo-900 {
-  background-color: #1a237e !important; }
+  background-color: rgb(26,35,126) !important; }
 
 .mdl-color-text--indigo-A100 {
-  color: #8c9eff !important; }
+  color: rgb(140,158,255) !important; }
 
 .mdl-color--indigo-A100 {
-  background-color: #8c9eff !important; }
+  background-color: rgb(140,158,255) !important; }
 
 .mdl-color-text--indigo-A200 {
-  color: #536dfe !important; }
+  color: rgb(83,109,254) !important; }
 
 .mdl-color--indigo-A200 {
-  background-color: #536dfe !important; }
+  background-color: rgb(83,109,254) !important; }
 
 .mdl-color-text--indigo-A400 {
-  color: #3d5afe !important; }
+  color: rgb(61,90,254) !important; }
 
 .mdl-color--indigo-A400 {
-  background-color: #3d5afe !important; }
+  background-color: rgb(61,90,254) !important; }
 
 .mdl-color-text--indigo-A700 {
-  color: #304ffe !important; }
+  color: rgb(48,79,254) !important; }
 
 .mdl-color--indigo-A700 {
-  background-color: #304ffe !important; }
+  background-color: rgb(48,79,254) !important; }
 
 .mdl-color-text--blue {
-  color: #2196f3 !important; }
+  color: rgb(33,150,243) !important; }
 
 .mdl-color--blue {
-  background-color: #2196f3 !important; }
+  background-color: rgb(33,150,243) !important; }
 
 .mdl-color-text--blue-50 {
-  color: #e3f2fd !important; }
+  color: rgb(227,242,253) !important; }
 
 .mdl-color--blue-50 {
-  background-color: #e3f2fd !important; }
+  background-color: rgb(227,242,253) !important; }
 
 .mdl-color-text--blue-100 {
-  color: #bbdefb !important; }
+  color: rgb(187,222,251) !important; }
 
 .mdl-color--blue-100 {
-  background-color: #bbdefb !important; }
+  background-color: rgb(187,222,251) !important; }
 
 .mdl-color-text--blue-200 {
-  color: #90caf9 !important; }
+  color: rgb(144,202,249) !important; }
 
 .mdl-color--blue-200 {
-  background-color: #90caf9 !important; }
+  background-color: rgb(144,202,249) !important; }
 
 .mdl-color-text--blue-300 {
-  color: #64b5f6 !important; }
+  color: rgb(100,181,246) !important; }
 
 .mdl-color--blue-300 {
-  background-color: #64b5f6 !important; }
+  background-color: rgb(100,181,246) !important; }
 
 .mdl-color-text--blue-400 {
-  color: #42a5f5 !important; }
+  color: rgb(66,165,245) !important; }
 
 .mdl-color--blue-400 {
-  background-color: #42a5f5 !important; }
+  background-color: rgb(66,165,245) !important; }
 
 .mdl-color-text--blue-500 {
-  color: #2196f3 !important; }
+  color: rgb(33,150,243) !important; }
 
 .mdl-color--blue-500 {
-  background-color: #2196f3 !important; }
+  background-color: rgb(33,150,243) !important; }
 
 .mdl-color-text--blue-600 {
-  color: #1e88e5 !important; }
+  color: rgb(30,136,229) !important; }
 
 .mdl-color--blue-600 {
-  background-color: #1e88e5 !important; }
+  background-color: rgb(30,136,229) !important; }
 
 .mdl-color-text--blue-700 {
-  color: #1976d2 !important; }
+  color: rgb(25,118,210) !important; }
 
 .mdl-color--blue-700 {
-  background-color: #1976d2 !important; }
+  background-color: rgb(25,118,210) !important; }
 
 .mdl-color-text--blue-800 {
-  color: #1565c0 !important; }
+  color: rgb(21,101,192) !important; }
 
 .mdl-color--blue-800 {
-  background-color: #1565c0 !important; }
+  background-color: rgb(21,101,192) !important; }
 
 .mdl-color-text--blue-900 {
-  color: #0d47a1 !important; }
+  color: rgb(13,71,161) !important; }
 
 .mdl-color--blue-900 {
-  background-color: #0d47a1 !important; }
+  background-color: rgb(13,71,161) !important; }
 
 .mdl-color-text--blue-A100 {
-  color: #82b1ff !important; }
+  color: rgb(130,177,255) !important; }
 
 .mdl-color--blue-A100 {
-  background-color: #82b1ff !important; }
+  background-color: rgb(130,177,255) !important; }
 
 .mdl-color-text--blue-A200 {
-  color: #448aff !important; }
+  color: rgb(68,138,255) !important; }
 
 .mdl-color--blue-A200 {
-  background-color: #448aff !important; }
+  background-color: rgb(68,138,255) !important; }
 
 .mdl-color-text--blue-A400 {
-  color: #2979ff !important; }
+  color: rgb(41,121,255) !important; }
 
 .mdl-color--blue-A400 {
-  background-color: #2979ff !important; }
+  background-color: rgb(41,121,255) !important; }
 
 .mdl-color-text--blue-A700 {
-  color: #2962ff !important; }
+  color: rgb(41,98,255) !important; }
 
 .mdl-color--blue-A700 {
-  background-color: #2962ff !important; }
+  background-color: rgb(41,98,255) !important; }
 
 .mdl-color-text--light-blue {
-  color: #03a9f4 !important; }
+  color: rgb(3,169,244) !important; }
 
 .mdl-color--light-blue {
-  background-color: #03a9f4 !important; }
+  background-color: rgb(3,169,244) !important; }
 
 .mdl-color-text--light-blue-50 {
-  color: #e1f5fe !important; }
+  color: rgb(225,245,254) !important; }
 
 .mdl-color--light-blue-50 {
-  background-color: #e1f5fe !important; }
+  background-color: rgb(225,245,254) !important; }
 
 .mdl-color-text--light-blue-100 {
-  color: #b3e5fc !important; }
+  color: rgb(179,229,252) !important; }
 
 .mdl-color--light-blue-100 {
-  background-color: #b3e5fc !important; }
+  background-color: rgb(179,229,252) !important; }
 
 .mdl-color-text--light-blue-200 {
-  color: #81d4fa !important; }
+  color: rgb(129,212,250) !important; }
 
 .mdl-color--light-blue-200 {
-  background-color: #81d4fa !important; }
+  background-color: rgb(129,212,250) !important; }
 
 .mdl-color-text--light-blue-300 {
-  color: #4fc3f7 !important; }
+  color: rgb(79,195,247) !important; }
 
 .mdl-color--light-blue-300 {
-  background-color: #4fc3f7 !important; }
+  background-color: rgb(79,195,247) !important; }
 
 .mdl-color-text--light-blue-400 {
-  color: #29b6f6 !important; }
+  color: rgb(41,182,246) !important; }
 
 .mdl-color--light-blue-400 {
-  background-color: #29b6f6 !important; }
+  background-color: rgb(41,182,246) !important; }
 
 .mdl-color-text--light-blue-500 {
-  color: #03a9f4 !important; }
+  color: rgb(3,169,244) !important; }
 
 .mdl-color--light-blue-500 {
-  background-color: #03a9f4 !important; }
+  background-color: rgb(3,169,244) !important; }
 
 .mdl-color-text--light-blue-600 {
-  color: #039be5 !important; }
+  color: rgb(3,155,229) !important; }
 
 .mdl-color--light-blue-600 {
-  background-color: #039be5 !important; }
+  background-color: rgb(3,155,229) !important; }
 
 .mdl-color-text--light-blue-700 {
-  color: #0288d1 !important; }
+  color: rgb(2,136,209) !important; }
 
 .mdl-color--light-blue-700 {
-  background-color: #0288d1 !important; }
+  background-color: rgb(2,136,209) !important; }
 
 .mdl-color-text--light-blue-800 {
-  color: #0277bd !important; }
+  color: rgb(2,119,189) !important; }
 
 .mdl-color--light-blue-800 {
-  background-color: #0277bd !important; }
+  background-color: rgb(2,119,189) !important; }
 
 .mdl-color-text--light-blue-900 {
-  color: #01579b !important; }
+  color: rgb(1,87,155) !important; }
 
 .mdl-color--light-blue-900 {
-  background-color: #01579b !important; }
+  background-color: rgb(1,87,155) !important; }
 
 .mdl-color-text--light-blue-A100 {
-  color: #80d8ff !important; }
+  color: rgb(128,216,255) !important; }
 
 .mdl-color--light-blue-A100 {
-  background-color: #80d8ff !important; }
+  background-color: rgb(128,216,255) !important; }
 
 .mdl-color-text--light-blue-A200 {
-  color: #40c4ff !important; }
+  color: rgb(64,196,255) !important; }
 
 .mdl-color--light-blue-A200 {
-  background-color: #40c4ff !important; }
+  background-color: rgb(64,196,255) !important; }
 
 .mdl-color-text--light-blue-A400 {
-  color: #00b0ff !important; }
+  color: rgb(0,176,255) !important; }
 
 .mdl-color--light-blue-A400 {
-  background-color: #00b0ff !important; }
+  background-color: rgb(0,176,255) !important; }
 
 .mdl-color-text--light-blue-A700 {
-  color: #0091ea !important; }
+  color: rgb(0,145,234) !important; }
 
 .mdl-color--light-blue-A700 {
-  background-color: #0091ea !important; }
+  background-color: rgb(0,145,234) !important; }
 
 .mdl-color-text--cyan {
-  color: #00bcd4 !important; }
+  color: rgb(0,188,212) !important; }
 
 .mdl-color--cyan {
-  background-color: #00bcd4 !important; }
+  background-color: rgb(0,188,212) !important; }
 
 .mdl-color-text--cyan-50 {
-  color: #e0f7fa !important; }
+  color: rgb(224,247,250) !important; }
 
 .mdl-color--cyan-50 {
-  background-color: #e0f7fa !important; }
+  background-color: rgb(224,247,250) !important; }
 
 .mdl-color-text--cyan-100 {
-  color: #b2ebf2 !important; }
+  color: rgb(178,235,242) !important; }
 
 .mdl-color--cyan-100 {
-  background-color: #b2ebf2 !important; }
+  background-color: rgb(178,235,242) !important; }
 
 .mdl-color-text--cyan-200 {
-  color: #80deea !important; }
+  color: rgb(128,222,234) !important; }
 
 .mdl-color--cyan-200 {
-  background-color: #80deea !important; }
+  background-color: rgb(128,222,234) !important; }
 
 .mdl-color-text--cyan-300 {
-  color: #4dd0e1 !important; }
+  color: rgb(77,208,225) !important; }
 
 .mdl-color--cyan-300 {
-  background-color: #4dd0e1 !important; }
+  background-color: rgb(77,208,225) !important; }
 
 .mdl-color-text--cyan-400 {
-  color: #26c6da !important; }
+  color: rgb(38,198,218) !important; }
 
 .mdl-color--cyan-400 {
-  background-color: #26c6da !important; }
+  background-color: rgb(38,198,218) !important; }
 
 .mdl-color-text--cyan-500 {
-  color: #00bcd4 !important; }
+  color: rgb(0,188,212) !important; }
 
 .mdl-color--cyan-500 {
-  background-color: #00bcd4 !important; }
+  background-color: rgb(0,188,212) !important; }
 
 .mdl-color-text--cyan-600 {
-  color: #00acc1 !important; }
+  color: rgb(0,172,193) !important; }
 
 .mdl-color--cyan-600 {
-  background-color: #00acc1 !important; }
+  background-color: rgb(0,172,193) !important; }
 
 .mdl-color-text--cyan-700 {
-  color: #0097a7 !important; }
+  color: rgb(0,151,167) !important; }
 
 .mdl-color--cyan-700 {
-  background-color: #0097a7 !important; }
+  background-color: rgb(0,151,167) !important; }
 
 .mdl-color-text--cyan-800 {
-  color: #00838f !important; }
+  color: rgb(0,131,143) !important; }
 
 .mdl-color--cyan-800 {
-  background-color: #00838f !important; }
+  background-color: rgb(0,131,143) !important; }
 
 .mdl-color-text--cyan-900 {
-  color: #006064 !important; }
+  color: rgb(0,96,100) !important; }
 
 .mdl-color--cyan-900 {
-  background-color: #006064 !important; }
+  background-color: rgb(0,96,100) !important; }
 
 .mdl-color-text--cyan-A100 {
-  color: #84ffff !important; }
+  color: rgb(132,255,255) !important; }
 
 .mdl-color--cyan-A100 {
-  background-color: #84ffff !important; }
+  background-color: rgb(132,255,255) !important; }
 
 .mdl-color-text--cyan-A200 {
-  color: #18ffff !important; }
+  color: rgb(24,255,255) !important; }
 
 .mdl-color--cyan-A200 {
-  background-color: #18ffff !important; }
+  background-color: rgb(24,255,255) !important; }
 
 .mdl-color-text--cyan-A400 {
-  color: #00e5ff !important; }
+  color: rgb(0,229,255) !important; }
 
 .mdl-color--cyan-A400 {
-  background-color: #00e5ff !important; }
+  background-color: rgb(0,229,255) !important; }
 
 .mdl-color-text--cyan-A700 {
-  color: #00b8d4 !important; }
+  color: rgb(0,184,212) !important; }
 
 .mdl-color--cyan-A700 {
-  background-color: #00b8d4 !important; }
+  background-color: rgb(0,184,212) !important; }
 
 .mdl-color-text--teal {
-  color: #009688 !important; }
+  color: rgb(0,150,136) !important; }
 
 .mdl-color--teal {
-  background-color: #009688 !important; }
+  background-color: rgb(0,150,136) !important; }
 
 .mdl-color-text--teal-50 {
-  color: #e0f2f1 !important; }
+  color: rgb(224,242,241) !important; }
 
 .mdl-color--teal-50 {
-  background-color: #e0f2f1 !important; }
+  background-color: rgb(224,242,241) !important; }
 
 .mdl-color-text--teal-100 {
-  color: #b2dfdb !important; }
+  color: rgb(178,223,219) !important; }
 
 .mdl-color--teal-100 {
-  background-color: #b2dfdb !important; }
+  background-color: rgb(178,223,219) !important; }
 
 .mdl-color-text--teal-200 {
-  color: #80cbc4 !important; }
+  color: rgb(128,203,196) !important; }
 
 .mdl-color--teal-200 {
-  background-color: #80cbc4 !important; }
+  background-color: rgb(128,203,196) !important; }
 
 .mdl-color-text--teal-300 {
-  color: #4db6ac !important; }
+  color: rgb(77,182,172) !important; }
 
 .mdl-color--teal-300 {
-  background-color: #4db6ac !important; }
+  background-color: rgb(77,182,172) !important; }
 
 .mdl-color-text--teal-400 {
-  color: #26a69a !important; }
+  color: rgb(38,166,154) !important; }
 
 .mdl-color--teal-400 {
-  background-color: #26a69a !important; }
+  background-color: rgb(38,166,154) !important; }
 
 .mdl-color-text--teal-500 {
-  color: #009688 !important; }
+  color: rgb(0,150,136) !important; }
 
 .mdl-color--teal-500 {
-  background-color: #009688 !important; }
+  background-color: rgb(0,150,136) !important; }
 
 .mdl-color-text--teal-600 {
-  color: #00897b !important; }
+  color: rgb(0,137,123) !important; }
 
 .mdl-color--teal-600 {
-  background-color: #00897b !important; }
+  background-color: rgb(0,137,123) !important; }
 
 .mdl-color-text--teal-700 {
-  color: #00796b !important; }
+  color: rgb(0,121,107) !important; }
 
 .mdl-color--teal-700 {
-  background-color: #00796b !important; }
+  background-color: rgb(0,121,107) !important; }
 
 .mdl-color-text--teal-800 {
-  color: #00695c !important; }
+  color: rgb(0,105,92) !important; }
 
 .mdl-color--teal-800 {
-  background-color: #00695c !important; }
+  background-color: rgb(0,105,92) !important; }
 
 .mdl-color-text--teal-900 {
-  color: #004d40 !important; }
+  color: rgb(0,77,64) !important; }
 
 .mdl-color--teal-900 {
-  background-color: #004d40 !important; }
+  background-color: rgb(0,77,64) !important; }
 
 .mdl-color-text--teal-A100 {
-  color: #a7ffeb !important; }
+  color: rgb(167,255,235) !important; }
 
 .mdl-color--teal-A100 {
-  background-color: #a7ffeb !important; }
+  background-color: rgb(167,255,235) !important; }
 
 .mdl-color-text--teal-A200 {
-  color: #64ffda !important; }
+  color: rgb(100,255,218) !important; }
 
 .mdl-color--teal-A200 {
-  background-color: #64ffda !important; }
+  background-color: rgb(100,255,218) !important; }
 
 .mdl-color-text--teal-A400 {
-  color: #1de9b6 !important; }
+  color: rgb(29,233,182) !important; }
 
 .mdl-color--teal-A400 {
-  background-color: #1de9b6 !important; }
+  background-color: rgb(29,233,182) !important; }
 
 .mdl-color-text--teal-A700 {
-  color: #00bfa5 !important; }
+  color: rgb(0,191,165) !important; }
 
 .mdl-color--teal-A700 {
-  background-color: #00bfa5 !important; }
+  background-color: rgb(0,191,165) !important; }
 
 .mdl-color-text--green {
-  color: #4caf50 !important; }
+  color: rgb(76,175,80) !important; }
 
 .mdl-color--green {
-  background-color: #4caf50 !important; }
+  background-color: rgb(76,175,80) !important; }
 
 .mdl-color-text--green-50 {
-  color: #e8f5e9 !important; }
+  color: rgb(232,245,233) !important; }
 
 .mdl-color--green-50 {
-  background-color: #e8f5e9 !important; }
+  background-color: rgb(232,245,233) !important; }
 
 .mdl-color-text--green-100 {
-  color: #c8e6c9 !important; }
+  color: rgb(200,230,201) !important; }
 
 .mdl-color--green-100 {
-  background-color: #c8e6c9 !important; }
+  background-color: rgb(200,230,201) !important; }
 
 .mdl-color-text--green-200 {
-  color: #a5d6a7 !important; }
+  color: rgb(165,214,167) !important; }
 
 .mdl-color--green-200 {
-  background-color: #a5d6a7 !important; }
+  background-color: rgb(165,214,167) !important; }
 
 .mdl-color-text--green-300 {
-  color: #81c784 !important; }
+  color: rgb(129,199,132) !important; }
 
 .mdl-color--green-300 {
-  background-color: #81c784 !important; }
+  background-color: rgb(129,199,132) !important; }
 
 .mdl-color-text--green-400 {
-  color: #66bb6a !important; }
+  color: rgb(102,187,106) !important; }
 
 .mdl-color--green-400 {
-  background-color: #66bb6a !important; }
+  background-color: rgb(102,187,106) !important; }
 
 .mdl-color-text--green-500 {
-  color: #4caf50 !important; }
+  color: rgb(76,175,80) !important; }
 
 .mdl-color--green-500 {
-  background-color: #4caf50 !important; }
+  background-color: rgb(76,175,80) !important; }
 
 .mdl-color-text--green-600 {
-  color: #43a047 !important; }
+  color: rgb(67,160,71) !important; }
 
 .mdl-color--green-600 {
-  background-color: #43a047 !important; }
+  background-color: rgb(67,160,71) !important; }
 
 .mdl-color-text--green-700 {
-  color: #388e3c !important; }
+  color: rgb(56,142,60) !important; }
 
 .mdl-color--green-700 {
-  background-color: #388e3c !important; }
+  background-color: rgb(56,142,60) !important; }
 
 .mdl-color-text--green-800 {
-  color: #2e7d32 !important; }
+  color: rgb(46,125,50) !important; }
 
 .mdl-color--green-800 {
-  background-color: #2e7d32 !important; }
+  background-color: rgb(46,125,50) !important; }
 
 .mdl-color-text--green-900 {
-  color: #1b5e20 !important; }
+  color: rgb(27,94,32) !important; }
 
 .mdl-color--green-900 {
-  background-color: #1b5e20 !important; }
+  background-color: rgb(27,94,32) !important; }
 
 .mdl-color-text--green-A100 {
-  color: #b9f6ca !important; }
+  color: rgb(185,246,202) !important; }
 
 .mdl-color--green-A100 {
-  background-color: #b9f6ca !important; }
+  background-color: rgb(185,246,202) !important; }
 
 .mdl-color-text--green-A200 {
-  color: #69f0ae !important; }
+  color: rgb(105,240,174) !important; }
 
 .mdl-color--green-A200 {
-  background-color: #69f0ae !important; }
+  background-color: rgb(105,240,174) !important; }
 
 .mdl-color-text--green-A400 {
-  color: #00e676 !important; }
+  color: rgb(0,230,118) !important; }
 
 .mdl-color--green-A400 {
-  background-color: #00e676 !important; }
+  background-color: rgb(0,230,118) !important; }
 
 .mdl-color-text--green-A700 {
-  color: #00c853 !important; }
+  color: rgb(0,200,83) !important; }
 
 .mdl-color--green-A700 {
-  background-color: #00c853 !important; }
+  background-color: rgb(0,200,83) !important; }
 
 .mdl-color-text--light-green {
-  color: #8bc34a !important; }
+  color: rgb(139,195,74) !important; }
 
 .mdl-color--light-green {
-  background-color: #8bc34a !important; }
+  background-color: rgb(139,195,74) !important; }
 
 .mdl-color-text--light-green-50 {
-  color: #f1f8e9 !important; }
+  color: rgb(241,248,233) !important; }
 
 .mdl-color--light-green-50 {
-  background-color: #f1f8e9 !important; }
+  background-color: rgb(241,248,233) !important; }
 
 .mdl-color-text--light-green-100 {
-  color: #dcedc8 !important; }
+  color: rgb(220,237,200) !important; }
 
 .mdl-color--light-green-100 {
-  background-color: #dcedc8 !important; }
+  background-color: rgb(220,237,200) !important; }
 
 .mdl-color-text--light-green-200 {
-  color: #c5e1a5 !important; }
+  color: rgb(197,225,165) !important; }
 
 .mdl-color--light-green-200 {
-  background-color: #c5e1a5 !important; }
+  background-color: rgb(197,225,165) !important; }
 
 .mdl-color-text--light-green-300 {
-  color: #aed581 !important; }
+  color: rgb(174,213,129) !important; }
 
 .mdl-color--light-green-300 {
-  background-color: #aed581 !important; }
+  background-color: rgb(174,213,129) !important; }
 
 .mdl-color-text--light-green-400 {
-  color: #9ccc65 !important; }
+  color: rgb(156,204,101) !important; }
 
 .mdl-color--light-green-400 {
-  background-color: #9ccc65 !important; }
+  background-color: rgb(156,204,101) !important; }
 
 .mdl-color-text--light-green-500 {
-  color: #8bc34a !important; }
+  color: rgb(139,195,74) !important; }
 
 .mdl-color--light-green-500 {
-  background-color: #8bc34a !important; }
+  background-color: rgb(139,195,74) !important; }
 
 .mdl-color-text--light-green-600 {
-  color: #7cb342 !important; }
+  color: rgb(124,179,66) !important; }
 
 .mdl-color--light-green-600 {
-  background-color: #7cb342 !important; }
+  background-color: rgb(124,179,66) !important; }
 
 .mdl-color-text--light-green-700 {
-  color: #689f38 !important; }
+  color: rgb(104,159,56) !important; }
 
 .mdl-color--light-green-700 {
-  background-color: #689f38 !important; }
+  background-color: rgb(104,159,56) !important; }
 
 .mdl-color-text--light-green-800 {
-  color: #558b2f !important; }
+  color: rgb(85,139,47) !important; }
 
 .mdl-color--light-green-800 {
-  background-color: #558b2f !important; }
+  background-color: rgb(85,139,47) !important; }
 
 .mdl-color-text--light-green-900 {
-  color: #33691e !important; }
+  color: rgb(51,105,30) !important; }
 
 .mdl-color--light-green-900 {
-  background-color: #33691e !important; }
+  background-color: rgb(51,105,30) !important; }
 
 .mdl-color-text--light-green-A100 {
-  color: #ccff90 !important; }
+  color: rgb(204,255,144) !important; }
 
 .mdl-color--light-green-A100 {
-  background-color: #ccff90 !important; }
+  background-color: rgb(204,255,144) !important; }
 
 .mdl-color-text--light-green-A200 {
-  color: #b2ff59 !important; }
+  color: rgb(178,255,89) !important; }
 
 .mdl-color--light-green-A200 {
-  background-color: #b2ff59 !important; }
+  background-color: rgb(178,255,89) !important; }
 
 .mdl-color-text--light-green-A400 {
-  color: #76ff03 !important; }
+  color: rgb(118,255,3) !important; }
 
 .mdl-color--light-green-A400 {
-  background-color: #76ff03 !important; }
+  background-color: rgb(118,255,3) !important; }
 
 .mdl-color-text--light-green-A700 {
-  color: #64dd17 !important; }
+  color: rgb(100,221,23) !important; }
 
 .mdl-color--light-green-A700 {
-  background-color: #64dd17 !important; }
+  background-color: rgb(100,221,23) !important; }
 
 .mdl-color-text--lime {
-  color: #cddc39 !important; }
+  color: rgb(205,220,57) !important; }
 
 .mdl-color--lime {
-  background-color: #cddc39 !important; }
+  background-color: rgb(205,220,57) !important; }
 
 .mdl-color-text--lime-50 {
-  color: #f9fbe7 !important; }
+  color: rgb(249,251,231) !important; }
 
 .mdl-color--lime-50 {
-  background-color: #f9fbe7 !important; }
+  background-color: rgb(249,251,231) !important; }
 
 .mdl-color-text--lime-100 {
-  color: #f0f4c3 !important; }
+  color: rgb(240,244,195) !important; }
 
 .mdl-color--lime-100 {
-  background-color: #f0f4c3 !important; }
+  background-color: rgb(240,244,195) !important; }
 
 .mdl-color-text--lime-200 {
-  color: #e6ee9c !important; }
+  color: rgb(230,238,156) !important; }
 
 .mdl-color--lime-200 {
-  background-color: #e6ee9c !important; }
+  background-color: rgb(230,238,156) !important; }
 
 .mdl-color-text--lime-300 {
-  color: #dce775 !important; }
+  color: rgb(220,231,117) !important; }
 
 .mdl-color--lime-300 {
-  background-color: #dce775 !important; }
+  background-color: rgb(220,231,117) !important; }
 
 .mdl-color-text--lime-400 {
-  color: #d4e157 !important; }
+  color: rgb(212,225,87) !important; }
 
 .mdl-color--lime-400 {
-  background-color: #d4e157 !important; }
+  background-color: rgb(212,225,87) !important; }
 
 .mdl-color-text--lime-500 {
-  color: #cddc39 !important; }
+  color: rgb(205,220,57) !important; }
 
 .mdl-color--lime-500 {
-  background-color: #cddc39 !important; }
+  background-color: rgb(205,220,57) !important; }
 
 .mdl-color-text--lime-600 {
-  color: #c0ca33 !important; }
+  color: rgb(192,202,51) !important; }
 
 .mdl-color--lime-600 {
-  background-color: #c0ca33 !important; }
+  background-color: rgb(192,202,51) !important; }
 
 .mdl-color-text--lime-700 {
-  color: #afb42b !important; }
+  color: rgb(175,180,43) !important; }
 
 .mdl-color--lime-700 {
-  background-color: #afb42b !important; }
+  background-color: rgb(175,180,43) !important; }
 
 .mdl-color-text--lime-800 {
-  color: #9e9d24 !important; }
+  color: rgb(158,157,36) !important; }
 
 .mdl-color--lime-800 {
-  background-color: #9e9d24 !important; }
+  background-color: rgb(158,157,36) !important; }
 
 .mdl-color-text--lime-900 {
-  color: #827717 !important; }
+  color: rgb(130,119,23) !important; }
 
 .mdl-color--lime-900 {
-  background-color: #827717 !important; }
+  background-color: rgb(130,119,23) !important; }
 
 .mdl-color-text--lime-A100 {
-  color: #f4ff81 !important; }
+  color: rgb(244,255,129) !important; }
 
 .mdl-color--lime-A100 {
-  background-color: #f4ff81 !important; }
+  background-color: rgb(244,255,129) !important; }
 
 .mdl-color-text--lime-A200 {
-  color: #eeff41 !important; }
+  color: rgb(238,255,65) !important; }
 
 .mdl-color--lime-A200 {
-  background-color: #eeff41 !important; }
+  background-color: rgb(238,255,65) !important; }
 
 .mdl-color-text--lime-A400 {
-  color: #c6ff00 !important; }
+  color: rgb(198,255,0) !important; }
 
 .mdl-color--lime-A400 {
-  background-color: #c6ff00 !important; }
+  background-color: rgb(198,255,0) !important; }
 
 .mdl-color-text--lime-A700 {
-  color: #aeea00 !important; }
+  color: rgb(174,234,0) !important; }
 
 .mdl-color--lime-A700 {
-  background-color: #aeea00 !important; }
+  background-color: rgb(174,234,0) !important; }
 
 .mdl-color-text--yellow {
-  color: #ffeb3b !important; }
+  color: rgb(255,235,59) !important; }
 
 .mdl-color--yellow {
-  background-color: #ffeb3b !important; }
+  background-color: rgb(255,235,59) !important; }
 
 .mdl-color-text--yellow-50 {
-  color: #fffde7 !important; }
+  color: rgb(255,253,231) !important; }
 
 .mdl-color--yellow-50 {
-  background-color: #fffde7 !important; }
+  background-color: rgb(255,253,231) !important; }
 
 .mdl-color-text--yellow-100 {
-  color: #fff9c4 !important; }
+  color: rgb(255,249,196) !important; }
 
 .mdl-color--yellow-100 {
-  background-color: #fff9c4 !important; }
+  background-color: rgb(255,249,196) !important; }
 
 .mdl-color-text--yellow-200 {
-  color: #fff59d !important; }
+  color: rgb(255,245,157) !important; }
 
 .mdl-color--yellow-200 {
-  background-color: #fff59d !important; }
+  background-color: rgb(255,245,157) !important; }
 
 .mdl-color-text--yellow-300 {
-  color: #fff176 !important; }
+  color: rgb(255,241,118) !important; }
 
 .mdl-color--yellow-300 {
-  background-color: #fff176 !important; }
+  background-color: rgb(255,241,118) !important; }
 
 .mdl-color-text--yellow-400 {
-  color: #ffee58 !important; }
+  color: rgb(255,238,88) !important; }
 
 .mdl-color--yellow-400 {
-  background-color: #ffee58 !important; }
+  background-color: rgb(255,238,88) !important; }
 
 .mdl-color-text--yellow-500 {
-  color: #ffeb3b !important; }
+  color: rgb(255,235,59) !important; }
 
 .mdl-color--yellow-500 {
-  background-color: #ffeb3b !important; }
+  background-color: rgb(255,235,59) !important; }
 
 .mdl-color-text--yellow-600 {
-  color: #fdd835 !important; }
+  color: rgb(253,216,53) !important; }
 
 .mdl-color--yellow-600 {
-  background-color: #fdd835 !important; }
+  background-color: rgb(253,216,53) !important; }
 
 .mdl-color-text--yellow-700 {
-  color: #fbc02d !important; }
+  color: rgb(251,192,45) !important; }
 
 .mdl-color--yellow-700 {
-  background-color: #fbc02d !important; }
+  background-color: rgb(251,192,45) !important; }
 
 .mdl-color-text--yellow-800 {
-  color: #f9a825 !important; }
+  color: rgb(249,168,37) !important; }
 
 .mdl-color--yellow-800 {
-  background-color: #f9a825 !important; }
+  background-color: rgb(249,168,37) !important; }
 
 .mdl-color-text--yellow-900 {
-  color: #f57f17 !important; }
+  color: rgb(245,127,23) !important; }
 
 .mdl-color--yellow-900 {
-  background-color: #f57f17 !important; }
+  background-color: rgb(245,127,23) !important; }
 
 .mdl-color-text--yellow-A100 {
-  color: #ffff8d !important; }
+  color: rgb(255,255,141) !important; }
 
 .mdl-color--yellow-A100 {
-  background-color: #ffff8d !important; }
+  background-color: rgb(255,255,141) !important; }
 
 .mdl-color-text--yellow-A200 {
-  color: yellow !important; }
+  color: rgb(255,255,0) !important; }
 
 .mdl-color--yellow-A200 {
-  background-color: yellow !important; }
+  background-color: rgb(255,255,0) !important; }
 
 .mdl-color-text--yellow-A400 {
-  color: #ffea00 !important; }
+  color: rgb(255,234,0) !important; }
 
 .mdl-color--yellow-A400 {
-  background-color: #ffea00 !important; }
+  background-color: rgb(255,234,0) !important; }
 
 .mdl-color-text--yellow-A700 {
-  color: #ffd600 !important; }
+  color: rgb(255,214,0) !important; }
 
 .mdl-color--yellow-A700 {
-  background-color: #ffd600 !important; }
+  background-color: rgb(255,214,0) !important; }
 
 .mdl-color-text--amber {
-  color: #ffc107 !important; }
+  color: rgb(255,193,7) !important; }
 
 .mdl-color--amber {
-  background-color: #ffc107 !important; }
+  background-color: rgb(255,193,7) !important; }
 
 .mdl-color-text--amber-50 {
-  color: #fff8e1 !important; }
+  color: rgb(255,248,225) !important; }
 
 .mdl-color--amber-50 {
-  background-color: #fff8e1 !important; }
+  background-color: rgb(255,248,225) !important; }
 
 .mdl-color-text--amber-100 {
-  color: #ffecb3 !important; }
+  color: rgb(255,236,179) !important; }
 
 .mdl-color--amber-100 {
-  background-color: #ffecb3 !important; }
+  background-color: rgb(255,236,179) !important; }
 
 .mdl-color-text--amber-200 {
-  color: #ffe082 !important; }
+  color: rgb(255,224,130) !important; }
 
 .mdl-color--amber-200 {
-  background-color: #ffe082 !important; }
+  background-color: rgb(255,224,130) !important; }
 
 .mdl-color-text--amber-300 {
-  color: #ffd54f !important; }
+  color: rgb(255,213,79) !important; }
 
 .mdl-color--amber-300 {
-  background-color: #ffd54f !important; }
+  background-color: rgb(255,213,79) !important; }
 
 .mdl-color-text--amber-400 {
-  color: #ffca28 !important; }
+  color: rgb(255,202,40) !important; }
 
 .mdl-color--amber-400 {
-  background-color: #ffca28 !important; }
+  background-color: rgb(255,202,40) !important; }
 
 .mdl-color-text--amber-500 {
-  color: #ffc107 !important; }
+  color: rgb(255,193,7) !important; }
 
 .mdl-color--amber-500 {
-  background-color: #ffc107 !important; }
+  background-color: rgb(255,193,7) !important; }
 
 .mdl-color-text--amber-600 {
-  color: #ffb300 !important; }
+  color: rgb(255,179,0) !important; }
 
 .mdl-color--amber-600 {
-  background-color: #ffb300 !important; }
+  background-color: rgb(255,179,0) !important; }
 
 .mdl-color-text--amber-700 {
-  color: #ffa000 !important; }
+  color: rgb(255,160,0) !important; }
 
 .mdl-color--amber-700 {
-  background-color: #ffa000 !important; }
+  background-color: rgb(255,160,0) !important; }
 
 .mdl-color-text--amber-800 {
-  color: #ff8f00 !important; }
+  color: rgb(255,143,0) !important; }
 
 .mdl-color--amber-800 {
-  background-color: #ff8f00 !important; }
+  background-color: rgb(255,143,0) !important; }
 
 .mdl-color-text--amber-900 {
-  color: #ff6f00 !important; }
+  color: rgb(255,111,0) !important; }
 
 .mdl-color--amber-900 {
-  background-color: #ff6f00 !important; }
+  background-color: rgb(255,111,0) !important; }
 
 .mdl-color-text--amber-A100 {
-  color: #ffe57f !important; }
+  color: rgb(255,229,127) !important; }
 
 .mdl-color--amber-A100 {
-  background-color: #ffe57f !important; }
+  background-color: rgb(255,229,127) !important; }
 
 .mdl-color-text--amber-A200 {
-  color: #ffd740 !important; }
+  color: rgb(255,215,64) !important; }
 
 .mdl-color--amber-A200 {
-  background-color: #ffd740 !important; }
+  background-color: rgb(255,215,64) !important; }
 
 .mdl-color-text--amber-A400 {
-  color: #ffc400 !important; }
+  color: rgb(255,196,0) !important; }
 
 .mdl-color--amber-A400 {
-  background-color: #ffc400 !important; }
+  background-color: rgb(255,196,0) !important; }
 
 .mdl-color-text--amber-A700 {
-  color: #ffab00 !important; }
+  color: rgb(255,171,0) !important; }
 
 .mdl-color--amber-A700 {
-  background-color: #ffab00 !important; }
+  background-color: rgb(255,171,0) !important; }
 
 .mdl-color-text--orange {
-  color: #ff9800 !important; }
+  color: rgb(255,152,0) !important; }
 
 .mdl-color--orange {
-  background-color: #ff9800 !important; }
+  background-color: rgb(255,152,0) !important; }
 
 .mdl-color-text--orange-50 {
-  color: #fff3e0 !important; }
+  color: rgb(255,243,224) !important; }
 
 .mdl-color--orange-50 {
-  background-color: #fff3e0 !important; }
+  background-color: rgb(255,243,224) !important; }
 
 .mdl-color-text--orange-100 {
-  color: #ffe0b2 !important; }
+  color: rgb(255,224,178) !important; }
 
 .mdl-color--orange-100 {
-  background-color: #ffe0b2 !important; }
+  background-color: rgb(255,224,178) !important; }
 
 .mdl-color-text--orange-200 {
-  color: #ffcc80 !important; }
+  color: rgb(255,204,128) !important; }
 
 .mdl-color--orange-200 {
-  background-color: #ffcc80 !important; }
+  background-color: rgb(255,204,128) !important; }
 
 .mdl-color-text--orange-300 {
-  color: #ffb74d !important; }
+  color: rgb(255,183,77) !important; }
 
 .mdl-color--orange-300 {
-  background-color: #ffb74d !important; }
+  background-color: rgb(255,183,77) !important; }
 
 .mdl-color-text--orange-400 {
-  color: #ffa726 !important; }
+  color: rgb(255,167,38) !important; }
 
 .mdl-color--orange-400 {
-  background-color: #ffa726 !important; }
+  background-color: rgb(255,167,38) !important; }
 
 .mdl-color-text--orange-500 {
-  color: #ff9800 !important; }
+  color: rgb(255,152,0) !important; }
 
 .mdl-color--orange-500 {
-  background-color: #ff9800 !important; }
+  background-color: rgb(255,152,0) !important; }
 
 .mdl-color-text--orange-600 {
-  color: #fb8c00 !important; }
+  color: rgb(251,140,0) !important; }
 
 .mdl-color--orange-600 {
-  background-color: #fb8c00 !important; }
+  background-color: rgb(251,140,0) !important; }
 
 .mdl-color-text--orange-700 {
-  color: #f57c00 !important; }
+  color: rgb(245,124,0) !important; }
 
 .mdl-color--orange-700 {
-  background-color: #f57c00 !important; }
+  background-color: rgb(245,124,0) !important; }
 
 .mdl-color-text--orange-800 {
-  color: #ef6c00 !important; }
+  color: rgb(239,108,0) !important; }
 
 .mdl-color--orange-800 {
-  background-color: #ef6c00 !important; }
+  background-color: rgb(239,108,0) !important; }
 
 .mdl-color-text--orange-900 {
-  color: #e65100 !important; }
+  color: rgb(230,81,0) !important; }
 
 .mdl-color--orange-900 {
-  background-color: #e65100 !important; }
+  background-color: rgb(230,81,0) !important; }
 
 .mdl-color-text--orange-A100 {
-  color: #ffd180 !important; }
+  color: rgb(255,209,128) !important; }
 
 .mdl-color--orange-A100 {
-  background-color: #ffd180 !important; }
+  background-color: rgb(255,209,128) !important; }
 
 .mdl-color-text--orange-A200 {
-  color: #ffab40 !important; }
+  color: rgb(255,171,64) !important; }
 
 .mdl-color--orange-A200 {
-  background-color: #ffab40 !important; }
+  background-color: rgb(255,171,64) !important; }
 
 .mdl-color-text--orange-A400 {
-  color: #ff9100 !important; }
+  color: rgb(255,145,0) !important; }
 
 .mdl-color--orange-A400 {
-  background-color: #ff9100 !important; }
+  background-color: rgb(255,145,0) !important; }
 
 .mdl-color-text--orange-A700 {
-  color: #ff6d00 !important; }
+  color: rgb(255,109,0) !important; }
 
 .mdl-color--orange-A700 {
-  background-color: #ff6d00 !important; }
+  background-color: rgb(255,109,0) !important; }
 
 .mdl-color-text--deep-orange {
-  color: #ff5722 !important; }
+  color: rgb(255,87,34) !important; }
 
 .mdl-color--deep-orange {
-  background-color: #ff5722 !important; }
+  background-color: rgb(255,87,34) !important; }
 
 .mdl-color-text--deep-orange-50 {
-  color: #fbe9e7 !important; }
+  color: rgb(251,233,231) !important; }
 
 .mdl-color--deep-orange-50 {
-  background-color: #fbe9e7 !important; }
+  background-color: rgb(251,233,231) !important; }
 
 .mdl-color-text--deep-orange-100 {
-  color: #ffccbc !important; }
+  color: rgb(255,204,188) !important; }
 
 .mdl-color--deep-orange-100 {
-  background-color: #ffccbc !important; }
+  background-color: rgb(255,204,188) !important; }
 
 .mdl-color-text--deep-orange-200 {
-  color: #ffab91 !important; }
+  color: rgb(255,171,145) !important; }
 
 .mdl-color--deep-orange-200 {
-  background-color: #ffab91 !important; }
+  background-color: rgb(255,171,145) !important; }
 
 .mdl-color-text--deep-orange-300 {
-  color: #ff8a65 !important; }
+  color: rgb(255,138,101) !important; }
 
 .mdl-color--deep-orange-300 {
-  background-color: #ff8a65 !important; }
+  background-color: rgb(255,138,101) !important; }
 
 .mdl-color-text--deep-orange-400 {
-  color: #ff7043 !important; }
+  color: rgb(255,112,67) !important; }
 
 .mdl-color--deep-orange-400 {
-  background-color: #ff7043 !important; }
+  background-color: rgb(255,112,67) !important; }
 
 .mdl-color-text--deep-orange-500 {
-  color: #ff5722 !important; }
+  color: rgb(255,87,34) !important; }
 
 .mdl-color--deep-orange-500 {
-  background-color: #ff5722 !important; }
+  background-color: rgb(255,87,34) !important; }
 
 .mdl-color-text--deep-orange-600 {
-  color: #f4511e !important; }
+  color: rgb(244,81,30) !important; }
 
 .mdl-color--deep-orange-600 {
-  background-color: #f4511e !important; }
+  background-color: rgb(244,81,30) !important; }
 
 .mdl-color-text--deep-orange-700 {
-  color: #e64a19 !important; }
+  color: rgb(230,74,25) !important; }
 
 .mdl-color--deep-orange-700 {
-  background-color: #e64a19 !important; }
+  background-color: rgb(230,74,25) !important; }
 
 .mdl-color-text--deep-orange-800 {
-  color: #d84315 !important; }
+  color: rgb(216,67,21) !important; }
 
 .mdl-color--deep-orange-800 {
-  background-color: #d84315 !important; }
+  background-color: rgb(216,67,21) !important; }
 
 .mdl-color-text--deep-orange-900 {
-  color: #bf360c !important; }
+  color: rgb(191,54,12) !important; }
 
 .mdl-color--deep-orange-900 {
-  background-color: #bf360c !important; }
+  background-color: rgb(191,54,12) !important; }
 
 .mdl-color-text--deep-orange-A100 {
-  color: #ff9e80 !important; }
+  color: rgb(255,158,128) !important; }
 
 .mdl-color--deep-orange-A100 {
-  background-color: #ff9e80 !important; }
+  background-color: rgb(255,158,128) !important; }
 
 .mdl-color-text--deep-orange-A200 {
-  color: #ff6e40 !important; }
+  color: rgb(255,110,64) !important; }
 
 .mdl-color--deep-orange-A200 {
-  background-color: #ff6e40 !important; }
+  background-color: rgb(255,110,64) !important; }
 
 .mdl-color-text--deep-orange-A400 {
-  color: #ff3d00 !important; }
+  color: rgb(255,61,0) !important; }
 
 .mdl-color--deep-orange-A400 {
-  background-color: #ff3d00 !important; }
+  background-color: rgb(255,61,0) !important; }
 
 .mdl-color-text--deep-orange-A700 {
-  color: #dd2c00 !important; }
+  color: rgb(221,44,0) !important; }
 
 .mdl-color--deep-orange-A700 {
-  background-color: #dd2c00 !important; }
+  background-color: rgb(221,44,0) !important; }
 
 .mdl-color-text--brown {
-  color: #795548 !important; }
+  color: rgb(121,85,72) !important; }
 
 .mdl-color--brown {
-  background-color: #795548 !important; }
+  background-color: rgb(121,85,72) !important; }
 
 .mdl-color-text--brown-50 {
-  color: #efebe9 !important; }
+  color: rgb(239,235,233) !important; }
 
 .mdl-color--brown-50 {
-  background-color: #efebe9 !important; }
+  background-color: rgb(239,235,233) !important; }
 
 .mdl-color-text--brown-100 {
-  color: #d7ccc8 !important; }
+  color: rgb(215,204,200) !important; }
 
 .mdl-color--brown-100 {
-  background-color: #d7ccc8 !important; }
+  background-color: rgb(215,204,200) !important; }
 
 .mdl-color-text--brown-200 {
-  color: #bcaaa4 !important; }
+  color: rgb(188,170,164) !important; }
 
 .mdl-color--brown-200 {
-  background-color: #bcaaa4 !important; }
+  background-color: rgb(188,170,164) !important; }
 
 .mdl-color-text--brown-300 {
-  color: #a1887f !important; }
+  color: rgb(161,136,127) !important; }
 
 .mdl-color--brown-300 {
-  background-color: #a1887f !important; }
+  background-color: rgb(161,136,127) !important; }
 
 .mdl-color-text--brown-400 {
-  color: #8d6e63 !important; }
+  color: rgb(141,110,99) !important; }
 
 .mdl-color--brown-400 {
-  background-color: #8d6e63 !important; }
+  background-color: rgb(141,110,99) !important; }
 
 .mdl-color-text--brown-500 {
-  color: #795548 !important; }
+  color: rgb(121,85,72) !important; }
 
 .mdl-color--brown-500 {
-  background-color: #795548 !important; }
+  background-color: rgb(121,85,72) !important; }
 
 .mdl-color-text--brown-600 {
-  color: #6d4c41 !important; }
+  color: rgb(109,76,65) !important; }
 
 .mdl-color--brown-600 {
-  background-color: #6d4c41 !important; }
+  background-color: rgb(109,76,65) !important; }
 
 .mdl-color-text--brown-700 {
-  color: #5d4037 !important; }
+  color: rgb(93,64,55) !important; }
 
 .mdl-color--brown-700 {
-  background-color: #5d4037 !important; }
+  background-color: rgb(93,64,55) !important; }
 
 .mdl-color-text--brown-800 {
-  color: #4e342e !important; }
+  color: rgb(78,52,46) !important; }
 
 .mdl-color--brown-800 {
-  background-color: #4e342e !important; }
+  background-color: rgb(78,52,46) !important; }
 
 .mdl-color-text--brown-900 {
-  color: #3e2723 !important; }
+  color: rgb(62,39,35) !important; }
 
 .mdl-color--brown-900 {
-  background-color: #3e2723 !important; }
+  background-color: rgb(62,39,35) !important; }
 
 .mdl-color-text--grey {
-  color: #9e9e9e !important; }
+  color: rgb(158,158,158) !important; }
 
 .mdl-color--grey {
-  background-color: #9e9e9e !important; }
+  background-color: rgb(158,158,158) !important; }
 
 .mdl-color-text--grey-50 {
-  color: #fafafa !important; }
+  color: rgb(250,250,250) !important; }
 
 .mdl-color--grey-50 {
-  background-color: #fafafa !important; }
+  background-color: rgb(250,250,250) !important; }
 
 .mdl-color-text--grey-100 {
-  color: whitesmoke !important; }
+  color: rgb(245,245,245) !important; }
 
 .mdl-color--grey-100 {
-  background-color: whitesmoke !important; }
+  background-color: rgb(245,245,245) !important; }
 
 .mdl-color-text--grey-200 {
-  color: #eeeeee !important; }
+  color: rgb(238,238,238) !important; }
 
 .mdl-color--grey-200 {
-  background-color: #eeeeee !important; }
+  background-color: rgb(238,238,238) !important; }
 
 .mdl-color-text--grey-300 {
-  color: #e0e0e0 !important; }
+  color: rgb(224,224,224) !important; }
 
 .mdl-color--grey-300 {
-  background-color: #e0e0e0 !important; }
+  background-color: rgb(224,224,224) !important; }
 
 .mdl-color-text--grey-400 {
-  color: #bdbdbd !important; }
+  color: rgb(189,189,189) !important; }
 
 .mdl-color--grey-400 {
-  background-color: #bdbdbd !important; }
+  background-color: rgb(189,189,189) !important; }
 
 .mdl-color-text--grey-500 {
-  color: #9e9e9e !important; }
+  color: rgb(158,158,158) !important; }
 
 .mdl-color--grey-500 {
-  background-color: #9e9e9e !important; }
+  background-color: rgb(158,158,158) !important; }
 
 .mdl-color-text--grey-600 {
-  color: #757575 !important; }
+  color: rgb(117,117,117) !important; }
 
 .mdl-color--grey-600 {
-  background-color: #757575 !important; }
+  background-color: rgb(117,117,117) !important; }
 
 .mdl-color-text--grey-700 {
-  color: #616161 !important; }
+  color: rgb(97,97,97) !important; }
 
 .mdl-color--grey-700 {
-  background-color: #616161 !important; }
+  background-color: rgb(97,97,97) !important; }
 
 .mdl-color-text--grey-800 {
-  color: #424242 !important; }
+  color: rgb(66,66,66) !important; }
 
 .mdl-color--grey-800 {
-  background-color: #424242 !important; }
+  background-color: rgb(66,66,66) !important; }
 
 .mdl-color-text--grey-900 {
-  color: #212121 !important; }
+  color: rgb(33,33,33) !important; }
 
 .mdl-color--grey-900 {
-  background-color: #212121 !important; }
+  background-color: rgb(33,33,33) !important; }
 
 .mdl-color-text--blue-grey {
-  color: #607d8b !important; }
+  color: rgb(96,125,139) !important; }
 
 .mdl-color--blue-grey {
-  background-color: #607d8b !important; }
+  background-color: rgb(96,125,139) !important; }
 
 .mdl-color-text--blue-grey-50 {
-  color: #eceff1 !important; }
+  color: rgb(236,239,241) !important; }
 
 .mdl-color--blue-grey-50 {
-  background-color: #eceff1 !important; }
+  background-color: rgb(236,239,241) !important; }
 
 .mdl-color-text--blue-grey-100 {
-  color: #cfd8dc !important; }
+  color: rgb(207,216,220) !important; }
 
 .mdl-color--blue-grey-100 {
-  background-color: #cfd8dc !important; }
+  background-color: rgb(207,216,220) !important; }
 
 .mdl-color-text--blue-grey-200 {
-  color: #b0bec5 !important; }
+  color: rgb(176,190,197) !important; }
 
 .mdl-color--blue-grey-200 {
-  background-color: #b0bec5 !important; }
+  background-color: rgb(176,190,197) !important; }
 
 .mdl-color-text--blue-grey-300 {
-  color: #90a4ae !important; }
+  color: rgb(144,164,174) !important; }
 
 .mdl-color--blue-grey-300 {
-  background-color: #90a4ae !important; }
+  background-color: rgb(144,164,174) !important; }
 
 .mdl-color-text--blue-grey-400 {
-  color: #78909c !important; }
+  color: rgb(120,144,156) !important; }
 
 .mdl-color--blue-grey-400 {
-  background-color: #78909c !important; }
+  background-color: rgb(120,144,156) !important; }
 
 .mdl-color-text--blue-grey-500 {
-  color: #607d8b !important; }
+  color: rgb(96,125,139) !important; }
 
 .mdl-color--blue-grey-500 {
-  background-color: #607d8b !important; }
+  background-color: rgb(96,125,139) !important; }
 
 .mdl-color-text--blue-grey-600 {
-  color: #546e7a !important; }
+  color: rgb(84,110,122) !important; }
 
 .mdl-color--blue-grey-600 {
-  background-color: #546e7a !important; }
+  background-color: rgb(84,110,122) !important; }
 
 .mdl-color-text--blue-grey-700 {
-  color: #455a64 !important; }
+  color: rgb(69,90,100) !important; }
 
 .mdl-color--blue-grey-700 {
-  background-color: #455a64 !important; }
+  background-color: rgb(69,90,100) !important; }
 
 .mdl-color-text--blue-grey-800 {
-  color: #37474f !important; }
+  color: rgb(55,71,79) !important; }
 
 .mdl-color--blue-grey-800 {
-  background-color: #37474f !important; }
+  background-color: rgb(55,71,79) !important; }
 
 .mdl-color-text--blue-grey-900 {
-  color: #263238 !important; }
+  color: rgb(38,50,56) !important; }
 
 .mdl-color--blue-grey-900 {
-  background-color: #263238 !important; }
+  background-color: rgb(38,50,56) !important; }
 
 .mdl-color--black {
-  background-color: black !important; }
+  background-color: rgb(0,0,0) !important; }
 
 .mdl-color-text--black {
-  color: black !important; }
+  color: rgb(0,0,0) !important; }
 
 .mdl-color--white {
-  background-color: white !important; }
+  background-color: rgb(255,255,255) !important; }
 
 .mdl-color-text--white {
-  color: white !important; }
+  color: rgb(255,255,255) !important; }
 
 .mdl-color--primary {
-  background-color: #3f51b5 !important; }
+  background-color: rgb(63,81,181) !important; }
 
 .mdl-color--primary-contrast {
-  background-color: white !important; }
+  background-color: rgb(255,255,255) !important; }
 
 .mdl-color--primary-dark {
-  background-color: #303f9f !important; }
+  background-color: rgb(48,63,159) !important; }
 
 .mdl-color--accent {
-  background-color: #ff4081 !important; }
+  background-color: rgb(255,64,129) !important; }
 
 .mdl-color--accent-contrast {
-  background-color: white !important; }
+  background-color: rgb(255,255,255) !important; }
 
 .mdl-color-text--primary {
-  color: #3f51b5 !important; }
+  color: rgb(63,81,181) !important; }
 
 .mdl-color-text--primary-contrast {
-  color: white !important; }
+  color: rgb(255,255,255) !important; }
 
 .mdl-color-text--primary-dark {
-  color: #303f9f !important; }
+  color: rgb(48,63,159) !important; }
 
 .mdl-color-text--accent {
-  color: #ff4081 !important; }
+  color: rgb(255,64,129) !important; }
 
 .mdl-color-text--accent-contrast {
-  color: white !important; }
+  color: rgb(255,255,255) !important; }
 
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
@@ -3133,6 +3125,8 @@ ul, ol {
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -3189,13 +3183,6 @@ ul, ol {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
 /* ==========  IMAGES  ========== */
 /* ==========  Color & Themes  ========== */
 /* ==========  Typography  ========== */
@@ -3248,382 +3235,7 @@ ul, ol {
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
-.mdl-ripple {
-  background: black;
-  border-radius: 50%;
-  height: 50px;
-  left: 0;
-  opacity: 0;
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  width: 50px;
-  overflow: hidden; }
-  .mdl-ripple.is-animating {
-    transition: width 0.3s cubic-bezier(0, 0, 0.2, 1), height 0.3s cubic-bezier(0, 0, 0.2, 1), opacity 0.6s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.3s cubic-bezier(0, 0, 0.2, 1);
-    transition: transform 0.3s cubic-bezier(0, 0, 0.2, 1), width 0.3s cubic-bezier(0, 0, 0.2, 1), height 0.3s cubic-bezier(0, 0, 0.2, 1), opacity 0.6s cubic-bezier(0, 0, 0.2, 1);
-    transition: transform 0.3s cubic-bezier(0, 0, 0.2, 1), width 0.3s cubic-bezier(0, 0, 0.2, 1), height 0.3s cubic-bezier(0, 0, 0.2, 1), opacity 0.6s cubic-bezier(0, 0, 0.2, 1), -webkit-transform 0.3s cubic-bezier(0, 0, 0.2, 1); }
-  .mdl-ripple.is-visible {
-    opacity: 0.3; }
-
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/*------------------------------------*    $CONTENTS
-\*------------------------------------*/
-/**
- * STYLE GUIDE VARIABLES------------------Declarations of Sass variables
- * -----Typography
- * -----Colors
- * -----Textfield
- * -----Switch
- * -----Spinner
- * -----Radio
- * -----Menu
- * -----List
- * -----Layout
- * -----Icon toggles
- * -----Footer
- * -----Column
- * -----Checkbox
- * -----Card
- * -----Button
- * -----Animation
- * -----Progress
- * -----Badge
- * -----Shadows
- * -----Grid
- * -----Data table
- * -----Dialog
- * -----Snackbar
- *
- * Even though all variables have the `!default` directive, most of them
- * should not be changed as they are dependent one another. This can cause
- * visual distortions (like alignment issues) that are hard to track down
- * and fix.
- */
-/* ==========  TYPOGRAPHY  ========== */
-/* We're splitting fonts into "preferred" and "performance" in order to optimize
-   page loading. For important text, such as the body, we want it to load
-   immediately and not wait for the web font load, whereas for other sections,
-   such as headers and titles, we're OK with things taking a bit longer to load.
-   We do have some optional classes and parameters in the mixins, in case you
-   definitely want to make sure you're using the preferred font and don't mind
-   the performance hit.
-   We should be able to improve on this once CSS Font Loading L3 becomes more
-   widely available.
-*/
-/* ==========  COLORS  ========== */
-/**
-*
-* Material design color palettes.
-* @see http://www.google.com/design/spec/style/color.html
-*
-**/
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/* ==========  Color Palettes  ========== */
-/* colors.scss */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
-/* ==========  IMAGES  ========== */
-/* ==========  Color & Themes  ========== */
-/* ==========  Typography  ========== */
-/* ==========  Components  ========== */
-/* ==========  Standard Buttons  ========== */
-/* ==========  Icon Toggles  ========== */
-/* ==========  Radio Buttons  ========== */
-/* ==========  Ripple effect  ========== */
-/* ==========  Layout  ========== */
-/* ==========  Content Tabs  ========== */
-/* ==========  Checkboxes  ========== */
-/* ==========  Switches  ========== */
-/* ==========  Spinner  ========== */
-/* ==========  Text fields  ========== */
-/* ==========  Card  ========== */
-/* ==========  Sliders ========== */
-/* ========== Progress ========== */
-/* ==========  List ========== */
-/* ==========  Item ========== */
-/* ==========  Dropdown menu ========== */
-/* ==========  Tooltips  ========== */
-/* ==========  Footer  ========== */
-/* TEXTFIELD */
-/* SWITCH */
-/* SPINNER */
-/* RADIO */
-/* MENU */
-/* LIST */
-/* LAYOUT */
-/* ICON TOGGLE */
-/* FOOTER */
-/*mega-footer*/
-/*mini-footer*/
-/* CHECKBOX */
-/* CARD */
-/* Card dimensions */
-/* Cover image */
-/* BUTTON */
-/**
- *
- * Dimensions
- *
- */
-/* ANIMATION */
-/* PROGRESS */
-/* BADGE */
-/* SHADOWS */
-/* GRID */
-/* DATA TABLE */
-/* DIALOG */
-/* SNACKBAR */
-/* TOOLTIP */
-.mdl-animation--default {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
-
-.mdl-animation--fast-out-slow-in {
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
-
-.mdl-animation--linear-out-slow-in {
-  transition-timing-function: cubic-bezier(0, 0, 0.2, 1); }
-
-.mdl-animation--fast-out-linear-in {
-  transition-timing-function: cubic-bezier(0.4, 0, 1, 1); }
-
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/*------------------------------------*    $CONTENTS
-\*------------------------------------*/
-/**
- * STYLE GUIDE VARIABLES------------------Declarations of Sass variables
- * -----Typography
- * -----Colors
- * -----Textfield
- * -----Switch
- * -----Spinner
- * -----Radio
- * -----Menu
- * -----List
- * -----Layout
- * -----Icon toggles
- * -----Footer
- * -----Column
- * -----Checkbox
- * -----Card
- * -----Button
- * -----Animation
- * -----Progress
- * -----Badge
- * -----Shadows
- * -----Grid
- * -----Data table
- * -----Dialog
- * -----Snackbar
- *
- * Even though all variables have the `!default` directive, most of them
- * should not be changed as they are dependent one another. This can cause
- * visual distortions (like alignment issues) that are hard to track down
- * and fix.
- */
-/* ==========  TYPOGRAPHY  ========== */
-/* We're splitting fonts into "preferred" and "performance" in order to optimize
-   page loading. For important text, such as the body, we want it to load
-   immediately and not wait for the web font load, whereas for other sections,
-   such as headers and titles, we're OK with things taking a bit longer to load.
-   We do have some optional classes and parameters in the mixins, in case you
-   definitely want to make sure you're using the preferred font and don't mind
-   the performance hit.
-   We should be able to improve on this once CSS Font Loading L3 becomes more
-   widely available.
-*/
-/* ==========  COLORS  ========== */
-/**
-*
-* Material design color palettes.
-* @see http://www.google.com/design/spec/style/color.html
-*
-**/
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/* ==========  Color Palettes  ========== */
-/* colors.scss */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
-/* ==========  IMAGES  ========== */
-/* ==========  Color & Themes  ========== */
-/* ==========  Typography  ========== */
-/* ==========  Components  ========== */
-/* ==========  Standard Buttons  ========== */
-/* ==========  Icon Toggles  ========== */
-/* ==========  Radio Buttons  ========== */
-/* ==========  Ripple effect  ========== */
-/* ==========  Layout  ========== */
-/* ==========  Content Tabs  ========== */
-/* ==========  Checkboxes  ========== */
-/* ==========  Switches  ========== */
-/* ==========  Spinner  ========== */
-/* ==========  Text fields  ========== */
-/* ==========  Card  ========== */
-/* ==========  Sliders ========== */
-/* ========== Progress ========== */
-/* ==========  List ========== */
-/* ==========  Item ========== */
-/* ==========  Dropdown menu ========== */
-/* ==========  Tooltips  ========== */
-/* ==========  Footer  ========== */
-/* TEXTFIELD */
-/* SWITCH */
-/* SPINNER */
-/* RADIO */
-/* MENU */
-/* LIST */
-/* LAYOUT */
-/* ICON TOGGLE */
-/* FOOTER */
-/*mega-footer*/
-/*mini-footer*/
-/* CHECKBOX */
-/* CARD */
-/* Card dimensions */
-/* Cover image */
-/* BUTTON */
-/**
- *
- * Dimensions
- *
- */
-/* ANIMATION */
-/* PROGRESS */
-/* BADGE */
-/* SHADOWS */
-/* GRID */
-/* DATA TABLE */
-/* DIALOG */
-/* SNACKBAR */
-/* TOOLTIP */
+/* CHIP */
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -3647,7 +3259,7 @@ ul, ol {
   background: transparent;
   border: none;
   border-radius: 2px;
-  color: black;
+  color: rgb(0,0,0);
   position: relative;
   height: 36px;
   margin: 0;
@@ -3672,39 +3284,39 @@ ul, ol {
   .mdl-button::-moz-focus-inner {
     border: 0; }
   .mdl-button:hover {
-    background-color: rgba(158, 158, 158, 0.2); }
+    background-color: rgba(158,158,158, 0.20); }
   .mdl-button:focus:not(:active) {
-    background-color: rgba(0, 0, 0, 0.12); }
+    background-color: rgba(0,0,0, 0.12); }
   .mdl-button:active {
-    background-color: rgba(158, 158, 158, 0.4); }
+    background-color: rgba(158,158,158, 0.40); }
   .mdl-button.mdl-button--colored {
-    color: #3f51b5; }
+    color: rgb(63,81,181); }
     .mdl-button.mdl-button--colored:focus:not(:active) {
-      background-color: rgba(0, 0, 0, 0.12); }
+      background-color: rgba(0,0,0, 0.12); }
 
 input.mdl-button[type="submit"] {
   -webkit-appearance: none; }
 
 .mdl-button--raised {
-  background: rgba(158, 158, 158, 0.2);
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); }
+  background: rgba(158,158,158, 0.20);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
   .mdl-button--raised:active {
-    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-    background-color: rgba(158, 158, 158, 0.4); }
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    background-color: rgba(158,158,158, 0.40); }
   .mdl-button--raised:focus:not(:active) {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.18), 0 8px 16px rgba(0, 0, 0, 0.36);
-    background-color: rgba(158, 158, 158, 0.4); }
+    background-color: rgba(158,158,158, 0.40); }
   .mdl-button--raised.mdl-button--colored {
-    background: #3f51b5;
-    color: white; }
+    background: rgb(63,81,181);
+    color: rgb(255,255,255); }
     .mdl-button--raised.mdl-button--colored:hover {
-      background-color: #3f51b5; }
+      background-color: rgb(63,81,181); }
     .mdl-button--raised.mdl-button--colored:active {
-      background-color: #3f51b5; }
+      background-color: rgb(63,81,181); }
     .mdl-button--raised.mdl-button--colored:focus:not(:active) {
-      background-color: #3f51b5; }
+      background-color: rgb(63,81,181); }
     .mdl-button--raised.mdl-button--colored .mdl-ripple {
-      background: white; }
+      background: rgb(255,255,255); }
 
 .mdl-button--fab {
   border-radius: 50%;
@@ -3715,7 +3327,7 @@ input.mdl-button[type="submit"] {
   width: 56px;
   padding: 0;
   overflow: hidden;
-  background: rgba(158, 158, 158, 0.2);
+  background: rgba(158,158,158, 0.20);
   box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.12), 0 1px 1px 0 rgba(0, 0, 0, 0.24);
   position: relative;
   line-height: normal; }
@@ -3735,22 +3347,22 @@ input.mdl-button[type="submit"] {
     border-radius: 50%;
     -webkit-mask-image: -webkit-radial-gradient(circle, white, black); }
   .mdl-button--fab:active {
-    box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-    background-color: rgba(158, 158, 158, 0.4); }
+    box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+    background-color: rgba(158,158,158, 0.40); }
   .mdl-button--fab:focus:not(:active) {
     box-shadow: 0 0 8px rgba(0, 0, 0, 0.18), 0 8px 16px rgba(0, 0, 0, 0.36);
-    background-color: rgba(158, 158, 158, 0.4); }
+    background-color: rgba(158,158,158, 0.40); }
   .mdl-button--fab.mdl-button--colored {
-    background: #ff4081;
-    color: white; }
+    background: rgb(255,64,129);
+    color: rgb(255,255,255); }
     .mdl-button--fab.mdl-button--colored:hover {
-      background-color: #ff4081; }
+      background-color: rgb(255,64,129); }
     .mdl-button--fab.mdl-button--colored:focus:not(:active) {
-      background-color: #ff4081; }
+      background-color: rgb(255,64,129); }
     .mdl-button--fab.mdl-button--colored:active {
-      background-color: #ff4081; }
+      background-color: rgb(255,64,129); }
     .mdl-button--fab.mdl-button--colored .mdl-ripple {
-      background: white; }
+      background: rgb(255,255,255); }
 
 .mdl-button--icon {
   border-radius: 50%;
@@ -3797,37 +3409,37 @@ input.mdl-button[type="submit"] {
     background-color: transparent; }
 
 .mdl-button--primary.mdl-button--primary {
-  color: #3f51b5; }
+  color: rgb(63,81,181); }
   .mdl-button--primary.mdl-button--primary .mdl-ripple {
-    background: white; }
+    background: rgb(255,255,255); }
   .mdl-button--primary.mdl-button--primary.mdl-button--raised, .mdl-button--primary.mdl-button--primary.mdl-button--fab {
-    color: white;
-    background-color: #3f51b5; }
+    color: rgb(255,255,255);
+    background-color: rgb(63,81,181); }
 
 .mdl-button--accent.mdl-button--accent {
-  color: #ff4081; }
+  color: rgb(255,64,129); }
   .mdl-button--accent.mdl-button--accent .mdl-ripple {
-    background: white; }
+    background: rgb(255,255,255); }
   .mdl-button--accent.mdl-button--accent.mdl-button--raised, .mdl-button--accent.mdl-button--accent.mdl-button--fab {
-    color: white;
-    background-color: #ff4081; }
+    color: rgb(255,255,255);
+    background-color: rgb(255,64,129); }
 
 .mdl-button[disabled][disabled], .mdl-button.mdl-button--disabled.mdl-button--disabled {
-  color: rgba(0, 0, 0, 0.26);
+  color: rgba(0,0,0, 0.26);
   cursor: default;
   background-color: transparent; }
 
 .mdl-button--fab[disabled][disabled], .mdl-button--fab.mdl-button--disabled.mdl-button--disabled {
-  background-color: rgba(0, 0, 0, 0.12);
-  color: rgba(0, 0, 0, 0.26); }
+  background-color: rgba(0,0,0, 0.12);
+  color: rgba(0,0,0, 0.26); }
 
 .mdl-button--raised[disabled][disabled], .mdl-button--raised.mdl-button--disabled.mdl-button--disabled {
-  background-color: rgba(0, 0, 0, 0.12);
-  color: rgba(0, 0, 0, 0.26);
+  background-color: rgba(0,0,0, 0.12);
+  color: rgba(0,0,0, 0.26);
   box-shadow: none; }
 
 .mdl-button--colored[disabled][disabled], .mdl-button--colored.mdl-button--disabled.mdl-button--disabled {
-  color: rgba(0, 0, 0, 0.26); }
+  color: rgba(0,0,0, 0.26); }
 
 .mdl-button .material-icons {
   vertical-align: middle; }
@@ -3889,6 +3501,8 @@ input.mdl-button[type="submit"] {
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -3945,13 +3559,6 @@ input.mdl-button[type="submit"] {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
 /* ==========  IMAGES  ========== */
 /* ==========  Color & Themes  ========== */
 /* ==========  Typography  ========== */
@@ -4004,269 +3611,7 @@ input.mdl-button[type="submit"] {
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
-.mdl-card {
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: column;
-          flex-direction: column;
-  font-size: 16px;
-  font-weight: 400;
-  min-height: 200px;
-  overflow: hidden;
-  width: 330px;
-  z-index: 1;
-  position: relative;
-  background: white;
-  border-radius: 2px;
-  box-sizing: border-box; }
-
-.mdl-card__media {
-  background-color: #ff4081;
-  background-repeat: repeat;
-  background-position: 50% 50%;
-  background-size: cover;
-  background-origin: padding-box;
-  background-attachment: scroll;
-  box-sizing: border-box; }
-
-.mdl-card__title {
-  -webkit-align-items: center;
-          align-items: center;
-  color: black;
-  display: block;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-justify-content: stretch;
-          justify-content: stretch;
-  line-height: normal;
-  padding: 16px 16px;
-  -webkit-perspective-origin: 165px 56px;
-          perspective-origin: 165px 56px;
-  -webkit-transform-origin: 165px 56px;
-          transform-origin: 165px 56px;
-  box-sizing: border-box; }
-  .mdl-card__title.mdl-card--border {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
-
-.mdl-card__title-text {
-  -webkit-align-self: flex-end;
-          align-self: flex-end;
-  color: inherit;
-  display: block;
-  display: -webkit-flex;
-  display: flex;
-  font-size: 24px;
-  font-weight: 300;
-  line-height: normal;
-  overflow: hidden;
-  -webkit-transform-origin: 149px 48px;
-          transform-origin: 149px 48px;
-  margin: 0; }
-
-.mdl-card__subtitle-text {
-  font-size: 14px;
-  color: rgba(0, 0, 0, 0.54);
-  margin: 0; }
-
-.mdl-card__supporting-text {
-  color: rgba(0, 0, 0, 0.54);
-  font-size: 1rem;
-  line-height: 18px;
-  overflow: hidden;
-  padding: 16px 16px;
-  box-sizing: border-box; }
-
-.mdl-card__actions {
-  font-size: 16px;
-  line-height: normal;
-  width: 100%;
-  background-color: transparent;
-  padding: 8px;
-  box-sizing: border-box; }
-  .mdl-card__actions.mdl-card--border {
-    border-top: 1px solid rgba(0, 0, 0, 0.1); }
-
-.mdl-card--expand {
-  -webkit-flex-grow: 1;
-          flex-grow: 1; }
-
-.mdl-card__menu {
-  position: absolute;
-  right: 16px;
-  top: 16px; }
-
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/*------------------------------------*    $CONTENTS
-\*------------------------------------*/
-/**
- * STYLE GUIDE VARIABLES------------------Declarations of Sass variables
- * -----Typography
- * -----Colors
- * -----Textfield
- * -----Switch
- * -----Spinner
- * -----Radio
- * -----Menu
- * -----List
- * -----Layout
- * -----Icon toggles
- * -----Footer
- * -----Column
- * -----Checkbox
- * -----Card
- * -----Button
- * -----Animation
- * -----Progress
- * -----Badge
- * -----Shadows
- * -----Grid
- * -----Data table
- * -----Dialog
- * -----Snackbar
- *
- * Even though all variables have the `!default` directive, most of them
- * should not be changed as they are dependent one another. This can cause
- * visual distortions (like alignment issues) that are hard to track down
- * and fix.
- */
-/* ==========  TYPOGRAPHY  ========== */
-/* We're splitting fonts into "preferred" and "performance" in order to optimize
-   page loading. For important text, such as the body, we want it to load
-   immediately and not wait for the web font load, whereas for other sections,
-   such as headers and titles, we're OK with things taking a bit longer to load.
-   We do have some optional classes and parameters in the mixins, in case you
-   definitely want to make sure you're using the preferred font and don't mind
-   the performance hit.
-   We should be able to improve on this once CSS Font Loading L3 becomes more
-   widely available.
-*/
-/* ==========  COLORS  ========== */
-/**
-*
-* Material design color palettes.
-* @see http://www.google.com/design/spec/style/color.html
-*
-**/
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/* ==========  Color Palettes  ========== */
-/* colors.scss */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
-/* ==========  IMAGES  ========== */
-/* ==========  Color & Themes  ========== */
-/* ==========  Typography  ========== */
-/* ==========  Components  ========== */
-/* ==========  Standard Buttons  ========== */
-/* ==========  Icon Toggles  ========== */
-/* ==========  Radio Buttons  ========== */
-/* ==========  Ripple effect  ========== */
-/* ==========  Layout  ========== */
-/* ==========  Content Tabs  ========== */
-/* ==========  Checkboxes  ========== */
-/* ==========  Switches  ========== */
-/* ==========  Spinner  ========== */
-/* ==========  Text fields  ========== */
-/* ==========  Card  ========== */
-/* ==========  Sliders ========== */
-/* ========== Progress ========== */
-/* ==========  List ========== */
-/* ==========  Item ========== */
-/* ==========  Dropdown menu ========== */
-/* ==========  Tooltips  ========== */
-/* ==========  Footer  ========== */
-/* TEXTFIELD */
-/* SWITCH */
-/* SPINNER */
-/* RADIO */
-/* MENU */
-/* LIST */
-/* LAYOUT */
-/* ICON TOGGLE */
-/* FOOTER */
-/*mega-footer*/
-/*mini-footer*/
-/* CHECKBOX */
-/* CARD */
-/* Card dimensions */
-/* Cover image */
-/* BUTTON */
-/**
- *
- * Dimensions
- *
- */
-/* ANIMATION */
-/* PROGRESS */
-/* BADGE */
-/* SHADOWS */
-/* GRID */
-/* DATA TABLE */
-/* DIALOG */
-/* SNACKBAR */
-/* TOOLTIP */
+/* CHIP */
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -4292,7 +3637,7 @@ input.mdl-button[type="submit"] {
   border-collapse: collapse;
   white-space: nowrap;
   font-size: 13px;
-  background-color: white; }
+  background-color: rgb(255,255,255); }
   .mdl-data-table thead {
     padding-bottom: 3px; }
     .mdl-data-table thead .mdl-data-table__select {
@@ -4349,7 +3694,8 @@ input.mdl-button[type="submit"] {
         text-transform: none;
         display: inline-block;
         word-wrap: normal;
-        font-feature-settings: 'liga';
+        -moz-font-feature-settings: 'liga';
+             font-feature-settings: 'liga';
         -webkit-font-feature-settings: 'liga';
         -webkit-font-smoothing: antialiased;
         font-size: 16px;
@@ -4426,6 +3772,8 @@ input.mdl-button[type="submit"] {
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -4482,13 +3830,6 @@ input.mdl-button[type="submit"] {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
 /* ==========  IMAGES  ========== */
 /* ==========  Color & Themes  ========== */
 /* ==========  Typography  ========== */
@@ -4541,251 +3882,7 @@ input.mdl-button[type="submit"] {
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
-.mdl-icon-toggle {
-  position: relative;
-  z-index: 1;
-  vertical-align: middle;
-  display: inline-block;
-  height: 32px;
-  margin: 0;
-  padding: 0; }
-
-.mdl-icon-toggle__input {
-  line-height: 32px; }
-  .mdl-icon-toggle.is-upgraded .mdl-icon-toggle__input {
-    position: absolute;
-    width: 0;
-    height: 0;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-    -ms-appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-    border: none; }
-
-.mdl-icon-toggle__label {
-  display: inline-block;
-  position: relative;
-  cursor: pointer;
-  height: 32px;
-  width: 32px;
-  min-width: 32px;
-  color: #616161;
-  border-radius: 50%;
-  padding: 0;
-  margin-left: 0;
-  margin-right: 0;
-  text-align: center;
-  background-color: transparent;
-  will-change: background-color;
-  transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
-  .mdl-icon-toggle__label.material-icons {
-    line-height: 32px;
-    font-size: 24px; }
-  .mdl-icon-toggle.is-checked .mdl-icon-toggle__label {
-    color: #3f51b5; }
-  .mdl-icon-toggle.is-disabled .mdl-icon-toggle__label {
-    color: rgba(0, 0, 0, 0.26);
-    cursor: auto;
-    transition: none; }
-  .mdl-icon-toggle.is-focused .mdl-icon-toggle__label {
-    background-color: rgba(0, 0, 0, 0.12); }
-  .mdl-icon-toggle.is-focused.is-checked .mdl-icon-toggle__label {
-    background-color: rgba(63, 81, 181, 0.26); }
-
-.mdl-icon-toggle__ripple-container {
-  position: absolute;
-  z-index: 2;
-  top: -2px;
-  left: -2px;
-  box-sizing: border-box;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  cursor: pointer;
-  overflow: hidden;
-  -webkit-mask-image: -webkit-radial-gradient(circle, white, black); }
-  .mdl-icon-toggle__ripple-container .mdl-ripple {
-    background: #616161; }
-  .mdl-icon-toggle.is-disabled .mdl-icon-toggle__ripple-container {
-    cursor: auto; }
-  .mdl-icon-toggle.is-disabled .mdl-icon-toggle__ripple-container .mdl-ripple {
-    background: transparent; }
-
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/*------------------------------------*    $CONTENTS
-\*------------------------------------*/
-/**
- * STYLE GUIDE VARIABLES------------------Declarations of Sass variables
- * -----Typography
- * -----Colors
- * -----Textfield
- * -----Switch
- * -----Spinner
- * -----Radio
- * -----Menu
- * -----List
- * -----Layout
- * -----Icon toggles
- * -----Footer
- * -----Column
- * -----Checkbox
- * -----Card
- * -----Button
- * -----Animation
- * -----Progress
- * -----Badge
- * -----Shadows
- * -----Grid
- * -----Data table
- * -----Dialog
- * -----Snackbar
- *
- * Even though all variables have the `!default` directive, most of them
- * should not be changed as they are dependent one another. This can cause
- * visual distortions (like alignment issues) that are hard to track down
- * and fix.
- */
-/* ==========  TYPOGRAPHY  ========== */
-/* We're splitting fonts into "preferred" and "performance" in order to optimize
-   page loading. For important text, such as the body, we want it to load
-   immediately and not wait for the web font load, whereas for other sections,
-   such as headers and titles, we're OK with things taking a bit longer to load.
-   We do have some optional classes and parameters in the mixins, in case you
-   definitely want to make sure you're using the preferred font and don't mind
-   the performance hit.
-   We should be able to improve on this once CSS Font Loading L3 becomes more
-   widely available.
-*/
-/* ==========  COLORS  ========== */
-/**
-*
-* Material design color palettes.
-* @see http://www.google.com/design/spec/style/color.html
-*
-**/
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/* ==========  Color Palettes  ========== */
-/* colors.scss */
-/**
- * Copyright 2015 Google Inc. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
-/* ==========  IMAGES  ========== */
-/* ==========  Color & Themes  ========== */
-/* ==========  Typography  ========== */
-/* ==========  Components  ========== */
-/* ==========  Standard Buttons  ========== */
-/* ==========  Icon Toggles  ========== */
-/* ==========  Radio Buttons  ========== */
-/* ==========  Ripple effect  ========== */
-/* ==========  Layout  ========== */
-/* ==========  Content Tabs  ========== */
-/* ==========  Checkboxes  ========== */
-/* ==========  Switches  ========== */
-/* ==========  Spinner  ========== */
-/* ==========  Text fields  ========== */
-/* ==========  Card  ========== */
-/* ==========  Sliders ========== */
-/* ========== Progress ========== */
-/* ==========  List ========== */
-/* ==========  Item ========== */
-/* ==========  Dropdown menu ========== */
-/* ==========  Tooltips  ========== */
-/* ==========  Footer  ========== */
-/* TEXTFIELD */
-/* SWITCH */
-/* SPINNER */
-/* RADIO */
-/* MENU */
-/* LIST */
-/* LAYOUT */
-/* ICON TOGGLE */
-/* FOOTER */
-/*mega-footer*/
-/*mini-footer*/
-/* CHECKBOX */
-/* CARD */
-/* Card dimensions */
-/* Cover image */
-/* BUTTON */
-/**
- *
- * Dimensions
- *
- */
-/* ANIMATION */
-/* PROGRESS */
-/* BADGE */
-/* SHADOWS */
-/* GRID */
-/* DATA TABLE */
-/* DIALOG */
-/* SNACKBAR */
-/* TOOLTIP */
+/* CHIP */
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -4805,150 +3902,139 @@ input.mdl-button[type="submit"] {
 /* Shadows */
 /* Animations */
 /* Dialog */
-.mdl-menu__container {
+.mdl-list {
   display: block;
-  margin: 0;
-  padding: 0;
-  border: none;
-  position: absolute;
-  overflow: visible;
-  height: 0;
-  width: 0;
-  visibility: hidden;
-  z-index: -1; }
-  .mdl-menu__container.is-visible, .mdl-menu__container.is-animating {
-    z-index: 999;
-    visibility: visible; }
-
-.mdl-menu__outline {
-  display: block;
-  background: white;
-  margin: 0;
-  padding: 0;
-  border: none;
-  border-radius: 2px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  opacity: 0;
-  -webkit-transform: scale(0);
-          transform: scale(0);
-  -webkit-transform-origin: 0 0;
-          transform-origin: 0 0;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-  will-change: transform;
-  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: -1; }
-  .mdl-menu__container.is-visible .mdl-menu__outline {
-    opacity: 1;
-    -webkit-transform: scale(1);
-            transform: scale(1);
-    z-index: 999; }
-  .mdl-menu__outline.mdl-menu--bottom-right {
-    -webkit-transform-origin: 100% 0;
-            transform-origin: 100% 0; }
-  .mdl-menu__outline.mdl-menu--top-left {
-    -webkit-transform-origin: 0 100%;
-            transform-origin: 0 100%; }
-  .mdl-menu__outline.mdl-menu--top-right {
-    -webkit-transform-origin: 100% 100%;
-            transform-origin: 100% 100%; }
-
-.mdl-menu {
-  position: absolute;
-  list-style: none;
-  top: 0;
-  left: 0;
-  height: auto;
-  width: auto;
-  min-width: 124px;
   padding: 8px 0;
-  margin: 0;
-  opacity: 0;
-  clip: rect(0 0 0 0);
-  z-index: -1; }
-  .mdl-menu__container.is-visible .mdl-menu {
-    opacity: 1;
-    z-index: 999; }
-  .mdl-menu.is-animating {
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1), clip 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
-  .mdl-menu.mdl-menu--bottom-right {
-    left: auto;
-    right: 0; }
-  .mdl-menu.mdl-menu--top-left {
-    top: auto;
-    bottom: 0; }
-  .mdl-menu.mdl-menu--top-right {
-    top: auto;
-    left: auto;
-    bottom: 0;
-    right: 0; }
-  .mdl-menu.mdl-menu--unaligned {
-    top: auto;
-    left: auto; }
+  list-style: none; }
 
-.mdl-menu__item {
-  display: block;
-  border: none;
-  color: rgba(0, 0, 0, 0.87);
-  background-color: transparent;
-  text-align: left;
-  margin: 0;
-  padding: 0 16px;
-  outline-color: #bdbdbd;
-  position: relative;
-  overflow: hidden;
-  font-size: 14px;
+.mdl-list__item {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  letter-spacing: 0;
-  text-decoration: none;
-  cursor: pointer;
-  height: 48px;
-  line-height: 48px;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  -webkit-user-select: none;
-     -moz-user-select: none;
-      -ms-user-select: none;
-          user-select: none; }
-  .mdl-menu__container.is-visible .mdl-menu__item {
-    opacity: 1; }
-  .mdl-menu__item::-moz-focus-inner {
-    border: 0; }
-  .mdl-menu__item--full-bleed-divider {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.12); }
-  .mdl-menu__item[disabled], .mdl-menu__item[data-mdl-disabled] {
-    color: #bdbdbd;
-    background-color: transparent;
-    cursor: auto; }
-    .mdl-menu__item[disabled]:hover, .mdl-menu__item[data-mdl-disabled]:hover {
-      background-color: transparent; }
-    .mdl-menu__item[disabled]:focus, .mdl-menu__item[data-mdl-disabled]:focus {
-      background-color: transparent; }
-    .mdl-menu__item[disabled] .mdl-ripple, .mdl-menu__item[data-mdl-disabled] .mdl-ripple {
-      background: transparent; }
-  .mdl-menu__item:hover {
-    background-color: #eeeeee; }
-  .mdl-menu__item:focus {
-    outline: none;
-    background-color: #eeeeee; }
-  .mdl-menu__item:active {
-    background-color: #e0e0e0; }
-
-.mdl-menu__item--ripple-container {
-  display: block;
-  height: 100%;
-  left: 0px;
-  position: absolute;
-  top: 0px;
-  width: 100%;
-  z-index: 0;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 48px;
+  box-sizing: border-box;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
+          flex-wrap: nowrap;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 16px;
+  cursor: default;
+  color: rgba(0,0,0, 0.87);
   overflow: hidden; }
+  .mdl-list__item .mdl-list__item-primary-content {
+    -webkit-order: 0;
+        -ms-flex-order: 0;
+            order: 0;
+    -webkit-flex-grow: 2;
+        -ms-flex-positive: 2;
+            flex-grow: 2;
+    text-decoration: none;
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+        -ms-flex-align: center;
+            align-items: center; }
+    .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-icon {
+      margin-right: 32px; }
+    .mdl-list__item .mdl-list__item-primary-content .mdl-list__item-avatar {
+      margin-right: 16px; }
+  .mdl-list__item .mdl-list__item-secondary-content {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-flow: column;
+        -ms-flex-flow: column;
+            flex-flow: column;
+    -webkit-align-items: flex-end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+    margin-left: 16px; }
+    .mdl-list__item .mdl-list__item-secondary-content .mdl-list__item-secondary-action label {
+      display: inline; }
+    .mdl-list__item .mdl-list__item-secondary-content .mdl-list__item-secondary-info {
+      font-size: 12px;
+      font-weight: 400;
+      line-height: 1;
+      letter-spacing: 0;
+      color: rgba(0,0,0, 0.54); }
+    .mdl-list__item .mdl-list__item-secondary-content .mdl-list__item-sub-header {
+      padding: 0 0 0 16px; }
+
+.mdl-list__item-icon,
+.mdl-list__item-icon.material-icons {
+  height: 24px;
+  width: 24px;
+  font-size: 24px;
+  box-sizing: border-box;
+  color: rgb(117,117,117); }
+
+.mdl-list__item-avatar,
+.mdl-list__item-avatar.material-icons {
+  height: 40px;
+  width: 40px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background-color: rgb(117,117,117);
+  font-size: 40px;
+  color: white; }
+
+.mdl-list__item--two-line {
+  height: 72px; }
+  .mdl-list__item--two-line .mdl-list__item-primary-content {
+    height: 36px;
+    line-height: 20px;
+    display: block; }
+    .mdl-list__item--two-line .mdl-list__item-primary-content .mdl-list__item-avatar {
+      float: left; }
+    .mdl-list__item--two-line .mdl-list__item-primary-content .mdl-list__item-icon {
+      float: left;
+      margin-top: 6px; }
+    .mdl-list__item--two-line .mdl-list__item-primary-content .mdl-list__item-secondary-content {
+      height: 36px; }
+    .mdl-list__item--two-line .mdl-list__item-primary-content .mdl-list__item-sub-title {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+      letter-spacing: 0;
+      line-height: 18px;
+      color: rgba(0,0,0, 0.54);
+      display: block;
+      padding: 0; }
+
+.mdl-list__item--three-line {
+  height: 88px; }
+  .mdl-list__item--three-line .mdl-list__item-primary-content {
+    height: 52px;
+    line-height: 20px;
+    display: block; }
+    .mdl-list__item--three-line .mdl-list__item-primary-content .mdl-list__item-avatar,
+    .mdl-list__item--three-line .mdl-list__item-primary-content .mdl-list__item-icon {
+      float: left; }
+  .mdl-list__item--three-line .mdl-list__item-secondary-content {
+    height: 52px; }
+  .mdl-list__item--three-line .mdl-list__item-text-body {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0;
+    line-height: 18px;
+    height: 52px;
+    color: rgba(0,0,0, 0.54);
+    display: block;
+    padding: 0; }
 
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
@@ -5007,6 +4093,8 @@ input.mdl-button[type="submit"] {
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -5063,13 +4151,6 @@ input.mdl-button[type="submit"] {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
 /* ==========  IMAGES  ========== */
 /* ==========  Color & Themes  ========== */
 /* ==========  Typography  ========== */
@@ -5122,6 +4203,7 @@ input.mdl-button[type="submit"] {
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
+/* CHIP */
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -5143,13 +4225,15 @@ input.mdl-button[type="submit"] {
 /* Dialog */
 .mdl-navigation {
   display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
   box-sizing: border-box; }
 
 .mdl-navigation__link {
-  color: #424242;
+  color: rgb(66,66,66);
   text-decoration: none;
   margin: 0;
   font-size: 14px;
@@ -5164,8 +4248,10 @@ input.mdl-button[type="submit"] {
   width: 100%;
   height: 100%;
   display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   -webkit-flex-direction: column;
+      -ms-flex-direction: column;
           flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
@@ -5197,14 +4283,18 @@ input.mdl-button[type="submit"] {
 
 .mdl-layout-spacer {
   -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
           flex-grow: 1; }
 
 .mdl-layout__drawer {
   display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   -webkit-flex-direction: column;
+      -ms-flex-direction: column;
           flex-direction: column;
   -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
   width: 240px;
   height: 100%;
@@ -5212,10 +4302,10 @@ input.mdl-button[type="submit"] {
   position: absolute;
   top: 0;
   left: 0;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
-  border-right: 1px solid #e0e0e0;
-  background: #fafafa;
+  border-right: 1px solid rgb(224,224,224);
+  background: rgb(250,250,250);
   -webkit-transform: translateX(-250px);
           transform: translateX(-250px);
   -webkit-transform-style: preserve-3d;
@@ -5226,7 +4316,7 @@ input.mdl-button[type="submit"] {
   transition-property: -webkit-transform;
   transition-property: transform;
   transition-property: transform, -webkit-transform;
-  color: #424242;
+  color: rgb(66,66,66);
   overflow: visible;
   overflow-y: auto;
   z-index: 5; }
@@ -5237,6 +4327,7 @@ input.mdl-button[type="submit"] {
       overflow: hidden; }
   .mdl-layout__drawer > * {
     -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
             flex-shrink: 0; }
   .mdl-layout__drawer > .mdl-layout__title,
   .mdl-layout__drawer > .mdl-layout-title {
@@ -5249,14 +4340,16 @@ input.mdl-button[type="submit"] {
         padding-left: 16px; } }
   .mdl-layout__drawer .mdl-navigation {
     -webkit-flex-direction: column;
+        -ms-flex-direction: column;
             flex-direction: column;
     -webkit-align-items: stretch;
-                -ms-grid-row-align: stretch;
+        -ms-flex-align: stretch;
             align-items: stretch;
     padding-top: 16px; }
     .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
       display: block;
       -webkit-flex-shrink: 0;
+          -ms-flex-negative: 0;
               flex-shrink: 0;
       padding: 16px 40px;
       margin: 0;
@@ -5265,10 +4358,10 @@ input.mdl-button[type="submit"] {
         .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
           padding: 16px 16px; } }
       .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover {
-        background-color: #e0e0e0; }
+        background-color: rgb(224,224,224); }
       .mdl-layout__drawer .mdl-navigation .mdl-navigation__link--current {
-        background-color: black;
-        color: #e0e0e0; }
+        background-color: rgb(224,224,224);
+        color: rgb(0,0,0); }
   @media screen and (min-width: 1025px) {
     .mdl-layout--fixed-drawer > .mdl-layout__drawer {
       -webkit-transform: translateX(0);
@@ -5281,21 +4374,22 @@ input.mdl-button[type="submit"] {
   width: 48px;
   border: 0;
   -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
           flex-shrink: 0;
   overflow: hidden;
   text-align: center;
   cursor: pointer;
   font-size: 26px;
-  line-height: 50px;
+  line-height: 56px;
   font-family: Helvetica, Arial, sans-serif;
-  margin: 10px 12px;
+  margin: 8px 12px;
   top: 0;
   left: 0;
-  color: white;
+  color: rgb(255,255,255);
   z-index: 4; }
   .mdl-layout__header .mdl-layout__drawer-button {
     position: absolute;
-    color: white;
+    color: rgb(255,255,255);
     background-color: inherit; }
     @media screen and (max-width: 1024px) {
       .mdl-layout__header .mdl-layout__drawer-button {
@@ -5305,24 +4399,29 @@ input.mdl-button[type="submit"] {
       margin: 4px;
       color: rgba(0, 0, 0, 0.5); } }
   @media screen and (min-width: 1025px) {
-    .mdl-layout--fixed-drawer > .mdl-layout__drawer-button {
-      display: none; }
-    .mdl-layout--no-desktop-drawer-button .mdl-layout__drawer-button {
-      display: none; } }
-  .mdl-layout--no-drawer-button .mdl-layout__drawer-button {
-    display: none; }
+    .mdl-layout__drawer-button {
+      line-height: 54px; }
+      .mdl-layout--no-desktop-drawer-button .mdl-layout__drawer-button,
+      .mdl-layout--fixed-drawer > .mdl-layout__drawer-button,
+      .mdl-layout--no-drawer-button .mdl-layout__drawer-button {
+        display: none; } }
 
 .mdl-layout__header {
   display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   -webkit-flex-direction: column;
+      -ms-flex-direction: column;
           flex-direction: column;
   -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
   -webkit-justify-content: flex-start;
+      -ms-flex-pack: start;
           justify-content: flex-start;
   box-sizing: border-box;
   -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
           flex-shrink: 0;
   width: 100%;
   margin: 0;
@@ -5331,9 +4430,9 @@ input.mdl-button[type="submit"] {
   min-height: 64px;
   max-height: 1000px;
   z-index: 3;
-  background-color: #3f51b5;
-  color: white;
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  background-color: rgb(63,81,181);
+  color: rgb(255,255,255);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
   transition-duration: 0.2s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-property: max-height, box-shadow; }
@@ -5376,6 +4475,7 @@ input.mdl-button[type="submit"] {
       display: none; }
     .mdl-layout--fixed-header > .mdl-layout__header {
       display: -webkit-flex;
+      display: -ms-flexbox;
       display: flex; } }
 
 .mdl-layout__header--transparent.mdl-layout__header--transparent {
@@ -5392,24 +4492,31 @@ input.mdl-button[type="submit"] {
   box-shadow: none;
   overflow: hidden; }
   .mdl-layout__header--waterfall.is-casting-shadow {
-    box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); }
+    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
   .mdl-layout__header--waterfall.mdl-layout__header--waterfall-hide-top {
     -webkit-justify-content: flex-end;
+        -ms-flex-pack: end;
             justify-content: flex-end; }
 
 .mdl-layout__header-row {
   display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   -webkit-flex-direction: row;
+      -ms-flex-direction: row;
           flex-direction: row;
   -webkit-flex-wrap: nowrap;
+      -ms-flex-wrap: nowrap;
           flex-wrap: nowrap;
   -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
           flex-shrink: 0;
   box-sizing: border-box;
   -webkit-align-self: stretch;
+      -ms-flex-item-align: stretch;
           align-self: stretch;
   -webkit-align-items: center;
+      -ms-flex-align: center;
           align-items: center;
   height: 64px;
   margin: 0;
@@ -5427,6 +4534,7 @@ input.mdl-button[type="submit"] {
         padding-left: 16px; } }
   .mdl-layout__header-row > * {
     -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
             flex-shrink: 0; }
   .mdl-layout__header--scroll .mdl-layout__header-row {
     width: 100%; }
@@ -5435,16 +4543,17 @@ input.mdl-button[type="submit"] {
     padding: 0;
     height: 64px;
     -webkit-flex-direction: row;
+        -ms-flex-direction: row;
             flex-direction: row;
     -webkit-align-items: center;
-                -ms-grid-row-align: center;
+        -ms-flex-align: center;
             align-items: center; }
     @media screen and (max-width: 1024px) {
       .mdl-layout__header-row .mdl-navigation {
         height: 56px; } }
   .mdl-layout__header-row .mdl-navigation__link {
     display: block;
-    color: white;
+    color: rgb(255,255,255);
     line-height: 64px;
     padding: 0 24px; }
     @media screen and (max-width: 1024px) {
@@ -5485,6 +4594,7 @@ input.mdl-button[type="submit"] {
   overflow-y: auto;
   overflow-x: hidden;
   -webkit-flex-grow: 1;
+      -ms-flex-positive: 1;
           flex-grow: 1;
   z-index: 1;
   -webkit-overflow-scrolling: touch; }
@@ -5505,8 +4615,9 @@ input.mdl-button[type="submit"] {
   width: calc(100% - 112px);
   padding: 0 0 0 56px;
   display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
-  background-color: #3f51b5;
+  background-color: rgb(63,81,181);
   overflow-y: hidden;
   overflow-x: scroll; }
   .mdl-layout__tab-bar::-webkit-scrollbar {
@@ -5538,8 +4649,10 @@ input.mdl-button[type="submit"] {
   margin: 0;
   z-index: 2;
   -webkit-flex-grow: 0;
+      -ms-flex-positive: 0;
           flex-grow: 0;
   -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
           flex-shrink: 0;
   overflow: hidden; }
   .mdl-layout__container > .mdl-layout__tab-bar-container {
@@ -5555,7 +4668,7 @@ input.mdl-button[type="submit"] {
   width: 56px;
   z-index: 4;
   text-align: center;
-  background-color: #3f51b5;
+  background-color: rgb(63,81,181);
   color: transparent;
   cursor: pointer;
   -webkit-user-select: none;
@@ -5571,14 +4684,13 @@ input.mdl-button[type="submit"] {
       left: -4px; }
   @media screen and (max-width: 1024px) {
     .mdl-layout__tab-bar-button {
-      display: none;
       width: 60px; } }
   .mdl-layout--fixed-tabs .mdl-layout__tab-bar-button {
     display: none; }
   .mdl-layout__tab-bar-button .material-icons {
     line-height: 48px; }
   .mdl-layout__tab-bar-button.is-active {
-    color: white; }
+    color: rgb(255,255,255); }
 
 .mdl-layout__tab-bar-left-button {
   left: 0; }
@@ -5594,8 +4706,10 @@ input.mdl-button[type="submit"] {
   position: relative;
   display: block;
   -webkit-flex-grow: 0;
+      -ms-flex-positive: 0;
           flex-grow: 0;
   -webkit-flex-shrink: 0;
+      -ms-flex-negative: 0;
           flex-shrink: 0;
   text-decoration: none;
   height: 48px;
@@ -5604,7 +4718,7 @@ input.mdl-button[type="submit"] {
   font-weight: 500;
   font-size: 14px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255,255,255, 0.6);
   overflow: hidden; }
   @media screen and (max-width: 1024px) {
     .mdl-layout__tab {
@@ -5612,10 +4726,11 @@ input.mdl-button[type="submit"] {
   .mdl-layout--fixed-tabs .mdl-layout__tab {
     float: none;
     -webkit-flex-grow: 1;
+        -ms-flex-positive: 1;
             flex-grow: 1;
     padding: 0; }
   .mdl-layout.is-upgraded .mdl-layout__tab.is-active {
-    color: white; }
+    color: rgb(255,255,255); }
   .mdl-layout.is-upgraded .mdl-layout__tab.is-active::after {
     height: 2px;
     width: 100%;
@@ -5624,9 +4739,9 @@ input.mdl-button[type="submit"] {
     bottom: 0;
     left: 0;
     position: absolute;
-    background: #ff4081;
-    -webkit-animation: border-expand 0.2s cubic-bezier(0.4, 0, 0.4, 1) 0.01s alternate forwards;
-            animation: border-expand 0.2s cubic-bezier(0.4, 0, 0.4, 1) 0.01s alternate forwards;
+    background: rgb(255,64,129);
+    -webkit-animation: border-expand 0.2s cubic-bezier(0.4, 0, 0.4, 1) alternate forwards;
+            animation: border-expand 0.2s cubic-bezier(0.4, 0, 0.4, 1) alternate forwards;
     transition: all 1s cubic-bezier(0.4, 0, 1, 1); }
   .mdl-layout__tab .mdl-layout__tab-ripple-container {
     display: block;
@@ -5638,7 +4753,7 @@ input.mdl-button[type="submit"] {
     z-index: 1;
     overflow: hidden; }
     .mdl-layout__tab .mdl-layout__tab-ripple-container .mdl-ripple {
-      background-color: white; }
+      background-color: rgb(255,255,255); }
 
 .mdl-layout__tab-panel {
   display: block; }
@@ -5704,6 +4819,8 @@ input.mdl-button[type="submit"] {
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -5760,12 +4877,263 @@ input.mdl-button[type="submit"] {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/* ==========  IMAGES  ========== */
+/* ==========  Color & Themes  ========== */
+/* ==========  Typography  ========== */
+/* ==========  Components  ========== */
+/* ==========  Standard Buttons  ========== */
+/* ==========  Icon Toggles  ========== */
+/* ==========  Radio Buttons  ========== */
+/* ==========  Ripple effect  ========== */
+/* ==========  Layout  ========== */
+/* ==========  Content Tabs  ========== */
+/* ==========  Checkboxes  ========== */
+/* ==========  Switches  ========== */
+/* ==========  Spinner  ========== */
+/* ==========  Text fields  ========== */
+/* ==========  Card  ========== */
+/* ==========  Sliders ========== */
+/* ========== Progress ========== */
+/* ==========  List ========== */
+/* ==========  Item ========== */
+/* ==========  Dropdown menu ========== */
+/* ==========  Tooltips  ========== */
+/* ==========  Footer  ========== */
+/* TEXTFIELD */
+/* SWITCH */
+/* SPINNER */
+/* RADIO */
+/* MENU */
+/* LIST */
+/* LAYOUT */
+/* ICON TOGGLE */
+/* FOOTER */
+/*mega-footer*/
+/*mini-footer*/
+/* CHECKBOX */
+/* CARD */
+/* Card dimensions */
+/* Cover image */
+/* BUTTON */
 /**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
  *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
+ * Dimensions
+ *
+ */
+/* ANIMATION */
+/* PROGRESS */
+/* BADGE */
+/* SHADOWS */
+/* GRID */
+/* DATA TABLE */
+/* DIALOG */
+/* SNACKBAR */
+/* TOOLTIP */
+/* CHIP */
+.mdl-tabs {
+  display: block;
+  width: 100%; }
+
+.mdl-tabs__tab-bar {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-align-content: space-between;
+      -ms-flex-line-pack: justify;
+          align-content: space-between;
+  -webkit-align-items: flex-start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  height: 48px;
+  padding: 0 0 0 0;
+  margin: 0;
+  border-bottom: 1px solid rgb(224,224,224); }
+
+.mdl-tabs__tab {
+  margin: 0;
+  border: none;
+  padding: 0 24px 0 24px;
+  float: left;
+  position: relative;
+  display: block;
+  text-decoration: none;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: rgba(0,0,0, 0.54);
+  overflow: hidden; }
+  .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active {
+    color: rgba(0,0,0, 0.87); }
+  .mdl-tabs.is-upgraded .mdl-tabs__tab.is-active:after {
+    height: 2px;
+    width: 100%;
+    display: block;
+    content: " ";
+    bottom: 0px;
+    left: 0px;
+    position: absolute;
+    background: rgb(63,81,181);
+    -webkit-animation: border-expand 0.2s cubic-bezier(0.4, 0, 0.4, 1) alternate forwards;
+            animation: border-expand 0.2s cubic-bezier(0.4, 0, 0.4, 1) alternate forwards;
+    transition: all 1s cubic-bezier(0.4, 0, 1, 1); }
+  .mdl-tabs__tab .mdl-tabs__ripple-container {
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0px;
+    top: 0px;
+    z-index: 1;
+    overflow: hidden; }
+    .mdl-tabs__tab .mdl-tabs__ripple-container .mdl-ripple {
+      background: rgb(63,81,181); }
+
+.mdl-tabs__panel {
+  display: block; }
+  .mdl-tabs.is-upgraded .mdl-tabs__panel {
+    display: none; }
+  .mdl-tabs.is-upgraded .mdl-tabs__panel.is-active {
+    display: block; }
+
+@-webkit-keyframes border-expand {
+  0% {
+    opacity: 0;
+    width: 0; }
+  100% {
+    opacity: 1;
+    width: 100%; } }
+
+@keyframes border-expand {
+  0% {
+    opacity: 0;
+    width: 0; }
+  100% {
+    opacity: 1;
+    width: 100%; } }
+
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*------------------------------------*    $CONTENTS
+\*------------------------------------*/
+/**
+ * STYLE GUIDE VARIABLES------------------Declarations of Sass variables
+ * -----Typography
+ * -----Colors
+ * -----Textfield
+ * -----Switch
+ * -----Spinner
+ * -----Radio
+ * -----Menu
+ * -----List
+ * -----Layout
+ * -----Icon toggles
+ * -----Footer
+ * -----Column
+ * -----Checkbox
+ * -----Card
+ * -----Button
+ * -----Animation
+ * -----Progress
+ * -----Badge
+ * -----Shadows
+ * -----Grid
+ * -----Data table
+ * -----Dialog
+ * -----Snackbar
+ * -----Tooltip
+ * -----Chip
+ *
+ * Even though all variables have the `!default` directive, most of them
+ * should not be changed as they are dependent one another. This can cause
+ * visual distortions (like alignment issues) that are hard to track down
+ * and fix.
+ */
+/* ==========  TYPOGRAPHY  ========== */
+/* We're splitting fonts into "preferred" and "performance" in order to optimize
+   page loading. For important text, such as the body, we want it to load
+   immediately and not wait for the web font load, whereas for other sections,
+   such as headers and titles, we're OK with things taking a bit longer to load.
+   We do have some optional classes and parameters in the mixins, in case you
+   definitely want to make sure you're using the preferred font and don't mind
+   the performance hit.
+   We should be able to improve on this once CSS Font Loading L3 becomes more
+   widely available.
+*/
+/* ==========  COLORS  ========== */
+/**
+*
+* Material design color palettes.
+* @see http://www.google.com/design/spec/style/color.html
+*
+**/
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* ==========  Color Palettes  ========== */
+/* colors.scss */
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 /* ==========  IMAGES  ========== */
 /* ==========  Color & Themes  ========== */
@@ -5819,6 +5187,7 @@ input.mdl-button[type="submit"] {
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
+/* CHIP */
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *
@@ -5838,80 +5207,350 @@ input.mdl-button[type="submit"] {
 /* Shadows */
 /* Animations */
 /* Dialog */
-.mdl-shadow--0dp {
-  box-shadow: none; }
+.mdl-textfield {
+  position: relative;
+  font-size: 16px;
+  display: inline-block;
+  box-sizing: border-box;
+  width: 300px;
+  max-width: 100%;
+  margin: 0;
+  padding: 20px 0; }
+  .mdl-textfield .mdl-button {
+    position: absolute;
+    bottom: 20px; }
 
-.mdl-shadow--1dp {
-  box-shadow: 0px 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12); }
+.mdl-textfield--align-right {
+  text-align: right; }
 
+.mdl-textfield--full-width {
+  width: 100%; }
+
+.mdl-textfield--expandable {
+  min-width: 32px;
+  width: auto;
+  min-height: 32px; }
+  .mdl-textfield--expandable .mdl-button--icon {
+    top: 16px; }
+
+.mdl-textfield__input {
+  border: none;
+  border-bottom: 1px solid rgba(0,0,0, 0.12);
+  display: block;
+  font-size: 16px;
+  font-family: "Helvetica", "Arial", sans-serif;
+  margin: 0;
+  padding: 4px 0;
+  width: 100%;
+  background: none;
+  text-align: left;
+  color: inherit; }
+  .mdl-textfield__input[type="number"] {
+    -moz-appearance: textfield; }
+  .mdl-textfield__input[type="number"]::-webkit-inner-spin-button, .mdl-textfield__input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; }
+  .mdl-textfield.is-focused .mdl-textfield__input {
+    outline: none; }
+  .mdl-textfield.is-invalid .mdl-textfield__input {
+    border-color: rgb(213,0,0);
+    box-shadow: none; }
+  fieldset[disabled] .mdl-textfield .mdl-textfield__input,
+  .mdl-textfield.is-disabled .mdl-textfield__input {
+    background-color: transparent;
+    border-bottom: 1px dotted rgba(0,0,0, 0.12);
+    color: rgba(0,0,0, 0.26); }
+
+.mdl-textfield textarea.mdl-textfield__input {
+  display: block; }
+
+.mdl-textfield__label {
+  bottom: 0;
+  color: rgba(0,0,0, 0.26);
+  font-size: 16px;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  position: absolute;
+  display: block;
+  top: 24px;
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-align: left; }
+  .mdl-textfield.is-dirty .mdl-textfield__label,
+  .mdl-textfield.has-placeholder .mdl-textfield__label {
+    visibility: hidden; }
+  .mdl-textfield--floating-label .mdl-textfield__label {
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1); }
+  .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    transition: none; }
+  fieldset[disabled] .mdl-textfield .mdl-textfield__label,
+  .mdl-textfield.is-disabled.is-disabled .mdl-textfield__label {
+    color: rgba(0,0,0, 0.26); }
+  .mdl-textfield--floating-label.is-focused .mdl-textfield__label,
+  .mdl-textfield--floating-label.is-dirty .mdl-textfield__label,
+  .mdl-textfield--floating-label.has-placeholder .mdl-textfield__label {
+    color: rgb(63,81,181);
+    font-size: 12px;
+    top: 4px;
+    visibility: visible; }
+  .mdl-textfield--floating-label.is-focused .mdl-textfield__expandable-holder .mdl-textfield__label,
+  .mdl-textfield--floating-label.is-dirty .mdl-textfield__expandable-holder .mdl-textfield__label,
+  .mdl-textfield--floating-label.has-placeholder .mdl-textfield__expandable-holder .mdl-textfield__label {
+    top: -16px; }
+  .mdl-textfield--floating-label.is-invalid .mdl-textfield__label {
+    color: rgb(213,0,0);
+    font-size: 12px; }
+  .mdl-textfield__label:after {
+    background-color: rgb(63,81,181);
+    bottom: 20px;
+    content: '';
+    height: 2px;
+    left: 45%;
+    position: absolute;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    visibility: hidden;
+    width: 10px; }
+  .mdl-textfield.is-focused .mdl-textfield__label:after {
+    left: 0;
+    visibility: visible;
+    width: 100%; }
+  .mdl-textfield.is-invalid .mdl-textfield__label:after {
+    background-color: rgb(213,0,0); }
+
+.mdl-textfield__error {
+  color: rgb(213,0,0);
+  position: absolute;
+  font-size: 12px;
+  margin-top: 3px;
+  visibility: hidden;
+  display: block; }
+  .mdl-textfield.is-invalid .mdl-textfield__error {
+    visibility: visible; }
+
+.mdl-textfield__expandable-holder {
+  display: inline-block;
+  position: relative;
+  margin-left: 32px;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-block;
+  max-width: 0.1px; }
+  .mdl-textfield.is-focused .mdl-textfield__expandable-holder, .mdl-textfield.is-dirty .mdl-textfield__expandable-holder {
+    max-width: 600px; }
+  .mdl-textfield__expandable-holder .mdl-textfield__label:after {
+    bottom: 0; }
+
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/*------------------------------------*    $CONTENTS
+\*------------------------------------*/
+/**
+ * STYLE GUIDE VARIABLES------------------Declarations of Sass variables
+ * -----Typography
+ * -----Colors
+ * -----Textfield
+ * -----Switch
+ * -----Spinner
+ * -----Radio
+ * -----Menu
+ * -----List
+ * -----Layout
+ * -----Icon toggles
+ * -----Footer
+ * -----Column
+ * -----Checkbox
+ * -----Card
+ * -----Button
+ * -----Animation
+ * -----Progress
+ * -----Badge
+ * -----Shadows
+ * -----Grid
+ * -----Data table
+ * -----Dialog
+ * -----Snackbar
+ * -----Tooltip
+ * -----Chip
+ *
+ * Even though all variables have the `!default` directive, most of them
+ * should not be changed as they are dependent one another. This can cause
+ * visual distortions (like alignment issues) that are hard to track down
+ * and fix.
+ */
+/* ==========  TYPOGRAPHY  ========== */
+/* We're splitting fonts into "preferred" and "performance" in order to optimize
+   page loading. For important text, such as the body, we want it to load
+   immediately and not wait for the web font load, whereas for other sections,
+   such as headers and titles, we're OK with things taking a bit longer to load.
+   We do have some optional classes and parameters in the mixins, in case you
+   definitely want to make sure you're using the preferred font and don't mind
+   the performance hit.
+   We should be able to improve on this once CSS Font Loading L3 becomes more
+   widely available.
+*/
+/* ==========  COLORS  ========== */
+/**
+*
+* Material design color palettes.
+* @see http://www.google.com/design/spec/style/color.html
+*
+**/
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* ==========  Color Palettes  ========== */
+/* colors.scss */
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* ==========  IMAGES  ========== */
+/* ==========  Color & Themes  ========== */
+/* ==========  Typography  ========== */
+/* ==========  Components  ========== */
+/* ==========  Standard Buttons  ========== */
+/* ==========  Icon Toggles  ========== */
+/* ==========  Radio Buttons  ========== */
+/* ==========  Ripple effect  ========== */
+/* ==========  Layout  ========== */
+/* ==========  Content Tabs  ========== */
+/* ==========  Checkboxes  ========== */
+/* ==========  Switches  ========== */
+/* ==========  Spinner  ========== */
+/* ==========  Text fields  ========== */
+/* ==========  Card  ========== */
+/* ==========  Sliders ========== */
+/* ========== Progress ========== */
+/* ==========  List ========== */
+/* ==========  Item ========== */
+/* ==========  Dropdown menu ========== */
+/* ==========  Tooltips  ========== */
+/* ==========  Footer  ========== */
+/* TEXTFIELD */
+/* SWITCH */
+/* SPINNER */
+/* RADIO */
+/* MENU */
+/* LIST */
+/* LAYOUT */
+/* ICON TOGGLE */
+/* FOOTER */
+/*mega-footer*/
+/*mini-footer*/
+/* CHECKBOX */
+/* CARD */
+/* Card dimensions */
+/* Cover image */
+/* BUTTON */
+/**
+ *
+ * Dimensions
+ *
+ */
+/* ANIMATION */
+/* PROGRESS */
+/* BADGE */
+/* SHADOWS */
+/* GRID */
+/* DATA TABLE */
+/* DIALOG */
+/* SNACKBAR */
+/* TOOLTIP */
+/* CHIP */
+/**
+ * Copyright 2015 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+/* Typography */
+/* Shadows */
+/* Animations */
+/* Dialog */
 .mdl-shadow--2dp {
-  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12); }
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12); }
 
 .mdl-shadow--3dp {
-  box-shadow: 0px 3px 3px -2px rgba(0, 0, 0, 0.2), 0px 3px 4px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 0px rgba(0, 0, 0, 0.12); }
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 1px 8px 0 rgba(0, 0, 0, 0.12); }
 
 .mdl-shadow--4dp {
-  box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2), 0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--5dp {
-  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12); }
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.2); }
 
 .mdl-shadow--6dp {
-  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 6px 10px 0px rgba(0, 0, 0, 0.14), 0px 1px 18px 0px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--7dp {
-  box-shadow: 0px 4px 5px -2px rgba(0, 0, 0, 0.2), 0px 7px 10px 1px rgba(0, 0, 0, 0.14), 0px 2px 16px 1px rgba(0, 0, 0, 0.12); }
+  box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.2); }
 
 .mdl-shadow--8dp {
-  box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14), 0px 3px 14px 2px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--9dp {
-  box-shadow: 0px 5px 6px -3px rgba(0, 0, 0, 0.2), 0px 9px 12px 1px rgba(0, 0, 0, 0.14), 0px 3px 16px 2px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--10dp {
-  box-shadow: 0px 6px 6px -3px rgba(0, 0, 0, 0.2), 0px 10px 14px 1px rgba(0, 0, 0, 0.14), 0px 4px 18px 3px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--11dp {
-  box-shadow: 0px 6px 7px -4px rgba(0, 0, 0, 0.2), 0px 11px 15px 1px rgba(0, 0, 0, 0.14), 0px 4px 20px 3px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--12dp {
-  box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 12px 17px 2px rgba(0, 0, 0, 0.14), 0px 5px 22px 4px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--13dp {
-  box-shadow: 0px 7px 8px -4px rgba(0, 0, 0, 0.2), 0px 13px 19px 2px rgba(0, 0, 0, 0.14), 0px 5px 24px 4px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--14dp {
-  box-shadow: 0px 7px 9px -4px rgba(0, 0, 0, 0.2), 0px 14px 21px 2px rgba(0, 0, 0, 0.14), 0px 5px 26px 4px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--15dp {
-  box-shadow: 0px 8px 9px -5px rgba(0, 0, 0, 0.2), 0px 15px 22px 2px rgba(0, 0, 0, 0.14), 0px 6px 28px 5px rgba(0, 0, 0, 0.12); }
+  box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.2); }
 
 .mdl-shadow--16dp {
-  box-shadow: 0px 8px 10px -5px rgba(0, 0, 0, 0.2), 0px 16px 24px 2px rgba(0, 0, 0, 0.14), 0px 6px 30px 5px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--17dp {
-  box-shadow: 0px 8px 11px -5px rgba(0, 0, 0, 0.2), 0px 17px 26px 2px rgba(0, 0, 0, 0.14), 0px 6px 32px 5px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--18dp {
-  box-shadow: 0px 9px 11px -5px rgba(0, 0, 0, 0.2), 0px 18px 28px 2px rgba(0, 0, 0, 0.14), 0px 7px 34px 6px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--19dp {
-  box-shadow: 0px 9px 12px -6px rgba(0, 0, 0, 0.2), 0px 19px 29px 2px rgba(0, 0, 0, 0.14), 0px 7px 36px 6px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--20dp {
-  box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 20px 31px 3px rgba(0, 0, 0, 0.14), 0px 8px 38px 7px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--21dp {
-  box-shadow: 0px 10px 13px -6px rgba(0, 0, 0, 0.2), 0px 21px 33px 3px rgba(0, 0, 0, 0.14), 0px 8px 40px 7px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--22dp {
-  box-shadow: 0px 10px 14px -6px rgba(0, 0, 0, 0.2), 0px 22px 35px 3px rgba(0, 0, 0, 0.14), 0px 8px 42px 7px rgba(0, 0, 0, 0.12); }
-
-.mdl-shadow--23dp {
-  box-shadow: 0px 11px 14px -7px rgba(0, 0, 0, 0.2), 0px 23px 36px 3px rgba(0, 0, 0, 0.14), 0px 9px 44px 8px rgba(0, 0, 0, 0.12); }
+  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14), 0 6px 30px 5px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2); }
 
 .mdl-shadow--24dp {
-  box-shadow: 0px 11px 15px -7px rgba(0, 0, 0, 0.2), 0px 24px 38px 3px rgba(0, 0, 0, 0.14), 0px 9px 46px 8px rgba(0, 0, 0, 0.12); }
+  box-shadow: 0 9px 46px 8px rgba(0, 0, 0, 0.14), 0 11px 15px -7px rgba(0, 0, 0, 0.12), 0 24px 38px 3px rgba(0, 0, 0, 0.2); }
 
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
@@ -5975,6 +5614,8 @@ input.mdl-button[type="submit"] {
  * -----Data table
  * -----Dialog
  * -----Snackbar
+ * -----Tooltip
+ * -----Chip
  *
  * Even though all variables have the `!default` directive, most of them
  * should not be changed as they are dependent one another. This can cause
@@ -6031,13 +5672,6 @@ input.mdl-button[type="submit"] {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/**
- * If passed a color, behaves just like the built-in `rgba`.
- * Otherwise, generates an `rgba` literal.
- *
- * This is used for generating invalid CSS with placeholders for colors that can
- * then be customized into valid CSS without using Sass.
- */
 /* ==========  IMAGES  ========== */
 /* ==========  Color & Themes  ========== */
 /* ==========  Typography  ========== */
@@ -6090,13 +5724,17 @@ input.mdl-button[type="submit"] {
 /* DIALOG */
 /* SNACKBAR */
 /* TOOLTIP */
+/* CHIP */
 .mdl-grid {
   display: -webkit-flex;
+  display: -ms-flexbox;
   display: flex;
   -webkit-flex-flow: row wrap;
+      -ms-flex-flow: row wrap;
           flex-flow: row wrap;
   margin: 0 auto 0 auto;
   -webkit-align-items: stretch;
+      -ms-flex-align: stretch;
           align-items: stretch; }
   .mdl-grid.mdl-grid--no-spacing {
     padding: 0; }
@@ -6106,18 +5744,24 @@ input.mdl-button[type="submit"] {
 
 .mdl-cell--top {
   -webkit-align-self: flex-start;
+      -ms-flex-item-align: start;
           align-self: flex-start; }
 
 .mdl-cell--middle {
   -webkit-align-self: center;
+      -ms-flex-item-align: center;
+              -ms-grid-row-align: center;
           align-self: center; }
 
 .mdl-cell--bottom {
   -webkit-align-self: flex-end;
+      -ms-flex-item-align: end;
           align-self: flex-end; }
 
 .mdl-cell--stretch {
   -webkit-align-self: stretch;
+      -ms-flex-item-align: stretch;
+              -ms-grid-row-align: stretch;
           align-self: stretch; }
 
 .mdl-grid.mdl-grid--no-spacing > .mdl-cell {
@@ -6125,50 +5769,62 @@ input.mdl-button[type="submit"] {
 
 .mdl-cell--order-1 {
   -webkit-order: 1;
+      -ms-flex-order: 1;
           order: 1; }
 
 .mdl-cell--order-2 {
   -webkit-order: 2;
+      -ms-flex-order: 2;
           order: 2; }
 
 .mdl-cell--order-3 {
   -webkit-order: 3;
+      -ms-flex-order: 3;
           order: 3; }
 
 .mdl-cell--order-4 {
   -webkit-order: 4;
+      -ms-flex-order: 4;
           order: 4; }
 
 .mdl-cell--order-5 {
   -webkit-order: 5;
+      -ms-flex-order: 5;
           order: 5; }
 
 .mdl-cell--order-6 {
   -webkit-order: 6;
+      -ms-flex-order: 6;
           order: 6; }
 
 .mdl-cell--order-7 {
   -webkit-order: 7;
+      -ms-flex-order: 7;
           order: 7; }
 
 .mdl-cell--order-8 {
   -webkit-order: 8;
+      -ms-flex-order: 8;
           order: 8; }
 
 .mdl-cell--order-9 {
   -webkit-order: 9;
+      -ms-flex-order: 9;
           order: 9; }
 
 .mdl-cell--order-10 {
   -webkit-order: 10;
+      -ms-flex-order: 10;
           order: 10; }
 
 .mdl-cell--order-11 {
   -webkit-order: 11;
+      -ms-flex-order: 11;
           order: 11; }
 
 .mdl-cell--order-12 {
   -webkit-order: 12;
+      -ms-flex-order: 12;
           order: 12; }
 
 @media (max-width: 479px) {
@@ -6183,39 +5839,51 @@ input.mdl-button[type="submit"] {
     display: none !important; }
   .mdl-cell--order-1-phone.mdl-cell--order-1-phone {
     -webkit-order: 1;
+        -ms-flex-order: 1;
             order: 1; }
   .mdl-cell--order-2-phone.mdl-cell--order-2-phone {
     -webkit-order: 2;
+        -ms-flex-order: 2;
             order: 2; }
   .mdl-cell--order-3-phone.mdl-cell--order-3-phone {
     -webkit-order: 3;
+        -ms-flex-order: 3;
             order: 3; }
   .mdl-cell--order-4-phone.mdl-cell--order-4-phone {
     -webkit-order: 4;
+        -ms-flex-order: 4;
             order: 4; }
   .mdl-cell--order-5-phone.mdl-cell--order-5-phone {
     -webkit-order: 5;
+        -ms-flex-order: 5;
             order: 5; }
   .mdl-cell--order-6-phone.mdl-cell--order-6-phone {
     -webkit-order: 6;
+        -ms-flex-order: 6;
             order: 6; }
   .mdl-cell--order-7-phone.mdl-cell--order-7-phone {
     -webkit-order: 7;
+        -ms-flex-order: 7;
             order: 7; }
   .mdl-cell--order-8-phone.mdl-cell--order-8-phone {
     -webkit-order: 8;
+        -ms-flex-order: 8;
             order: 8; }
   .mdl-cell--order-9-phone.mdl-cell--order-9-phone {
     -webkit-order: 9;
+        -ms-flex-order: 9;
             order: 9; }
   .mdl-cell--order-10-phone.mdl-cell--order-10-phone {
     -webkit-order: 10;
+        -ms-flex-order: 10;
             order: 10; }
   .mdl-cell--order-11-phone.mdl-cell--order-11-phone {
     -webkit-order: 11;
+        -ms-flex-order: 11;
             order: 11; }
   .mdl-cell--order-12-phone.mdl-cell--order-12-phone {
     -webkit-order: 12;
+        -ms-flex-order: 12;
             order: 12; }
   .mdl-cell--1-col,
   .mdl-cell--1-col-phone.mdl-cell--1-col-phone {
@@ -6320,39 +5988,51 @@ input.mdl-button[type="submit"] {
     display: none !important; }
   .mdl-cell--order-1-tablet.mdl-cell--order-1-tablet {
     -webkit-order: 1;
+        -ms-flex-order: 1;
             order: 1; }
   .mdl-cell--order-2-tablet.mdl-cell--order-2-tablet {
     -webkit-order: 2;
+        -ms-flex-order: 2;
             order: 2; }
   .mdl-cell--order-3-tablet.mdl-cell--order-3-tablet {
     -webkit-order: 3;
+        -ms-flex-order: 3;
             order: 3; }
   .mdl-cell--order-4-tablet.mdl-cell--order-4-tablet {
     -webkit-order: 4;
+        -ms-flex-order: 4;
             order: 4; }
   .mdl-cell--order-5-tablet.mdl-cell--order-5-tablet {
     -webkit-order: 5;
+        -ms-flex-order: 5;
             order: 5; }
   .mdl-cell--order-6-tablet.mdl-cell--order-6-tablet {
     -webkit-order: 6;
+        -ms-flex-order: 6;
             order: 6; }
   .mdl-cell--order-7-tablet.mdl-cell--order-7-tablet {
     -webkit-order: 7;
+        -ms-flex-order: 7;
             order: 7; }
   .mdl-cell--order-8-tablet.mdl-cell--order-8-tablet {
     -webkit-order: 8;
+        -ms-flex-order: 8;
             order: 8; }
   .mdl-cell--order-9-tablet.mdl-cell--order-9-tablet {
     -webkit-order: 9;
+        -ms-flex-order: 9;
             order: 9; }
   .mdl-cell--order-10-tablet.mdl-cell--order-10-tablet {
     -webkit-order: 10;
+        -ms-flex-order: 10;
             order: 10; }
   .mdl-cell--order-11-tablet.mdl-cell--order-11-tablet {
     -webkit-order: 11;
+        -ms-flex-order: 11;
             order: 11; }
   .mdl-cell--order-12-tablet.mdl-cell--order-12-tablet {
     -webkit-order: 12;
+        -ms-flex-order: 12;
             order: 12; }
   .mdl-cell--1-col,
   .mdl-cell--1-col-tablet.mdl-cell--1-col-tablet {
@@ -6481,39 +6161,51 @@ input.mdl-button[type="submit"] {
     display: none !important; }
   .mdl-cell--order-1-desktop.mdl-cell--order-1-desktop {
     -webkit-order: 1;
+        -ms-flex-order: 1;
             order: 1; }
   .mdl-cell--order-2-desktop.mdl-cell--order-2-desktop {
     -webkit-order: 2;
+        -ms-flex-order: 2;
             order: 2; }
   .mdl-cell--order-3-desktop.mdl-cell--order-3-desktop {
     -webkit-order: 3;
+        -ms-flex-order: 3;
             order: 3; }
   .mdl-cell--order-4-desktop.mdl-cell--order-4-desktop {
     -webkit-order: 4;
+        -ms-flex-order: 4;
             order: 4; }
   .mdl-cell--order-5-desktop.mdl-cell--order-5-desktop {
     -webkit-order: 5;
+        -ms-flex-order: 5;
             order: 5; }
   .mdl-cell--order-6-desktop.mdl-cell--order-6-desktop {
     -webkit-order: 6;
+        -ms-flex-order: 6;
             order: 6; }
   .mdl-cell--order-7-desktop.mdl-cell--order-7-desktop {
     -webkit-order: 7;
+        -ms-flex-order: 7;
             order: 7; }
   .mdl-cell--order-8-desktop.mdl-cell--order-8-desktop {
     -webkit-order: 8;
+        -ms-flex-order: 8;
             order: 8; }
   .mdl-cell--order-9-desktop.mdl-cell--order-9-desktop {
     -webkit-order: 9;
+        -ms-flex-order: 9;
             order: 9; }
   .mdl-cell--order-10-desktop.mdl-cell--order-10-desktop {
     -webkit-order: 10;
+        -ms-flex-order: 10;
             order: 10; }
   .mdl-cell--order-11-desktop.mdl-cell--order-11-desktop {
     -webkit-order: 11;
+        -ms-flex-order: 11;
             order: 11; }
   .mdl-cell--order-12-desktop.mdl-cell--order-12-desktop {
     -webkit-order: 12;
+        -ms-flex-order: 12;
             order: 12; }
   .mdl-cell--1-col,
   .mdl-cell--1-col-desktop.mdl-cell--1-col-desktop {

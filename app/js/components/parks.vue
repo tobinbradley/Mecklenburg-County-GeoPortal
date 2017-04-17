@@ -55,6 +55,7 @@
                 <li><a href="http://www.huntersville.org/Departments/ParksRecreation.aspx" target="_blank">Huntersville Parks and Recreation</a></li>
             </ul>
         </div>
+        </div>
     </div>
 </template>
 

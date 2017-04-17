@@ -6,6 +6,9 @@
     .mdl-layout--fixed-drawer > .mdl-layout__content {
         margin-left: 0;
     }
+    .no-print {
+        display: none;
+    }
     .search-input {
         text-align: center;
     }

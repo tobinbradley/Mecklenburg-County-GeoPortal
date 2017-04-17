@@ -10,165 +10,166 @@
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--8-col">
                     <div class="mdl-card qol-metric-tab-card mdl-typography--text-left">
+
                       <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect qol-metric-tab" v-mdl>
                         <div class="mdl-tabs__tab-bar">
-                            <a href="#economics" class="mdl-tabs__tab is-active">Economics</a>
-                          <a href="#demographics" class="mdl-tabs__tab">Demographics</a>                          
-                          <a href="#environment" class="mdl-tabs__tab">Environment</a>
-                          <a href="#health" class="mdl-tabs__tab">Health</a>
+                          <a href="javascript:void(0)" class="mdl-tabs__tab" v-bind:class="{tabActive: activeTab === 'economics'}" v-on:click="activeTab = 'economics'">Money</a>
+                          <a href="javascript:void(0)" class="mdl-tabs__tab" v-bind:class="{tabActive: activeTab === 'demographics'}" v-on:click="activeTab = 'demographics'">People</a>                          
+                          <a href="javascript:void(0)" class="mdl-tabs__tab" v-bind:class="{tabActive: activeTab === 'environment'}" v-on:click="activeTab = 'environment'">Planet</a>
+                          <a href="javascript:void(0)" class="mdl-tabs__tab" v-bind:class="{tabActive: activeTab === 'health'}" v-on:click="activeTab = 'health'">Health</a>
                         </div>
-                        <div class="mdl-tabs__panel is-active" id="economics">
+                        <div class="mdl-tabs__panel" id="economics" v-show="activeTab === 'economics'">
                           <p>
-                              <button type="button" class="mdl-chip" data-metric="19" v-on:click="selectMetric(19, $event)">
-                                  <span class="mdl-chip__text">Commercial Construction</span>
+                              <button type="button" class="chip" data-metric="19" v-on:click="selectMetric(19, $event)">
+                                  <span class="chip__text">Commercial Construction</span>
                               </button>
-                              <button type="button" class="mdl-chip" data-metric="41" v-on:click="selectMetric(41, $event)">
-                                  <span class="mdl-chip__text">Commercial Space</span>
+                              <button type="button" class="chip" data-metric="41" v-on:click="selectMetric(41, $event)">
+                                  <span class="chip__text">Commercial Space</span>
                               </button>
-                              <button type="button" class="mdl-chip" data-metric="38" v-on:click="selectMetric(38, $event)">
-                                  <span class="mdl-chip__text">Employment</span>
+                              <button type="button" class="chip" data-metric="38" v-on:click="selectMetric(38, $event)">
+                                  <span class="chip__text">Employment</span>
                               </button>
-                              <button type="button" class="mdl-chip" data-metric="80" v-on:click="selectMetric(80, $event)">
-                                  <span class="mdl-chip__text">Food and Nutrition Services</span>
+                              <button type="button" class="chip" data-metric="80" v-on:click="selectMetric(80, $event)">
+                                  <span class="chip__text">Food and Nutrition Services</span>
                               </button>
-                              <button type="button" class="mdl-chip" data-metric="76" v-on:click="selectMetric(76, $event)">
-                                  <span class="mdl-chip__text">Home Sales Price</span>
+                              <button type="button" class="chip" data-metric="76" v-on:click="selectMetric(76, $event)">
+                                  <span class="chip__text">Home Sales Price</span>
                               </button>
-                              <button type="button" class="mdl-chip" data-metric="37" v-on:click="selectMetric(37, $event)">
-                                  <span class="mdl-chip__text">Household Income</span>
+                              <button type="button" class="chip" data-metric="37" v-on:click="selectMetric(37, $event)">
+                                  <span class="chip__text">Household Income</span>
                               </button>
-                              <button type="button" class="mdl-chip" data-metric="75" v-on:click="selectMetric(75, $event)">
-                                  <span class="mdl-chip__text">Job Density</span>
+                              <button type="button" class="chip" data-metric="75" v-on:click="selectMetric(75, $event)">
+                                  <span class="chip__text">Job Density</span>
                               </button>
-                              <button type="button" class="mdl-chip" data-metric="82" v-on:click="selectMetric(82, $event)">
-                                  <span class="mdl-chip__text">Housing Assistance</span>
+                              <button type="button" class="chip" data-metric="82" v-on:click="selectMetric(82, $event)">
+                                  <span class="chip__text">Housing Assistance</span>
                               </button>
-                              <button type="button" class="mdl-chip" data-metric="40" v-on:click="selectMetric(40, $event)">
-                                  <span class="mdl-chip__text">Rental Costs</span>
+                              <button type="button" class="chip" data-metric="40" v-on:click="selectMetric(40, $event)">
+                                  <span class="chip__text">Rental Costs</span>
                               </button>
-                              <button type="button" class="mdl-chip" data-metric="69" v-on:click="selectMetric(69, $event)">
-                                  <span class="mdl-chip__text">Residential Foreclosures</span>
+                              <button type="button" class="chip" data-metric="69" v-on:click="selectMetric(69, $event)">
+                                  <span class="chip__text">Residential Foreclosures</span>
                               </button>
-                              <button type="button" class="mdl-chip" data-metric="8" v-on:click="selectMetric(8, $event)">
-                                  <span class="mdl-chip__text">Residential New Construction</span>
+                              <button type="button" class="chip" data-metric="8" v-on:click="selectMetric(8, $event)">
+                                  <span class="chip__text">Residential New Construction</span>
                               </button>
                           </p>
                         </a>
                         </div>
-                        <div class="mdl-tabs__panel" id="demographics">
+                        <div class="mdl-tabs__panel" id="demographics" v-show="activeTab === 'demographics'">
                             <p>
-                                <button type="button" class="mdl-chip" data-metric="13" v-on:click="selectMetric(13, $event)">
-                                    <span class="mdl-chip__text">Population - Older Adult</span>
+                                <button type="button" class="chip" data-metric="13" v-on:click="selectMetric(13, $event)">
+                                    <span class="chip__text">Population - Older Adult</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="12" v-on:click="selectMetric(12, $event)">
-                                    <span class="mdl-chip__text">Population - Youth</span>
+                                <button type="button" class="chip" data-metric="12" v-on:click="selectMetric(12, $event)">
+                                    <span class="chip__text">Population - Youth</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="47" v-on:click="selectMetric(47, $event)">
-                                    <span class="mdl-chip__text">Population Density</span>
+                                <button type="button" class="chip" data-metric="47" v-on:click="selectMetric(47, $event)">
+                                    <span class="chip__text">Population Density</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="17" v-on:click="selectMetric(17, $event)">
-                                    <span class="mdl-chip__text">Race/Ethnicity - All Other Races</span>
+                                <button type="button" class="chip" data-metric="17" v-on:click="selectMetric(17, $event)">
+                                    <span class="chip__text">Race/Ethnicity - All Other Races</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="16" v-on:click="selectMetric(16, $event)">
-                                    <span class="mdl-chip__text">Race/Ethnicity - Asian</span>
+                                <button type="button" class="chip" data-metric="16" v-on:click="selectMetric(16, $event)">
+                                    <span class="chip__text">Race/Ethnicity - Asian</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="15" v-on:click="selectMetric(15, $event)">
-                                    <span class="mdl-chip__text">Race/Ethnicity - Black or African American</span>
+                                <button type="button" class="chip" data-metric="15" v-on:click="selectMetric(15, $event)">
+                                    <span class="chip__text">Race/Ethnicity - Black or African American</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="18" v-on:click="selectMetric(18, $event)">
-                                    <span class="mdl-chip__text">Race/Ethnicity - Hispanic or Latino</span>
+                                <button type="button" class="chip" data-metric="18" v-on:click="selectMetric(18, $event)">
+                                    <span class="chip__text">Race/Ethnicity - Hispanic or Latino</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="14" v-on:click="selectMetric(14, $event)">
-                                    <span class="mdl-chip__text">Race/Ethnicity - White or Caucasian</span>
+                                <button type="button" class="chip" data-metric="14" v-on:click="selectMetric(14, $event)">
+                                    <span class="chip__text">Race/Ethnicity - White or Caucasian</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="11" v-on:click="selectMetric(11, $event)">
-                                    <span class="mdl-chip__text">Vacant Land</span>
+                                <button type="button" class="chip" data-metric="11" v-on:click="selectMetric(11, $event)">
+                                    <span class="chip__text">Vacant Land</span>
                                 </button>
                             </p>
                         </div>
-                        <div class="mdl-tabs__panel" id="environment">
+                        <div class="mdl-tabs__panel" id="environment" v-show="activeTab === 'environment'">
                             <p>
-                                <button type="button" class="mdl-chip" data-metric="34" v-on:click="selectMetric(34, $event)">
-                                    <span class="mdl-chip__text">Bicycle Friendliness</span>
+                                <button type="button" class="chip" data-metric="34" v-on:click="selectMetric(34, $event)">
+                                    <span class="chip__text">Bicycle Friendliness</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="10" v-on:click="selectMetric(10, $event)">
-                                    <span class="mdl-chip__text">Commuters Driving Alone</span>
+                                <button type="button" class="chip" data-metric="10" v-on:click="selectMetric(10, $event)">
+                                    <span class="chip__text">Commuters Driving Alone</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="26" v-on:click="selectMetric(26, $event)">
-                                    <span class="mdl-chip__text">Energy Consumption - Electricity</span>
+                                <button type="button" class="chip" data-metric="26" v-on:click="selectMetric(26, $event)">
+                                    <span class="chip__text">Energy Consumption - Electricity</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="77" v-on:click="selectMetric(77, $event)">
-                                    <span class="mdl-chip__text">Energy Consumption - Natural Gas</span>
+                                <button type="button" class="chip" data-metric="77" v-on:click="selectMetric(77, $event)">
+                                    <span class="chip__text">Energy Consumption - Natural Gas</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="4" v-on:click="selectMetric(4, $event)">
-                                    <span class="mdl-chip__text">Impervious Surface</span>
+                                <button type="button" class="chip" data-metric="4" v-on:click="selectMetric(4, $event)">
+                                    <span class="chip__text">Impervious Surface</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="33" v-on:click="selectMetric(33, $event)">
-                                    <span class="mdl-chip__text">Long Commute</span>
+                                <button type="button" class="chip" data-metric="33" v-on:click="selectMetric(33, $event)">
+                                    <span class="chip__text">Long Commute</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="23" v-on:click="selectMetric(23, $event)">
-                                    <span class="mdl-chip__text">Residential Recycling</span>
+                                <button type="button" class="chip" data-metric="23" v-on:click="selectMetric(23, $event)">
+                                    <span class="chip__text">Residential Recycling</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="24" v-on:click="selectMetric(24, $event)">
-                                    <span class="mdl-chip__text">Residential Solid Waste</span>
+                                <button type="button" class="chip" data-metric="24" v-on:click="selectMetric(24, $event)">
+                                    <span class="chip__text">Residential Solid Waste</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="3" v-on:click="selectMetric(3, $event)">
-                                    <span class="mdl-chip__text">Tree Canopy</span>
+                                <button type="button" class="chip" data-metric="3" v-on:click="selectMetric(3, $event)">
+                                    <span class="chip__text">Tree Canopy</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="27" v-on:click="selectMetric(27, $event)">
-                                    <span class="mdl-chip__text">Water Consumption</span>
+                                <button type="button" class="chip" data-metric="27" v-on:click="selectMetric(27, $event)">
+                                    <span class="chip__text">Water Consumption</span>
                                 </button>
                             </p>
                         </div>
-                        <div class="mdl-tabs__panel" id="health">
+                        <div class="mdl-tabs__panel" id="health" v-show="activeTab === 'health'">
                             <p>
-                                <button type="button" class="mdl-chip" data-metric="57" v-on:click="selectMetric(57, $event)">
-                                    <span class="mdl-chip__text">Age of Death</span>
+                                <button type="button" class="chip" data-metric="57" v-on:click="selectMetric(57, $event)">
+                                    <span class="chip__text">Age of Death</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="54" v-on:click="selectMetric(54, $event)">
-                                    <span class="mdl-chip__text">Births to Adolescents</span>
+                                <button type="button" class="chip" data-metric="54" v-on:click="selectMetric(54, $event)">
+                                    <span class="chip__text">Births to Adolescents</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="59" v-on:click="selectMetric(59, $event)">
-                                    <span class="mdl-chip__text">Crime - Property</span>
+                                <button type="button" class="chip" data-metric="59" v-on:click="selectMetric(59, $event)">
+                                    <span class="chip__text">Crime - Property</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="58" v-on:click="selectMetric(58, $event)">
-                                    <span class="mdl-chip__text">Crime - Violent</span>
+                                <button type="button" class="chip" data-metric="58" v-on:click="selectMetric(58, $event)">
+                                    <span class="chip__text">Crime - Violent</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="60" v-on:click="selectMetric(60, $event)">
-                                    <span class="mdl-chip__text">Disorder-related Calls</span>
+                                <button type="button" class="chip" data-metric="60" v-on:click="selectMetric(60, $event)">
+                                    <span class="chip__text">Disorder-related Calls</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="20" v-on:click="selectMetric(20, $event)">
-                                    <span class="mdl-chip__text">Education - Bachelor&#39;s Degree</span>
+                                <button type="button" class="chip" data-metric="20" v-on:click="selectMetric(20, $event)">
+                                    <span class="chip__text">Education - Bachelor&#39;s Degree</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="39" v-on:click="selectMetric(39, $event)">
-                                    <span class="mdl-chip__text">Education - High School Diploma</span>
+                                <button type="button" class="chip" data-metric="39" v-on:click="selectMetric(39, $event)">
+                                    <span class="chip__text">Education - High School Diploma</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="65" v-on:click="selectMetric(65, $event)">
-                                    <span class="mdl-chip__text">High School Graduation Rate</span>
+                                <button type="button" class="chip" data-metric="65" v-on:click="selectMetric(65, $event)">
+                                    <span class="chip__text">High School Graduation Rate</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="51" v-on:click="selectMetric(51, $event)">
-                                    <span class="mdl-chip__text">Library Card Holders</span>
+                                <button type="button" class="chip" data-metric="51" v-on:click="selectMetric(51, $event)">
+                                    <span class="chip__text">Library Card Holders</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="36" v-on:click="selectMetric(36, $event)">
-                                    <span class="mdl-chip__text">Proximity to Public Transportation</span>
+                                <button type="button" class="chip" data-metric="36" v-on:click="selectMetric(36, $event)">
+                                    <span class="chip__text">Proximity to Public Transportation</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="81" v-on:click="selectMetric(81, $event)">
-                                    <span class="mdl-chip__text">Public Health Insurance</span>
+                                <button type="button" class="chip" data-metric="81" v-on:click="selectMetric(81, $event)">
+                                    <span class="chip__text">Public Health Insurance</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="44" v-on:click="selectMetric(44, $event)">
-                                    <span class="mdl-chip__text">Transit Ridership</span>
+                                <button type="button" class="chip" data-metric="44" v-on:click="selectMetric(44, $event)">
+                                    <span class="chip__text">Transit Ridership</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="62" v-on:click="selectMetric(62, $event)">
-                                    <span class="mdl-chip__text">Test Proficiency - Elementary School</span>
+                                <button type="button" class="chip" data-metric="62" v-on:click="selectMetric(62, $event)">
+                                    <span class="chip__text">Test Proficiency - Elementary School</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="64" v-on:click="selectMetric(64, $event)">
-                                    <span class="mdl-chip__text">Test Proficiency - High School</span>
+                                <button type="button" class="chip" data-metric="64" v-on:click="selectMetric(64, $event)">
+                                    <span class="chip__text">Test Proficiency - High School</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="63" v-on:click="selectMetric(63, $event)">
-                                    <span class="mdl-chip__text">Test Proficiency - Middle School</span>
+                                <button type="button" class="chip" data-metric="63" v-on:click="selectMetric(63, $event)">
+                                    <span class="chip__text">Test Proficiency - Middle School</span>
                                 </button>
-                                <button type="button" class="mdl-chip" data-metric="48" v-on:click="selectMetric(48, $event)">
-                                    <span class="mdl-chip__text">Voter Participation</span>
+                                <button type="button" class="chip" data-metric="48" v-on:click="selectMetric(48, $event)">
+                                    <span class="chip__text">Voter Participation</span>
                                 </button>
                             </p>
                         </div>
@@ -220,12 +221,13 @@
                 </div>
             </div>
 
-       <div class="report-moreinfo mdl-typography--text-left">
+        <div class="report-moreinfo mdl-typography--text-left">
 			<h5>For more information, please visit:</h5>
 			<ul class="list-unstyled">
                 <li><a href="http://mcmap.org/qol/" target="_blank">Quality of Life Explorer</a></li>
             </ul>
 		</div>
+        </div>
     </div>
 </template>
 
@@ -244,6 +246,7 @@ export default {
             neighborhood: null,
             metric: getURLParameter('qolm') !== 'null' ? getURLParameter('qolm') : '37',
             showChart: false,
+            activeTab: 'economics',
             metaURL: '',
             reportURL: '',
             embedURL: '',
@@ -264,9 +267,9 @@ export default {
         document.querySelector('.mdl-card-map').style.visibility = 'hidden';
 
         // highlight selected metrics
-        let chip = document.querySelector(`.mdl-chip[data-metric="${_this.metric}"]`);
+        let chip = document.querySelector(`.chip[data-metric="${_this.metric}"]`);
         if (chip) {
-            chip.classList.add('qol-chip-active');
+            chip.classList.add('chip-active');
         }
 
         // if you have a lnglat, get getResults
@@ -389,9 +392,9 @@ export default {
             this.metric = m;
             let btns = document.querySelectorAll('.mdl-tabs__panel button');
             for (let i = 0; i < btns.length; i++) {
-                btns[i].classList.remove("qol-chip-active");
+                btns[i].classList.remove("chip-active");
             }
-            event.target.classList.add("qol-chip-active");
+            event.target.classList.add("chip-active");
         },
         chart: function() {
             let _this = this;
@@ -453,10 +456,6 @@ export default {
 }
 .qol-highlight {
     margin-bottom: 20px;
-}
-
-.qol-chip-active {
-    background-color: rgb(255,183,77);
 }
 
 .mdl-tabs__panel button {

@@ -1,7 +1,12 @@
+var cssnext = require('postcss-cssnext');
+
 module.exports = {
 
     // provide your own postcss plugins
     postcss: [
+        cssnext({
+            warnForDuplicates: false
+        })
     ],
     // configure autoprefixer
     autoprefixer: {

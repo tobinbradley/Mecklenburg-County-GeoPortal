@@ -26,7 +26,7 @@ some text.
 }
 
 .dropdown button {
-    background-color: #3f51b5;
+    background-color: var(--colorIconic);
     color: white;
     padding: 16px;
     font-size: 14px;

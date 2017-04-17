@@ -11,17 +11,19 @@
 
 // Fix for axios on IE11
 require('es6-promise').polyfill();
-require('material-design-lite');
 
-//import Vue from 'vue/dist/vue.js';
 import Vue from 'vue';
 import getURLParameter from './modules/geturlparams';
 import fetchNearest from './modules/nearest';
+import toggleSidebar from './modules/sidebar-hamburger';
 import Search from './components/search.vue';
 import Map from './components/map.vue';
 import App from './components/app.vue';
 import Photos from './components/photos.vue';
 
+
+// enabe sidebar hamburger menu
+toggleSidebar();
 
 // the shared state between components
 let appState = {
@@ -113,14 +115,6 @@ function scrollToElement(elem) {
     }
 }
 
-
-// pass newly created mdl elements through mdl
-Vue.directive('mdl', {
-    inserted: function (el) {
-        componentHandler.upgradeElement(el);
-    }
-});
-
 // initialize search
 Search.data = function() {
     return {
@@ -160,7 +154,6 @@ try {
                 map: null,
                 locationMarker: null,
                 poiMarker: null,
-                fullScreen: true,
                 markerClicked: false
             },
             sharedState: appState

@@ -1,35 +1,21 @@
 <template lang="html">
   <div class="map-container">
-      <div id="map"></div>
-      <button id="map-menu" class="mdl-button mdl-js-button mdl-button--icon">
-          <i class="material-icons">more_vert</i>
-      </button>
-      <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect map-menu-list" for="map-menu">
-          <li class="mdl-menu__item map-fullscreen" v-show="privateState.fullScreen" v-on:click="mapFullscreen()">Toggle Full Screen</li>
-          <li class="mdl-menu__item" v-on:click="mapSatellite()">Toggle Satellite</li>
-          <li class="mdl-menu__item" v-on:click="mapPitch()">Toggle Pitch</li>
-      </ul>
+      <div id="map"></div>      
   </div>
 </template>
 
 <script>
 import Axios from 'axios';
-//import mapboxgl from 'mapbox-gl';
-import mapboxgl from 'mapbox-gl/src/index.js';
+import mapboxgl from 'mapbox-gl';
 import directions from '../modules/directions';
 import fetchNearest from '../modules/nearest';
+import AerialToggle from '../modules/aerialtogglecontrol';
 
 
 export default {
     name: 'map',
     mounted: function() {
         this.initMap();
-
-        // check for full screen support
-        let elem = document.querySelector('.map-container');
-        if (!elem.requestFullscreen && !elem.mozRequestFullScreen && !elem.webkitRequestFullScreen && !elem.msRequestFullscreen) {
-            this.privateState.fullScreen = false;
-        }
     },
     watch: {
         "sharedState.selected.lnglat": "addMarker",
@@ -52,6 +38,10 @@ export default {
 
             _this.privateState.map = new mapboxgl.Map(mapOptions);
             let map = _this.privateState.map;
+
+            // add controls
+            map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
+            map.addControl(new AerialToggle({minpitchzoom: 10}), 'bottom-right');
 
             map.on('load', function() { 
                 _this.mapOverlay();
@@ -154,30 +144,6 @@ export default {
                     "minzoom": 0,
             		"maxzoom": 22
                 }, 'water_label');
-            }
-        },
-        mapFullscreen: function() {
-            let elem = document.querySelector(".map-container");
-            if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {  // current working methods
-                if (elem.requestFullscreen) {
-                    elem.requestFullscreen();
-                } else if (elem.msRequestFullscreen) {
-                    elem.msRequestFullscreen();
-                } else if (elem.mozRequestFullScreen) {
-                    elem.mozRequestFullScreen();
-                } else if (elem.webkitRequestFullscreen) {
-                    elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.msExitFullscreen) {
-                    document.msExitFullscreen();
-                } else if (document.mozCancelFullScreen) {
-                    document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) {
-                    document.webkitExitFullscreen();
-                }
             }
         },
         addPOI: function() {

@@ -97,6 +97,7 @@
                 <li><a href="http://www.meckboe.org/" target="_blank">Mecklenburg County Board of Elections</a></li>
             </ul>
 		</div>
+        </div>
 	</div>
 </template>
 
