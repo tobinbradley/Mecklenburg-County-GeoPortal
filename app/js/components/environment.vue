@@ -9,6 +9,7 @@
         </div>
         <div v-else>
         <div class="mdl-grid">
+           <Print></Print>
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
               <div v-if="resultsFloodplain">
                   <div class="report-record-highlight">
@@ -109,6 +110,7 @@
 <script>
 import axios from 'axios';
 import Welcome from './introduction.vue';
+import Printheader from './printheader.vue';
 
 export default {
     name: 'environment',
@@ -122,7 +124,8 @@ export default {
         }
     },
     components: {
-        Introduction: Welcome
+        Introduction: Welcome,
+        Print: Printheader
     },
     watch: {
         '$parent.sharedState.selected.lnglat': 'getResults',

@@ -21,10 +21,22 @@
     a[href]:after {
         content: "";
     }
-    .mdl-card {
-        page-break-before: always;
+    .material-icons {
+        display: none;
+    }
+    .map-card-container {
+        display: none;
     }
     .print-only {
         display: block !important;
+    }
+    body {
+        height: auto !important;
+    }
+    .report-record-highlight {
+        margin: 0 auto 20px;
+    }
+    .report-container table {
+        margin: 20px auto;
     }
 }

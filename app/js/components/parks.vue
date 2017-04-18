@@ -9,6 +9,7 @@
         </div>
         <div v-else>
         <div class="mdl-typography--text-center">
+            <Print></Print>
             <div class="report-record-highlight" v-if="results">
                 <i role="presentation" class="material-icons">nature_people</i>
                 <h2>Your closest park is</h2>
@@ -63,6 +64,7 @@
 import axios from 'axios';
 import format from 'format-number';
 import Welcome from './introduction.vue';
+import Printheader from './printheader.vue';
 
 export default {
   name: 'parks',
@@ -72,7 +74,8 @@ export default {
         }
     },
   components: {
-      Introduction: Welcome
+      Introduction: Welcome,
+      Print: Printheader
   },
   filters: {
       distance: function(dist) {

@@ -198,15 +198,7 @@ export default {
     font-weight: bold;
     border-radius: 3px;
 }
-.search-result-empty {
-    font-size: 1.4em;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-.search-result-empty i {
-    margin-right: 5px;
-    float: left;
-}
+
 @media (max-width: 900px) {
     #search-results {
         column-count: 1;

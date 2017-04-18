@@ -8,6 +8,7 @@
     </div>
     <div v-else>
         <div class="mdl-typography--text-center">
+            <Print></Print>
             <div class="report-record-highlight" v-if="resultsElementary.length > 0">
                 <i role="presentation" class="material-icons">school</i>
                 <h2>Your ELEMENTARY school is</h2>
@@ -94,11 +95,13 @@
 import axios from 'axios';
 import format from 'format-number';
 import Welcome from './introduction.vue';
+import Printheader from './printheader.vue';
 
 export default {
   name: 'schools',
   components: {
-        Introduction: Welcome
+      Introduction: Welcome,
+      Print: Printheader
   },
   data: function() {
       return {

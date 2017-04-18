@@ -17,7 +17,7 @@
    version="1.1"
    inkscape:version="0.91 r13725"
    sodipodi:docname="bgicon.svg"
-   inkscape:export-filename="/home/tobin/sync/code/geoportal3/app/img/bgicon.png"
+   inkscape:export-filename="C:\Users\Tobin\BitTorrent Sync\sync\code\geoportal\app\img\bgicon.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -45,7 +45,7 @@
          style="stop-color:#ffffff;stop-opacity:0;" />
       <stop
          style="stop-color:#263238;stop-opacity:0.85628742"
-         offset="0.45666423"
+         offset="0.52103901"
          id="stop5257" />
       <stop
          id="stop3999"
@@ -292,7 +292,7 @@
        fx="117.06929"
        fy="964.31476"
        r="123.90183"
-       gradientTransform="matrix(0.90111839,0,0,0.78707603,7.1561058,206.85432)"
+       gradientTransform="matrix(0.83855184,2.7517958e-4,-2.1126797e-4,0.64378975,14.684461,344.99518)"
        gradientUnits="userSpaceOnUse" />
     <clipPath
        clipPathUnits="userSpaceOnUse"
@@ -321,16 +321,16 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.9991337"
-     inkscape:cx="85.027469"
+     inkscape:cx="47.644373"
      inkscape:cy="83.744784"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
      units="px"
      inkscape:window-width="1920"
-     inkscape:window-height="1013"
-     inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-height="1057"
+     inkscape:window-x="73"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1" />
   <metadata
      id="metadata7">
@@ -340,7 +340,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>

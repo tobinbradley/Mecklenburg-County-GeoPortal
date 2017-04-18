@@ -8,6 +8,7 @@
             </Introduction>
         </div>
         <div v-else>
+            <Print></Print>
             <div class="report-record-highlight">
                 <i role="presentation" class="material-icons">business</i>
                 <h2>Tax Parcel</h2>
@@ -215,6 +216,7 @@ import axios from 'axios';
 import format from 'format-number';
 import Welcome from './introduction.vue';
 import Photos from './photos.vue';
+import Printheader from './printheader.vue';
 
 export default {
     name: 'property',
@@ -231,7 +233,8 @@ export default {
     },
     components: {
         Introduction: Welcome,
-        Photos: Photos
+        Photos: Photos,
+        Print: Printheader
     },
     filters: {
         money: function(num) {

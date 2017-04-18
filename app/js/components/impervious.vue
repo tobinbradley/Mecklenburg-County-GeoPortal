@@ -9,6 +9,7 @@
         </div>
         <div v-else>
         <div class="mdl-typography--text-center">
+          <Print></Print>
           <div class="report-record-highlight">
               <i role="presentation" class="material-icons">invert_colors_off</i>
               <h2>You have</h2>
@@ -51,6 +52,7 @@
 import axios from 'axios';
 import format from 'format-number';
 import Welcome from './introduction.vue';
+import Printheader from './printheader.vue';
 
 export default {
     name: 'impervious',
@@ -60,7 +62,8 @@ export default {
         }
     },
     components: {
-        Introduction: Welcome
+        Introduction: Welcome,
+        Print: Printheader
     },
     filters: {
         area: function(num) {

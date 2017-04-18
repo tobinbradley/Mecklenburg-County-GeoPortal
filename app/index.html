@@ -33,7 +33,7 @@
 
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
-		<header class="demo-header mdl-layout__header mdl-color--blue-grey-800 mdl-color-text--blue-grey-50">
+		<header class="demo-header mdl-layout__header">
 			<div aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button">
 				<i class="material-icons">menu</i>
 			</div>
@@ -42,36 +42,36 @@
 				<div class="mdl-layout-spacer"></div>
 			</div>
 		</header>
-		<div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+		<div class="mdl-layout__drawer">
 			<header class="drawer-header">
 				<a href="./">GeoPortal</a>
 				<br />
 				<span>Mecklenburg County GIS</span>
 			</header>
 			<nav class="navigation mdl-navigation mdl-color--blue-grey-800">
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="welcome" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">face</i>Welcome</a>
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="schools" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">school</i>Schools</a>
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="property" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">business</i>Property</a>				
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="trash" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">delete</i>Trash and Recycling</a>
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="environment" data-layers="view_regulated_floodplains" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">terrain</i>Environment</a>
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="impervious" data-layers="impervious_surface" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">invert_colors_off</i></i>Impervious Surface</a>
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="voting" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">check_box</i>Voting</a>
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="parks" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">nature_people</i>Parks</a>
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="libraries" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">local_library</i>Libraries</a>
-				<a class="mdl-navigation__link mdl-color-text--blue-grey-200" data-type="qualityoflife" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">favorite</i>Quality of Life</a>
-				<div class="mdl-layout-spacer"></div>
-				<a class="mdl-typography--text-center mdl-color-text--blue-grey-300 nav-link" href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal">Source Code on Github</a>
+				<a class="mdl-navigation__link" data-type="welcome" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">face</i>Welcome</a>
+				<a class="mdl-navigation__link" data-type="schools" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">school</i>Schools</a>
+				<a class="mdl-navigation__link" data-type="property" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">business</i>Property</a>				
+				<a class="mdl-navigation__link" data-type="trash" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">delete</i>Trash and Recycling</a>
+				<a class="mdl-navigation__link" data-type="environment" data-layers="view_regulated_floodplains" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">terrain</i>Environment</a>
+				<a class="mdl-navigation__link" data-type="impervious" data-layers="impervious_surface" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">invert_colors_off</i></i>Impervious Surface</a>
+				<a class="mdl-navigation__link" data-type="voting" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">check_box</i>Voting</a>
+				<a class="mdl-navigation__link" data-type="parks" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">nature_people</i>Parks</a>
+				<a class="mdl-navigation__link" data-type="libraries" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">local_library</i>Libraries</a>
+				<a class="mdl-navigation__link" data-type="qualityoflife" href="javascript:void(0)"><i role="presentation" class="mdl-color-text--blue-grey-400 material-icons">favorite</i>Quality of Life</a>
+				<!--<div class="mdl-layout-spacer"></div>
+				<a class="mdl-typography--text-center nav-link" href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal">Github</a>-->
 			</nav>
 		</div>
-		<main class="mdl-layout__content mdl-color--grey-100">
+		<main class="mdl-layout__content fill-lightgrey">
 			<div class="mdl-grid">
-				<div class="mdl-color--white mdl-shadow--2dp mdl-cell mdl-cell--12-col no-print" style="min-height: 100px;">
+				<div class="fill-white mdl-shadow--2dp mdl-cell mdl-cell--12-col no-print" style="min-height: 100px;">
 					<sc-search></sc-search>
 				</div>
-				<div class="mdl-color-text--blue-grey-500 mdl-shadow--2dp mdl-color--white mdl-cell mdl-cell--8-col mdl-typography--text-center report report-container">
+				<div class="fill-white mdl-shadow--2dp mdl-cell mdl-cell--8-col mdl-typography--text-center report report-container">
 					<sc-app></sc-app>            
 				</div>
-				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet">
+				<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet map-card-container">
 					<div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop mdl-color--blue-grey-800 mdl-card-map">
                         <sc-map></sc-map>
 					</div>					

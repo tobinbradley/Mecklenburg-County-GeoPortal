@@ -16,6 +16,7 @@ ____________________________________
 @import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 @import '../../node_modules/chartist/dist/chartist.css';
 @import 'modules/variables.css';
+@import 'modules/colors.css';
 @import 'modules/oldie.css';
 @import 'modules/sidebar.css';
 @import 'modules/intro.css';
@@ -36,10 +37,11 @@ ____________________________________
 html, body {
   font-family: 'Roboto', sans-serif;
 }
-body {
-    height: auto;
+body {    
+    height: 100%;
     width: 100%;
     scroll-behavior: smooth;
+    color: var(--colorText);
 }
 a {
     text-decoration-skip: ink;
@@ -65,6 +67,7 @@ a {
     background-color: rgba(0,0,0,0) !important;
     outline: none;
 }
+
 
 
 /*condensed table*/

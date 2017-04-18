@@ -8,6 +8,7 @@
             </Introduction>
         </div>
         <div v-else>
+        <Print></Print>
         <div class="mdl-typography--text-center" v-if="results">
             <div class="report-record-highlight">
                 <i role="presentation" class="material-icons">local_library</i>
@@ -62,6 +63,7 @@
 import axios from 'axios';
 import format from 'format-number';
 import Welcome from './introduction.vue';
+import Printheader from './printheader.vue';
 
 export default {
   name: 'libraries',
@@ -71,7 +73,8 @@ export default {
         }
   },
   components: {
-        Introduction: Welcome
+      Introduction: Welcome,
+      Print: Printheader
   },
   filters: {
       distance: function(dist) {

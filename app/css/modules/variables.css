@@ -3,4 +3,9 @@
     --colorIconic: rgb(0, 145, 234);
     --colorHighlight: rgb(255, 183, 77);
     --colorLink: rgb(255, 64, 129);
+    --colorSidebar: #263238;
+    --colorSidebarText: #b0bec5;
+    --colorBody: #F5F5F5;
+    --colorContent: #ffffff;
+    --colorText: rgb(96, 125, 139);
 }

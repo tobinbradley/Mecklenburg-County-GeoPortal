@@ -10,6 +10,7 @@
         <div v-if="results.length > 0">
             <div class="mdl-grid" v-if="results[0].jurisdiction === 'huntersville'">
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
+                     <Print></Print>
                     <div class="report-record-highlight">
                         <i role="presentation" class="material-icons">delete</i>
                         <h2>Your TRASH day is</h2>
@@ -116,6 +117,7 @@
 
 import axios from 'axios';
 import Welcome from './introduction.vue';
+import Printheader from './printheader.vue';
 
 export default {
     name: 'trash',
@@ -125,7 +127,8 @@ export default {
         }
     },
     components: {
-        Introduction: Welcome
+        Introduction: Welcome,
+        Print: Printheader
     },
     watch: {
         '$parent.sharedState.selected.lnglat': 'getResults',

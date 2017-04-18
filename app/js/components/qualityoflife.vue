@@ -10,8 +10,8 @@
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--8-col">
                     <div class="mdl-card qol-metric-tab-card mdl-typography--text-left">
-
-                      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect qol-metric-tab" v-mdl>
+                      <Print></Print>
+                      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect qol-metric-tab no-print">
                         <div class="mdl-tabs__tab-bar">
                           <a href="javascript:void(0)" class="mdl-tabs__tab" v-bind:class="{tabActive: activeTab === 'economics'}" v-on:click="activeTab = 'economics'">Money</a>
                           <a href="javascript:void(0)" class="mdl-tabs__tab" v-bind:class="{tabActive: activeTab === 'demographics'}" v-on:click="activeTab = 'demographics'">People</a>                          
@@ -208,12 +208,12 @@
                        <span class="legend"><i class="material-icons legend-selected">trending_up</i> Neighborhood</span>
                        <div class="qol-chart-trend"></div>
                    </div>
-                   <div class="mdl-typography--text-center" style="margin-top: 20px">
+                   <div class="mdl-typography--text-center no-print" style="margin-top: 20px">
                        <a class="mdl-button mdl-js-button" v-bind:href="reportURL" target="_blank">Report</a>
                        <a class="mdl-button mdl-js-button" v-bind:href="metaURL" target="_blank">META</a>
                    </div>
-                   <div class="mdl-typography--text-center" style="margin-top: 20px;">
-                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-focused" id="embed-textarea" style="margin-left: 20px;" v-mdl>
+                   <div class="mdl-typography--text-center no-print" style="margin-top: 20px;">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-focused" id="embed-textarea" style="margin-left: 20px;">
                             <textarea class="mdl-textfield__input" type="text" rows= "4" id="embedIframeCode" onclick="this.select()" v-on:keypress.stop.prevent autocomplete="off">{{ embedURL }}</textarea>
                             <label class="mdl-textfield__label" for="embedIframeCode">Embed this Map</label>
                         </div>
@@ -236,9 +236,13 @@ import axios from 'axios';
 import Chartist from 'chartist';
 import naturalSort from '../modules/naturalsort';
 import getURLParameter from '../modules/geturlparams';
+import Printheader from './printheader.vue';
 
 export default {
     name: 'quality_of_life',
+    components: {
+        Print: Printheader
+    },
     data: function() {
         return {
             trends: null,
