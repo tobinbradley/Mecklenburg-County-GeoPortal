@@ -12,7 +12,6 @@
     "build:html": "mkdirp public && node build/cachebuster.js",
     "build:copy": "ncp app/style public/style",
     "build:imagemin": "mkdirp public/img && imagemin app/img/* --out-dir=public/img",
-    "build2:js": "mkdirp public/js && cross-env NODE_ENV=production browserify -g envify -g uglifyify app/js/app.js | uglifyjs -m warnings=false > public/js/app.js",
     "build:js": "mkdirp public/js && cross-env NODE_ENV=production browserify -g envify -g uglifyify --debug app/js/app.js | exorcist public/js/app.js.map > public/js/app.js",
     "build:css": "mkdirp public/css && postcss -m -e production -o public/css/main.css app/css/main.css",
     "build": "npm-run-all --parallel build:*"
