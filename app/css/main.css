@@ -32,6 +32,7 @@ ____________________________________
 @import 'modules/chip.css';
 @import 'modules/tabs.css';
 @import 'modules/aerialcontrol.css';
+@import 'modules/pitchtogglecontrol.css';
 
 /*body treatments*/
 html, body {
