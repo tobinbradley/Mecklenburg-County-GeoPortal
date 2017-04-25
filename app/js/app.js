@@ -147,7 +147,7 @@ new Vue({
 try {
     let canvas = document.createElement('canvas');
     let ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    // webgl in the House
+    //webgl in the House
     Map.data = function() {
         return {
             privateState: {
@@ -160,8 +160,8 @@ try {
         };
     };
     new Vue({
-        el: 'sc-map',
-        render: h => h(Map)
+       el: 'sc-map',
+       render: h => h(Map)
     });
 }
 catch (e) {

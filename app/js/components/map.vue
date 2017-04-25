@@ -10,6 +10,7 @@ import mapboxgl from 'mapbox-gl';
 import directions from '../modules/directions';
 import fetchNearest from '../modules/nearest';
 import AerialToggle from '../modules/aerialtogglecontrol';
+import PitchToggle from '../modules/pitchtogglecontrol.js';
 
 
 export default {
@@ -28,12 +29,13 @@ export default {
 
             let mapOptions = {
                 container: 'map',                
-                style: './style/osm-mecklenburg.json',
+                style: './style/osm-liberty.json',
                 attributionControl: false,
                 center: [-80.84, 35.26],
                 zoom: 8.5,
                 minZoom: 8,
-                maxBounds: [[-83.285, 33.180],[-78.255, 37.384]]
+                maxBounds: [[-82.641, 34.115],[-79.008, 36.762]]
+                //maxBounds: [[-83.285, 33.180],[-78.255, 37.384]]
             };
 
             _this.privateState.map = new mapboxgl.Map(mapOptions);
@@ -41,7 +43,8 @@ export default {
 
             // add controls
             map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
-            map.addControl(new AerialToggle({minpitchzoom: 10}), 'bottom-right');
+            map.addControl(new PitchToggle({}), 'bottom-right');
+            map.addControl(new AerialToggle({}), 'bottom-right');            
 
             map.on('load', function() { 
                 _this.mapOverlay();
@@ -103,49 +106,9 @@ export default {
                     "paint": {
                         "raster-opacity": 1
                     }
-                }, 'water_label');
-                
-                // map.addLayer({
-                //     "id": "overlay",
-                //     "type": "fill",
-                //     "source": {
-                //     "type": "vector",
-                //         "tiles": [
-                //             "https://mcmap.org/api/mvt/v1/impervious_surface/{z}/{x}/{y}?columns=type"
-                //         ],
-                //         "maxzoom": 14,
-                //         "minzoom": 14
-                //     },
-                //     "source-layer": "impervious_surface",
-                //     "minzoom": 14,
-                //     "maxzoom": 22,
-                //     "paint": {
-                //         "fill-color": {
-                //             property: 'type',
-                //             type: 'categorical',
-                //             stops: [
-                //                 ['Residential', '#CBD9A5'],
-                //                 ['Commercial', '#DAB2C4']
-                //             ]
-                //         }
-                //     }
-                // }, 'water_label');
+                });
             }
-        },
-        mapSatellite: function() {
-            let map = this.privateState.map;
-            if (map.getLayer("satellite")) {
-                map.removeLayer("satellite");
-            } else {
-                map.addLayer({
-                    "id": "satellite",
-                    "type": "raster",
-                    "source": "satellite",
-                    "minzoom": 0,
-            		"maxzoom": 22
-                }, 'water_label');
-            }
-        },
+        },        
         addPOI: function() {
             let map = this.privateState.map;
             let selected = this.sharedState.selected;
