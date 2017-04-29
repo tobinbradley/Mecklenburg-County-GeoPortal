@@ -24,9 +24,7 @@ export default class AerialToggle {
                     "source": {
                         "type": "raster",
                         "tiles": [
-                            "https://a.tiles.mapbox.com/v4/digitalglobe.nal0g75k/{z}/{x}/{y}.jpg80?access_token=pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpbjBkMDhwczA4bWF2cWx1bTIyY2V6aDMifQ.T9gIIn2WngTeTS6J_OU9jw",
-                            "https://b.tiles.mapbox.com/v4/digitalglobe.nal0g75k/{z}/{x}/{y}.jpg80?access_token=pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpbjBkMDhwczA4bWF2cWx1bTIyY2V6aDMifQ.T9gIIn2WngTeTS6J_OU9jw",
-                            "https://c.tiles.mapbox.com/v4/digitalglobe.nal0g75k/{z}/{x}/{y}.jpg80?access_token=pk.eyJ1IjoiZGlnaXRhbGdsb2JlIiwiYSI6ImNpbjBkMDhwczA4bWF2cWx1bTIyY2V6aDMifQ.T9gIIn2WngTeTS6J_OU9jw"
+                            "https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoiZnV6enl0b2xlcmFuY2UiLCJhIjoiWk5SS2NqRSJ9.pt08fCnJBVi8GhH4wYhyiQ"                            
                         ],
                         "tileSize": 256,
                         "maxzoom": 22
