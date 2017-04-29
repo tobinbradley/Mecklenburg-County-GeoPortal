@@ -2081,6 +2081,17 @@
       }
     },
     {
+        "id": "tax_parcels_outline",
+        "type": "line",
+        "source": "parcels",
+        "source-layer": "parcels",
+        "minzoom": 17,
+        "paint": {
+          "line-color": "#DEDEDE",
+          "line-width": 1.5
+        }
+    }, 
+    {
       "id": "building",
       "type": "fill",
       "metadata": {},
