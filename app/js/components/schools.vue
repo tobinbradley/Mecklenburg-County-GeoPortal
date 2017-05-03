@@ -92,7 +92,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
 import Welcome from './introduction.vue';
 import Printheader from './printheader.vue';
@@ -132,68 +132,69 @@ export default {
       this.getResults();
   },
   methods: {
+      apiFetch: function(params, url, setter) {
+            let _this = this;
+            return fetch(`${url}?${jsonToURL(params)}`)
+                .then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    _this[setter] = data;
+                }).catch(function(ex) {
+                    console.log('parsing failed', ex);
+                });
+      },
       getResults: function() {
           let _this = this;
           if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('schools') !== -1) {
 
-              axios.get(`https://mcmap.org/api/query/v1/view_schools_magnet`,
-                    {
-                        params: {
-                            'columns': `schl, schlname, address, city, ST_Distance(the_geom,ST_Transform(GeomFromText('POINT( ${Number(_this.$parent.sharedState.selected.lnglat[0])} ${Number(_this.$parent.sharedState.selected.lnglat[1])} )',4326), 2264)) as distance, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat`,
-                            'sort': 'distance'
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsMagnet = response.data;
-                    });
+                // magnet schools
+                _this.apiFetch({
+                        'columns': `schl, schlname, address, city, ST_Distance(the_geom,ST_Transform(GeomFromText('POINT( ${Number(_this.$parent.sharedState.selected.lnglat[0])} ${Number(_this.$parent.sharedState.selected.lnglat[1])} )',4326), 2264)) as distance, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat`,
+                        'sort': 'distance'
+                    }, 
+                    'https://mcmap.org/api/query/v1/view_schools_magnet', 
+                    'resultsMagnet'
+                );
 
-                axios.get(`https://mcmap.org/api/intersect_point/v1/cms_elementary_districts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'columns': `name, address, ST_X(ST_Transform(schools.the_geom, 4326)) as lng, ST_Y(ST_Transform(schools.the_geom, 4326)) as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${Number(_this.$parent.sharedState.selected.lnglat[0])} ${Number(_this.$parent.sharedState.selected.lnglat[1])})',4326), 2264), schools.the_geom) as dist`,
-                            'limit': 1,
-                            'join': `schools;cms_elementary_districts.num = schools.schl`
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsElementary = response.data;
-                    });
+                // elementary school
+                _this.apiFetch({
+                        'columns': `name, address, ST_X(ST_Transform(schools.the_geom, 4326)) as lng, ST_Y(ST_Transform(schools.the_geom, 4326)) as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${Number(_this.$parent.sharedState.selected.lnglat[0])} ${Number(_this.$parent.sharedState.selected.lnglat[1])})',4326), 2264), schools.the_geom) as dist`,
+                        'limit': 1,
+                        'join': `schools;cms_elementary_districts.num = schools.schl`
+                    }, 
+                    `https://mcmap.org/api/intersect_point/v1/cms_elementary_districts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`, 
+                    'resultsElementary'
+                );
 
-                axios.get(`https://mcmap.org/api/intersect_point/v1/cms_middle_districts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'columns': `name, address, ST_X(ST_Transform(schools.the_geom, 4326)) as lng, ST_Y(ST_Transform(schools.the_geom, 4326)) as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${Number(_this.$parent.sharedState.selected.lnglat[0])} ${Number(_this.$parent.sharedState.selected.lnglat[1])} )',4326), 2264), schools.the_geom) as dist`,
-                            'limit': 1,
-                            'join': `schools;cms_middle_districts.num = schools.schl`
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsMiddle = response.data;
-                    });
+                // middle school
+                _this.apiFetch({
+                        'columns': `name, address, ST_X(ST_Transform(schools.the_geom, 4326)) as lng, ST_Y(ST_Transform(schools.the_geom, 4326)) as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${Number(_this.$parent.sharedState.selected.lnglat[0])} ${Number(_this.$parent.sharedState.selected.lnglat[1])} )',4326), 2264), schools.the_geom) as dist`,
+                        'limit': 1,
+                        'join': `schools;cms_middle_districts.num = schools.schl`
+                    }, 
+                    `https://mcmap.org/api/intersect_point/v1/cms_middle_districts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`, 
+                    'resultsMiddle'
+                );     
 
-                axios.get(`https://mcmap.org/api/intersect_point/v1/cms_high_districts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'columns': `zone, name, address, ST_X(ST_Transform(schools.the_geom, 4326)) as lng, ST_Y(ST_Transform(schools.the_geom, 4326)) as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${Number(_this.$parent.sharedState.selected.lnglat[0])} ${Number(_this.$parent.sharedState.selected.lnglat[1])} )',4326), 2264), schools.the_geom) as dist`,
-                            'limit': 1,
-                            'join': `schools;cms_high_districts.num = schools.schl`
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsHigh = response.data;
-                    });
+                // high school
+                _this.apiFetch({
+                        'columns': `zone, name, address, ST_X(ST_Transform(schools.the_geom, 4326)) as lng, ST_Y(ST_Transform(schools.the_geom, 4326)) as lat, ST_Distance(ST_Transform(ST_GeomFromText('POINT(${Number(_this.$parent.sharedState.selected.lnglat[0])} ${Number(_this.$parent.sharedState.selected.lnglat[1])} )',4326), 2264), schools.the_geom) as dist`,
+                        'limit': 1,
+                        'join': `schools;cms_high_districts.num = schools.schl`
+                    }, 
+                    `https://mcmap.org/api/intersect_point/v1/cms_high_districts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`, 
+                    'resultsHigh'
+                );         
 
                 // temporary for transportation zone
-                axios.get(`https://mcmap.org/api/intersect_point/v1/tmp_cms_transportation_2017/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'columns': 'choicezn',
-                            'limit': 1
-                        }
-                    })
-                    .then(function(response) {
-                        _this.tmpTransportationZone = response.data;
-                    });
+                _this.apiFetch({
+                        'columns': 'choicezn',
+                        'limit': 1
+                    }, 
+                    `https://mcmap.org/api/intersect_point/v1/tmp_cms_transportation_2017/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`, 
+                    'tmpTransportationZone'
+                );                     
+
             }
       },
       locationClick: function(rec) {

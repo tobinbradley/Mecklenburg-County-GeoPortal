@@ -49,7 +49,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
 import Welcome from './introduction.vue';
 import Printheader from './printheader.vue';
@@ -81,19 +81,22 @@ export default {
         getResults: function() {
             let _this = this;
             if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('impervious') !== -1) {
-                axios
-                  .get('https://mcmap.org/api/query/v1/impervious_surface_area',
-                  {
-                      params: {
-                          'columns': 'sum(sum_of_area) as area, subtheme',
-                          'filter': `commonpid='${_this.$parent.sharedState.selected.pid}'`,
-                          'sort': 'subtheme',
-                          'group': 'subtheme'
-                      }
-                  })
-                  .then(function(response) {
-                      _this.results = response.data;
-                  });
+                let params = {
+                    'columns': 'sum(sum_of_area) as area, subtheme',
+                    'filter': `commonpid='${_this.$parent.sharedState.selected.pid}'`,
+                    'sort': 'subtheme',
+                    'group': 'subtheme'
+                };
+
+                fetch(`https://mcmap.org/api/query/v1/impervious_surface_area?${jsonToURL(params)}`)
+                    .then(function(response) {
+                        return response.json();
+                    }).then(function(data) {
+                        _this.results = data;
+                    }).catch(function(ex) {
+                        console.log('parsing failed', ex);
+                    });
+                
               }
         },
         total: function() {

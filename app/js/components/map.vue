@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import Axios from 'axios';
 import mapboxgl from 'mapbox-gl';
 import directions from '../modules/directions';
 import fetchNearest from '../modules/nearest';

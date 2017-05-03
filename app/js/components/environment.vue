@@ -108,7 +108,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import jsonToURL from '../modules/jsontourl';
 import Welcome from './introduction.vue';
 import Printheader from './printheader.vue';
 
@@ -151,71 +151,74 @@ export default {
         this.getResults();
     },
     methods: {
+        apiFetch: function(params, url, setter) {
+            let _this = this;
+            return fetch(`${url}?${jsonToURL(params)}`)
+                .then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    _this[setter] = data;
+                }).catch(function(ex) {
+                    console.log('parsing failed', ex);
+                });
+        },
         getResults: function() {
             let _this = this;
-            if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('environment') !== -1) {
-                axios.get(`https://mcmap.org/api/intersect_feature/v1/tax_parcels/view_regulated_floodplains`,
-                    {
-                        params: {
-                            'columns': 't.gid',
-                            'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
-                            'geom_column_from': 'the_geom',
-                            'geom_column_to': 'the_geom'
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsFloodplain = response.data;
-                    });
+            if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('environment') !== -1) {                
 
-                axios.get(`https://mcmap.org/api/intersect_feature/v1/tax_parcels/post_construction_layers`,
-                    {
-                        params: {
-                            'columns': 'type, name',
-                            'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}' and t.type in ('TRANSIT CORRIDOR', 'BUSINESS CORRIDOR') `,
-                            'geom_column_from': 'the_geom',
-                            'geom_column_to': 'the_geom'
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsPostconstruction = response.data;
-                    });
+                // floodplain
+                _this.apiFetch({
+                        'columns': 't.gid',
+                        'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
+                        'geom_column_from': 'the_geom',
+                        'geom_column_to': 'the_geom'
+                    }, 
+                    'https://mcmap.org/api/intersect_feature/v1/tax_parcels/view_regulated_floodplains', 
+                    'resultsFloodplain'
+                );
 
-                axios.get(`https://mcmap.org/api/intersect_feature/v1/tax_parcels/soil`,
-                    {
-                        params: {
-                            'columns': 'distinct name,description,hydrologic_group',
-                            'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
-                            'geom_column_from': 'the_geom',
-                            'geom_column_to': 'the_geom'
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsSoil = response.data;
-                    });
+                // post construction
+                _this.apiFetch({
+                        'columns': 'type, name',
+                        'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}' and t.type in ('TRANSIT CORRIDOR', 'BUSINESS CORRIDOR') `,
+                        'geom_column_from': 'the_geom',
+                        'geom_column_to': 'the_geom'
+                    }, 
+                    'https://mcmap.org/api/intersect_feature/v1/tax_parcels/post_construction_layers', 
+                    'resultsPostconstruction'
+                );
+                
+                // soil
+                _this.apiFetch({
+                        'columns': 'distinct name,description,hydrologic_group',
+                        'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
+                        'geom_column_from': 'the_geom',
+                        'geom_column_to': 'the_geom'
+                    }, 
+                    'https://mcmap.org/api/intersect_feature/v1/tax_parcels/soil', 
+                    'resultsSoil'
+                );
 
-                axios.get(`https://mcmap.org/api/intersect_feature/v1/tax_parcels/water_quality_buffers`,
-                    {
-                        params: {
-                            'columns': 'distinct type,label',
-                            'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
-                            'geom_column_from': 'the_geom',
-                            'geom_column_to': 'the_geom'
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsWaterquality = response.data;
-                    });
+                // water quality buffers
+                _this.apiFetch({
+                        'columns': 'distinct type,label',
+                        'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
+                        'geom_column_from': 'the_geom',
+                        'geom_column_to': 'the_geom'
+                    }, 
+                    'https://mcmap.org/api/intersect_feature/v1/tax_parcels/water_quality_buffers', 
+                    'resultsWaterquality'
+                );                
 
-                axios.get(`https://mcmap.org/api/intersect_point/v1/watersheds/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'columns': 'name',
-                            'geom_column': 'the_geom'
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsWatershed = response.data;
-                    });
+                // watersheds
+                _this.apiFetch({
+                        'columns': 'name',
+                        'geom_column': 'the_geom'
+                    }, 
+                    `https://mcmap.org/api/intersect_point/v1/watersheds/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`, 
+                    'resultsWatershed'
+                );   
+
             }
         }
     }

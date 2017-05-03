@@ -2,8 +2,9 @@
     <div>       
         <div class="qol">
             <div class="mdl-typography--text-center">
-                <div class="report-record-highlight qol-highlight">
-                    <h2><i role="presentation" class="material-icons qol-icon">favorite</i> Quality of Life</h2>
+                <div class="report-record-highlight">
+                    <i role="presentation" class="material-icons">favorite</i>
+                    <h1> Quality of Life</h1>
                 </div>
             </div>
 
@@ -209,8 +210,8 @@
                        <div class="qol-chart-trend"></div>
                    </div>
                    <div class="mdl-typography--text-center no-print" style="margin-top: 20px">
-                       <a class="mdl-button mdl-js-button" v-bind:href="reportURL" target="_blank">Report</a>
-                       <a class="mdl-button mdl-js-button" v-bind:href="metaURL" target="_blank">META</a>
+                       <a class="button button-accent" v-bind:href="reportURL" target="_blank">Report</a>
+                       <a class="button button-accent" v-bind:href="metaURL" target="_blank">META</a>
                    </div>
                    <div class="mdl-typography--text-center no-print" style="margin-top: 20px;">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-focused" id="embed-textarea" style="margin-left: 20px;">
@@ -232,7 +233,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import jsonToURL from '../modules/jsontourl';
 import Chartist from 'chartist';
 import naturalSort from '../modules/naturalsort';
 import getURLParameter from '../modules/geturlparams';
@@ -349,15 +350,22 @@ export default {
         getResults: function() {
             if (this.$parent.sharedState.selected.lnglat && this.$parent.sharedState.show.indexOf('qualityoflife') !== -1) {
                 let _this = this;
-                axios.get(`https://mcmap.org/api/intersect_point/v1/neighborhoods/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`, {
-                    params: {
-                        'geom_column': 'the_geom',
-                        'columns': 'id',
-                        'limit': 1
-                    }
-                }).then(function(response) {
-                    _this.neighborhood = response.data[0].id;
-                });
+
+                let params = {
+                    'geom_column': 'the_geom',
+                    'columns': 'id',
+                    'limit': 1
+                };
+
+                fetch(`https://mcmap.org/api/intersect_point/v1/neighborhoods/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326?${jsonToURL(params)}`)
+                    .then(function(response) {
+                        return response.json();
+                    }).then(function(data) {
+                        _this.neighborhood = data[0].id;
+                    }).catch(function(ex) {
+                        console.log('parsing failed', ex);
+                    });
+                
             } 
         },
         
@@ -454,10 +462,7 @@ export default {
     stroke: #ba00e4;
 }
 
-.qol-icon {
-    font-size: 1.2em !important;
-    vertical-align: middle;
-}
+
 .qol-highlight {
     margin-bottom: 20px;
 }
@@ -494,17 +499,15 @@ tr[data-qolgroup='Neighborhood'] td {
 </style>
 
 <style lang="css" scoped>
-h1 {
-    font-size: 1.5em;
-    margin: 0 0 0;
-}
 span.legend {
     font-size: 0.8em;
     display: inline !important;
 }
 .material-icons {
-    vertical-align: middle;
-    font-size: 1.5em;
+    font-size: 5.5em;
+}
+.report-record-highlight {
+    margin: 0 auto 20px;
 }
 .legend-selected {
     color: #ba00e4;

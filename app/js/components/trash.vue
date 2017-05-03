@@ -115,7 +115,7 @@
 // 3810 Warrington is orange (odd)
 // 5501 Ruth is green (even)
 
-import axios from 'axios';
+import jsonToURL from '../modules/jsontourl';
 import Welcome from './introduction.vue';
 import Printheader from './printheader.vue';
 
@@ -150,15 +150,18 @@ export default {
         getResults: function() {
             let _this = this;
             if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('trash') !== -1) {
-                axios.get(`https://mcmap.org/api/intersect_point/v1/solid_waste/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'geom_column': 'the_geom',
-                            'columns': 'jurisdiction, day, week, type'
-                        }
-                    })
+                let params = {
+                    'geom_column': 'the_geom',
+                    'columns': 'jurisdiction, day, week, type'
+                };
+
+                fetch(`https://mcmap.org/api/intersect_point/v1/solid_waste/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326?${jsonToURL(params)}`)
                     .then(function(response) {
-                        _this.results = response.data;
+                        return response.json();
+                    }).then(function(data) {
+                        _this.results = data;
+                    }).catch(function(ex) {
+                        console.log('parsing failed', ex);
                     });
             }
         },

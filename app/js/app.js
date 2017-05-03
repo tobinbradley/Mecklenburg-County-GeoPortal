@@ -9,18 +9,21 @@
 //                ||     ||
 //
 
-// Fix for axios on IE11
-require('es6-promise').polyfill();
-
 import Vue from 'vue';
+import 'whatwg-fetch';
+import Promise from 'promise-polyfill'; 
 import getURLParameter from './modules/geturlparams';
 import fetchNearest from './modules/nearest';
 import toggleSidebar from './modules/sidebar-hamburger';
 import Search from './components/search.vue';
 import Map from './components/map.vue';
 import App from './components/app.vue';
-import Photos from './components/photos.vue';
 
+
+// Fix for axios on IE11
+if (!window.Promise) {
+    window.Promise = Promise;
+}
 
 // enabe sidebar hamburger menu
 toggleSidebar();

@@ -26,7 +26,7 @@
 
 
 <script>
-import axios from 'axios';
+import jsonToURL from '../modules/jsontourl';
 import debounce from 'lodash.debounce';
 import fetchNearest from '../modules/nearest';
 
@@ -60,14 +60,19 @@ export default {
         },
         getResults: function(query) {
             let _this = this;
-            axios.get(`https://mcmap.org/api/search/v1/${query.toLowerCase()}`, {
-                params: {
-                  'tables': 'address,park,library,school,pid,business'
-                }
-              })
-              .then(function (response) {
-                  _this.privateState.results = response.data;
-              });
+            let params = {
+                'tables': 'address,park,library,school,pid,business'
+            };
+
+            fetch(`https://mcmap.org/api/search/v1/${query.toLowerCase()}?${jsonToURL(params)}`)
+                .then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    _this.privateState.results = data;
+                }).catch(function(ex) {
+                    console.log('parsing failed', ex);
+                });
+            
         },
         select: function(index) {
             let _this = this;
@@ -78,7 +83,6 @@ export default {
                 'address': rec.address,
                 'pid': rec.pid
             };
-            console.log(rec.lng, rec.lat);
             _this.privateState.results = [];
             let intro = _this.sharedState.show.indexOf('introduction');
             if (intro !== -1) {

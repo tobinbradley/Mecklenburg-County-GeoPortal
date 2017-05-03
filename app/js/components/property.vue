@@ -212,7 +212,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
 import Welcome from './introduction.vue';
 import Photos from './photos.vue';
@@ -255,67 +255,90 @@ export default {
         this.getResults();
     },
     methods: {
+        apiFetch: function(params, url, setter) {
+            let _this = this;
+            return fetch(`${url}?${jsonToURL(params)}`)
+                .then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    _this[setter] = data;
+                }).catch(function(ex) {
+                    console.log('parsing failed', ex);
+                });
+        },
         getResults: function() {
             let _this = this;
             if (_this.$parent.sharedState.selected.pid && _this.$parent.sharedState.show.indexOf('property') !== -1) {
-                axios.get('https://mcmap.org/rest/v3/ws_geo_pointoverlay.php',
-                  {
-                      params: {
-                          'x': _this.$parent.sharedState.selected.lnglat[0],
-                          'y': _this.$parent.sharedState.selected.lnglat[1],
-                          'srid': 4326,
-                          'table': 'view_zoning',
-                          'fields': 'zone_des, zone_class',
-                          'parameters': "zone_des <> 'sm_towns'",
-                          'geometryfield': 'the_geom'
-                      }
-                  })
-                  .then(function(response) {
-                      _this.resultsZoning = response.data;
-                  });
+                
+                // zoning
+                _this.apiFetch({
+                        'x': _this.$parent.sharedState.selected.lnglat[0],
+                        'y': _this.$parent.sharedState.selected.lnglat[1],
+                        'srid': 4326,
+                        'table': 'view_zoning',
+                        'fields': 'zone_des, zone_class',
+                        'parameters': "zone_des <> 'sm_towns'",
+                        'geometryfield': 'the_geom'
+                    }, 
+                    'https://mcmap.org/rest/v3/ws_geo_pointoverlay.php', 
+                    'resultsZoning'
+                );
 
-                  axios.get('https://mcmap.org/rest/v3/ws_cama_ownership.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
-                    .then(function(response) {
-                         _this.resultsOwnership = response.data;
-                    });
+                // ownership
+                _this.apiFetch({
+                        'pid': _this.$parent.sharedState.selected.pid
+                    }, 
+                    'https://mcmap.org/rest/v3/ws_cama_ownership.php', 
+                    'resultsOwnership'
+                );
 
-                    axios.get('https://mcmap.org/rest/v3/ws_cama_appraisal.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
-                      .then(function(response) {
-                          _this.resultsAppraisal = response.data;
-                      });
+                // appraisal
+                _this.apiFetch({
+                        'pid': _this.$parent.sharedState.selected.pid
+                    }, 
+                    'https://mcmap.org/rest/v3/ws_cama_appraisal.php', 
+                    'resultsAppraisal'
+                );
 
-                    axios.get('https://mcmap.org/rest/v3/ws_cama_saleshistory.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
-                        .then(function(response) {
-                            _this.resultsSales = response.data;
-                        });
+                // sales history
+                _this.apiFetch({
+                        'pid': _this.$parent.sharedState.selected.pid
+                    }, 
+                    'https://mcmap.org/rest/v3/ws_cama_saleshistory.php', 
+                    'resultsSales'
+                );
 
-                    axios.get('https://mcmap.org/rest/v3/ws_cama_landuse.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
-                        .then(function(response) {
-                            _this.resultsLanduse = response.data;
-                        });
+                // land use
+                _this.apiFetch({
+                        'pid': _this.$parent.sharedState.selected.pid
+                    }, 
+                    'https://mcmap.org/rest/v3/ws_cama_landuse.php', 
+                    'resultsLanduse'
+                );
 
-                    axios.get('https://mcmap.org/rest/v3/ws_cama_building.php', {params: {'pid': _this.$parent.sharedState.selected.pid}, timeout: 3000})
-                        .then(function(response) {
-                            _this.resultsBuildings = response.data;
-                        });
+                // building information
+                _this.apiFetch({
+                        'pid': _this.$parent.sharedState.selected.pid
+                    }, 
+                    'https://mcmap.org/rest/v3/ws_cama_building.php', 
+                    'resultsBuildings'
+                );
 
-                    axios.get('https://mcmap.org/rest/v3/ws_geo_featureoverlay.php',
-                        {
-                            params: {
-                                'from_table': 'tax_parcels',
-                                'to_table': 'building_permits',
-                                'fields': 'extract(year from t.date_completed_co_process) as theyear, t.project_name,t.square_footage,t.construction_cost',
-                                'parameters': `f.pid = '${_this.$parent.sharedState.selected.pid}' and t.job_status = 'COMPL'`,
-                                'order': 't.date_completed_co_process desc',
-                                'limit': 10,
-                                'from_geometryfield': 'the_geom',
-                                'to_geometryfield': 'the_geom'
-                            },
-                            timeout: 3000
-                        })
-                        .then(function(response) {
-                            _this.resultsPermits = response.data;
-                        });
+                // building permits
+                _this.apiFetch({
+                        'from_table': 'tax_parcels',
+                        'to_table': 'building_permits',
+                        'fields': 'extract(year from t.date_completed_co_process) as theyear, t.project_name,t.square_footage,t.construction_cost',
+                        'parameters': `f.pid = '${_this.$parent.sharedState.selected.pid}' and t.job_status = 'COMPL'`,
+                        'order': 't.date_completed_co_process desc',
+                        'limit': 10,
+                        'from_geometryfield': 'the_geom',
+                        'to_geometryfield': 'the_geom'
+                    }, 
+                    'https://mcmap.org/rest/v3/ws_geo_featureoverlay.php', 
+                    'resultsPermits'
+                );
+                
               }
         }
     }

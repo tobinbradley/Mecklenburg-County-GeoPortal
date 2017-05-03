@@ -103,7 +103,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
 import Welcome from './introduction.vue';
 import Printheader from './printheader.vue';
@@ -142,77 +142,79 @@ export default {
       this.getResults();
   },
   methods: {
+      apiFetch: function(params, url, setter) {
+            let _this = this;
+            return fetch(`${url}?${jsonToURL(params)}`)
+                .then(function(response) {
+                    return response.json();
+                }).then(function(data) {
+                    _this[setter] = data;
+                }).catch(function(ex) {
+                    console.log('parsing failed', ex);
+                });
+      },
       getOfficials: function() {
           let _this = this;
-          axios.get(`https://mcmap.org/api/query/v1/elected_officials`,
-              {
-                  params: {
-                      'sort': 'district'
-                  }
-              })
-              .then(function(response) {
-                  _this.resultsOfficials = response.data;
-              });
+
+          _this.apiFetch({
+                    'sort': 'district'
+                }, 
+                'https://mcmap.org/api/query/v1/elected_officials', 
+                'resultsOfficials'
+            );
+
       },
       getResults: function() {
           let _this = this;
           if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('voting') !== -1) {
-                axios.get(`https://mcmap.org/api/intersect_point/v1/voting_precincts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'geom_column': 'the_geom',
-                            'limit': 1,
-                            'columns': `voting_precincts.cc, voting_precincts.school, polling_locations.name as label,polling_locations.address,voting_precincts.precno as precinct,st_x(st_transform(polling_locations.the_geom, 4326)) as lng, st_y(st_transform(polling_locations.the_geom, 4326)) as lat, ST_Distance(polling_locations.the_geom,ST_Transform(GeomFromText('POINT(${Number(_this.$parent.sharedState.selected.lnglat[0])} ${Number(_this.$parent.sharedState.selected.lnglat[1])})',4326), 2264)) as distance`,
-                            'join': 'polling_locations;voting_precincts.precno = polling_locations.precno'
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsPrecinct = response.data;
-                    });
+                
+                // voting precincts
+                _this.apiFetch({
+                        'geom_column': 'the_geom',
+                        'limit': 1,
+                        'columns': `voting_precincts.cc, voting_precincts.school, polling_locations.name as label,polling_locations.address,voting_precincts.precno as precinct,st_x(st_transform(polling_locations.the_geom, 4326)) as lng, st_y(st_transform(polling_locations.the_geom, 4326)) as lat, ST_Distance(polling_locations.the_geom,ST_Transform(GeomFromText('POINT(${Number(_this.$parent.sharedState.selected.lnglat[0])} ${Number(_this.$parent.sharedState.selected.lnglat[1])})',4326), 2264)) as distance`,
+                        'join': 'polling_locations;voting_precincts.precno = polling_locations.precno'
+                    }, 
+                    `https://mcmap.org/api/intersect_point/v1/voting_precincts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`, 
+                    'resultsPrecinct'
+                );
 
-                axios.get(`https://mcmap.org/api/intersect_point/v1/national_congressional/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'geom_column': 'the_geom',
-                            'columns': `district as district`
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsNatlcong = response.data;
-                    });
+                // national congressional
+                _this.apiFetch({
+                        'geom_column': 'the_geom',
+                        'columns': `district as district`
+                    }, 
+                    `https://mcmap.org/api/intersect_point/v1/national_congressional/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                    'resultsNatlcong'
+                );
 
-                axios.get(`https://mcmap.org/api/intersect_point/v1/state_senate/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'geom_column': 'the_geom',
-                            'columns': `senate as district`
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsNCSenate = response.data;
-                    });
+                // state senate
+                _this.apiFetch({
+                        'geom_column': 'the_geom',
+                        'columns': 'senate as district'
+                    }, 
+                    `https://mcmap.org/api/intersect_point/v1/state_senate/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                    'resultsNCSenate'
+                );
 
-                axios.get(`https://mcmap.org/api/intersect_point/v1/state_house/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'geom_column': 'the_geom',
-                            'columns': `house as district`
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsNCHouse = response.data;
-                    });
+                // state house
+                _this.apiFetch({
+                        'geom_column': 'the_geom',
+                        'columns': 'house as district'
+                    }, 
+                    `https://mcmap.org/api/intersect_point/v1/state_house/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                    'resultsNCHouse'
+                );
 
-                axios.get(`https://mcmap.org/api/intersect_point/v1/city_council/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                    {
-                        params: {
-                            'geom_column': 'the_geom',
-                            'columns': `citydist as district`
-                        }
-                    })
-                    .then(function(response) {
-                        _this.resultsCharlotte = response.data;
-                    });
+                // charlotte city council
+                _this.apiFetch({
+                        'geom_column': 'the_geom',
+                        'columns': 'citydist as district'
+                    }, 
+                    `https://mcmap.org/api/intersect_point/v1/city_council/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
+                    'resultsCharlotte'
+                );
+
             }
       },
       locationClick: function(rec) {

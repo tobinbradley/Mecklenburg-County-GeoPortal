@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
 import Welcome from './introduction.vue';
 import Printheader from './printheader.vue';
@@ -92,18 +92,22 @@ export default {
       getResults: function() {
           let _this = this;
           if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('libraries') !== -1) {
-              axios
-                .get(`https://mcmap.org/api/nearest/v1/libraries/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
-                {
-                    params: {
-                        'geom_column': 'the_geom',
-                        'columns': 'name, address, city, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
-                        'limit': '5'
-                    }
-                })
-                .then(function(response) {
-                    _this.results = response.data;
-                });
+              
+              let params = {
+                  'geom_column': 'the_geom',
+                  'columns': 'name, address, city, st_x(st_transform(the_geom, 4326)) as lng, st_y(st_transform(the_geom, 4326)) as lat',
+                  'limit': '5'
+              };
+
+              fetch(`https://mcmap.org/api/nearest/v1/libraries/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326?${jsonToURL(params)}`)
+                  .then(function(response) {
+                      return response.json();
+                  }).then(function(data) {
+                      _this.results = data;
+                  }).catch(function(ex) {
+                      console.log('parsing failed', ex);
+                  });
+              
             }
       },
       locationClick: function(index) {

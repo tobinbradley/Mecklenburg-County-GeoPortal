@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import jsonToURL from '../modules/jsontourl';
 
 export default {
     name: 'photos',
@@ -38,17 +38,20 @@ export default {
             let _this = this;
             if (_this.$parent.$parent.sharedState.selected && _this.$parent.$parent.sharedState.selected.pid) {
                 _this.photoIndex = 0;
-                axios.get('https://mcmap.org/rest/v2/ws_misc_house_photos.php',
-                {
-                    params: {
-                        'pid': _this.$parent.$parent.sharedState.selected.pid,
-                        'photo_source': 'mvideo,ilookabout'
-                    },
-                    timeout: 3000
-                })
-                .then(function(response) {
-                    _this.results = response.data;
-                });
+                let params = {
+                    'pid': _this.$parent.$parent.sharedState.selected.pid,
+                    'photo_source': 'mvideo,ilookabout'
+                };
+
+                fetch(`https://mcmap.org/rest/v2/ws_misc_house_photos.php?${jsonToURL(params)}`)
+                  .then(function(response) {
+                      return response.json();
+                  }).then(function(data) {
+                      _this.results = data;
+                  }).catch(function(ex) {
+                      console.log('parsing failed', ex);
+                  });
+
             }
         },
         handleThumbClick: function(index) {
