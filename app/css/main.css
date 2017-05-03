@@ -10,9 +10,9 @@ ____________________________________
                ||     ||
 */
 
-/*@import '../../node_modules/material-design-lite/material.css';*/
-@import 'modules/material.css';
 
+@import 'modules/material.css';
+@import 'modules/fontello.css';
 @import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 @import '../../node_modules/chartist/dist/chartist.css';
 @import 'modules/variables.css';

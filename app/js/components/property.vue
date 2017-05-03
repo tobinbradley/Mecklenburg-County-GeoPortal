@@ -10,7 +10,7 @@
         <div v-else>
             <Print></Print>
             <div class="report-record-highlight">
-                <i role="presentation" class="material-icons">business</i>
+                <i class="icon icon-property"></i>
                 <h2>Tax Parcel</h2>
                 <h1>{{$parent.sharedState.selected.pid}}</h1>
                 <h3 v-if="resultsZoning.length > 0">Zoned as {{ resultsZoning[0].zone_class}} {{resultsZoning[0].zone_des}}</h3>

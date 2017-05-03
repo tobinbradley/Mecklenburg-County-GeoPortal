@@ -15,7 +15,7 @@
             It's open source! <a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal">Fork it on GitHub</a>
         </p>
         <p class="credits">
-            With much <i role="presentation" class="material-icons">favorite</i> for the projects that make this site possible:<br>
+            With much <span style="font-size: 1.5em; vertical-align: text-bottom;">&#9829;</span> for the projects that make this site possible:<br>
             <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>,
             <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a>,
             <a href="https://www.mapbox.com/mapbox-gl-js/api/" target="_blank">Mapbox GL JS</a>,

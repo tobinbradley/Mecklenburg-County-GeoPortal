@@ -13,7 +13,7 @@
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
               <div v-if="resultsFloodplain">
                   <div class="report-record-highlight">
-                        <i role="presentation" class="material-icons">flash_on</i>
+                        <i class="icon icon-floodplain"></i>
                         <h2 v-if="resultsFloodplain.length > 0">This property is in a</h2>
                         <h2 v-else>This property is not in a regulated floodplain.</h2>
                         <h1 v-if="resultsFloodplain.length > 0">REGULATED FLOODPLAIN</h1>
@@ -25,7 +25,7 @@
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                <div v-if="resultsWaterquality">
                    <div class="report-record-highlight">
-                         <i role="presentation" class="material-icons">invert_colors</i>
+                         <i class="icon icon-water-quality"></i>
                          <template v-if="resultsWaterquality.length > 0">
                              <h2>This property is in a</h2>
                              <h1>WATER QUALITY BUFFER</h1>
@@ -43,7 +43,7 @@
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                <div v-if="resultsPostconstruction">
                    <div class="report-record-highlight">
-                        <i role="presentation" class="material-icons">build</i>
+                        <i class="icon icon-construction"></i>
                         <template v-if="resultsPostconstruction.length > 0">
                             <h2>This property is in a</h2>
                             <h1>{{ resultsPostconstruction | postconstruction }}</h1>
@@ -58,7 +58,7 @@
 
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                <div class="report-record-highlight" v-if="resultsWatershed">
-                    <i role="presentation" class="material-icons">terrain</i>
+                    <i class="icon icon-environment"></i>
                     <h2>This property is in the</h2>
                     <h1>{{resultsWatershed[0].name.toUpperCase()}} WATERSHED</h1>
                     <h4>A watershed, or drainage basin, is an area of land where all surface water converges to a single point at a lower elevation,

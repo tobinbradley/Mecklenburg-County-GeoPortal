@@ -3,7 +3,7 @@
         <div class="qol">
             <div class="mdl-typography--text-center">
                 <div class="report-record-highlight">
-                    <i role="presentation" class="material-icons">favorite</i>
+                    <i class="icon icon-quality-of-life"></i>
                     <h1> Quality of Life</h1>
                 </div>
             </div>
@@ -204,9 +204,9 @@
                        </table>
                    </div>
                    <div class="mdl-typography--text-center trendchart" v-show="showChart">
-                       <h1>Trend</h1>
-                       <span class="legend"><i class="material-icons legend-county">trending_up</i> {{chartCompare}}</span>
-                       <span class="legend"><i class="material-icons legend-selected">trending_up</i> Neighborhood</span>
+                       <h4>Trend</h4>
+                       <span class="legend"><i class="icon icon-trending-up legend-county" role="presentation"></i> {{chartCompare}}</span>
+                       <span class="legend"><i class="icon icon-trending-up legend-selected" role="presentation"></i> Neighborhood</span>
                        <div class="qol-chart-trend"></div>
                    </div>
                    <div class="mdl-typography--text-center no-print" style="margin-top: 20px">
@@ -496,15 +496,15 @@ tr[data-qolgroup='Neighborhood'] td {
 .qol-metric-tab > .mdl-tabs__panel {
   padding-top: 20px;
 }
+.trendchart h4 {
+    margin: 8px 0 0;
+}
 </style>
 
 <style lang="css" scoped>
 span.legend {
     font-size: 0.8em;
     display: inline !important;
-}
-.material-icons {
-    font-size: 5.5em;
 }
 .report-record-highlight {
     margin: 0 auto 20px;

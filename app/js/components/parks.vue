@@ -11,7 +11,7 @@
         <div class="mdl-typography--text-center">
             <Print></Print>
             <div class="report-record-highlight" v-if="results">
-                <i role="presentation" class="material-icons">nature_people</i>
+                <i class="icon icon-park"></i>
                 <h2>Your closest park is</h2>
                 <h1>{{ results[0].name }}</h1>
                 <h3>

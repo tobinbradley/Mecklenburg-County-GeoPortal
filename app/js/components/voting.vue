@@ -11,7 +11,7 @@
 		<div class="mdl-typography--text-center">
             <Print></Print>
             <div class="report-record-highlight" v-if="resultsPrecinct.length > 0">
-                <i role="presentation" class="material-icons">check_box</i>
+                <i class="icon icon-voting"></i>
 				<h2>Your Polling Location is</h2>
     				<h1>{{resultsPrecinct[0].label}}</h1>
 				<h3><a href="javascript:void(0)" v-on:click="locationClick(resultsPrecinct[0])">
@@ -22,7 +22,7 @@
 		<div class="mdl-grid">
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div class="report-record-highlight" v-if="resultsOfficials.length > 0">
-                   <i role="presentation" class="material-icons">person</i>
+                   <i class="icon icon-person"></i>
                    <h2>Your US SENATE representatives are</h2>
                         <h1 v-for="(item, index) in getSenate(resultsOfficials, 'national_senate')">
                             {{item.representative}}
@@ -31,7 +31,7 @@
 			</div>
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div class="report-record-highlight" v-if="resultsOfficials.length > 0 && resultsNatlcong.length > 0">
-                    <i role="presentation" class="material-icons">person</i>
+                    <i class="icon icon-person"></i>
                     <h2>Your US CONGRESSIONAL DISTRICT representative is</h2>
                     <h1>{{resultsNatlcong[0].district | repFilter(resultsOfficials, 'national_congressional')}}</h1>
                     <h3>District {{resultsNatlcong[0].district}}</h3>
@@ -41,7 +41,7 @@
 		<div class="mdl-grid">
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div class="report-record-highlight" v-if="resultsOfficials.length > 0 && resultsNCSenate.length > 0">
-                    <i role="presentation" class="material-icons">person</i>
+                    <i class="icon icon-person"></i>
                     <h2>Your NC SENATE DISTRICT representative is</h2>
                     <h1>{{resultsNCSenate[0].district | repFilter(resultsOfficials, 'state_senate')}}</h1>
                     <h3>District {{resultsNCSenate[0].district}}</h3>
@@ -49,7 +49,7 @@
 			</div>
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div class="report-record-highlight" v-if="resultsOfficials.length > 0 && resultsNCHouse.length > 0">
-                    <i role="presentation" class="material-icons">person</i>
+                    <i class="icon icon-person"></i>
                     <h2>Your NC HOUSE DISTRICT representative is</h2>
                     <h1>{{resultsNCHouse[0].district | repFilter(resultsOfficials, 'state_house')}}</h1>
                     <h3>District {{resultsNCHouse[0].district}}</h3>
@@ -59,7 +59,7 @@
 		<div class="mdl-grid">
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div class="report-record-highlight" v-if="resultsOfficials.length > 0 && resultsPrecinct.length > 0">
-                    <i role="presentation" class="material-icons">person</i>
+                    <i class="icon icon-person"></i>
                     <h2>Your COUNTY COMMISSION DISTRICT representative is</h2>
                     <h1>{{resultsPrecinct[0].cc | repFilter(resultsOfficials, 'county_commission')}}</h1>
                     <h3>District {{resultsPrecinct[0].cc}}</h3>
@@ -70,7 +70,7 @@
 			</div>
 			<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div class="report-record-highlight" v-if="resultsOfficials.length > 0 && resultsPrecinct.length > 0">
-                    <i role="presentation" class="material-icons">person</i>
+                    <i class="icon icon-person"></i>
                     <h2>Your SCHOOL BOARD DISTRICT representative is</h2>
                     <h1>{{resultsPrecinct[0].school | repFilter(resultsOfficials, 'board_of_education')}}</h1>
                     <h3>District {{resultsPrecinct[0].school}}</h3>
@@ -82,7 +82,7 @@
 		</div>
 		<div class="mdl-typography--text-center">
             <div class="report-record-highlight" v-if="resultsOfficials.length > 0 && resultsCharlotte.length > 0">
-                <i role="presentation" class="material-icons">person</i>
+                <i class="icon icon-person"></i>
                 <h2>Your CHARLOTTE CITY COUNCIL DISTRICT representative is</h2>
                 <h1>{{resultsCharlotte[0].district | repFilter(resultsOfficials, 'charlotte_city_council')}}</h1>
                 <h3>District {{resultsCharlotte[0].district}}</h3>

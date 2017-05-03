@@ -16,7 +16,7 @@
                     <li v-on:click="select(index)">
                         <span class='search-result-type'>{{ item.type }}</span>
                         <span class='search-result-label'>{{ item.label }}</span>
-                        <i role="presentation" class="material-icons">keyboard_arrow_right</i>
+                        <i class="icon icon-chevron-right" role="presentation"></i>
                     </li>
                 </ul>
             </div>
@@ -191,7 +191,7 @@ export default {
     pointer-events: none;
 }
 
-#search-results .material-icons {
+#search-results .icon {
     display: inline-block;
     float: right;
 }

@@ -11,10 +11,6 @@
 
 
 
-.mdl-layout__drawer-button .material-icons {
-    color: rgb(236, 239, 241);
-}
-
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link {
     padding: 10px 40px;
 }
@@ -89,7 +85,6 @@
   background-color: var(--colorHighlight);
   color: #37474F !important;
 }
-.mdl-layout__drawer .mdl-navigation .mdl-navigation__link .material-icons,
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link .icon
  {
   font-size: 24px;

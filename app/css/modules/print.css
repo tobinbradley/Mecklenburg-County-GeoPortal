@@ -21,7 +21,7 @@
     a[href]:after {
         content: "";
     }
-    .material-icons {
+    .icon {
         display: none;
     }
     .map-card-container {

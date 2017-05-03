@@ -11,7 +11,7 @@
         <div class="mdl-typography--text-center">
           <Print></Print>
           <div class="report-record-highlight">
-              <i role="presentation" class="material-icons">invert_colors_off</i>
+              <i class="icon icon-impervious"></i>
               <h2>You have</h2>
               <h1 v-if="results">{{ total() | area }}</h1>
               <h3>of Impervious Surface</h3>

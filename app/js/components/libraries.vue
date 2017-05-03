@@ -11,7 +11,7 @@
         <Print></Print>
         <div class="mdl-typography--text-center" v-if="results">
             <div class="report-record-highlight">
-                <i role="presentation" class="material-icons">local_library</i>
+                <i class="icon icon-library"></i>
                 <h2>Your closest library is</h2>
                 <h1>{{ results[0].name }}</h1>
                 <h3>
