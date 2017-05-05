@@ -29,6 +29,6 @@
 
 @media (max-width: 840px) {
     .toggle-map { 
-        display: inline-block; 
+        display: block; 
     }
 }
