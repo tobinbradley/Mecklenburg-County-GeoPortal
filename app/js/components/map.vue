@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="map-container">
+  <div class="map-container mdl-shadow--2dp">
       <div id="map"></div>      
   </div>
 </template>

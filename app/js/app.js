@@ -11,6 +11,7 @@
 
 import Vue from 'vue';
 import 'whatwg-fetch';
+import webglCheck from './modules/webglcheck';
 import Promise from 'promise-polyfill'; 
 import getURLParameter from './modules/geturlparams';
 import fetchNearest from './modules/nearest';
@@ -43,7 +44,8 @@ let appState = {
     },
     show: "welcome",
     mapOverlay: null,
-    initLnglatFlag: false
+    initLnglatFlag: false,
+    glSupport: webglCheck()
 };
 
 // process URL arguments on page load
@@ -90,7 +92,7 @@ for (let i = 0; i < navlinks.length; i++) {
                 history.replaceState(null, null, `?q=${q}`);
             }
             if (window.ga) {
-                ga('send', 'event', q, 'question');
+                window.ga('send', 'event', q, 'question');
             }
 
 
@@ -145,34 +147,57 @@ new Vue({
     render: h => h(App)
 });
 
-
-// initialize map if webgl supported
-try {
-    let canvas = document.createElement('canvas');
-    let ctx = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
-    //webgl in the House
-    Map.data = function() {
-        return {
-            privateState: {
-                map: null,
-                locationMarker: null,
-                poiMarker: null,
-                markerClicked: false
-            },
-            sharedState: appState
-        };
+// Kick the map
+let mapVM = null;
+Map.data = function() {
+    return {
+        privateState: {
+            map: null,
+            locationMarker: null,
+            poiMarker: null,
+            markerClicked: false
+        },
+        sharedState: appState
     };
-    new Vue({
-       el: 'sc-map',
-       render: h => h(Map)
-    });
-}
-catch (e) {
-    // drop the map
-    let elMap = document.querySelector('.mdl-card-map');
-    elMap.parentNode.removeChild(elMap);
-    let elMapSpacer = document.querySelector('#map-spacer');
-    elMapSpacer.parentNode.removeChild(elMapSpacer);
+};
+
+// set toggle map button click
+let toggleMap = document.querySelector(".toggle-map");
+toggleMap.addEventListener("click", function() {
+    if (appState.glSupport) {
+        initMap();
+    }
+});
+
+// remove map toggle button if gl not supported
+if (!appState.glSupport) {
+    toggleMap.parentNode.removeChild(toggleMap);
 }
 
+// initialize map if gl supported and not in single column mode
+if (appState.glSupport && document.body.getBoundingClientRect().width > 840) {
+    initMap();
+}
+
+// watch page resize and initialize map if not in single column mode
+// and not already intialized
+window.addEventListener("resize", resizeMapInit, false);
+function resizeMapInit() {
+    if (appState.glSupport && document.body.getBoundingClientRect().width > 840 && !mapVM) {
+        initMap();
+    }
+}
+
+// initialize map, remove map toggle button, remove window resize event
+function initMap() {
+    mapVM = new Vue({
+        el: 'sc-map',
+        render: h => h(Map)
+    });
+    let toggleMap = document.querySelector(".toggle-map");
+    if (toggleMap) {
+        toggleMap.parentNode.removeChild(toggleMap);
+    }
+    window.removeEventListener("resize", resizeMapInit, false);     
+}
 
