@@ -47,6 +47,7 @@ body {
 }
 a {
     text-decoration-skip: ink;
+    color: var(--colorLink);
 }
 
 

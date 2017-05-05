@@ -83,7 +83,7 @@
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link:hover,
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link.active {
   background-color: var(--colorHighlight);
-  color: #37474F !important;
+  color: var(--colorSidebarActive) !important;
 }
 .mdl-layout__drawer .mdl-navigation .mdl-navigation__link .icon
  {

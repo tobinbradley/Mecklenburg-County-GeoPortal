@@ -13,7 +13,7 @@ export default class PitchToggle {
         this._btn = document.createElement('button');
         this._btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-pitchtoggle-3d';
         this._btn.type = 'button';
-        this._btn['aria-label'] = 'Inspect';
+        this._btn.setAttribute('aria-label', 'toggle map pitch');
         this._btn.onclick = function() { 
             if (map.getPitch() === 0) {
                 let options = {pitch: _this._pitch, bearing: _this._bearing};

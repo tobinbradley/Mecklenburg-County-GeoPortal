@@ -1,12 +1,8 @@
 p.credits {
     margin: 40px 40px 0;
-    font-size: 0.8em;
+    font-size: 1em;
     line-height: 1.5em;
 }
-p.credits a, p.credits a:hover, p.credits a:active {
-    color: rgb(96, 125, 139);
-    text-decoration: none;
-}
-p.credits a:hover {
-    text-decoration: underline;
+.credits-links {
+    font-size: 0.9em;
 }

@@ -11,7 +11,7 @@ export default class AerialToggle {
         this._btn = document.createElement('button');
         this._btn.className = 'mapboxgl-ctrl-icon mapboxgl-ctrl-aerial';
         this._btn.type = 'button';
-        this._btn['aria-label'] = 'Toggle Satellite Imagery';
+        this._btn.setAttribute('aria-label', 'toggle satellite imagery');
         this._btn.onclick = function() { 
             if (map.getLayer("satellite")) {
                 map.removeLayer("satellite");

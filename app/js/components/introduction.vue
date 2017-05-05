@@ -15,12 +15,14 @@
             It's open source! <a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal">Fork it on GitHub</a>
         </p>
         <p class="credits">
-            With much <span style="font-size: 1.5em; vertical-align: text-bottom;">&#9829;</span> for the projects that make this site possible:<br>
-            <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>,
-            <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a>,
-            <a href="https://www.mapbox.com/mapbox-gl-js/api/" target="_blank">Mapbox GL JS</a>,
-            <a href="http://vuejs.org/" target="_blank">Vue.js</a>, and
-            <a href="http://getmdl.io/" target="_blank">Material Design Lite</a>
+            With much <span style="font-size: 1.5em; vertical-align: bottom;">&#9829;</span> for the projects that make this site possible:<br>
+            <span class="credits-links">
+                <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>,
+                <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a>,
+                <a href="https://www.mapbox.com/mapbox-gl-js/api/" target="_blank">Mapbox GL JS</a>,
+                <a href="http://vuejs.org/" target="_blank">Vue.js</a>, and
+                <a href="http://getmdl.io/" target="_blank">Material Design Lite</a>
+            </span>
         </p>
   </div>
 </template>
