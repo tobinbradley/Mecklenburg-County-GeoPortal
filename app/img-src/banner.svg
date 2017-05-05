@@ -10,9 +10,9 @@
    xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="1365.3334"
-   height="768"
-   viewBox="0 0 1280 720.00001"
+   width="1300"
+   height="731"
+   viewBox="0 0 1300 731"
    id="svg2"
    version="1.1"
    inkscape:version="0.92.1 r"
@@ -343,8 +343,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.7"
-     inkscape:cx="617.05973"
-     inkscape:cy="427.83765"
+     inkscape:cx="770.40445"
+     inkscape:cy="372.50121"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -353,7 +353,12 @@
      inkscape:window-height="1059"
      inkscape:window-x="0"
      inkscape:window-y="0"
-     inkscape:window-maximized="1" />
+     inkscape:window-maximized="1"
+     scale-x="1"
+     fit-margin-top="5"
+     fit-margin-left="5"
+     fit-margin-right="5"
+     fit-margin-bottom="5" />
   <metadata
      id="metadata7">
     <rdf:RDF>
@@ -362,7 +367,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -370,9 +375,9 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(0,-332.36216)">
+     transform="translate(104.30583,-381.20797)">
     <g
-       transform="matrix(1.2501074,0,0,1.2501074,-159.62401,-37.79351)"
+       transform="matrix(1.2501074,0,0,1.2501074,-252.48115,16.492204)"
        id="layer1-1"
        inkscape:label="Layer 1"
        style="opacity:1"
@@ -2867,14 +2872,14 @@
     </g>
     <path
        inkscape:connector-curvature="0"
-       style="opacity:1;fill:url(#radialGradient5255);fill-opacity:1;stroke:none;stroke-width:4;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:url(#radialGradient5255);fill-opacity:1;stroke:none;stroke-width:3.93913484;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="M -18.504007,892.32745 H 229.29966 V 1063.8646 H -18.504007 Z"
        id="rect5247"
        clip-path="url(#clipPath5326)"
-       transform="matrix(5.7142857,0,0,4.7682113,1.5999999e-6,-3965.5232)" />
+       transform="matrix(5.8035714,0,0,4.841059,-102.85715,-3982.2732)" />
     <g
        id="g5712"
-       transform="matrix(5.7624661,0,0,5.7624661,-118.2614,-2542.7785)">
+       transform="matrix(5.7624661,0,0,5.7624661,-211.11854,-2488.4928)">
       <path
          transform="matrix(1.2048396,0,0,1.2048396,262.07983,-410.02706)"
          style="fill:#000000;fill-opacity:1;stroke:none;filter:url(#filter3975)"
