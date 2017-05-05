@@ -1,6 +1,6 @@
 # GeoPortal v3
 
-Created by Mecklenburg County GIS. Online [over here](http://mcmap.org/geoportal/).
+Created by Mecklenburg County GIS. Online [over here](https://mcmap.org/geoportal/).
 
 Built using:
 
