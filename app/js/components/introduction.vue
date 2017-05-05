@@ -7,7 +7,7 @@
         <h5>
             Search for an address or place to get started!
         </h5>
-        <div class="youtube" id="DtEIu-h2FQo" data-params="controls=0&showinfo=0&rel=0" data-background="img/youtube-bg.png"></div>
+        <div class="youtube" id="DtEIu-h2FQo" data-params="controls=0&showinfo=0&rel=0" data-background="img/youtube-bg.svg"></div>
         <p class="credit">
             Created by <a href="http://emaps.charmeck.org" target="_blank">Mecklenburg County GIS</a>
         </p>
