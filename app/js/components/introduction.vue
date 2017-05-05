@@ -12,7 +12,7 @@
             Created by <a href="http://emaps.charmeck.org" target="_blank">Mecklenburg County GIS</a>
         </p>
         <p>
-            This project is <a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" target="_blank">open source software</a>.
+            GeoPortal is <a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" target="_blank">open source software</a>.
         </p>
         <p class="credits">
             With much <span style="font-size: 1.5em; vertical-align: bottom;">&#9829;</span> for the projects that make this site possible:<br>
