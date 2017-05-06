@@ -3,7 +3,7 @@
         <div class="mdl-cell mdl-cell--12-col">
             <div class="search-container mdl-typography--text-center">
                 <div class="search-input-container">
-                    <input type="text" aria-label="search" name="search-input" class="search-input" autocomplete="off" placeholder="Tell me about..." v-on:focus="search()" v-model="privateState.query" />
+                    <input type="text" aria-label="search" name="search-input" class="search-input" autocomplete="off" placeholder="Tell me about..." v-on:focus="search()" v-model="privateState.query" @blur="privateState.results = []" />
                     <span class="bar"></span>
                     <p class="mdl-typography--text-left muted">Try typing part of an address, like <em>700 N</em>. <span v-if="privateState.gps">Or we can <a href="javascript:void(0)" @click="geoLocation">take a guess</a>.</span></p>
                     <p class="mdl-typography--text-center muted print-only">GeoPortal &bull; Mecklenburg County GIS</p>
