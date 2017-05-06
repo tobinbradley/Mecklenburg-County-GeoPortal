@@ -8,7 +8,7 @@
             </Introduction>
         </div>
         <div v-else>
-            <Print></Print>
+            <Selected>{{ $parent.sharedState.selected.address }}</Selected>
             <div class="report-record-highlight">
                 <i class="icon icon-property"></i>
                 <h2>Tax Parcel</h2>
@@ -216,7 +216,7 @@ import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
 import Welcome from './introduction.vue';
 import Photos from './photos.vue';
-import Printheader from './printheader.vue';
+import Selected from './selected.vue';
 
 export default {
     name: 'property',
@@ -234,7 +234,7 @@ export default {
     components: {
         Introduction: Welcome,
         Photos: Photos,
-        Print: Printheader
+        Selected: Selected
     },
     filters: {
         money: function(num) {

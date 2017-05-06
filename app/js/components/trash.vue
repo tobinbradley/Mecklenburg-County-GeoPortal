@@ -7,6 +7,7 @@
             </Introduction>
     </div>
     <div v-else>
+        <Selected>{{ $parent.sharedState.selected.address }}</Selected>
         <div v-if="results.length > 0">
             <div class="mdl-grid" v-if="results[0].jurisdiction === 'huntersville'">
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
@@ -117,7 +118,7 @@
 
 import jsonToURL from '../modules/jsontourl';
 import Welcome from './introduction.vue';
-import Printheader from './printheader.vue';
+import Selected from './selected.vue';
 
 export default {
     name: 'trash',
@@ -128,7 +129,7 @@ export default {
     },
     components: {
         Introduction: Welcome,
-        Print: Printheader
+        Selected: Selected
     },
     watch: {
         '$parent.sharedState.selected.lnglat': 'getResults',

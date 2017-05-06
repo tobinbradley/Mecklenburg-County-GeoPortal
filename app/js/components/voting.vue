@@ -9,7 +9,7 @@
         </div>
         <div v-else>
 		<div class="mdl-typography--text-center">
-            <Print></Print>
+            <Selected>{{ $parent.sharedState.selected.address }}</Selected>
             <div class="report-record-highlight" v-if="resultsPrecinct.length > 0">
                 <i class="icon icon-voting"></i>
 				<h2>Your Polling Location is</h2>
@@ -106,7 +106,7 @@
 import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
 import Welcome from './introduction.vue';
-import Printheader from './printheader.vue';
+import Selected from './selected.vue';
 
 export default {
   name: 'voting',
@@ -122,7 +122,7 @@ export default {
     },
     components: {
         Introduction: Welcome,
-        Print: Printheader
+        Selected: Selected
     },
   filters: {
       distance: function(dist) {

@@ -9,7 +9,7 @@
         </div>
         <div v-else>
         <div class="mdl-typography--text-center">
-            <Print></Print>
+            <Selected>{{ $parent.sharedState.selected.address }}</Selected>
             <div class="report-record-highlight" v-if="results">
                 <i class="icon icon-park"></i>
                 <h2>Your closest park is</h2>
@@ -64,7 +64,7 @@
 import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
 import Welcome from './introduction.vue';
-import Printheader from './printheader.vue';
+import Selected from './selected.vue';
 
 export default {
   name: 'parks',
@@ -75,7 +75,7 @@ export default {
     },
   components: {
       Introduction: Welcome,
-      Print: Printheader
+      Selected: Selected
   },
   filters: {
       distance: function(dist) {

@@ -8,8 +8,8 @@
             </Introduction>
         </div>
         <div v-else>
-        <div class="mdl-grid">
-           <Print></Print>
+        <Selected>{{ $parent.sharedState.selected.address }}</Selected>
+        <div class="mdl-grid">           
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
               <div v-if="resultsFloodplain">
                   <div class="report-record-highlight">
@@ -110,7 +110,7 @@
 <script>
 import jsonToURL from '../modules/jsontourl';
 import Welcome from './introduction.vue';
-import Printheader from './printheader.vue';
+import Selected from './selected.vue';
 
 export default {
     name: 'environment',
@@ -125,7 +125,7 @@ export default {
     },
     components: {
         Introduction: Welcome,
-        Print: Printheader
+        Selected: Selected
     },
     watch: {
         '$parent.sharedState.selected.lnglat': 'getResults',

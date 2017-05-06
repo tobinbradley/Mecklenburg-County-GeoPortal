@@ -1,6 +1,7 @@
 <template lang="html">
     <div>       
         <div class="qol">
+            <Selected>{{ $parent.sharedState.selected.address }}</Selected>
             <div class="mdl-typography--text-center">
                 <div class="report-record-highlight">
                     <i class="icon icon-quality-of-life"></i>
@@ -10,9 +11,8 @@
 
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--8-col">
-                    <div class="mdl-card qol-metric-tab-card mdl-typography--text-left">
-                      <Print></Print>
-                      <div class="mdl-tabs mdl-js-tabs mdl-js-ripple-effect qol-metric-tab no-print">
+                    <div class="mdl-card qol-metric-tab-card mdl-typography--text-left">                      
+                      <div class="mdl-tabs mdl-js-tabs qol-metric-tab no-print">
                         <div class="mdl-tabs__tab-bar">
                           <a href="javascript:void(0)" class="mdl-tabs__tab" v-bind:class="{tabActive: activeTab === 'economics'}" v-on:click="activeTab = 'economics'">Money</a>
                           <a href="javascript:void(0)" class="mdl-tabs__tab" v-bind:class="{tabActive: activeTab === 'demographics'}" v-on:click="activeTab = 'demographics'">People</a>                          
@@ -183,7 +183,7 @@
                         Neighborhood vs                         
                                <div class="dropdown">
                                 <button class="dropdown-button">{{ neighborhoodCompare }} &#x25BC</button>
-                                <div class="dropdown-content">
+                                <div class="dropdown-content no-print">
                                     <a href="javascript:void(0)" v-on:click="changeNeighborhoodCompare('Jurisdiction')">Jurisdiction</a>
                                     <a href="javascript:void(0)" v-on:click="changeNeighborhoodCompare('City Council')">Charlotte City Council</a>
                                     <a href="javascript:void(0)" v-on:click="changeNeighborhoodCompare('County Commission')">County Commission</a>
@@ -237,12 +237,12 @@ import jsonToURL from '../modules/jsontourl';
 import Chartist from 'chartist';
 import naturalSort from '../modules/naturalsort';
 import getURLParameter from '../modules/geturlparams';
-import Printheader from './printheader.vue';
+import Selected from './selected.vue';
 
 export default {
     name: 'quality_of_life',
     components: {
-        Print: Printheader
+        Selected: Selected
     },
     data: function() {
         return {
