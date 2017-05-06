@@ -1,5 +1,6 @@
 .report-container {
-  padding: 32px;
+    padding: 32px;
+    min-height: 650px;
 }
 @media (max-width: 500px) {
     .report-container {
