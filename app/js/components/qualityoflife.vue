@@ -1,7 +1,7 @@
 <template lang="html">
     <div>       
         <div class="qol">
-            <Selected>{{ $parent.sharedState.selected.address }}</Selected>
+            <Selected v-if="$parent.sharedState.selected.address">{{ $parent.sharedState.selected.address }}</Selected>
             <div class="mdl-typography--text-center">
                 <div class="report-record-highlight">
                     <i class="icon icon-quality-of-life"></i>
