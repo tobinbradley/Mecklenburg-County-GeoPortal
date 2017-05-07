@@ -1,14 +1,14 @@
 <template lang="html">
-    <div>        
+    <div>
         <div class="mdl-typography--text-center">
             <div class="report-record-highlight" v-if="results">
                 <i class="icon icon-park"></i>
                 <h2>Your closest park is</h2>
                 <h1>{{ results[0].name }}</h1>
                 <h3>
-                    <a href="javascript:void(0)"v-on:click="locationClick(0)">
-                        {{ results[0].address }}, {{ results[0].city}}
-                    </a>
+                    <a href="javascript:void(0)" v-on:click="locationClick(0)">
+                            {{ results[0].address }}, {{ results[0].city}}
+                        </a>
                 </h3>
                 <h4>
                     {{ results[0].distance | distance }}
@@ -30,8 +30,8 @@
                         </td>
                         <td class="mdl-data-table__cell--non-numeric">
                             <a href="javascript:void(0)" v-on:click="locationClick(index)">
-                                {{ item.address }}, {{item.city}}
-                            </a>
+                                    {{ item.address }}, {{item.city}}
+                                </a>
                         </td>
                         <td class="nowrap col-responsive">
                             {{ item.distance | distance }}
@@ -51,58 +51,60 @@
 </template>
 
 <script>
-import jsonToURL from '../modules/jsontourl';
-import format from 'format-number';
-
-export default {
-  name: 'parks',
-  data: function() {
-        return {
-            results: null
-        }
-  },
-  filters: {
-      distance: function(dist) {
-          return format({'truncate': 1, 'suffix': ' miles'})(dist / 5280);
-      }
-  },
-  watch: {
-      '$parent.sharedState.selected.lnglat': 'getResults',
-      '$parent.sharedState.show': 'getResults'
-  },
-  mounted: function() {
-      this.getResults();
-  },
-  methods: {
-      getResults: function() {
-          let _this = this;
-          if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('parks') !== -1) {
-              let params = {
-                  'columns': 'name, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',
-                  'limit': '5'
-              };
-
-              fetch(`https://mcmap.org/api/nearest/v1/parks_all/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326?${jsonToURL(params)}`)
-                  .then(function(response) {
-                      return response.json();
-                  }).then(function(data) {
-                      _this.results = data;
-                  }).catch(function(ex) {
-                      console.log('parsing failed', ex);
-                  });
+    import jsonToURL from '../modules/jsontourl';
+    import format from 'format-number';
+    export default {
+        name: 'parks',
+        data: function() {
+            return {
+                results: null
             }
-      },
-      locationClick: function(index) {
-          let poi = this.results[index];
-          this.$parent.sharedState.poi = {
-              'lnglat': [poi.lng, poi.lat],
-              'address': poi.address,
-              'label': poi.name
-          };
-      }
-  }
-}
+        },
+        filters: {
+            distance: function(dist) {
+                return format({
+                    'truncate': 1,
+                    'suffix': ' miles'
+                })(dist / 5280);
+            }
+        },
+        watch: {
+            '$parent.sharedState.selected.lnglat': 'getResults',
+            '$parent.sharedState.show': 'getResults'
+        },
+        mounted: function() {
+            this.getResults();
+        },
+        methods: {
+            getResults: function() {
+                let _this = this;
+                if (_this.$parent.sharedState.selected.lnglat && _this.$parent.sharedState.show.indexOf('parks') !== -1) {
+                    let params = {
+                        'columns': 'name, address, city, st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat',
+                        'limit': '5'
+                    };
+                    fetch(`https://mcmap.org/api/nearest/v1/parks_all/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326?${jsonToURL(params)}`)
+                        .then(function(response) {
+                            return response.json();
+                        }).then(function(data) {
+                            _this.results = data;
+                        }).catch(function(ex) {
+                            console.log('parsing failed', ex);
+                        });
+                }
+            },
+            locationClick: function(index) {
+                let poi = this.results[index];
+                this.$parent.sharedState.poi = {
+                    'lnglat': [poi.lng, poi.lat],
+                    'address': poi.address,
+                    'label': poi.name
+                };
+            }
+        }
+    }
 </script>
 
 <style lang="css">
+
 </style>
