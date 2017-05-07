@@ -1,6 +1,7 @@
 <template lang="html">
     <div class="selected-location">
-        <i class="icon icon-place"></i> <slot></slot>                
+        <h4 class="print-only">GeoPortal<br>Mecklenburg County GIS</h4>
+        <span v-if="sharedState.selected.address"><i class="icon icon-place"></i> {{ sharedState.selected.address }}</span>                
     </div>
 </template>
 

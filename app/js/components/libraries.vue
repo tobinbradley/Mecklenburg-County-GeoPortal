@@ -8,7 +8,6 @@
             </Introduction>
         </div>
         <div v-else>
-        <Selected>{{ $parent.sharedState.selected.address }}</Selected>
         <div class="mdl-typography--text-center" v-if="results">
             <div class="report-record-highlight">
                 <i class="icon icon-library"></i>
@@ -63,7 +62,6 @@
 import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
 import Welcome from './introduction.vue';
-import Selected from './selected.vue';
 
 export default {
   name: 'libraries',
@@ -73,8 +71,7 @@ export default {
         }
   },
   components: {
-      Introduction: Welcome,
-      Selected: Selected
+      Introduction: Welcome
   },
   filters: {
       distance: function(dist) {

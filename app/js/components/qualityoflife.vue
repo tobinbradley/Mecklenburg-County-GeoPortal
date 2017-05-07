@@ -1,7 +1,6 @@
 <template lang="html">
     <div>       
         <div class="qol">
-            <Selected v-if="$parent.sharedState.selected.address">{{ $parent.sharedState.selected.address }}</Selected>
             <div class="mdl-typography--text-center">
                 <div class="report-record-highlight">
                     <i class="icon icon-quality-of-life"></i>
@@ -237,13 +236,9 @@ import jsonToURL from '../modules/jsontourl';
 import Chartist from 'chartist';
 import naturalSort from '../modules/naturalsort';
 import getURLParameter from '../modules/geturlparams';
-import Selected from './selected.vue';
 
 export default {
     name: 'quality_of_life',
-    components: {
-        Selected: Selected
-    },
     data: function() {
         return {
             trends: null,

@@ -19,6 +19,7 @@ import toggleSidebar from './modules/sidebar-hamburger';
 import Search from './components/search.vue';
 import Map from './components/map.vue';
 import App from './components/app.vue';
+import ReportHeader from './components/report-header.vue';
 
 
 // Fix for axios on IE11
@@ -145,6 +146,17 @@ App.data = function() {
 new Vue({
     el: 'sc-app',
     render: h => h(App)
+});
+
+// initialize main app
+ReportHeader.data = function() {
+    return {       
+        sharedState: appState
+    };
+};
+new Vue({
+    el: 'sc-reportheader',
+    render: h => h(ReportHeader)
 });
 
 // Kick the map

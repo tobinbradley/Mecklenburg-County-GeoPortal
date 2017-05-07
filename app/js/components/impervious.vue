@@ -9,7 +9,6 @@
         </div>
         <div v-else>
         <div class="mdl-typography--text-center">
-          <Selected>{{ $parent.sharedState.selected.address }}</Selected>
           <div class="report-record-highlight">
               <i class="icon icon-impervious"></i>
               <h2>You have</h2>
@@ -52,7 +51,6 @@
 import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
 import Welcome from './introduction.vue';
-import Selected from './selected.vue';
 
 export default {
     name: 'impervious',
@@ -62,8 +60,7 @@ export default {
         }
     },
     components: {
-        Introduction: Welcome,
-        Selected: Selected
+        Introduction: Welcome
     },
     filters: {
         area: function(num) {

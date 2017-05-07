@@ -8,7 +8,6 @@
             </Introduction>
         </div>
         <div v-else>
-        <Selected>{{ $parent.sharedState.selected.address }}</Selected>
         <div class="mdl-grid">           
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
               <div v-if="resultsFloodplain">
@@ -110,7 +109,6 @@
 <script>
 import jsonToURL from '../modules/jsontourl';
 import Welcome from './introduction.vue';
-import Selected from './selected.vue';
 
 export default {
     name: 'environment',
@@ -124,8 +122,7 @@ export default {
         }
     },
     components: {
-        Introduction: Welcome,
-        Selected: Selected
+        Introduction: Welcome
     },
     watch: {
         '$parent.sharedState.selected.lnglat': 'getResults',
