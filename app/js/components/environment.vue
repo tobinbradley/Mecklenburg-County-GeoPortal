@@ -16,55 +16,50 @@
                 <div v-if="resultsWaterquality">
                     <div class="report-record-highlight">
                         <i class="icon icon-water-quality"></i>
-                        <template v-if="resultsWaterquality.length > 0">
-                                 <h2>This property is in a</h2>
-                                 <h1>WATER QUALITY BUFFER</h1>
-                                 <h4>The buffer(s) are: <strong>{{ resultsWaterquality | waterquality }}</strong>. <a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">Special restrictions may apply</a>. For more information,
-                                 please call 980.721.4191 for existing single-family lots and those projects not needing a grading permit or call 704.432.5570 for
-                                 other projects.</h4>
-</template>
-
-<template v-else>
-    <h2>
-        This property is not in a Water Quality Buffer.</h2>
-</template>
-                   </div>
-                </div>
-           </div>
-
-           <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-               <div v-if="resultsPostconstruction">
-                   <div class="report-record-highlight">
-                        <i class="icon icon-construction"></i>
-<template v-if="resultsPostconstruction.length>
-     0">
-    <h2>This property is in a</h2>
-    <h1>{{ resultsPostconstruction | postconstruction }}</h1>
-    <h4><a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">PCCO mitigation options apply</a>. For more information, please call 704.432.5571.</h4>
-</template>
-
-<template v-else>
-    <h2>
-        This property is not in a Distressed Business District or Transit Station Area.</h2>
-</template>
+                        <div v-if="resultsWaterquality.length > 0">
+                            <h2>This property is in a</h2>
+                            <h1>WATER QUALITY BUFFER</h1>
+                            <h4>The buffer(s) are: <strong>{{ resultsWaterquality | waterquality }}</strong>. <a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">Special restrictions may apply</a>.
+                                For more information, please call 980.721.4191 for existing single-family lots and those projects not needing a grading permit or call 704.432.5570 for other projects.</h4>
+                        </div>
+                        <div v-else>
+                            <h2>
+                                This property is not in a Water Quality Buffer.</h2>
+                        </div>
                     </div>
-               </div>
-           </div>
-
-           <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
-               <div class="report-record-highlight" v-if="resultsWatershed">
+                </div>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
+                <div v-if="resultsPostconstruction">
+                    <div class="report-record-highlight">
+                        <i class="icon icon-construction"></i>
+                        <div v-if="resultsPostconstruction.length > 0">
+                            <h2>This property is in a</h2>
+                            <h1>{{ resultsPostconstruction | postconstruction }}</h1>
+                            <h4><a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">PCCO mitigation options apply</a>. For more information, please call 704.432.5571.</h4>
+                        </div>
+                        <div v-else>
+                            <h2>
+                                This property is not in a Distressed Business District or Transit Station Area.</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
+                <div class="report-record-highlight" v-if="resultsWatershed">
                     <i class="icon icon-environment"></i>
                     <h2>This property is in the</h2>
                     <h1>{{resultsWatershed[0].name.toUpperCase()}} WATERSHED</h1>
-                    <h4>A watershed, or drainage basin, is an area of land where all surface water converges to a single point at a lower elevation,
-                    usually the exit of the basin such as a river, lake, or wetland.</h4>
+                    <h4>
+                        <span style="font-weight: bold;" v-if="resultsWatershed[0].type.length > 1">This is a <a href="http://charlottenc.gov/StormWater/Regulations/Documents/WatershedRulesSummary.pdf" target="_blank">{{resultsWatershed[0].type}} watershed ({{resultsWatershed[0].subarea}})</a>.<br></span>
+                        A watershed, or drainage basin, is an area of land where all surface water converges to a single point at a lower elevation, usually the exit of the basin such as a river, lake, or wetland.
+                    </h4>
                 </div>
-           </div>
-
-       </div>
-       <div class="mdl-typography--text-center">
-           <div v-if="resultsSoil">
-               <table class="mdl-data-table mdl-js-data-table">
+            </div>
+        </div>
+        <div class="mdl-typography--text-center">
+            <div v-if="resultsSoil">
+                <table class="mdl-data-table mdl-js-data-table">
                     <caption>Soil Types</caption>
                     <thead>
                         <tr>
@@ -87,9 +82,9 @@
                         </tr>
                     </tbody>
                 </table>
-           </div>
-       </div>
-       <div class="report-moreinfo mdl-typography--text-left">
+            </div>
+        </div>
+        <div class="report-moreinfo mdl-typography--text-left">
             <h5>For more information, please visit:</h5>
             <ul class="list-unstyled">
                 <li><a href="http://charmeck.org/stormwater/Pages/default.aspx" target="_blank">Storm Water Services</a></li>
@@ -98,7 +93,7 @@
                 <li><a href="https://mecklenburgcounty.exavault.com/p/waterquality%252FWQ%2520Buffers/WaterQualityBufferImplementationGuidelines.pdf" target="_blank">Water Quality Buffer Implementation Guidelines</a></li>
             </ul>
         </div>
-   </div>
+    </div>
 </template>
 
 <script>
@@ -198,7 +193,7 @@
                     );
                     // watersheds
                     _this.apiFetch({
-                            'columns': 'name',
+                            'columns': 'name,type,subarea',
                             'geom_column': 'the_geom'
                         },
                         `https://mcmap.org/api/intersect_point/v1/watersheds/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
