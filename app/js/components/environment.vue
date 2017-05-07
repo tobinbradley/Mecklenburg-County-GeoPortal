@@ -1,13 +1,5 @@
 <template lang="html">
-    <div>
-        <div v-if="!$parent.sharedState.selected.pid">
-            <Introduction>
-                <div class='intro-slot'>
-                    To view <strong>Environmental</strong> information, use the search above to find a location.
-                </div>
-            </Introduction>
-        </div>
-        <div v-else>
+    <div>        
         <div class="mdl-grid">           
            <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
               <div v-if="resultsFloodplain">
@@ -102,13 +94,11 @@
                 <li><a href="https://mecklenburgcounty.exavault.com/p/waterquality%252FWQ%2520Buffers/WaterQualityBufferImplementationGuidelines.pdf" target="_blank">Water Quality Buffer Implementation Guidelines</a></li>
             </ul>
         </div>
-        </div>
    </div>
 </template>
 
 <script>
 import jsonToURL from '../modules/jsontourl';
-import Welcome from './introduction.vue';
 
 export default {
     name: 'environment',
@@ -120,9 +110,6 @@ export default {
             resultsPostconstruction: null,
             resultsWatershed: null
         }
-    },
-    components: {
-        Introduction: Welcome
     },
     watch: {
         '$parent.sharedState.selected.lnglat': 'getResults',

@@ -1,13 +1,5 @@
 <template lang="html">    
-    <div>
-        <div v-if="!$parent.sharedState.selected.pid">
-            <Introduction>
-                <div class='intro-slot'>
-                    To view <strong>Property</strong> information, use the search above to find a location.
-                </div>
-            </Introduction>
-        </div>
-        <div v-else>
+    <div>        
             <div class="report-record-highlight">
                 <i class="icon icon-property"></i>
                 <h2>Tax Parcel</h2>
@@ -205,15 +197,12 @@
                     <li><a href="http://charmeck.org/city/charlotte/planning/Pages/Home.aspx" target="_blank">Charlotte-Mecklenburg Planning</a></li>
                 </ul>
             </div>
-        </div>
-
     </div>
 </template>
 
 <script>
 import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
-import Welcome from './introduction.vue';
 import Photos from './photos.vue';
 
 export default {
@@ -230,7 +219,6 @@ export default {
         }
     },
     components: {
-        Introduction: Welcome,
         Photos: Photos
     },
     filters: {

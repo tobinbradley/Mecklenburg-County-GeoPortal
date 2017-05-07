@@ -1,13 +1,5 @@
 <template lang="html">
-    <div>
-        <div v-if="!$parent.sharedState.selected.pid">
-            <Introduction>
-                <div class='intro-slot'>
-                    To view <strong>Library</strong> information, use the search above to find a location.
-                </div>
-            </Introduction>
-        </div>
-        <div v-else>
+    <div>        
         <div class="mdl-typography--text-center" v-if="results">
             <div class="report-record-highlight">
                 <i class="icon icon-library"></i>
@@ -54,14 +46,12 @@
                 <li><a href="http://www.plcmc.org/" target="_blank">Charlotte Mecklenburg Library</a></li>
             </ul>
         </div>
-        </div>
     </div>
 </template>
 
 <script>
 import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
-import Welcome from './introduction.vue';
 
 export default {
   name: 'libraries',
@@ -69,10 +59,7 @@ export default {
         return {
             results: null
         }
-  },
-  components: {
-      Introduction: Welcome
-  },
+  },  
   filters: {
       distance: function(dist) {
           return format({'truncate': 1, 'suffix': ' miles'})(dist / 5280);

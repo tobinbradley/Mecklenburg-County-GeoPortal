@@ -140,7 +140,10 @@ new Vue({
 // initialize main app
 App.data = function() {
     return {       
-        sharedState: appState
+        sharedState: appState,
+        privateState: {
+            show: "welcome"
+        }
     };
 };
 new Vue({

@@ -1,5 +1,5 @@
 <template>
-    <component :is="sharedState.show"></component>
+    <component :is="privateState.show"></component>
 </template>
 
 <script>
@@ -29,10 +29,14 @@ export default {
         qualityoflife: QualityOfLife
     }, 
     watch: {
-        "sharedState.selected.lnglat": "checkTab"
+        "sharedState.selected.lnglat": "gotRecord",
+        "sharedState.show": "gotTab"
+    },
+    mounted: function() {
+        this.gotTab();
     },
     methods: {
-        checkTab: function() {
+        gotRecord: function() {
             if (this.sharedState.show === 'welcome') {
                 this.sharedState.show = 'schools';
                 let navlinks = document.querySelectorAll('.mdl-navigation__link');
@@ -41,6 +45,15 @@ export default {
                 }
                 let elem =  document.querySelector(`.mdl-navigation__link[data-type="schools"]`);
                 elem.classList.add('active');
+            } else {
+                this.privateState.show = this.sharedState.show;
+            }
+        },
+        gotTab: function() {
+            if (this.sharedState.selected.lnglat || this.sharedState.show === 'qualityoflife') {
+                this.privateState.show = this.sharedState.show;
+            } else {
+                this.privateState.show = 'welcome';
             }
         }
     }

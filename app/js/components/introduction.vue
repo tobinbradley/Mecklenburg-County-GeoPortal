@@ -1,6 +1,8 @@
 <template lang="html">
     <div class="introduction">
-        <slot></slot>        
+        <div class='intro-slot' v-if="$parent.sharedState.show !== 'welcome'">
+            To view this information, use the search above to find a location.
+        </div>        
         <h4>
             Discover data about <strong>places</strong> in your community.
         </h4>

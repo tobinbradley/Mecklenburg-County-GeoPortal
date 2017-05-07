@@ -1,13 +1,5 @@
 <template lang="html">
     <div>
-        <div v-if="!$parent.sharedState.selected.pid">
-            <Introduction>
-                <div class='intro-slot'>
-                    To view <strong>Impervious Surface</strong> information, use the search above to find a location.
-                </div>
-            </Introduction>
-        </div>
-        <div v-else>
         <div class="mdl-typography--text-center">
           <div class="report-record-highlight">
               <i class="icon icon-impervious"></i>
@@ -44,13 +36,11 @@
             </ul>
         </div>
     </div>
-    </div>
 </template>
 
 <script>
 import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
-import Welcome from './introduction.vue';
 
 export default {
     name: 'impervious',
@@ -58,10 +48,7 @@ export default {
         return {
             results: null
         }
-    },
-    components: {
-        Introduction: Welcome
-    },
+    },    
     filters: {
         area: function(num) {
             return format({'truncate': 0, 'suffix': ' Sq. Ft.'})(num);

@@ -1,12 +1,5 @@
 <template lang="html">
-    <div v-if="!$parent.sharedState.selected.lnglat">
-            <Introduction>
-                <div class='intro-slot'>
-                    To view <strong>Trash and Recycling Pickup</strong> information, use the search above to find a location.
-                </div>
-            </Introduction>
-    </div>
-    <div v-else>
+    <div>
         <div v-if="results.length > 0">
             <div class="mdl-grid" v-if="results[0].jurisdiction === 'huntersville'">
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
@@ -116,7 +109,6 @@
 // 5501 Ruth is green (even)
 
 import jsonToURL from '../modules/jsontourl';
-import Welcome from './introduction.vue';
 
 export default {
     name: 'trash',
@@ -124,9 +116,6 @@ export default {
         return {
             results: []
         }
-    },
-    components: {
-        Introduction: Welcome
     },
     watch: {
         '$parent.sharedState.selected.lnglat': 'getResults',

@@ -1,13 +1,5 @@
 <template lang="html">
-    <div>
-        <div v-if="!$parent.sharedState.selected.pid">
-            <Introduction>
-                <div class='intro-slot'>
-                    To view <strong>Park</strong> information, use the search above to find a location.
-                </div>
-            </Introduction>
-        </div>
-        <div v-else>
+    <div>        
         <div class="mdl-typography--text-center">
             <div class="report-record-highlight" v-if="results">
                 <i class="icon icon-park"></i>
@@ -55,14 +47,12 @@
                 <li><a href="http://www.huntersville.org/Departments/ParksRecreation.aspx" target="_blank">Huntersville Parks and Recreation</a></li>
             </ul>
         </div>
-        </div>
     </div>
 </template>
 
 <script>
 import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
-import Welcome from './introduction.vue';
 
 export default {
   name: 'parks',
@@ -70,9 +60,6 @@ export default {
         return {
             results: null
         }
-    },
-  components: {
-      Introduction: Welcome
   },
   filters: {
       distance: function(dist) {

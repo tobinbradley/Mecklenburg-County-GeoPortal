@@ -1,12 +1,5 @@
-<template lang="html">
-    <div v-if="!$parent.sharedState.selected.lnglat">
-        <Introduction>
-            <div class='intro-slot'>
-                To view <strong>School</strong> information, use the search above to find a location.
-            </div>
-        </Introduction>
-    </div>
-    <div v-else>
+<template lang="html">    
+    <div>
         <div class="mdl-typography--text-center">
             <div class="report-record-highlight" v-if="resultsElementary.length > 0">
                 <i class="icon icon-school"></i>
@@ -93,13 +86,9 @@
 <script>
 import jsonToURL from '../modules/jsontourl';
 import format from 'format-number';
-import Welcome from './introduction.vue';
 
 export default {
-  name: 'schools',
-  components: {
-      Introduction: Welcome
-  },
+  name: 'schools',  
   data: function() {
       return {
           resultsMagnet: [],
