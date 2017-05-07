@@ -12,7 +12,7 @@
 import Vue from 'vue';
 import 'whatwg-fetch';
 import webglCheck from './modules/webglcheck';
-import Promise from 'promise-polyfill'; 
+import Promise from 'promise-polyfill';
 import getURLParameter from './modules/geturlparams';
 import fetchNearest from './modules/nearest';
 import toggleSidebar from './modules/sidebar-hamburger';
@@ -52,13 +52,13 @@ let appState = {
 // process URL arguments on page load
 if (getURLParameter('q') !== 'null') {
     let q = getURLParameter('q');
-    let elem =  document.querySelector(`.mdl-navigation__link[data-type="${q}"]`);
+    let elem = document.querySelector(`.mdl-navigation__link[data-type="${q}"]`);
     if (elem) {
         elem.classList.add('active');
         appState.show = q;
     }
 } else {
-    let elem =  document.querySelector(`.mdl-navigation__link[data-type="${appState.show}"]`);
+    let elem = document.querySelector(`.mdl-navigation__link[data-type="${appState.show}"]`);
     elem.classList.add('active');
 }
 if (getURLParameter('latlng') !== 'null') {
@@ -74,7 +74,7 @@ window.appState = appState;
 // navigation
 let navlinks = document.querySelectorAll('.mdl-navigation__link');
 for (let i = 0; i < navlinks.length; i++) {
-    navlinks[i].addEventListener('click', function() {
+    navlinks[i].addEventListener('click', function () {
         let item = navlinks[i];
 
         if (!item.classList.contains('active')) {
@@ -122,7 +122,7 @@ function scrollToElement(elem) {
 }
 
 // initialize search
-Search.data = function() {
+Search.data = function () {
     return {
         privateState: {
             query: '',
@@ -138,8 +138,8 @@ new Vue({
 });
 
 // initialize main app
-App.data = function() {
-    return {       
+App.data = function () {
+    return {
         sharedState: appState,
         privateState: {
             show: "welcome"
@@ -152,8 +152,8 @@ new Vue({
 });
 
 // initialize main app
-ReportHeader.data = function() {
-    return {       
+ReportHeader.data = function () {
+    return {
         sharedState: appState
     };
 };
@@ -164,7 +164,7 @@ new Vue({
 
 // Kick the map
 let mapVM = null;
-Map.data = function() {
+Map.data = function () {
     return {
         privateState: {
             map: null,
@@ -178,7 +178,7 @@ Map.data = function() {
 
 // set toggle map button click
 let toggleMap = document.querySelector(".toggle-map");
-toggleMap.addEventListener("click", function() {
+toggleMap.addEventListener("click", function () {
     if (appState.glSupport) {
         initMap();
     }
@@ -192,13 +192,13 @@ if (!appState.glSupport) {
 // initialize map if gl supported and not in single column mode
 if (appState.glSupport && document.body.getBoundingClientRect().width > 840) {
     initMap();
+} else {
+    window.addEventListener("resize", resizeMapInit, false);
 }
 
-// watch page resize and initialize map if not in single column mode
-// and not already intialized
-window.addEventListener("resize", resizeMapInit, false);
+// resize window function
 function resizeMapInit() {
-    if (appState.glSupport && document.body.getBoundingClientRect().width > 840 && !mapVM) {
+    if (document.body.getBoundingClientRect().width > 840 && !mapVM) {        
         initMap();
     }
 }
@@ -213,6 +213,5 @@ function initMap() {
     if (toggleMap) {
         toggleMap.parentNode.removeChild(toggleMap);
     }
-    window.removeEventListener("resize", resizeMapInit, false);     
+    window.removeEventListener("resize", resizeMapInit, false);
 }
-
