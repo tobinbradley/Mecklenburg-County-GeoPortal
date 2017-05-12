@@ -44,7 +44,6 @@ let appState = {
         'address': null
     },
     show: "welcome",
-    mapOverlay: null,
     initLnglatFlag: false,
     glSupport: webglCheck()
 };
@@ -94,14 +93,6 @@ for (let i = 0; i < navlinks.length; i++) {
             }
             if (window.ga) {
                 window.ga('send', 'event', q, 'question');
-            }
-
-
-            // load overlays
-            if (item.getAttribute('data-layers')) {
-                appState.mapOverlay = item.getAttribute('data-layers');
-            } else {
-                appState.mapOverlay = null;
             }
 
             appState.show = q;

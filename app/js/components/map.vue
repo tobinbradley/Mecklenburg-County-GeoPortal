@@ -17,7 +17,7 @@
         },
         watch: {
             "sharedState.selected.lnglat": "addMarker",
-            "sharedState.mapOverlay": "mapOverlay",
+            "sharedState.show": "mapOverlay",
             "sharedState.poi": "addPOI"
         },
         methods: {
@@ -36,15 +36,24 @@
                     ]
                     //maxBounds: [[-83.285, 33.180],[-78.255, 37.384]]
                 };
+                
                 _this.privateState.map = new mapboxgl.Map(mapOptions);
                 let map = _this.privateState.map;
+                
                 // add controls
                 map.addControl(new mapboxgl.FullscreenControl(), 'bottom-right');
                 map.addControl(new PitchToggle({}), 'bottom-right');
                 map.addControl(new AerialToggle({}), 'bottom-right');
+
                 map.on('load', function() {
+                    // get map overlays
                     _this.mapOverlay();
+                    // do marker if available
+                    if (_this.sharedState.selected.lnglat) {
+                        _this.addMarker();
+                    }
                 });
+
                 map.on('click', function(e) {
                     if (map.getZoom() >= 14 && !_this.privateState.markerClicked) {
                         fetchNearest(e.lngLat.lat, e.lngLat.lng, _this.sharedState);
@@ -63,46 +72,52 @@
             mapOverlay: function() {
                 let map = this.privateState.map;
                 let _this = this;
+
+                // remove any overlays
                 if (map.getLayer("overlay")) {
                     map.removeLayer("overlay");
                     map.removeSource("overlay");
                 }
-                if (_this.sharedState.mapOverlay && _this.sharedState.mapOverlay === 'view_regulated_floodplains') {
-                    map.addLayer({
-                        "id": "overlay",
-                        "type": "fill",
-                        "source": {
-                            "type": "vector",
-                            "tiles": [
-                                "https://mcmap.org/api/mvt/v1/view_regulated_floodplains/{z}/{x}/{y}?geom_column=the_geom"
-                            ],
-                            "maxzoom": 14,
-                            "minzoom": 14
-                        },
-                        "source-layer": "view_regulated_floodplains",
-                        "minzoom": 14,
-                        "maxzoom": 22,
-                        "paint": {
-                            "fill-color": "#DDF7F7",
-                        }
-                    }, 'waterway_river');
-                }
-                if (_this.sharedState.mapOverlay && _this.sharedState.mapOverlay === 'impervious_surface') {
-                    map.addLayer({
-                        "id": "overlay",
-                        "type": "raster",
-                        "source": {
+
+                // add overlays for tabs
+                switch(_this.sharedState.show) {
+                    case 'impervious':
+                        map.addLayer({
+                            "id": "overlay",
                             "type": "raster",
-                            "tiles": [`https://mcmap.org/geoserver/postgis/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&width=256&height=256&layers=postgis:impervious_surface&transparent=true`],
-                            "tileSize": 256,
-                            "maxzoom": 18
-                        },
-                        "minzoom": 15,
-                        "maxzoom": 22,
-                        "paint": {
-                            "raster-opacity": 1
-                        }
-                    });
+                            "source": {
+                                "type": "raster",
+                                "tiles": [`https://mcmap.org/geoserver/postgis/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&width=256&height=256&layers=postgis:impervious_surface&transparent=true`],
+                                "tileSize": 256,
+                                "maxzoom": 18
+                            },
+                            "minzoom": 15,
+                            "maxzoom": 22,
+                            "paint": {
+                                "raster-opacity": 1
+                            }
+                        });
+                        break;
+                    case 'environment':
+                        map.addLayer({
+                            "id": "overlay",
+                            "type": "fill",
+                            "source": {
+                                "type": "vector",
+                                "tiles": [
+                                    "https://mcmap.org/api/mvt/v1/view_regulated_floodplains/{z}/{x}/{y}?geom_column=the_geom"
+                                ],
+                                "maxzoom": 14,
+                                "minzoom": 14
+                            },
+                            "source-layer": "view_regulated_floodplains",
+                            "minzoom": 14,
+                            "maxzoom": 22,
+                            "paint": {
+                                "fill-color": "#DDF7F7",
+                            }
+                        }, 'waterway_river');
+                        break;                    
                 }
             },
             addPOI: function() {
