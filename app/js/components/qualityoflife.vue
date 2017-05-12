@@ -391,6 +391,7 @@
                     _this.showChart = true;
                     let options = {
                         fullWidth: true,
+                        low: 0,
                         chartPadding: {
                             right: 40
                         },
