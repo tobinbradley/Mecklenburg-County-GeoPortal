@@ -389,16 +389,24 @@
                 let _this = this;
                 if (_this.chartData && _this.chartData.years.length > 1) {
                     _this.showChart = true;
+                    let minYear = _this.chartData.years[0];
+                    let maxYear = _this.chartData.years[_this.chartData.years.length - 1];
+                    let yearsLength = parseInt(maxYear) - parseInt(minYear) + 1;
+                    let filledYears = Array.apply(0, Array(yearsLength)).map(function(_,b) { return b + parseInt(minYear) });
+
                     let options = {
                         fullWidth: true,
                         low: 0,
+                        lineSmooth: Chartist.Interpolation.cardinal({
+                            fillHoles: true,
+                        }),
                         chartPadding: {
                             right: 40
                         },
                         axisX: {
                             labelInterpolationFnc: function(value, index) {
-                                if (_this.chartData.years.length > 6) {
-                                    return index % 2 === 0 ? value : null;
+                                if (filledYears.length > 6) {
+                                    return index % 3 === 0 ? value : null;
                                 } else {
                                     return value;
                                 }
@@ -406,7 +414,7 @@
                         }
                     };
                     let data = {
-                        labels: _this.chartData.years,
+                        labels: _this.chartData.years.map(function(el) { return parseInt(el); }),
                         series: [
                         ]
                     };
@@ -426,6 +434,16 @@
                             return parseFloat(num.replace(/[^0-9-.]/g, ''));
                         }));
                     }
+                    // fill in years in data series
+                    for (let i = 0; i < filledYears.length; i++) {
+                        if (data.labels.indexOf(filledYears[i]) === -1) {
+                            data.series.forEach(function(element, index, array) {
+                                data.series[index].splice(i, 0, null);
+                            });                            
+                        }
+                    }
+                    data.labels = filledYears;
+
                     new Chartist.Line('.qol-chart-trend', data, options);
                 } else if (_this.chartData) {
                     _this.showChart = false;
