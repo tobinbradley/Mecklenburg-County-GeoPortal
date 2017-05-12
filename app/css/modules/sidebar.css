@@ -58,7 +58,7 @@
   box-sizing: border-box;
   padding: 105px 12px 0;
   height: 151px;
-  background: url(../img/bgicon.png) center center;
+  background: url(../img/bgicon.svg) center center;
 }
 .drawer-header a {
     text-decoration: none;
