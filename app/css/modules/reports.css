@@ -47,7 +47,6 @@
     font-size: 2.2em;
     padding: 10px 0 6px;
     font-weight: bold;
-    /*color: rgb(0,145,234);*/
     color: var(--colorIconic);
 }
 .report-record-highlight h2 {
@@ -63,8 +62,8 @@
 }
 .report-record-highlight i {
     font-size: 9em;
-    /*color: rgb(0,145,234);*/
     color: var(--colorIconic);
+    text-shadow: rgb(22, 118, 210) 1px 1px 3px;
 }
 
 

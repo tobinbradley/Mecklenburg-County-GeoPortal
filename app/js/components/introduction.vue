@@ -1,7 +1,7 @@
 <template lang="html">
     <div class="introduction">
-        <div class='intro-slot' v-show="$parent.sharedState.show !== 'welcome'">
-            To view this information, use the search above to find a location.
+        <div class='' v-show="$parent.sharedState.show !== 'welcome'">
+            <a class="button button-accent" href="javascript:void(0)" @click="focusSearch()">To view this information, use the search above to find a location.</a>
         </div>
         <h4>
             Discover data about <strong>places</strong> in your community.
@@ -35,6 +35,11 @@
         name: 'welcome',
         mounted: function() {
             youtubeLoader('.youtube');
+        },
+        methods: {
+            focusSearch: function() {
+                document.querySelector('.search-input').focus();
+            }
         }
     }
 </script>

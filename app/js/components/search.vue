@@ -112,6 +112,7 @@
         border-radius: 3px;
         box-sizing: border-box;
         color: rgb(0, 145, 234);
+        color: #1676D2;
         font-size: 32px;
     }
     .search-input:focus {
