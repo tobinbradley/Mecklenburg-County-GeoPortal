@@ -174,7 +174,7 @@
                             </div>
                         </div>
                     </div>
-                    <iframe class="iframe-qol" v-bind:src="iframeURL" style="width: 100%; height: 600px; border: 1px solid #ccc"></iframe>
+                    <iframe aria-label="Quality of Life Embed" class="iframe-qol" v-bind:src="iframeURL" style="width: 100%; height: 600px; border: 1px solid #ccc"></iframe>
                 </div>
                 <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet">
                     <div class="mdl-typography--text-center" style="padding: 10px 20px;">

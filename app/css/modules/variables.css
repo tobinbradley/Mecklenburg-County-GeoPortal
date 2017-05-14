@@ -1,6 +1,7 @@
 :root {
     /* Colors */
-    --colorIconic: rgb(0, 145, 234);
+    /*--colorIconic: rgb(0, 145, 234);*/
+    --colorIconic: #1676D2; 
     --colorHighlight: rgb(255, 183, 77);
     --colorLink: rgb(211, 45, 101);
     --colorSidebar: #263238;
