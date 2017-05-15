@@ -20,6 +20,7 @@ function youtubeLoader(identifier) {
 			iframe.src = url;
 			iframe.setAttribute('allowfullscreen', 'allowfullscreen');
 			iframe.setAttribute('frameborder', '0');
+			iframe.setAttribute('aria-label', 'GeoPortal video tutorial');
 			theElem.appendChild(iframe);
 		});
 	};
