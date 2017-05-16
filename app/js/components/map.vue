@@ -101,21 +101,18 @@
                     case 'environment':
                         map.addLayer({
                             "id": "overlay",
-                            "type": "fill",
+                            "type": "raster",
                             "source": {
-                                "type": "vector",
-                                "tiles": [
-                                    "https://mcmap.org/api/mvt/v1/view_regulated_floodplains/{z}/{x}/{y}?geom_column=the_geom"
-                                ],
-                                "maxzoom": 14,
-                                "minzoom": 14
+                                "type": "raster",
+                                "tiles": [`https://mcmap.org/geoserver/postgis/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&width=256&height=256&layers=postgis:view_regulated_floodplains&transparent=true`],
+                                "tileSize": 256,
+                                "maxzoom": 18
                             },
-                            "source-layer": "view_regulated_floodplains",
                             "minzoom": 14,
                             "maxzoom": 22,
                             "paint": {
-                                "fill-color": "#DDF7F7",
-                            }
+                                "raster-opacity": 1
+                            }                            
                         }, 'waterway_river');
                         break;                    
                 }
