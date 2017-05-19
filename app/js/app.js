@@ -20,6 +20,7 @@ import Search from './components/search.vue';
 import Map from './components/map.vue';
 import App from './components/app.vue';
 import ReportHeader from './components/report-header.vue';
+import Offline from './components/offline.vue';
 
 
 // Fix for axios on IE11
@@ -29,6 +30,11 @@ if (!window.Promise) {
 
 // enabe sidebar hamburger menu
 toggleSidebar();
+
+// register service worker
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js');
+}
 
 // the shared state between components
 let appState = {
@@ -142,7 +148,7 @@ new Vue({
     render: h => h(App)
 });
 
-// initialize main app
+// report header
 ReportHeader.data = function () {
     return {
         sharedState: appState
@@ -151,6 +157,12 @@ ReportHeader.data = function () {
 new Vue({
     el: 'sc-reportheader',
     render: h => h(ReportHeader)
+});
+
+// offline message
+new Vue({
+    el: 'sc-offline',
+    render: h => h(Offline)
 });
 
 // Kick the map
@@ -189,7 +201,7 @@ if (appState.glSupport && document.body.getBoundingClientRect().width > 840) {
 
 // resize window function
 function resizeMapInit() {
-    if (document.body.getBoundingClientRect().width > 840 && !mapVM) {        
+    if (document.body.getBoundingClientRect().width > 840 && !mapVM) {
         initMap();
     }
 }
