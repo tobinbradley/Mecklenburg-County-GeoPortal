@@ -43,8 +43,8 @@
         <div class="report-moreinfo mdl-typography--text-left">
             <h5>For more information, please visit:</h5>
             <ul class="list-unstyled">
-                <li><a href="http://charmeck.org/mecklenburg/county/ParkandRec/Pages/default.aspx">Mecklenburg County Park and Recreation</a></li>
-                <li><a href="http://www.huntersville.org/Departments/ParksRecreation.aspx" target="_blank">Huntersville Parks and Recreation</a></li>
+                <li><a href="http://charmeck.org/mecklenburg/county/ParkandRec/Pages/default.aspx" target="_blank" rel="noopener">Mecklenburg County Park and Recreation</a></li>
+                <li><a href="http://www.huntersville.org/Departments/ParksRecreation.aspx" target="_blank" rel="noopener">Huntersville Parks and Recreation</a></li>
             </ul>
         </div>
     </div>

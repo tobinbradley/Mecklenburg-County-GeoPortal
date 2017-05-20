@@ -43,7 +43,7 @@
         <div class="report-moreinfo mdl-typography--text-left">
             <h5>For more information, please visit:</h5>
             <ul class="list-unstyled">
-                <li><a href="http://www.plcmc.org/" target="_blank">Charlotte Mecklenburg Library</a></li>
+                <li><a href="http://www.plcmc.org/" target="_blank"  rel="noopener">Charlotte Mecklenburg Library</a></li>
             </ul>
         </div>
     </div>

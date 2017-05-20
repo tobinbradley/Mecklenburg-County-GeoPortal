@@ -1,7 +1,7 @@
 <template lang="html">
     <div v-if="results.length > 0" class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop photos">
         <div class="mdl-card__title photo-big">
-            <a v-bind:href="results[photoIndex].photo_url.trim()" target="_blank">
+            <a v-bind:href="results[photoIndex].photo_url.trim()" target="_blank"  rel="noopener">
                 <img v-on:error="handleError(photoIndex);" v-bind:src="results[photoIndex].photo_url.trim()" class="mdl-shadow--2dp" />
             </a>
         </div>

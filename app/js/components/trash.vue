@@ -88,9 +88,9 @@
         <div class="report-moreinfo mdl-typography--text-left">
             <h5>For more information, please visit:</h5>
             <ul class="list-unstyled">
-                <li><a href="http://charmeck.org/city/charlotte/SWS" target="_blank">Charlotte Solid Waste Services</a></li>
-                <li><a href="http://www.cornelius.org/index.aspx?nid=208" target="_blank">Cornelius Solid Waste Services</a></li>
-                <li><a href="http://www.huntersville.org/Departments/EngineeringPublicWorks/SolidWasteRecycling.aspx" target="_blank">Huntersville Solid Waste and Recycling Collection</a></li>
+                <li><a href="http://charmeck.org/city/charlotte/SWS" target="_blank"  rel="noopener">Charlotte Solid Waste Services</a></li>
+                <li><a href="http://www.cornelius.org/index.aspx?nid=208" target="_blank"  rel="noopener">Cornelius Solid Waste Services</a></li>
+                <li><a href="http://www.huntersville.org/Departments/EngineeringPublicWorks/SolidWasteRecycling.aspx" target="_blank"  rel="noopener">Huntersville Solid Waste and Recycling Collection</a></li>
             </ul>
         </div>
     </div>

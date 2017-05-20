@@ -85,7 +85,7 @@
         <div class="report-moreinfo mdl-typography--text-left">
             <h5>For more information, please visit:</h5>
             <ul class="list-unstyled">
-                <li><a href="http://www.meckboe.org/" target="_blank">Mecklenburg County Board of Elections</a></li>
+                <li><a href="http://www.meckboe.org/" target="_blank"  rel="noopener">Mecklenburg County Board of Elections</a></li>
             </ul>
         </div>
     </div>

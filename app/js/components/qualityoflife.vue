@@ -207,8 +207,8 @@
                         <div class="qol-chart-trend"></div>
                     </div>
                     <div class="mdl-typography--text-center no-print" style="margin-top: 20px">
-                        <a class="button button-accent" v-bind:href="reportURL" target="_blank">Report</a>
-                        <a class="button button-accent" v-bind:href="metaURL" target="_blank">META</a>
+                        <a class="button button-accent" v-bind:href="reportURL" target="_blank"  rel="noopener">Report</a>
+                        <a class="button button-accent" v-bind:href="metaURL" target="_blank"  rel="noopener">META</a>
                     </div>
                     <div class="mdl-typography--text-center no-print" style="margin-top: 20px;">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label is-focused" id="embed-textarea" style="margin-left: 20px;">
@@ -221,7 +221,7 @@
             <div class="report-moreinfo mdl-typography--text-left">
                 <h5>For more information, please visit:</h5>
                 <ul class="list-unstyled">
-                    <li><a href="http://mcmap.org/qol/" target="_blank">Quality of Life Explorer</a></li>
+                    <li><a href="http://mcmap.org/qol/" target="_blank"  rel="noopener">Quality of Life Explorer</a></li>
                 </ul>
             </div>
         </div>

@@ -8,7 +8,7 @@
                         <h2 v-if="resultsFloodplain.length > 0">This property is in a</h2>
                         <h2 v-else>This property is not in a regulated floodplain.</h2>
                         <h1 v-if="resultsFloodplain.length > 0">REGULATED FLOODPLAIN</h1>
-                        <h4 v-if="resultsFloodplain.length > 0"><a target="_blank" href={fz}>Special restrictions may apply</a>. For more information, please call 704.336.3728.</h4>
+                        <h4 v-if="resultsFloodplain.length > 0"><a target="_blank"  rel="noopener" href={fz}>Special restrictions may apply</a>. For more information, please call 704.336.3728.</h4>
                     </div>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                         <div v-if="resultsWaterquality.length > 0">
                             <h2>This property is in a</h2>
                             <h1>WATER QUALITY BUFFER</h1>
-                            <h4>The buffer(s) are: <strong>{{ resultsWaterquality | waterquality }}</strong>. <a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">Special restrictions may apply</a>.
+                            <h4>The buffer(s) are: <strong>{{ resultsWaterquality | waterquality }}</strong>. <a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank"  rel="noopener">Special restrictions may apply</a>.
                                 For more information, please call 980.721.4191 for existing single-family lots and those projects not needing a grading permit or call 704.432.5570 for other projects.</h4>
                         </div>
                         <div v-else>
@@ -36,7 +36,7 @@
                         <div v-if="resultsPostconstruction.length > 0">
                             <h2>This property is in a</h2>
                             <h1>{{ resultsPostconstruction | postconstruction }}</h1>
-                            <h4><a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank">PCCO mitigation options apply</a>. For more information, please call 704.432.5571.</h4>
+                            <h4><a href="http://charmeck.org/stormwater/regulations/Pages/Post-ConstructionStormWaterOrdinances.aspx" target="_blank"  rel="noopener">PCCO mitigation options apply</a>. For more information, please call 704.432.5571.</h4>
                         </div>
                         <div v-else>
                             <h2>
@@ -51,7 +51,7 @@
                     <h2>This property is in the</h2>
                     <h1>{{resultsWatershed[0].name.toUpperCase()}} WATERSHED</h1>
                     <h4>
-                        <span style="font-weight: bold;" v-if="resultsWatershed[0].type.length > 1">This is a <a href="http://charlottenc.gov/StormWater/Regulations/Documents/WatershedRulesSummary.pdf" target="_blank">{{resultsWatershed[0].type}} watershed ({{resultsWatershed[0].subarea}})</a>.<br></span>
+                        <span style="font-weight: bold;" v-if="resultsWatershed[0].type.length > 1">This is a <a href="http://charlottenc.gov/StormWater/Regulations/Documents/WatershedRulesSummary.pdf" target="_blank"  rel="noopener">{{resultsWatershed[0].type}} watershed ({{resultsWatershed[0].subarea}})</a>.<br></span>
                         A watershed, or drainage basin, is an area of land where all surface water converges to a single point at a lower elevation, usually the exit of the basin such as a river, lake, or wetland.
                     </h4>
                 </div>
@@ -87,10 +87,10 @@
         <div class="report-moreinfo mdl-typography--text-left">
             <h5>For more information, please visit:</h5>
             <ul class="list-unstyled">
-                <li><a href="http://charmeck.org/stormwater/Pages/default.aspx" target="_blank">Storm Water Services</a></li>
-                <li><a href="http://charmeck.org/mecklenburg/county/LUESA/WaterandLandResources/Pages/default.aspx" target="_blank">Water &amp; Land Resources</a></li>
-                <li><a href="http://charmeck.org/mecklenburg/county/HealthDepartment/EnvironmentalHealth/GWS/Pages/default.aspx" target="_blank">Groundwater &amp; Wastewater Services</a></li>
-                <li><a href="https://mecklenburgcounty.exavault.com/p/waterquality%252FWQ%2520Buffers/WaterQualityBufferImplementationGuidelines.pdf" target="_blank">Water Quality Buffer Implementation Guidelines</a></li>
+                <li><a href="http://charmeck.org/stormwater/Pages/default.aspx" target="_blank"  rel="noopener">Storm Water Services</a></li>
+                <li><a href="http://charmeck.org/mecklenburg/county/LUESA/WaterandLandResources/Pages/default.aspx" target="_blank"  rel="noopener">Water &amp; Land Resources</a></li>
+                <li><a href="http://charmeck.org/mecklenburg/county/HealthDepartment/EnvironmentalHealth/GWS/Pages/default.aspx" target="_blank"  rel="noopener">Groundwater &amp; Wastewater Services</a></li>
+                <li><a href="https://mecklenburgcounty.exavault.com/p/waterquality%252FWQ%2520Buffers/WaterQualityBufferImplementationGuidelines.pdf" target="_blank"  rel="noopener">Water Quality Buffer Implementation Guidelines</a></li>
             </ul>
         </div>
     </div>

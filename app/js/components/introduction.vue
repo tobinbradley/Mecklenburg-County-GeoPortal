@@ -11,19 +11,19 @@
         </h5>
         <div class="youtube" id="DtEIu-h2FQo" data-params="controls=0&showinfo=0&rel=0" data-background="img/youtube-bg.svg"></div>
         <p class="credit">
-            Created by <a href="http://emaps.charmeck.org" target="_blank">Mecklenburg County GIS</a>
+            Created by <a href="http://emaps.charmeck.org" target="_blank"  rel="noopener">Mecklenburg County GIS</a>
         </p>
         <p>
-            GeoPortal is <a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" target="_blank">open source software</a>.
+            GeoPortal is <a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" target="_blank"  rel="noopener">open source software</a>.
         </p>
         <p class="credits">
             With much <span style="font-size: 1.5em; vertical-align: bottom;">&#9829;</span> for the projects that make this site possible:<br>
             <span class="credits-links">
-                    <a href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>,
-                    <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a>,
-                    <a href="https://www.mapbox.com/mapbox-gl-js/api/" target="_blank">Mapbox GL JS</a>,
-                    <a href="http://vuejs.org/" target="_blank">Vue.js</a>, and
-                    <a href="http://getmdl.io/" target="_blank">Material Design Lite</a>
+                    <a href="https://www.openstreetmap.org/" target="_blank"  rel="noopener">OpenStreetMap</a>,
+                    <a href="https://openmaptiles.org/" target="_blank"  rel="noopener">OpenMapTiles</a>,
+                    <a href="https://www.mapbox.com/mapbox-gl-js/api/" target="_blank"  rel="noopener">Mapbox GL JS</a>,
+                    <a href="http://vuejs.org/" target="_blank"  rel="noopener">Vue.js</a>, and
+                    <a href="http://getmdl.io/" target="_blank"  rel="noopener">Material Design Lite</a>
                 </span>
         </p>
     </div>

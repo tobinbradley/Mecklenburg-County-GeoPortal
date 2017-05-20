@@ -76,7 +76,7 @@
             </p>
             <h5>For more information, please visit:</h5>
             <ul class="list-unstyled">
-                <li><a href="http://www.cms.k12.nc.us/" target="_blank">Charlotte-Mecklenburg Schools</a></li>
+                <li><a href="http://www.cms.k12.nc.us/" target="_blank"  rel="noopener">Charlotte-Mecklenburg Schools</a></li>
             </ul>
         </div>
     </div>

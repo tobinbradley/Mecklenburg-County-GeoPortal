@@ -184,9 +184,9 @@
         <div class="report-moreinfo mdl-typography--text-left">
             <h5>For more information, please visit:</h5>
             <ul class="list-unstyled">
-                <li><a href="http://polaris.mecklenburgcountync.gov/" target="_blank">POLARIS</a></li>
-                <li><a href="http://charmeck.org/mecklenburg/county/AssessorsOffice/Pages/Home.aspx" target="_blank">County Assessor's Office</a></li>
-                <li><a href="http://charmeck.org/city/charlotte/planning/Pages/Home.aspx" target="_blank">Charlotte-Mecklenburg Planning</a></li>
+                <li><a href="http://polaris.mecklenburgcountync.gov/" target="_blank"  rel="noopener">POLARIS</a></li>
+                <li><a href="http://charmeck.org/mecklenburg/county/AssessorsOffice/Pages/Home.aspx" target="_blank"  rel="noopener">County Assessor's Office</a></li>
+                <li><a href="http://charmeck.org/city/charlotte/planning/Pages/Home.aspx" target="_blank"  rel="noopener">Charlotte-Mecklenburg Planning</a></li>
             </ul>
         </div>
     </div>

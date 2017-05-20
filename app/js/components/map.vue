@@ -137,7 +137,7 @@
                 let popup = new mapboxgl.Popup({
                         offset: [2, -23]
                     })
-                    .setHTML(`<strong>${poi.label}</strong><br>${poi.address}<br><a href="${directions(selected.lnglat, poi.lnglat)}" target="_blank" title="directions">Directions</a>`);
+                    .setHTML(`<strong>${poi.label}</strong><br>${poi.address}<br><a href="${directions(selected.lnglat, poi.lnglat)}" target="_blank"  rel="noopener" title="directions">Directions</a>`);
                 // create DOM element for the marker
                 var el = document.createElement('div');
                 el.classList.add('poiMarker');

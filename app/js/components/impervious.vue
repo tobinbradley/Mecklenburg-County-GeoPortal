@@ -32,7 +32,7 @@
             <p>Impervious surfaces are mainly artificial structures, such as pavements (roads, sidewalks, driveways and parking lots) and rooftops that are covered by impenetrable materials such as asphalt, concrete, brick, wood and stone.</p>
             <h5>For more information, please visit:</h5>
             <ul class="list-unstyled">
-                <li><a href="http://charmeck.org/stormwater/FeesandBilling/Pages/Default.aspx" target="_blank">Charlotte-Mecklenburg Storm Water Services</a></li>
+                <li><a href="http://charmeck.org/stormwater/FeesandBilling/Pages/Default.aspx" target="_blank"  rel="noopener">Charlotte-Mecklenburg Storm Water Services</a></li>
             </ul>
         </div>
     </div>
