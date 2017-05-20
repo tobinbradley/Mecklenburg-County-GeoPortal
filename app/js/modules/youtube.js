@@ -1,4 +1,15 @@
-function youtubeLoader(identifier) {
+
+export default function youtubeLoader(identifier) {
+	if ('requestIdleCallback' in window) {
+		requestIdleCallback(function(deadline) {
+			makeElement(identifier);
+		});
+	} else {
+		makeElement(identifier);
+	}
+}
+
+function makeElement(identifier) {
 	var collection = document.querySelectorAll(identifier);
 
 	for (var i = 0; i < collection.length; ++i) {
@@ -13,7 +24,7 @@ function youtubeLoader(identifier) {
 		}
 
 		// click event
-		theElem.addEventListener("click", function(e) {
+		theElem.addEventListener("click", function (e) {
 			// build iframe
 			var iframe = document.createElement('iframe');
 			var url = '//www.youtube.com/embed/' + id + '?autoplay=1&autohide=1&' + theElem.getAttribute('data-params');
@@ -24,9 +35,4 @@ function youtubeLoader(identifier) {
 			theElem.appendChild(iframe);
 		});
 	};
-
-}
-
-if (typeof module === 'object') {
-    module.exports = youtubeLoader;
 }
