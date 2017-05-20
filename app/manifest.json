@@ -5,6 +5,10 @@
         {
             "src": "img/chrome-touch-icon-192x192.png",
             "sizes": "192x192"
+        },
+        {
+            "src": "img/chrome-touch-icon-512x512.png",
+            "sizes": "512x512"
         }
     ],
     "start_url": "index.html",
