@@ -1,34 +1,25 @@
 # GeoPortal v3
 
-Created by Mecklenburg County GIS. Online [over here](https://mcmap.org/geoportal/).
+Your basic one stop shopping for location information type government app. It weighs ~400KB on desktop, ~250KB on mobile, and it's now a PWA! Created by Mecklenburg County GIS. Online [over here](https://mcmap.org/geoportal/). 
 
-Built using:
+![Imgur](http://i.imgur.com/vhpOqNj.png)
 
-*   Material Design Lite
-*   Mapbox GL JS
-*   Vue.js
 
-## Building the Project
+Much ♥ for the projects that make this site possible:
+OpenStreetMap, OpenMapTiles, Mapbox GL JS, Vue.js, and Material Design Lite
 
-First, install the project dependencies.
 
-``` bash
+## Getting started
+
+```bash
+git clone https://github.com/tobinbradley/Mecklenburg-County-GeoPortal.git geoportal
+cd geoportal
 npm install
-```
-
-Then build the public folder.
-
-``` bash
 npm run build
+npm start
 ```
 
-Now you can launch a development environment at any time by typing:
-
-``` bash
-npm run start
-```
-
- To build the app for deployment, run the build again:
+To build the app for deployment (service work precache, uglify, image min, etc.), run the build again:
 
 ``` bash
 npm run build
