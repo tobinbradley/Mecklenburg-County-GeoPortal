@@ -458,9 +458,6 @@
     .qol-chart-trend .ct-series-b .ct-point {
         stroke: #ba00e4;
     }
-    .qol-highlight {
-        margin-bottom: 20px;
-    }
     .mdl-tabs__panel button {
         cursor: pointer;
     }
