@@ -1,5 +1,5 @@
 <template lang="html">
-    <div v-if="!online" class="offline mdl-shadow--2dp mdl-cell mdl-cell--12-col no-print">
+    <div v-show="!online" class="offline mdl-shadow--2dp mdl-cell mdl-cell--12-col no-print">
         <h3>You are currently offline!</h3>
         <p>GeoPortal will begin working again when you reconnect to the Internet.</p>
     </div>
@@ -34,7 +34,7 @@
     }
 </script>
 
-<style lang="css">
+<style lang="css" scoped>
     .offline {
         padding: 20px;
         color: #fff;
