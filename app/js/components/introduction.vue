@@ -9,7 +9,8 @@
         <h5>
             Search for an address or place to get started!
         </h5>
-        <div class="youtube" id="DtEIu-h2FQo" data-params="controls=0&showinfo=0&rel=0" data-background="img/youtube-bg.svg"></div>
+        <div id="DtEIu-h2FQo" data-params="controls=0&amp;showinfo=0&amp;rel=0" data-background="img/youtube-bg.svg"
+							    class="youtube" style="background-image: url(&quot;img/youtube-bg.svg&quot;);" @click="loadVid()"></div>
         <p class="credit">
             Created by <a href="http://emaps.charmeck.org" target="_blank"  rel="noopener">Mecklenburg County GIS</a>
         </p>
@@ -30,15 +31,24 @@
 </template>
 
 <script>
-    import youtubeLoader from '../modules/youtube';
     export default {
         name: 'welcome',
-        mounted: function() {
-            youtubeLoader('.youtube');
-        },
         methods: {
             focusSearch: function() {
                 document.querySelector('.search-input').focus();
+            },
+            loadVid: function() {
+                let theElem = document.querySelector('.youtube');
+                let id = theElem.getAttribute("id");
+
+                // create iframe
+                var iframe = document.createElement('iframe');
+                var url = '//www.youtube.com/embed/' + id + '?autoplay=1&autohide=1&' + theElem.getAttribute('data-params');
+                iframe.src = url;
+                iframe.setAttribute('allowfullscreen', 'allowfullscreen');
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('aria-label', 'GeoPortal video tutorial');
+                theElem.appendChild(iframe);                
             }
         }
     }
