@@ -10,10 +10,7 @@ export default function fetchNearest(lat, lng, appState) {
     fetch(`https://mcmap.org/api/nearest/v1/master_address_table/${lng},${lat}/4326?${jsonToURL(params)}`)
         .then(function(response) {
             return response.json();
-        }).then(function(data) {
-            if (appState.show.indexOf("introduction") !== -1) {
-                appState.show.splice(appState.show.indexOf("introduction"), 1);
-            }
+        }).then(function(data) {            
             var item = data[0];
             appState.selected = {
                 'lnglat': [item.lng, item.lat],

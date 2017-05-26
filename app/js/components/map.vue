@@ -8,6 +8,7 @@
     import mapboxgl from 'mapbox-gl';
     import directions from '../modules/directions';
     import fetchNearest from '../modules/nearest';
+    import {setHash} from '../modules/history';
     import AerialToggle from '../modules/aerialtogglecontrol';
     import PitchToggle from '../modules/pitchtogglecontrol.js';
     export default {
@@ -161,7 +162,7 @@
                     zoom: 17
                 });
                 // push state
-                history.replaceState(null, null, `?q=${_this.sharedState.show}&latlng=${selected.lnglat[1]},${selected.lnglat[0]}`);
+                setHash(selected.lnglat, _this.sharedState.show);
                 // create the popup
                 let popup = new mapboxgl.Popup({
                         offset: [2, -23]

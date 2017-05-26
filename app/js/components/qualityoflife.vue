@@ -232,7 +232,6 @@
     import jsonToURL from '../modules/jsontourl';
     import Chartist from 'chartist';
     import naturalSort from '../modules/naturalsort';
-    import getURLParameter from '../modules/geturlparams';
     export default {
         name: 'quality_of_life',
         data: function() {
@@ -240,7 +239,7 @@
                 trends: null,
                 chartData: null,
                 neighborhood: null,
-                metric: getURLParameter('qolm') !== 'null' ? getURLParameter('qolm') : '37',
+                metric: '37',
                 showChart: false,
                 activeTab: 'economics',
                 metaURL: '',

@@ -13,7 +13,7 @@ import Vue from 'vue';
 import 'whatwg-fetch';
 import webglCheck from './modules/webglcheck';
 import Promise from 'promise-polyfill';
-import getURLParameter from './modules/geturlparams';
+import {getHashQ, getHashLngLat, setHash, urlArgsToHash} from './modules/history';
 import fetchNearest from './modules/nearest';
 import toggleSidebar from './modules/sidebar-hamburger';
 import Search from './components/search.vue';
@@ -27,6 +27,9 @@ import Offline from './components/offline.vue';
 if (!window.Promise) {
     window.Promise = Promise;
 }
+
+// move legacy get args to hash
+urlArgsToHash();
 
 // enabe sidebar hamburger menu
 toggleSidebar();
@@ -49,32 +52,29 @@ let appState = {
         'label': null,
         'address': null
     },
-    show: "welcome",
+    show: 'welcome',
     initLnglatFlag: false,
     glSupport: webglCheck()
 };
 
-// process URL arguments on page load
-if (getURLParameter('q') !== 'null') {
-    let q = getURLParameter('q');
-    let elem = document.querySelector(`.mdl-navigation__link[data-type="${q}"]`);
+// process tab from hash
+let hashQ = getHashQ();
+if (hashQ) {    
+    let elem = document.querySelector(`.mdl-navigation__link[data-type="${hashQ}"]`);
     if (elem) {
+        document.querySelector(`.mdl-navigation__link[data-type="welcome"]`).classList.remove('active');
         elem.classList.add('active');
-        appState.show = q;
+        appState.show = hashQ;        
     }
-} else {
-    let elem = document.querySelector(`.mdl-navigation__link[data-type="${appState.show}"]`);
-    elem.classList.add('active');
 }
-if (getURLParameter('latlng') !== 'null') {
-    let latlng = getURLParameter('latlng').split(',');
+
+// process lnglat from hash
+let hashLngLat = getHashLngLat();
+if (hashLngLat) {
     appState.initLnglatFlag = true;
-
-    fetchNearest(latlng[0], latlng[1], appState);
+    fetchNearest(hashLngLat[1], hashLngLat[0], appState);
 }
 
-// for debugging
-window.appState = appState;
 
 // navigation
 let navlinks = document.querySelectorAll('.mdl-navigation__link');
@@ -93,9 +93,9 @@ for (let i = 0; i < navlinks.length; i++) {
 
             // push state and GA
             if (appState.selected.lnglat) {
-                history.replaceState(null, null, `?q=${q}&latlng=${appState.selected.lnglat[1]},${appState.selected.lnglat[0]}`);
+                setHash(appState.selected.lnglat, q);
             } else {
-                history.replaceState(null, null, `?q=${q}`);
+                setHash([], q);
             }
             if (window.ga) {
                 window.ga('send', 'event', q, 'question');
@@ -139,7 +139,7 @@ App.data = function () {
     return {
         sharedState: appState,
         privateState: {
-            show: "welcome"
+            show: appState.show
         }
     };
 };
@@ -147,6 +147,7 @@ new Vue({
     el: 'sc-app',
     render: h => h(App)
 });
+
 
 // report header
 ReportHeader.data = function () {

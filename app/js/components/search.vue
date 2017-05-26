@@ -29,6 +29,8 @@
     import jsonToURL from '../modules/jsontourl';
     import debounce from 'lodash.debounce';
     import fetchNearest from '../modules/nearest';
+    import {setHash} from '../modules/history';
+
     export default {
         name: 'search',
         watch: {
@@ -89,12 +91,11 @@
                     'pid': rec.pid
                 };
                 _this.privateState.results = [];
-                let intro = _this.sharedState.show.indexOf('introduction');
-                if (intro !== -1) {
-                    _this.sharedState.show.splice(intro, 1);
+                if (_this.sharedState.show == null || _this.sharedState.show === 'welcome') {
+                    _this.sharedState.show = 'schools';
                 }
                 // push state
-                history.replaceState(null, null, `?q=${_this.sharedState.show}&latlng=${_this.sharedState.selected.lnglat[1]},${_this.sharedState.selected.lnglat[0]}`);
+                setHash(_this.sharedState.selected.lnglat, _this.sharedState.show);
             }
         }
     }
