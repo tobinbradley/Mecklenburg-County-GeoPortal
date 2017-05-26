@@ -10,14 +10,15 @@
     "watch:html": "onchange \"app/index.html\" -- npm run builddev:html",
     "watch:serve": "browser-sync --server \"public\" start --files \"public/**/*.html\" \"public/**/*.css\" \"public/js/**/*.js\" ",
     "builddev:css": "postcss -m -o public/css/main.css app/css/main.css",
-    "builddev:copy": "truncate -s 0 public/service-worker.js && ncp app/index.html public/index.html",
+    "builddev:html": "ncp app/index.html public/index.html",
+    "builddev:copy": "truncate -s 0 public/service-worker.js",
     "build:copy": "ncp app/index.html public/index.html && ncp app/style public/style && ncp app/font public/font && ncp app/manifest.json public/manifest.json",
     "build:imagemin": "mkdirp public/img && imagemin app/img/* --out-dir=public/img",
     "build:js": "mkdirp public/js && cross-env NODE_ENV=production browserify -g envify -g uglifyify --debug app/js/app.js | exorcist public/js/app.js.map > public/js/app.js",
     "build:css": "mkdirp public/css && postcss -m -e production -o public/css/main.css app/css/main.css",
     "serviceworker:precache": "sw-precache --root=public --static-file-globs='public/**/*.{js,json,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'",
     "assetversion": "node build/cachebuster.js",
-    "build": "del public/app/* && del public/css/* && npm-run-all --parallel build:* && npm run assetversion && npm run serviceworker:precache"
+    "build": "del public/js/* && del public/css/* && npm-run-all --parallel build:* && npm run assetversion && npm run serviceworker:precache"
   },
   "author": "Tobin Bradley",
   "license": "MIT",
