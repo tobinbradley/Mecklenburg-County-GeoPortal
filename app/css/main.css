@@ -12,7 +12,7 @@ ____________________________________
 
 
 @import 'modules/material.css';
-@import 'modules/fontello.css';
+@import 'modules/icons.css';
 @import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
 @import '../../node_modules/chartist/dist/chartist.css';
 @import 'modules/variables.css';
@@ -71,12 +71,6 @@ a {
 .mdl-tabs__tab {
     padding: 0 14px;
     line-height: 65px;
-}
-
-.mdl-layout__drawer-button {
-    top: 5px;
-    background-color: rgba(0,0,0,0) !important;
-    outline: none;
 }
 
 .mdl-shadow--2dp {

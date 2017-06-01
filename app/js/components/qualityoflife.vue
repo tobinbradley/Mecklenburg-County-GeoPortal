@@ -3,7 +3,7 @@
         <div class="qol">
             <div class="mdl-typography--text-center">
                 <div class="report-record-highlight">
-                    <i class="icon icon-quality-of-life"></i>
+                    <svg class="icon icon-quality-of-life"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-quality-of-life"></use></svg>
                     <h1> Quality of Life</h1>
                 </div>
             </div>
@@ -202,8 +202,8 @@
                     </div>
                     <div class="mdl-typography--text-center trendchart" v-show="showChart">
                         <h4>Trend</h4>
-                        <span class="legend"><i class="icon icon-trending-up legend-county" role="presentation"></i> {{chartCompare}}</span>
-                        <span class="legend"><i class="icon icon-trending-up legend-selected" role="presentation"></i> Neighborhood</span>
+                        <span class="legend"><svg class="icon icon-trending_up legend-county"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trending_up"></use></svg> {{chartCompare}}</span>
+                        <span class="legend"><svg class="icon icon-trending_up legend-selected"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trending_up"></use></svg> Neighborhood</span>
                         <div class="qol-chart-trend"></div>
                     </div>
                     <div class="mdl-typography--text-center no-print" style="margin-top: 20px">
@@ -496,11 +496,15 @@
     .report-record-highlight {
         margin: 0 auto 20px;
     }
+    .legend-selected, .legend-county {
+        width: 1.4em;
+        height: 1.4em;
+    }
     .legend-selected {
-        color: #ba00e4;
+        fill: #ba00e4;
     }
     .legend-county {
-        color: #d70206;
+        fill: #d70206;
     }
     .qol-comparison {
         margin-top: 10px;

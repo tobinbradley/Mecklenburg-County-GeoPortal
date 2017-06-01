@@ -37,7 +37,9 @@
         },
         methods: {
             gotRecord: function() {
+                console.log(this.sharedState.show);
                 if (this.sharedState.show === 'welcome') {
+                    console.log('firing on welcome');
                     this.sharedState.show = 'schools';
                     let navlinks = document.querySelectorAll('.mdl-navigation__link');
                     for (let i = 0; i < navlinks.length; i++) {

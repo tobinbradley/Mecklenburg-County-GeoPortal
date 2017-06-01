@@ -2,7 +2,7 @@
     <div>
         <div class="mdl-typography--text-center" v-if="results">
             <div class="report-record-highlight">
-                <i class="icon icon-library"></i>
+                <svg class="icon icon-library"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-library"></use></svg>
                 <h2>Your closest library is</h2>
                 <h1>{{ results[0].name }}</h1>
                 <h3>

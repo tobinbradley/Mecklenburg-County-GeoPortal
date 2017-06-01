@@ -5,14 +5,14 @@
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                     <Print></Print>
                     <div class="report-record-highlight">
-                        <i class="icon icon-trash"></i>
+                        <svg class="icon icon-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash"></use></svg>
                         <h2>Your TRASH day is</h2>
                         <h1>{{ results[0].day }}</h1>
                     </div>
                 </div>
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                     <div class="report-record-highlight">
-                        <i class="icon icon-recycle"></i>
+                        <svg class="icon icon-recycle"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-recycle"></use></svg>
                         <h2>Your RECYCLING day is</h2>
                         <h1>
                             {{ results[0].day }} {{ recyclingWeek(results[0].week) }}
@@ -23,7 +23,7 @@
             </div>
             <div class="mdl-typography--text-center" v-if="results[0].jurisdiction === 'cornelius'">
                 <div class="report-record-highlight">
-                    <i class="icon icon-trash"></i>
+                    <svg class="icon icon-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash"></use></svg>
                     <h2>Your collection day is</h2>
                     <h1>{{results[0].day.toUpperCase()}}</h1>
                     <h3>for {{results[0].type}}</h3>
@@ -34,14 +34,14 @@
                 <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                         <div class="report-record-highlight">
-                            <i class="icon icon-trash"></i>
+                            <svg class="icon icon-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash"></use></svg>
                             <h2>Your TRASH day is</h2>
                             <h1>{{ results | typeFilter('GARBAGE') | itemFilter('day') }}</h1>
                         </div>
                     </div>
                     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                         <div class="report-record-highlight">
-                            <i class="icon icon-recycle"></i>
+                            <svg class="icon icon-recycle"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-recycle"></use></svg>
                             <h2>Your RECYCLING day is</h2>
                             <h1>{{ results | typeFilter('RECYCLING') | itemFilter('day') }} {{ recyclingWeek(results) }}</h1>
                             <h4>Recycling pickup is every other week ({{ results | typeFilter('RECYCLING') | itemFilter('week')}})</h4>
@@ -80,7 +80,7 @@
         <div v-else>
             <div class="mdl-typography--text-center">
                 <div class="report-record-highlight">
-                    <i class="icon icon-trash" role="presentation"></i>
+                    <svg class="icon icon-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash"></use></svg>
                     <h2>Unfortunately we only know collection information for Huntersville, Cornelius, and Charlotte. For collection information for you location, please visit you local government web site.</h2>
                 </div>
             </div>

@@ -2,7 +2,7 @@
     <div>
         <div class="mdl-typography--text-center">
             <div class="report-record-highlight" v-if="resultsElementary.length > 0">
-                <i class="icon icon-school"></i>
+                <svg class="icon icon-school"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-school"></use></svg>
                 <h2>Your ELEMENTARY school is</h2>
                 <h1>{{resultsElementary[0].name.toUpperCase()}}</h1>
                 <h3><a href="javascript:void(0)" v-on:click="locationClick(resultsElementary[0])">
@@ -13,7 +13,7 @@
         <div class="mdl-grid">
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div class="report-record-highlight" v-if="resultsMiddle.length > 0">
-                    <i class="icon icon-school"></i>
+                    <svg class="icon icon-school"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-school"></use></svg>
                     <h2>Your MIDDLE school is</h2>
                     <h1>{{resultsMiddle[0].name.toUpperCase()}}</h1>
                     <h3><a href="javascript:void(0)" v-on:click="locationClick(resultsMiddle[0])">
@@ -23,7 +23,7 @@
             </div>
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div class="report-record-highlight" v-if="resultsHigh.length > 0">
-                    <i class="icon icon-school"></i>
+                    <svg class="icon icon-school"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-school"></use></svg>
                     <h2>Your HIGH school is</h2>
                     <h1>{{resultsHigh[0].name.toUpperCase()}}</h1>
                     <h3><a href="javascript:void(0)" v-on:click="locationClick(resultsHigh[0])">
@@ -34,7 +34,7 @@
         </div>
         <div class="mdl-typography--text-center">
             <div class="report-record-highlight" v-if="resultsHigh.length > 0">
-                <i class="icon icon-bus"></i>
+                <svg class="icon icon-bus"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bus"></use></svg>
                 <h2>Your Transportation Zone is</h2>
                 <h1>{{resultsHigh[0].zone.toUpperCase()}}</h1>
                 <p v-if="tmpTransportationZone && resultsHigh[0].zone.toUpperCase() !== tmpTransportationZone[0].choicezn.toUpperCase()">

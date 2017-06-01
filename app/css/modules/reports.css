@@ -60,10 +60,16 @@
     font-size: 1em;
     margin-top: 5px;
 }
-.report-record-highlight i {
+.report-record-highlight icon {
     font-size: 9em;
     color: var(--colorIconic);
-    text-shadow: rgb(22, 118, 210) 1px 1px 3px;
+    /*text-shadow: rgb(22, 118, 210) 1px 1px 3px;*/
+}
+
+.report-record-highlight svg.icon {
+    width: 9em;
+    height: 9em;
+    fill: var(--colorIconic);
 }
 
 

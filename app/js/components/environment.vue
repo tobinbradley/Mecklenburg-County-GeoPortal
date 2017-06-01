@@ -4,7 +4,7 @@
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div v-if="resultsFloodplain">
                     <div class="report-record-highlight">
-                        <i class="icon icon-floodplain"></i>
+                        <svg class="icon icon-floodplain"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-floodplain"></use></svg>
                         <h2 v-if="resultsFloodplain.length > 0">This property is in a</h2>
                         <h2 v-else>This property is not in a regulated floodplain.</h2>
                         <h1 v-if="resultsFloodplain.length > 0">REGULATED FLOODPLAIN</h1>
@@ -14,8 +14,8 @@
             </div>
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div v-if="resultsWaterquality">
-                    <div class="report-record-highlight">
-                        <i class="icon icon-water-quality"></i>
+                    <div class="report-record-highlight">                        
+                        <svg class="icon icon-water-quality"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-water-quality"></use></svg>
                         <div v-if="resultsWaterquality.length > 0">
                             <h2>This property is in a</h2>
                             <h1>WATER QUALITY BUFFER</h1>
@@ -32,7 +32,7 @@
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div v-if="resultsPostconstruction">
                     <div class="report-record-highlight">
-                        <i class="icon icon-construction"></i>
+                        <svg class="icon icon-construction"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-construction"></use></svg>
                         <div v-if="resultsPostconstruction.length > 0">
                             <h2>This property is in a</h2>
                             <h1>{{ resultsPostconstruction | postconstruction }}</h1>
@@ -47,7 +47,7 @@
             </div>
             <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
                 <div class="report-record-highlight" v-if="resultsWatershed">
-                    <i class="icon icon-environment"></i>
+                    <svg class="icon icon-environment"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-environment"></use></svg>
                     <h2>This property is in the</h2>
                     <h1>{{resultsWatershed[0].name.toUpperCase()}} WATERSHED</h1>
                     <h4>

@@ -2,7 +2,7 @@
     <div>
         <div class="mdl-typography--text-center">
             <div class="report-record-highlight" v-if="results">
-                <i class="icon icon-park"></i>
+                <svg class="icon icon-park"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-park"></use></svg>
                 <h2>Your closest park is</h2>
                 <h1>{{ results[0].name }}</h1>
                 <h3>

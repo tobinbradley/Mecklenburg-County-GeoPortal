@@ -2,7 +2,7 @@
     <div>
         <div class="mdl-typography--text-center">
             <div class="report-record-highlight">
-                <i class="icon icon-impervious"></i>
+                <svg class="icon icon-impervious"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-impervious"></use></svg>
                 <h2>You have</h2>
                 <h1 v-if="results">{{ total() | area }}</h1>
                 <h3>of Impervious Surface</h3>

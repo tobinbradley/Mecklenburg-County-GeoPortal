@@ -91,9 +91,6 @@
                     'pid': rec.pid
                 };
                 _this.privateState.results = [];
-                if (_this.sharedState.show == null || _this.sharedState.show === 'welcome') {
-                    _this.sharedState.show = 'schools';
-                }
                 // push state
                 setHash(_this.sharedState.selected.lnglat, _this.sharedState.show);
             }

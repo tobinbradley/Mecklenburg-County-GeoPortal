@@ -1,7 +1,7 @@
 <template lang="html">
     <div>
         <div class="report-record-highlight">
-            <i class="icon icon-property"></i>
+            <svg class="icon icon-property"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-property"></use></svg>
             <h2>Tax Parcel</h2>
             <h1>{{$parent.sharedState.selected.pid}}</h1>
             <h3 v-if="resultsZoning.length > 0">Zoned as {{ resultsZoning[0].zone_class}} {{resultsZoning[0].zone_des}}</h3>

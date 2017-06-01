@@ -192,3 +192,20 @@
         }
     }
 </script>
+
+<style>
+.locationMarker {
+        background-image: url('./img/location.svg');
+        background-size: cover;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+    }
+.poiMarker {
+    background-image: url('./img/poi.svg');
+    background-size: cover;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+</style>

@@ -27,19 +27,18 @@
 	<meta name="msapplication-TileImage" content="img/ms-touch-icon-144x144-precomposed.png">
 	<meta name="msapplication-TileColor" content="#3372DF">
 
-	<!-- preload JS -->
+	<!-- preload assets -->
 	<link rel="preload" as="script" href="js/app.js">
 
-	<!-- CSS -->	
+	<!-- CSS -->
 	<link rel="stylesheet" href="css/main.css">
-
 </head>
 
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
 		<header class="demo-header mdl-layout__header">
 			<div aria-label="sidebar menu" aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button">
-				<i class="icon icon-menu"></i>
+				<svg class="icon icon-menu"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-menu"></use></svg>
 			</div>
 			<div class="mdl-layout__header-row">
 				<span class="mdl-layout-title">GeoPortal</span>
@@ -53,16 +52,16 @@
 				<span>Mecklenburg County GIS</span>
 			</header>
 			<nav class="navigation mdl-navigation">
-				<a class="mdl-navigation__link active" data-type="welcome" href="javascript:void(0)"><i class="icon icon-welcome"></i>Welcome</a>
-				<a class="mdl-navigation__link" data-type="schools" href="javascript:void(0)"><i class="icon icon-school"></i>Schools</a>
-				<a class="mdl-navigation__link" data-type="property" href="javascript:void(0)"><i class="icon icon-property"></i>Property</a>
-				<a class="mdl-navigation__link" data-type="trash" href="javascript:void(0)"><i class="icon icon-trash"></i>Trash and Recycling</a>
-				<a class="mdl-navigation__link" data-type="environment" href="javascript:void(0)"><i class="icon icon-environment"></i>Environment</a>
-				<a class="mdl-navigation__link" data-type="impervious" href="javascript:void(0)"><i class="icon icon-impervious"></i>Impervious Surface</a>
-				<a class="mdl-navigation__link" data-type="voting" href="javascript:void(0)"><i class="icon icon-voting"></i>Voting</a>
-				<a class="mdl-navigation__link" data-type="parks" href="javascript:void(0)"><i class="icon icon-park"></i>Parks</a>
-				<a class="mdl-navigation__link" data-type="libraries" href="javascript:void(0)"><i class="icon icon-library"></i>Libraries</a>
-				<a class="mdl-navigation__link" data-type="qualityoflife" href="javascript:void(0)"><i class="icon icon-quality-of-life"></i>Quality of Life</a>
+				<a class="mdl-navigation__link active" data-type="welcome" href="javascript:void(0)"><svg class="icon icon-welcome"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-welcome"></use></svg>Welcome</a>
+				<a class="mdl-navigation__link" data-type="schools" href="javascript:void(0)"><svg class="icon icon-school"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-school"></use></svg>Schools</a>
+				<a class="mdl-navigation__link" data-type="property" href="javascript:void(0)"><svg class="icon icon-property"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-property"></use></svg>Property</a>
+				<a class="mdl-navigation__link" data-type="trash" href="javascript:void(0)"><svg class="icon icon-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash"></use></svg>Trash and Recycling</a>
+				<a class="mdl-navigation__link" data-type="environment" href="javascript:void(0)"><svg class="icon icon-environment"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-environment"></use></svg>Environment</a>
+				<a class="mdl-navigation__link" data-type="impervious" href="javascript:void(0)"><svg class="icon icon-impervious"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-impervious"></use></svg>Impervious Surface</a>
+				<a class="mdl-navigation__link" data-type="voting" href="javascript:void(0)"><svg class="icon icon-voting"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-voting"></use></svg>Voting</a>
+				<a class="mdl-navigation__link" data-type="parks" href="javascript:void(0)"><svg class="icon icon-park"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-park"></use></svg>Parks</a>
+				<a class="mdl-navigation__link" data-type="libraries" href="javascript:void(0)"><svg class="icon icon-library"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-library"></use></svg>Libraries</a>
+				<a class="mdl-navigation__link" data-type="qualityoflife" href="javascript:void(0)"><svg class="icon icon-quality-of-life"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-quality-of-life"></use></svg>Quality of Life</a>
 				<!--<div class="mdl-layout-spacer"></div>-->
 			</nav>
 		</div>
@@ -123,10 +122,96 @@
 			<div class="mdl-layout__obfuscator"></div>
 		</main>
 	</div>
-	
+
+	<!-- inline SVG symbols -->
+	<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg"
+	    xmlns:xlink="http://www.w3.org/1999/xlink">
+		<defs>
+			<symbol id="icon-welcome" viewBox="0 0 32 32">
+				<title>welcome</title>
+				<path d="M16 26.688c5.888 0 10.688-4.8 10.688-10.688 0-1.056-0.192-2.080-0.448-3.008-0.928 0.256-1.92 0.32-2.976 0.32-4.512 0-8.448-2.176-10.88-5.632-1.312 3.2-3.872 5.824-7.008 7.2-0.064 0.384-0.064 0.736-0.064 1.12 0 5.888 4.8 10.688 10.688 10.688zM16 2.688c7.392 0 13.312 5.92 13.312 13.312s-5.92 13.312-13.312 13.312-13.312-5.952-13.312-13.312 5.952-13.312 13.312-13.312zM20 15.68c0.928 0 1.696 0.704 1.696 1.632s-0.768 1.696-1.696 1.696-1.696-0.768-1.696-1.696 0.768-1.632 1.696-1.632zM12 15.68c0.928 0 1.696 0.704 1.696 1.632s-0.768 1.696-1.696 1.696-1.696-0.768-1.696-1.696 0.768-1.632 1.696-1.632z"></path>
+			</symbol>
+			<symbol id="icon-property" viewBox="0 0 32 32">
+				<title>property</title>
+				<path d="M24 20v2.688h-2.688v-2.688h2.688zM24 14.688v2.624h-2.688v-2.624h2.688zM26.688 25.312v-13.312h-10.688v2.688h2.688v2.624h-2.688v2.688h2.688v2.688h-2.688v2.624h10.688zM13.312 9.312v-2.624h-2.624v2.624h2.624zM13.312 14.688v-2.688h-2.624v2.688h2.624zM13.312 20v-2.688h-2.624v2.688h2.624zM13.312 25.312v-2.624h-2.624v2.624h2.624zM8 9.312v-2.624h-2.688v2.624h2.688zM8 14.688v-2.688h-2.688v2.688h2.688zM8 20v-2.688h-2.688v2.688h2.688zM8 25.312v-2.624h-2.688v2.624h2.688zM16 9.312h13.312v18.688h-26.624v-24h13.312v5.312z"></path>
+			</symbol>
+			<symbol id="icon-trash" viewBox="0 0 24 32">
+				<title>trash</title>
+				<path d="M1.6 12.544q3.904 2.24 10.56 2.24t10.56-2.24l-1.728 15.552q-0.064 0.448-1.12 1.152t-3.2 1.376-4.512 0.672-4.48-0.672-3.2-1.376-1.152-1.152zM17.216 2.944q3.008 0.576 5.056 1.76t2.048 2.272v0.32q0 1.856-3.584 3.168t-8.576 1.312-8.576-1.312-3.584-3.168v-0.32q0-1.088 2.048-2.272t5.056-1.76l1.344-1.536q0.704-0.832 2.24-0.832h2.944q1.664 0 2.24 0.832zM15.488 6.528h2.688q-2.944-3.52-3.328-4.032-0.448-0.512-1.024-0.512h-3.264q-0.704 0-1.024 0.512l-3.392 4.032h2.688l2.048-2.112h2.624z"></path>
+			</symbol>
+			<symbol id="icon-environment" viewBox="0 0 32 32">
+				<title>environment</title>
+				<path d="M18.688 8l12 16h-29.376l8-10.688 6.016 8 2.112-1.568-3.744-5.056z"></path>
+			</symbol>
+			<symbol id="icon-impervious" viewBox="0 0 32 32">
+				<title>impervious</title>
+				<path d="M16 6.816l-3.072 3.008-1.856-1.888 4.928-4.928 7.552 7.552c3.264 3.264 3.936 8.064 2.144 12l-9.696-9.632v-6.112zM16 26.112v-6.432l-6.368-6.368c-1.056 1.376-1.632 3.072-1.632 4.8 0 4.32 3.712 8 8 8zM27.552 27.808l0.448 0.512-1.696 1.696-3.616-3.648c-1.952 1.568-4.32 2.368-6.688 2.368-2.752 0-5.504-1.056-7.552-3.104-3.872-3.936-4.128-10.080-0.768-14.272l-3.68-3.68 1.696-1.696c7.264 7.296 14.528 14.624 21.856 21.824z"></path>
+			</symbol>
+			<symbol id="icon-park" viewBox="0 0 32 32">
+				<title>park</title>
+				<path d="M6.016 14.688c-1.152 0-2.016-0.864-2.016-2.016s0.864-1.984 2.016-1.984 1.984 0.864 1.984 1.984-0.864 2.016-1.984 2.016zM29.568 12.256c0 4.8-3.616 8.672-8.256 9.248v5.184h4v2.624h-21.312v-6.624h-1.312v-5.376c0-0.736 0.576-1.312 1.312-1.312h4c0.736 0 1.312 0.576 1.312 1.312v5.376h-1.312v4h10.688v-5.248c-4.448-0.768-7.808-4.576-7.808-9.184 0-5.184 4.192-9.376 9.376-9.376s9.312 4.192 9.312 9.376z"></path>
+			</symbol>
+			<symbol id="icon-bus" viewBox="0 0 32 32">
+				<title>bus</title>
+				<path d="M24 14.688v-6.688h-16v6.688h16zM22.016 22.688c1.12 0 1.984-0.864 1.984-2.016s-0.864-1.984-1.984-1.984-2.016 0.864-2.016 1.984 0.864 2.016 2.016 2.016zM10.016 22.688c1.12 0 1.984-0.864 1.984-2.016s-0.864-1.984-1.984-1.984-2.016 0.864-2.016 1.984 0.864 2.016 2.016 2.016zM5.312 21.312v-13.312c0-4.704 4.8-5.312 10.688-5.312s10.688 0.608 10.688 5.312v13.312c0 1.184-0.576 2.24-1.376 3.008v2.368c0 0.736-0.576 1.312-1.312 1.312h-1.312c-0.736 0-1.376-0.576-1.376-1.312v-1.376h-10.624v1.376c0 0.736-0.608 1.312-1.376 1.312h-1.312c-0.736 0-1.312-0.576-1.312-1.312v-2.368c-0.8-0.768-1.376-1.824-1.376-3.008z"></path>
+			</symbol>
+			<symbol id="icon-floodplain" viewBox="0 0 32 32">
+				<title>floodplain</title>
+				<path d="M0 11.008q0-2.88 2.048-4.928t4.96-2.080q0.544 0 0.992 0.064 1.376-1.952 3.488-2.976 2.176-1.056 4.512-1.056t4.48 1.056q2.112 1.024 3.52 2.976 0.416-0.064 0.992-0.064 2.88 0 4.928 2.080t2.048 4.928-2.048 4.928-4.928 2.080q-1.344 0-2.496-0.448-2.816 2.432-6.496 2.432t-6.496-2.432q-1.184 0.448-2.496 0.448-2.88 0-4.96-2.080t-2.048-4.928zM5.984 24q0-1.12 2.016-4l0.512 0.768q0.544 0.832 0.992 1.728 0.48 1.024 0.48 1.504 0 0.8-0.576 1.408t-1.408 0.608-1.408-0.608-0.608-1.408zM14.048 30.016q0-1.12 2.016-4l0.48 0.736q0.576 0.864 1.024 1.76 0.48 1.024 0.48 1.504 0 0.8-0.576 1.408t-1.408 0.576-1.408-0.576-0.608-1.408zM21.984 28q0-1.12 2.016-4l0.48 0.768q0.576 0.832 0.992 1.728 0.512 1.024 0.512 1.504 0 0.8-0.576 1.408t-1.408 0.608-1.408-0.608-0.608-1.408z"></path>
+			</symbol>
+			<symbol id="icon-water-quality" viewBox="0 0 32 32">
+				<title>water-quality</title>
+				<path d="M16 26.112v-19.296l-5.632 5.632c-1.504 1.472-2.368 3.552-2.368 5.664 0 4.32 3.712 8 8 8zM23.552 10.56c4.192 4.192 4.192 10.88 0 15.072-2.048 2.048-4.8 3.104-7.552 3.104s-5.504-1.056-7.552-3.104c-4.192-4.192-4.192-10.88 0-15.072l7.552-7.552z"></path>
+			</symbol>
+			<symbol id="icon-construction" viewBox="0 0 30 32">
+				<title>construction</title>
+				<path d="M30.432 12.448c0.448 0.416 0.448 1.12 0 1.6l-2.144 2.176c-0.448 0.448-1.12 0.448-1.6 0l-0.48-0.512c-0.352-0.32-0.512-0.928-0.32-1.184 0.352-0.256 0.224-0.96-0.448-1.6-0.96-1.024-2.208-1.056-2.688-0.544-0.192 0.16-0.832 0.864-0.832 0.864l-2.944-2.944 0.48-0.48s0.096-0.096 0.352-0.384c0.928-0.928-0.032-1.952-0.032-1.952-2.624-2.56-6.24-2.528-6.24-2.528l-0.064-0.928c7.328-1.888 10.080 1.312 11.104 2.336l2.112 2.112c0.512 0.512 0 1.984 0.768 2.848 0.352 0.352 0.832 0.512 1.184 0.512 0.416-0.352 1.056-0.256 1.376 0.128zM17.44 17.824l7.040 6.336c0.992 0.992 0.96 2.592-0.032 3.648-1.056 0.992-2.656 0.992-3.648-0.064l-6.432-6.784-6.016 7.232c-0.544 0.608-1.536 0.608-2.144 0l-1.568-1.6c-0.608-0.544-0.608-1.568 0-2.144l6.88-6.4-3.328-3.2c-1.056-1.056-1.696-1.376-2.592-1.088-0.864 0.32-2.112 0.32-3.264-0.448-2.496-1.6-2.336-4.608-2.336-4.608l0.192-0.32s2.24 1.44 2.528 1.6c0.352 0.288 1.6 0.864 2.72-0.864 1.152-1.728 0.192-2.816-0.128-3.008-0.256-0.16-2.496-1.632-2.496-1.632l0.192-0.32s2.592-1.312 5.024 0.128c0 0.064 0.608 0.416 0.864 0.64 1.536 1.376 1.536 2.944 1.28 4.224-0.256 1.152 0 1.568 0.896 2.56l3.328 3.328 3.968-4.032 2.88 2.944zM23.552 26.912c0.544-0.48 0.544-1.408 0-1.92s-1.344-0.512-1.92 0c-0.48 0.512-0.48 1.408 0 1.888 0.576 0.512 1.408 0.608 1.92 0.032z"></path>
+			</symbol>
+			<symbol id="icon-person" viewBox="0 0 24 32">
+				<title>person</title>
+				<path d="M0 31.424v-9.248q0-3.296 1.92-5.664t5.024-2.4h10.56q3.232 0.064 5.056 2.432t1.824 5.632v9.248q0 0.576-0.576 0.576h-3.36q-0.512 0-0.512-0.576v-8.064q-0.192-0.864-0.864-0.768t-0.704 0.768v8.064q-0.064 0.576-0.608 0.576h-11.264q-0.544 0-0.544-0.576v-8.064q-0.128-0.864-0.832-0.768t-0.736 0.768v8.064q0 0.576-0.576 0.576h-3.232q-0.576 0-0.576-0.576zM5.952 6.368q0-2.624 1.888-4.48t4.48-1.888q2.752 0.128 4.544 1.92t1.888 4.448q-0.064 2.688-1.952 4.576t-4.48 1.856q-2.688-0.064-4.544-1.92t-1.824-4.512z"></path>
+			</symbol>
+			<symbol id="icon-trending_up" viewBox="0 0 32 32">
+				<title>trending_up</title>
+				<path d="M21.312 8h8v8l-3.072-3.072-8.352 8.384-5.312-5.312-8 8-1.888-1.888 9.888-9.856 5.312 5.312 6.496-6.496z"></path>
+			</symbol>
+			<symbol id="icon-library" viewBox="0 0 32 32">
+				<title>library</title>
+				<path d="M16 10.688c-2.176 0-4-1.824-4-4s1.824-4 4-4 4 1.824 4 4-1.824 4-4 4zM16 15.36c3.136-2.912 7.392-4.672 12-4.672v14.624c-4.608 0-8.864 1.824-12 4.768-3.136-2.944-7.36-4.768-12-4.768v-14.624c4.64 0 8.864 1.76 12 4.672z"></path>
+			</symbol>
+			<symbol id="icon-chevron-right" viewBox="0 0 32 32">
+				<title>chevron-right</title>
+				<path d="M11.424 21.824l6.144-6.144-6.144-6.112 1.888-1.888 8 8-8 8z"></path>
+			</symbol>
+			<symbol id="icon-place" viewBox="0 0 32 32">
+				<title>place</title>
+				<path d="M16 15.296c1.824 0 3.328-1.472 3.328-3.296s-1.504-3.328-3.328-3.328-3.296 1.504-3.296 3.328 1.472 3.296 3.296 3.296zM16 2.688c5.184 0 9.312 4.128 9.312 9.312 0 7.008-9.312 17.312-9.312 17.312s-9.312-10.304-9.312-17.312c0-5.184 4.128-9.312 9.312-9.312z"></path>
+			</symbol>
+			<symbol id="icon-menu" viewBox="0 0 27 32">
+				<title>menu</title>
+				<path d="M27.424 24v2.272q0 0.48-0.32 0.8t-0.832 0.352h-25.12q-0.48 0-0.8-0.352t-0.352-0.8v-2.272q0-0.48 0.352-0.8t0.8-0.352h25.12q0.48 0 0.832 0.352t0.32 0.8zM27.424 14.848v2.304q0 0.448-0.32 0.8t-0.832 0.32h-25.12q-0.48 0-0.8-0.32t-0.352-0.8v-2.304q0-0.448 0.352-0.8t0.8-0.32h25.12q0.48 0 0.832 0.32t0.32 0.8zM27.424 5.728v2.272q0 0.448-0.32 0.8t-0.832 0.352h-25.12q-0.48 0-0.8-0.352t-0.352-0.8v-2.272q0-0.48 0.352-0.832t0.8-0.32h25.12q0.48 0 0.832 0.32t0.32 0.832z"></path>
+			</symbol>
+			<symbol id="icon-voting" viewBox="0 0 27 32">
+				<title>voting</title>
+				<path d="M12.224 23.2l10.976-10.976q0.352-0.32 0.352-0.8t-0.352-0.8l-1.824-1.824q-0.352-0.352-0.8-0.352t-0.8 0.352l-8.352 8.352-3.776-3.776q-0.32-0.352-0.8-0.352t-0.8 0.352l-1.824 1.824q-0.32 0.32-0.32 0.8t0.32 0.8l6.4 6.4q0.352 0.32 0.8 0.32t0.8-0.32zM27.424 7.424v17.152q0 2.112-1.504 3.616t-3.648 1.536h-17.12q-2.144 0-3.648-1.536t-1.504-3.616v-17.152q0-2.112 1.504-3.616t3.648-1.536h17.12q2.144 0 3.648 1.536t1.504 3.616z"></path>
+			</symbol>
+			<symbol id="icon-school" viewBox="0 0 41 32">
+				<title>school</title>
+				<path d="M31.68 14.912l0.32 5.664q0.064 1.216-1.472 2.272t-4.192 1.664-5.76 0.64-5.76-0.64-4.192-1.664-1.472-2.272l0.32-5.664 10.24 3.232q0.384 0.128 0.864 0.128t0.864-0.128zM41.152 9.152q0 0.384-0.416 0.544l-20 6.272q-0.064 0.032-0.16 0.032t-0.192-0.032l-11.648-3.68q-0.768 0.608-1.248 2.016t-0.608 3.168q1.12 0.64 1.12 1.952 0 1.248-1.024 1.92l1.024 7.744q0.032 0.224-0.128 0.416-0.16 0.224-0.448 0.224h-3.424q-0.256 0-0.416-0.224-0.192-0.192-0.16-0.416l1.056-7.744q-1.056-0.672-1.056-1.92 0-1.312 1.152-1.984 0.224-3.68 1.76-5.888l-5.952-1.856q-0.384-0.16-0.384-0.544t0.384-0.576l20-6.272q0.096-0.032 0.192-0.032t0.16 0.032l20 6.272q0.416 0.16 0.416 0.576z"></path>
+			</symbol>
+			<symbol id="icon-recycle" viewBox="0 0 32 32">
+				<title>recycle</title>
+				<path d="M14.944 20.864l-0.288 6.592-0.032 0.384-7.488-0.512q-0.64-0.064-1.216-0.576t-0.832-1.152q-0.192-0.48-0.256-0.992t0.064-1.152 0.224-0.992 0.384-1.152 0.352-0.928q1.376 0.192 9.088 0.48zM8.032 10.4l3.2 6.784-2.624-1.664q-1.12 1.312-1.984 2.592t-1.312 2.24-0.704 1.696-0.32 1.12l-0.064 0.352-3.392-6.368q-0.32-0.448-0.32-0.992t0.096-0.832l0.128-0.32q0.64-1.12 2.048-3.36l-2.496-1.536zM30.016 19.648l-3.36 6.4q-0.224 0.512-0.672 0.832t-0.768 0.384l-0.32 0.064q-1.28 0.128-3.904 0.224l0.128 2.912-4.096-6.56 3.776-6.464 0.128 3.104q3.008 0.288 5.024 0.064t3.040-0.576zM15.968 3.136q-0.832 1.12-4.704 7.776l-5.664-3.328-0.352-0.224 4.032-6.368q0.352-0.544 1.056-0.8t1.44-0.16q0.416 0.032 0.864 0.192t0.736 0.384 0.736 0.576 0.672 0.64 0.64 0.704 0.544 0.608zM27.68 8.608l3.776 6.496q0.32 0.672 0.224 1.344t-0.48 1.344q-0.224 0.352-0.576 0.64t-0.704 0.512-0.864 0.384-0.832 0.288-0.928 0.256-0.8 0.224q-0.608-1.28-4.736-7.808l5.568-3.456zM25.12 4.576l2.528-1.472-3.904 6.656-7.488-0.352 2.688-1.536q-0.608-1.6-1.344-2.976t-1.344-2.208-1.152-1.408-0.832-0.832l-0.32-0.224h7.232q0.576-0.032 1.056 0.192t0.704 0.512l0.192 0.256q0.672 1.088 1.984 3.392z"></path>
+			</symbol>
+			<symbol id="icon-quality-of-life" viewBox="0 0 32 32">
+				<title>quality-of-life</title>
+				<path d="M22.848 18.272h5.472q-0.096 0.128-0.192 0.192t-0.16 0.128l-0.064 0.096-11.104 10.72q-0.32 0.32-0.8 0.32t-0.8-0.32l-11.136-10.752q-0.096-0.064-0.352-0.384h6.56q0.416 0 0.736-0.224t0.384-0.608l1.248-5.024 3.392 11.904q0.128 0.352 0.416 0.576t0.704 0.256q0.352 0 0.672-0.256t0.416-0.576l2.592-8.672 1.024 2.016q0.32 0.608 0.992 0.608zM32 10.656q0 2.56-1.824 5.344h-6.592l-1.984-3.936q-0.16-0.32-0.48-0.48t-0.64-0.16q-0.8 0.096-0.992 0.832l-2.304 7.68-3.488-12.256q-0.128-0.352-0.448-0.608t-0.704-0.224-0.672 0.256-0.416 0.608l-2.048 8.288h-7.552q-1.856-2.784-1.856-5.344 0-3.936 2.272-6.144t6.272-2.24q1.088 0 2.24 0.384t2.144 1.056 1.728 1.216 1.344 1.216q0.64-0.64 1.344-1.216t1.728-1.216 2.144-1.056 2.24-0.384q4 0 6.272 2.24t2.272 6.144z"></path>
+			</symbol>
+		</defs>
+	</svg>
+
+	<!-- javascript -->
 	<script async src="js/app.js" defer></script>
-	
-	<!--   Google Analytics -->
 	<script>
 		(function (i, s, o, g, r, a, m) {
 			i['GoogleAnalyticsObject'] = r;
