@@ -178,11 +178,12 @@
                     );
                 }
             },
-            locationClick: function(rec) {
+            locationClick: function(index) {
+                let poi = this.resultsMagnet[index];
                 this.$parent.sharedState.poi = {
-                    'lnglat': [rec.lng, rec.lat],
-                    'address': rec.address,
-                    'label': rec.name
+                    'lnglat': [poi.lng, poi.lat],
+                    'address': poi.address,
+                    'label': poi.schlname
                 };
             }
         }
