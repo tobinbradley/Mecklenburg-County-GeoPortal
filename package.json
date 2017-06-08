@@ -45,6 +45,7 @@
     "imagemin-cli": "^3.0.0",
     "mkdirp": "^0.5.1",
     "ncp": "^2.0.0",
+    "node-version-assets": "^1.2.0",
     "npm-run-all": "^3.1.1",
     "onchange": "^3.0.2",
     "postcss-cli": "^3.1.1",
@@ -54,8 +55,7 @@
     "uglifyify": "^3.0.4",
     "vue-template-compiler": "^2.3.3",
     "vueify": "^9.4.1",
-    "watchify": "^3.9.0",
-    "whiskers": "^0.4.0"
+    "watchify": "^3.9.0"
   },
   "browserify": {
     "transform": [
