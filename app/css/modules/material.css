@@ -447,15 +447,6 @@ h1, h2, h3, h4, h5, h6, p {
 /**
   * Styles for HTML elements
   */
-h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
-  /*font-family: "Roboto", "Helvetica", "Arial", sans-serif;*/
-  font-size: 56px;
-  font-weight: 400;
-  line-height: 1.35;
-  letter-spacing: -0.02em;
-  opacity: 0.54;
-  font-size: 0.6em; }
-
 h1 {
   /*font-family: "Roboto", "Helvetica", "Arial", sans-serif;*/
   font-size: 56px;
@@ -518,35 +509,6 @@ p {
 a {
   color: rgb(255,64,129);
   font-weight: 500; }
-
-blockquote {
-  /*font-family: "Roboto", "Helvetica", "Arial", sans-serif;*/
-  position: relative;
-  font-size: 24px;
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.35;
-  letter-spacing: 0.08em; }
-  blockquote:before {
-    position: absolute;
-    left: -0.5em;
-    content: '“'; }
-  blockquote:after {
-    content: '”';
-    margin-left: -0.05em; }
-
-mark {
-  background-color: #f4ff81; }
-
-dt {
-  font-weight: 700; }
-
-address {
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 1;
-  letter-spacing: 0;
-  font-style: normal; }
 
 ul, ol {
   font-size: 14px;
