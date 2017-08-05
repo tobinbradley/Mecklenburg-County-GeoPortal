@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="mdl-grid">
-                <div class="mdl-cell mdl-cell--8-col">
+                <div class="mdl-cell mdl-cell--12-col">
                     <div class="mdl-card qol-metric-tab-card mdl-typography--text-left">
                         <div class="mdl-tabs mdl-js-tabs qol-metric-tab no-print">
                             <div class="mdl-tabs__tab-bar">
@@ -176,7 +176,10 @@
                     </div>
                     <iframe aria-label="Quality of Life Embed" class="iframe-qol" v-bind:src="iframeURL" style="width: 100%; height: 600px; border: 1px solid #ccc"></iframe>
                 </div>
-                <div class="mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet">
+                
+            </div>
+            <div class="mdl-grid">
+                <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
                     <div class="mdl-typography--text-center" style="padding: 10px 20px;">
                         Neighborhood vs
                         <div class="dropdown">
@@ -200,6 +203,9 @@
                             </tbody>
                         </table>
                     </div>
+                    
+                </div>
+                <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
                     <div class="mdl-typography--text-center trendchart" v-show="showChart">
                         <h4>Trend</h4>
                         <span class="legend"><svg class="icon icon-trending_up legend-county"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trending_up"></use></svg> {{chartCompare}}</span>
@@ -254,16 +260,13 @@
         },
         mounted: function() {
             let _this = this;
-            // set app area
-            let el = document.querySelector('.report-container');
-            el.classList.remove('mdl-cell--8-col');
-            el.classList.add('mdl-cell--12-col');
-            document.querySelector('.mdl-card-map').style.visibility = 'hidden';
+            
             // highlight selected metrics
             let chip = document.querySelector(`.chip[data-metric="${_this.metric}"]`);
             if (chip) {
                 chip.classList.add('chip-active');
             }
+
             // if you have a lnglat, get getResults
             if (_this.$parent.sharedState.selected.lnglat) {
                 _this.getResults();
@@ -278,13 +281,7 @@
                     _this.qolData = data.summary;
                 }
             };
-        },
-        beforeDestroy: function() {
-            let el = document.querySelector('.report-container');
-            el.classList.remove('mdl-cell--12-col');
-            el.classList.add('mdl-cell--8-col');
-            document.querySelector('.mdl-card-map').style.visibility = 'visible';
-        },
+        },       
         watch: {
             "qolData": "dataReceived",
             "neighborhood": "setIframe",
