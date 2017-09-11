@@ -176,7 +176,7 @@
                     </div>
                     <iframe aria-label="Quality of Life Embed" class="iframe-qol" v-bind:src="iframeURL" style="width: 100%; height: 600px; border: 1px solid #ccc"></iframe>
                 </div>
-                
+
             </div>
             <div class="mdl-grid">
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
@@ -203,9 +203,10 @@
                             </tbody>
                         </table>
                     </div>
-                    
+
                 </div>
                 <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet">
+                    <distChart></distChart>
                     <div class="mdl-typography--text-center trendchart" v-show="showChart">
                         <h4>Trend</h4>
                         <span class="legend"><svg class="icon icon-trending_up legend-county"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trending_up"></use></svg> {{chartCompare}}</span>
@@ -238,8 +239,12 @@
     import jsonToURL from '../modules/jsontourl';
     import Chartist from 'chartist';
     import naturalSort from '../modules/naturalsort';
+    import distChart from './qol-distchart.vue';
     export default {
         name: 'quality_of_life',
+        components: {
+            distChart: distChart
+        },
         data: function() {
             return {
                 trends: null,
@@ -260,7 +265,7 @@
         },
         mounted: function() {
             let _this = this;
-            
+
             // highlight selected metrics
             let chip = document.querySelector(`.chip[data-metric="${_this.metric}"]`);
             if (chip) {
@@ -271,7 +276,7 @@
             if (_this.$parent.sharedState.selected.lnglat) {
                 _this.getResults();
             }
-            // if you have lnglat or the init flag is set, 
+            // if you have lnglat or the init flag is set,
             if (!_this.$parent.sharedState.selected.lnglat && !_this.$parent.sharedState.initLnglatFlag) {
                 _this.setIframe();
             }
@@ -281,7 +286,7 @@
                     _this.qolData = data.summary;
                 }
             };
-        },       
+        },
         watch: {
             "qolData": "dataReceived",
             "neighborhood": "setIframe",
@@ -435,7 +440,7 @@
                         if (data.labels.indexOf(filledYears[i]) === -1) {
                             data.series.forEach(function(element, index, array) {
                                 data.series[index].splice(i, 0, null);
-                            });                            
+                            });
                         }
                     }
                     data.labels = filledYears;
