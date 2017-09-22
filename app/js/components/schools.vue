@@ -33,13 +33,10 @@
             </div>
         </div>
         <div class="mdl-typography--text-center">
-            <div class="report-record-highlight" v-if="resultsHigh.length > 0">
+            <div class="report-record-highlight" v-if="tmpTransportationZone.length > 0">
                 <svg class="icon icon-bus"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bus"></use></svg>
                 <h2>Your Transportation Zone is</h2>
-                <h1>{{resultsHigh[0].zone.toUpperCase()}}</h1>
-                <p v-if="tmpTransportationZone && resultsHigh[0].zone.toUpperCase() !== tmpTransportationZone[0].choicezn.toUpperCase()">
-                    For the 2017-2018 school year, your <strong>Transportation Zone</strong> will change to <strong>{{ tmpTransportationZone[0].choicezn.toUpperCase() }}</strong>.
-                </p>
+                <h1>{{tmpTransportationZone[0].choicezn.toUpperCase()}}</h1>
             </div>
         </div>
         <div v-if="resultsMagnet">
@@ -70,7 +67,7 @@
         </div>
         <div class="report-moreinfo mdl-typography--text-left">
             <p>
-                Transportation eligibility is determined by the transportation zone in which you live. The county is divided into four transportation zones: violet, grey, blue, and green. Magnet schools are assigned a zone to serve with transportation. If the distance
+                Transportation eligibility is determined by the transportation zone in which you live. The county is divided into three transportation zones: violet, blue and green. Magnet schools are assigned a zone to serve with transportation. If the distance
                 is to the magnet greater than 5 miles, you may be assigned to a shuttle stop location. Some programs (*) provide county-wide transportation, meaning that regardless of your zone, you would receive transportation. For more information please
                 contact Charlotte-Mecklenburg School Transportation Services at (980) 343-6715.
             </p>
@@ -168,7 +165,7 @@
                         `https://mcmap.org/api/intersect_point/v1/cms_high_districts/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                         'resultsHigh'
                     );
-                    // temporary for transportation zone
+                    // transportation zone
                     _this.apiFetch({
                             'columns': 'choicezn',
                             'limit': 1
