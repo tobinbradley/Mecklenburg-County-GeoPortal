@@ -21,6 +21,28 @@
                     </div>
                 </div>
             </div>
+
+            <div class="mdl-grid" v-if="results[0].jurisdiction === 'pineville' || results[0].jurisdiction === 'matthews'">
+              <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
+                <Print></Print>
+                <div class="report-record-highlight">
+                  <svg class="icon icon-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash"></use></svg>
+                  <h2>Your TRASH day is</h2>
+                  <h1>{{ results[0].day }}</h1>
+                </div>
+              </div>
+              <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
+                <div class="report-record-highlight">
+                  <svg class="icon icon-recycle"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-recycle"></use></svg>
+                  <h2>Your RECYCLING day is</h2>
+                  <h1>
+                    {{ results[0].day }}
+                  </h1>
+                  <h4>Recycling pickup is every other week.</h4>
+                </div>
+              </div>
+            </div>
+
             <div class="mdl-typography--text-center" v-if="results[0].jurisdiction === 'cornelius'">
                 <div class="report-record-highlight">
                     <svg class="icon icon-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash"></use></svg>
@@ -30,6 +52,7 @@
                     <h4></h4>
                 </div>
             </div>
+
             <div v-if="results[0].jurisdiction === 'charlotte'">
                 <div class="mdl-grid">
                     <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-tablet mdl-typography--text-center">
@@ -91,6 +114,8 @@
                 <li><a href="http://charmeck.org/city/charlotte/SWS" target="_blank"  rel="noopener">Charlotte Solid Waste Services</a></li>
                 <li><a href="http://www.cornelius.org/index.aspx?nid=208" target="_blank"  rel="noopener">Cornelius Solid Waste Services</a></li>
                 <li><a href="http://www.huntersville.org/Departments/EngineeringPublicWorks/SolidWasteRecycling.aspx" target="_blank"  rel="noopener">Huntersville Solid Waste and Recycling Collection</a></li>
+                <li><a href="http://www.pinevillenc.gov" target="_blank" rel="noopener">Town of Pineville</a></li>
+                <li><a href="http://www.matthewsnc.gov/" target="_blank" rel="noopener">Town of Matthews</a></li>
             </ul>
         </div>
     </div>
@@ -146,7 +171,8 @@
             },
             recyclingWeek: function(w) {
                 var theDate = new Date();
-                if (typeof w === 'object') {
+                if (w && typeof w === 'object') {
+
                     let items = w.filter(function(rec) {
                         return rec.type === 'RECYCLING';
                     })
