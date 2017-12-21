@@ -8,3 +8,4 @@ app/style/digiglobe
 TODO.md
 .vscode
 yarn.lock
+app/js/components/property-flat.vue
