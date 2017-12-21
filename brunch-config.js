@@ -3,37 +3,26 @@ module.exports = {
     javascripts: {
       joinTo: {
         'vendor.js': /^(?!app)/,
-        'app.js': /^app/,
-      },
+        'app.js': /^app/
+      }
     },
     stylesheets: {
       joinTo: {
         'vendor.css': /^(?!app)/,
-        'app.css': /^app/,
+        'app.css': /^app/
       },
       order: {
-        before: ['app/css/modules/material.css'],
-      },
-    },
+        before: ['app/css/modules/material.css']
+      }
+    }
   },
   npm: {
     styles: {
       'mapbox-gl': ['dist/mapbox-gl.css'],
-    },
+      chartist: ['dist/chartist.min.css']
+    }
   },
   plugins: {
-    babel: {
-      presets: [
-        [
-          'env',
-          {
-            targets: {
-              browsers: ['last 2 versions'],
-            },
-          },
-        ],
-      ],
-    },
     postcss: {
       processors: [
         require('postcss-cssnext')({
@@ -49,20 +38,20 @@ module.exports = {
                 colorSidebarText: '#b0bec5',
                 colorBody: '#F5F5F5',
                 colorContent: '#ffffff',
-                colorText: 'rgb(79, 104, 115)',
-              },
-            },
-          },
-        }),
-      ],
+                colorText: 'rgb(79, 104, 115)'
+              }
+            }
+          }
+        })
+      ]
     },
     swPrecache: {
       options: {
         staticFileGlobs: [
-          'public/**/*.{js,json,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}',
+          'public/**/*.{js,json,html,css,png,jpg,gif,svg,eot,ttf,woff,woff2}'
         ],
-        stripPrefix: 'public/',
-      },
-    },
-  },
+        stripPrefix: 'public/'
+      }
+    }
+  }
 };
