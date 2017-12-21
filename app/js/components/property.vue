@@ -164,7 +164,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, index) in resultsPermits">
+                    <tr v-for="item in reversePermits">
                         <td class="mdl-data-table__cell--non-numeric">
                             {{item.theyear}}
                         </td>
@@ -209,6 +209,11 @@
                 resultsPermits: []
             }
         },
+        computed: {
+            reversePermits() {
+              return this.resultsPermits.slice().reverse();
+            }
+        },
         components: {
             Photos: Photos
         },
@@ -229,6 +234,9 @@
                     'truncate': 0,
                     'suffix': ' Sq. Ft.'
                 })(num);
+            },
+            reverse: function(value) {
+               return value.slice().reverse();
             }
         },
         watch: {
@@ -255,15 +263,11 @@
                 if (_this.$parent.sharedState.selected.pid && _this.$parent.sharedState.show.indexOf('property') !== -1) {
                     // zoning
                     _this.apiFetch({
-                            'x': _this.$parent.sharedState.selected.lnglat[0],
-                            'y': _this.$parent.sharedState.selected.lnglat[1],
-                            'srid': 4326,
-                            'table': 'view_zoning',
-                            'fields': 'zone_des, zone_class',
-                            'parameters': "zone_des <> 'sm_towns'",
-                            'geometryfield': 'the_geom'
-                        },
-                        'https://mcmap.org/rest/v3/ws_geo_pointoverlay.php',
+                            'columns': 'zone_des, zone_class',
+                            'filter': "zone_des <> 'sm_towns'",
+                            'geom_column': 'the_geom'
+                    },
+                    `https://mcmap.org/api/intersect_point/v1/view_zoning/${_this.$parent.sharedState.selected.lnglat.join(',')}/4326`,
                         'resultsZoning'
                     );
                     // ownership
@@ -303,16 +307,14 @@
                     );
                     // building permits
                     _this.apiFetch({
-                            'from_table': 'tax_parcels',
-                            'to_table': 'building_permits',
-                            'fields': 'extract(year from t.date_completed_co_process) as theyear, t.project_name,t.square_footage,t.construction_cost',
-                            'parameters': `f.pid = '${_this.$parent.sharedState.selected.pid}' and t.job_status = 'COMPL'`,
-                            'order': 't.date_completed_co_process desc',
-                            'limit': 10,
-                            'from_geometryfield': 'the_geom',
-                            'to_geometryfield': 'the_geom'
+                            'columns': 'extract(year from t.date_completed_co_process) as theyear, t.project_name,t.square_footage,t.construction_cost',
+                            'filter': `f.pid = '${_this.$parent.sharedState.selected.pid}' and t.job_status = 'COMPL'`,
+                            'sort': 't.date_completed_co_process',
+                            'limit': 100,
+                            'geom_column_from': 'the_geom',
+                            'geom_column_to': 'the_geom'
                         },
-                        'https://mcmap.org/rest/v3/ws_geo_featureoverlay.php',
+                        'https://mcmap.org/api/intersect_feature/v1/tax_parcels/building_permits',
                         'resultsPermits'
                     );
                 }
