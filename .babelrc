@@ -1,18 +1,12 @@
 {
   "presets": [
-      [
-        "env",
-        {
-          "targets": {
-            "browsers": [
-              "last 2 versions",
-              "safari >= 8"
-            ]
-          }
+    [
+      "env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions", "safari >= 9"]
         }
-      ]
-  ],
-  "ignore": [
-    "/node_modules/"
+      }
+    ]
   ]
 }
