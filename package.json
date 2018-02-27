@@ -4,8 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "brunch watch --server --network --port 3000",
-    "build": "brunch build --production"
+    "start": "yarn run assets:dev && npm-run-all --parallel watch:*",
+    "build": "yarn run assets:prod && npm-run-all prod:* && yarn run pwa",
+    "query": "parcel --help",
+    "webpack": "webpack --mode development",
+    "assets:dev": "node build/copy.js",
+    "assets:prod": "node build/clean.js",
+    "prod:postcss": "postcss app/main.css -m -o dist/bundle.css",
+    "pwa": "node build/sw.js",
+    "watch:assets": "onchange 'app/assets/**/*' -- yarn run assets:dev",
+    "watch:postcss": "postcss app/main.css -m -w -o dist/bundle.css",
+    "watch:server":
+      "browser-sync start --server 'dist' --files 'dist' --no-ui --no-open",
+    "watch:webpack": "webpack --mode development --progress --watch",
+    "prod:webpack": "webpack --mode production"
   },
   "author": "Tobin Bradley",
   "license": "MIT",
@@ -13,25 +25,25 @@
     "chartist": "^0.11.0",
     "format-number": "^3.0.0",
     "lodash.debounce": "^4.0.8",
-    "mapbox-gl": "^0.41.0",
+    "mapbox-gl": "^0.44.1",
     "material-design-lite": "^1.3.0",
-    "promise-polyfill": "^6.0.2",
-    "vue": "^2.4.4",
+    "promise-polyfill": "^7.1.0",
+    "vue": "^2.5.13",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {
-    "auto-reload-brunch": "^2.7.1",
-    "babel-brunch": "^6.1.1",
-    "babel-plugin-transform-runtime": "^6.23.0",
-    "babel-preset-env": "^1.6.0",
-    "brunch": "^2.10.10",
-    "imagemin-brunch": "^1.1.0",
-    "postcss-brunch": "^2.1.0",
-    "postcss-cssnext": "^3.0.2",
-    "sw-precache-brunch": "^2.0.1",
-    "vue-brunch": "^2.0.1"
-  },
-  "browserify": {
-    "transform": ["vueify", "babelify"]
+    "babel-loader": "^7.1.3",
+    "babel-preset-env": "^1.6.1",
+    "browser-sync": "^2.23.6",
+    "cssnano": "^3.10.0",
+    "npm-run-all": "^4.1.2",
+    "onchange": "^3.3.0",
+    "postcss-cli": "^5.0.0",
+    "postcss-cssnext": "^3.1.0",
+    "postcss-import": "^11.1.0",
+    "shelljs": "^0.8.1",
+    "webpack": "^4.0.0",
+    "webpack-cli": "^2.0.9",
+    "workbox-build": "^2.1.2"
   }
 }

@@ -12,7 +12,7 @@
 	<link rel="icon" type="img/png" href="img/favicon.png">
 
 	<!-- PWA Manifest -->
-	<link rel="manifest" href="manifest.json">
+	<link rel="manifest" href="manifest.webmanifest">
 
 	<!-- chrome theme color -->
 	<meta name="theme-color" content="#1676D2">
@@ -27,22 +27,17 @@
 	<meta name="msapplication-TileImage" content="img/ms-touch-icon-144x144-precomposed.png">
 	<meta name="msapplication-TileColor" content="#3372DF">
 
-	<!-- preload assets -->
-    <link rel="preload" as="script" href="vendor.js">
-    <link rel="preload" as="script" href="app.js">
-	<link rel="preload" href="img/youtube-bg.svg" as="image">
-	<link rel="preload" href="img/bgicon.svg" as="image">
-
 	<!-- CSS -->
-    <link rel="stylesheet" href="vendor.css">
-	<link rel="stylesheet" href="app.css">
+	<link rel="stylesheet" href="bundle.css">
 </head>
 
 <body>
 	<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
 		<header class="demo-header mdl-layout__header">
 			<div aria-label="sidebar menu" aria-expanded="false" role="button" tabindex="0" class="mdl-layout__drawer-button">
-				<svg class="icon icon-menu"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-menu"></use></svg>
+				<svg class="icon icon-menu">
+					<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-menu"></use>
+				</svg>
 			</div>
 			<div class="mdl-layout__header-row">
 				<span class="mdl-layout-title">GeoPortal</span>
@@ -56,29 +51,65 @@
 				<span>Mecklenburg County GIS</span>
 			</header>
 			<nav class="navigation mdl-navigation">
-				<a class="mdl-navigation__link active" data-type="welcome" href="javascript:void(0)"><svg class="icon icon-welcome"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-welcome"></use></svg>Welcome</a>
-				<a class="mdl-navigation__link" data-type="schools" href="javascript:void(0)"><svg class="icon icon-school"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-school"></use></svg>Schools</a>
-        <a class="mdl-navigation__link" data-type="property" href="javascript:void(0)"><svg class="icon icon-property"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-property"></use></svg>Property</a>
-				<a class="mdl-navigation__link" data-type="trash" href="javascript:void(0)"><svg class="icon icon-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash"></use></svg>Trash and Recycling</a>
-				<a class="mdl-navigation__link" data-type="environment" href="javascript:void(0)"><svg class="icon icon-environment"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-environment"></use></svg>Environment</a>
-				<a class="mdl-navigation__link" data-type="impervious" href="javascript:void(0)"><svg class="icon icon-impervious"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-impervious"></use></svg>Impervious Surface</a>
-				<a class="mdl-navigation__link" data-type="voting" href="javascript:void(0)"><svg class="icon icon-voting"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-voting"></use></svg>Voting</a>
-				<a class="mdl-navigation__link" data-type="parks" href="javascript:void(0)"><svg class="icon icon-park"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-park"></use></svg>Parks</a>
-				<a class="mdl-navigation__link" data-type="libraries" href="javascript:void(0)"><svg class="icon icon-library"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-library"></use></svg>Libraries</a>
-				<a class="mdl-navigation__link" data-type="qualityoflife" href="javascript:void(0)"><svg class="icon icon-quality-of-life"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-quality-of-life"></use></svg>Quality of Life</a>
+				<a class="mdl-navigation__link active" data-type="welcome" href="javascript:void(0)">
+					<svg class="icon icon-welcome">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-welcome"></use>
+					</svg>Welcome</a>
+				<a class="mdl-navigation__link" data-type="schools" href="javascript:void(0)">
+					<svg class="icon icon-school">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-school"></use>
+					</svg>Schools</a>
+				<a class="mdl-navigation__link" data-type="property" href="javascript:void(0)">
+					<svg class="icon icon-property">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-property"></use>
+					</svg>Property</a>
+				<a class="mdl-navigation__link" data-type="trash" href="javascript:void(0)">
+					<svg class="icon icon-trash">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash"></use>
+					</svg>Trash and Recycling</a>
+				<a class="mdl-navigation__link" data-type="environment" href="javascript:void(0)">
+					<svg class="icon icon-environment">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-environment"></use>
+					</svg>Environment</a>
+				<a class="mdl-navigation__link" data-type="impervious" href="javascript:void(0)">
+					<svg class="icon icon-impervious">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-impervious"></use>
+					</svg>Impervious Surface</a>
+				<a class="mdl-navigation__link" data-type="voting" href="javascript:void(0)">
+					<svg class="icon icon-voting">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-voting"></use>
+					</svg>Voting</a>
+				<a class="mdl-navigation__link" data-type="parks" href="javascript:void(0)">
+					<svg class="icon icon-park">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-park"></use>
+					</svg>Parks</a>
+				<a class="mdl-navigation__link" data-type="libraries" href="javascript:void(0)">
+					<svg class="icon icon-library">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-library"></use>
+					</svg>Libraries</a>
+				<a class="mdl-navigation__link" data-type="qualityoflife" href="javascript:void(0)">
+					<svg class="icon icon-quality-of-life">
+						<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-quality-of-life"></use>
+					</svg>Quality of Life</a>
 				<!--<div class="mdl-layout-spacer"></div>-->
 			</nav>
 		</div>
 		<main class="mdl-layout__content fill-lightgrey">
 			<div class="mdl-grid">
-          <sc-offline></sc-offline>
+				<sc-offline></sc-offline>
 				<div class="fill-white mdl-shadow--2dp mdl-cell mdl-cell--12-col no-print" style="min-height: 110px;">
 					<sc-search>
 						<div style="width: 100%;">
 							<div class="mdl-cell mdl-cell--12-col">
 								<div class="search-container mdl-typography--text-center">
-									<div class="search-input-container"><input type="text" aria-label="search" name="search-input" autocomplete="off" placeholder="Tell me about..." class="search-input">										<span class="bar"></span>
-										<p class="mdl-typography--text-left muted">Try typing part of an address, like <em>700 N</em>. <span>Or we can <a href="javascript:void(0)">take a guess</a>.</span></p>
+									<div class="search-input-container">
+										<input type="text" aria-label="search" name="search-input" autocomplete="off" placeholder="Tell me about..." class="search-input">
+										<span class="bar"></span>
+										<p class="mdl-typography--text-left muted">Try typing part of an address, like
+											<em>700 N</em>.
+											<span>Or we can
+												<a href="javascript:void(0)">take a guess</a>.</span>
+										</p>
 										<p class="mdl-typography--text-center muted print-only">GeoPortal • Mecklenburg County GIS</p>
 									</div>
 								</div>
@@ -93,26 +124,38 @@
 					<sc-reportheader></sc-reportheader>
 					<sc-app>
 						<div class="introduction">
-							<div style="display: none;"><a href="javascript:void(0)" class="button button-accent">To view this information, use the search above to find a location.</a></div>
+							<div style="display: none;">
+								<a href="javascript:void(0)" class="button button-accent">To view this information, use the search above to find a location.</a>
+							</div>
 							<h4>
-								Discover data about <strong>places</strong> in your community.
+								Discover data about
+								<strong>places</strong> in your community.
 							</h4>
 							<h5>
 								Search for an address or place to get started!
 							</h5>
 							<div id="DtEIu-h2FQo" data-params="controls=0&amp;showinfo=0&amp;rel=0" data-background="img/youtube-bg.svg" class="youtube"
-							    style="background-image: url(&quot;img/youtube-bg.svg&quot;);"></div>
+							 style="background-image: url(&quot;img/youtube-bg.svg&quot;);"></div>
 							<p class="credit">
-								Created by <a href="http://emaps.charmeck.org" target="_blank" rel="noopener">Mecklenburg County GIS</a></p>
+								Created by
+								<a href="http://emaps.charmeck.org" target="_blank" rel="noopener">Mecklenburg County GIS</a>
+							</p>
 							<p>
-								GeoPortal is <a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" target="_blank" rel="noopener">open source software</a>.
+								GeoPortal is
+								<a href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal" target="_blank" rel="noopener">open source software</a>.
 							</p>
 							<p class="credits">
-								With much <span style="font-size: 1.5em; vertical-align: bottom;">♥</span> for the projects that make this site possible:<br>								<span class="credits-links"><a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a>,
-								<a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a>,
-								<a href="https://www.mapbox.com/mapbox-gl-js/api/" target="_blank" rel="noopener">Mapbox GL JS</a>,
-								<a href="http://vuejs.org/" target="_blank" rel="noopener">Vue.js</a>, and
-								<a href="http://getmdl.io/" target="_blank" rel="noopener">Material Design Lite</a></span></p>
+								With much
+								<span style="font-size: 1.5em; vertical-align: bottom;">♥</span> for the projects that make this site possible:
+								<br>
+								<span class="credits-links">
+									<a href="https://www.openstreetmap.org/" target="_blank" rel="noopener">OpenStreetMap</a>,
+									<a href="https://openmaptiles.org/" target="_blank" rel="noopener">OpenMapTiles</a>,
+									<a href="https://www.mapbox.com/mapbox-gl-js/api/" target="_blank" rel="noopener">Mapbox GL JS</a>,
+									<a href="http://vuejs.org/" target="_blank" rel="noopener">Vue.js</a>, and
+									<a href="http://getmdl.io/" target="_blank" rel="noopener">Material Design Lite</a>
+								</span>
+							</p>
 						</div>
 					</sc-app>
 				</div>
@@ -129,7 +172,7 @@
 
 	<!-- inline SVG symbols -->
 	<svg style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg"
-	    xmlns:xlink="http://www.w3.org/1999/xlink">
+	 xmlns:xlink="http://www.w3.org/1999/xlink">
 		<defs>
 			<symbol id="icon-welcome" viewBox="0 0 32 32">
 				<title>welcome</title>
@@ -215,9 +258,21 @@
 	</svg>
 
 	<!-- javascript -->
-    <script src="vendor.js"></script>
-    <script src="app.js"></script>
-    <script> require('js/main'); </script>
+	<script src="bundle.js"></script>
+	<script defer>
+    // register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js')
+      .then(function (registration) {
+        console.log('Service Worker registration successful with scope: ',
+        registration.scope)
+      })
+      .catch(function (err) {
+        console.log('Service Worker registration failed: ', err)
+      })
+    }
+	</script>
+
 	<script>
 		(function (i, s, o, g, r, a, m) {
 			i['GoogleAnalyticsObject'] = r;

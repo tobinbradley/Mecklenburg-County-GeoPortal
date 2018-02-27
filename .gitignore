@@ -1,11 +1,8 @@
 .directory
 .htaccess
 node_modules
-bower_components
 deploy.sh
 public
-app/style/digiglobe
 TODO.md
 .vscode
-yarn.lock
-app/js/components/property-flat.vue
+dist

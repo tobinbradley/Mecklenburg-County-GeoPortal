@@ -3,9 +3,7 @@
     [
       "env",
       {
-        "targets": {
-          "browsers": ["last 2 versions", "safari >= 9"]
-        }
+        "modules": false
       }
     ]
   ]
