@@ -9,7 +9,7 @@
 //                ||     ||
 //
 
-import Vue from 'vue/dist/vue.js';
+import Vue from 'vue/dist/vue.min.js';
 import 'whatwg-fetch';
 import webglCheck from './js/webglcheck';
 import Promise from 'promise-polyfill';
