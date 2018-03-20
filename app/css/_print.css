@@ -3,9 +3,6 @@
 }
 
 @media print {
-  .header {
-    position: static;
-  }
   nav {
     display: none;
   }
@@ -20,5 +17,18 @@
 
   .print-only {
     display: inherit;
+  }
+  .no-print {
+    display: none;
+  }
+
+  .card {
+    box-shadow: none;
+    padding: 0;
+  }
+
+  .report-record-highlight svg.icon {
+    width: 5em;
+    height: 5em;
   }
 }

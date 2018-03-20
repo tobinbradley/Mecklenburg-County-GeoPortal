@@ -28,14 +28,13 @@ export default {
       let _this = this;
       let mapOptions = {
         container: "map",
-        //style: "./dist/style/osm-liberty.json",
         style: mapStyle,
         attributionControl: false,
         center: [-80.84, 35.26],
         zoom: 8.5,
         minZoom: 8,
         maxBounds: [[-82.641, 34.115], [-79.008, 36.762]]
-        //maxBounds: [[-83.285, 33.180],[-78.255, 37.384]]
+        //preserveDrawingBuffer: true
       };
 
       _this.privateState.map = new mapboxgl.Map(mapOptions);

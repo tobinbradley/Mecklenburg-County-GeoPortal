@@ -6,7 +6,7 @@ import Impervious from "./impervious";
 import Schools from "./schools";
 import Trash from "./trash";
 import Environment from "./environment";
-import Voting from "./voting/voting";
+import Voting from "./voting";
 import QualityOfLife from "./qualityoflife";
 
 let template = `
@@ -40,13 +40,11 @@ export default {
     gotRecord: function() {
       if (this.sharedState.show === "welcome") {
         this.sharedState.show = "schools";
-        let navlinks = document.querySelectorAll(".mdl-navigation__link");
+        let navlinks = document.querySelectorAll(".sidebar .nav a");
         for (let i = 0; i < navlinks.length; i++) {
           navlinks[i].classList.remove("active");
         }
-        let elem = document.querySelector(
-          `.mdl-navigation__link[data-type="schools"]`
-        );
+        let elem = document.querySelector(`a[data-load="schools"]`);
         elem.classList.add("active");
       } else {
         this.privateState.show = this.sharedState.show;
