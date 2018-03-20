@@ -15,7 +15,7 @@ let template = `
             </div>
             <div>
               <!-- tabs -->
-                <div>
+                <div class="no-print">
                     <div>
                         <div class="tabs no-print">
                             <div class="tabs-bar">

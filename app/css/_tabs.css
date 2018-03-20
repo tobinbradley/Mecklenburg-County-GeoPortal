@@ -9,6 +9,7 @@
   white-space: nowrap;
   transition: background-color 0.4s ease;
   outline: none;
+  white-space: normal;
 }
 
 .chip-active {
@@ -38,4 +39,11 @@
 .tabActive {
   border-bottom: 3px solid var(--colorIconic);
   font-weight: bold;
+}
+
+@media (max-width: 500px) {
+  .tab {
+    padding: 0 4px;
+    font-size: 0.85em;
+  }
 }
