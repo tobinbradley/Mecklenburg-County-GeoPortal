@@ -1,9 +1,0 @@
-
-.mapboxgl-ctrl-aerial {
-    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI4LjEgMjguMSI+PHBhdGggZD0ibTEzLjEgNS40aC0yLjZjLTAuOSAwLTAuOS0wLjkgMC0wLjloN2MwLjkgMCAwLjkgMC45IDAgMC45aC0yLjZjMCAwIDEuMSAwLjggMS4xIDIuNXYxLjhoNy43djIuNmwtNy43IDIuNi0wLjYgNi40IDMuMiAxLjd2MC45SDkuNVYyMi45TDEyLjcgMjEuMiAxMi4xIDE0LjggNC40IDEyLjJWOS42SDEyLjFWNy45YzAtMS44IDEuMS0yLjUgMS4xLTIuNXoiLz48L3N2Zz4=);
-    opacity: 0.3;
-}
-
-.mapboxgl-ctrl-aerial-active {
-    opacity: 1;
-}

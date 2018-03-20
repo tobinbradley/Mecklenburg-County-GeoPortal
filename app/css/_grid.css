@@ -1,0 +1,42 @@
+/* Credit to Tania Rascia
+https://www.taniarascia.com/easiest-flex-grid-ever/ */
+
+.row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.row.gutter .column {
+  margin: var(--gutterSize, 10px) var(--gutterSize, 10px) 0;
+}
+
+.column {
+  flex-basis: 100%;
+}
+
+/* fixed column sizes for > 800px */
+@media screen and (min-width: 800px) {
+  .row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+  }
+  .row.gutter .column {
+    &:last-child {
+      margin-left: 0;
+    }
+    &:only-child {
+      margin-left: var(--gutterSize, 10px);
+    }
+  }
+  .column {
+    flex: 1;
+  }
+  ._70 {
+    flex: 7;
+  }
+  ._30 {
+    flex: 3;
+  }
+}

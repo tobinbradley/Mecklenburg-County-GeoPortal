@@ -1,0 +1,111 @@
+/* Box sizing should be inherited and default to border-box */
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+html {
+  box-sizing: border-box;
+}
+
+/* Backgrounds should not repeat by default */
+* {
+  background-repeat: no-repeat;
+}
+
+/* Cursor should only change to hint non-obvious interfaces */
+html {
+  cursor: default;
+}
+
+/* Documents should not use a margin for outer padding */
+body {
+  margin: 0;
+}
+
+/* Navigation lists should not include a marker style */
+nav ol,
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+ul,
+il {
+  list-style: none;
+}
+
+/* Text selections should not include text shadows */
+::selection {
+  text-shadow: none;
+}
+
+/* Media elements should align to the text center of other content */
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+
+/* SVGs should fallback to their surrounding text color and no stroke */
+svg {
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}
+
+/* Tables should not include additional border spacing */
+table {
+  border-collapse: collapse;
+}
+
+/* Form controls should be easily style-able */
+button,
+input,
+select,
+textarea {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+/* Textarea should only resize vertically by default */
+textarea {
+  resize: vertical;
+}
+
+/* Single taps should be dispatched immediately on clickable elements */
+a,
+area,
+button,
+input,
+label,
+select,
+summary,
+textarea,
+[tabindex] {
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+}
+
+/* ARIA roles should include visual cursor hints */
+[aria-busy="true"] {
+  cursor: progress;
+}
+[aria-controls] {
+  cursor: pointer;
+}
+[aria-disabled] {
+  cursor: default;
+}
+
+/* Visually hidden content should remain accessible */
+[aria-hidden="false"][hidden]:not(:focus) {
+  clip: rect(0, 0, 0, 0);
+  display: inherit;
+  position: absolute;
+}

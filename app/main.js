@@ -9,18 +9,17 @@
 //                ||     ||
 //
 
-import Vue from 'vue/dist/vue.min.js';
-import 'whatwg-fetch';
-import webglCheck from './js/webglcheck';
-import Promise from 'promise-polyfill';
-import {getHashQ, getHashLngLat, setHash, urlArgsToHash} from './js/history';
-import fetchNearest from './js/nearest';
-import toggleSidebar from './js/sidebar-hamburger';
-import Search from './components/search/search';
-import Map from './components/map/map';
-import App from './components/app';
-import ReportHeader from './components/report-header';
-import Offline from './components/offline/offline';
+import Vue from "vue/dist/vue.min.js";
+import "whatwg-fetch";
+import webglCheck from "./js/webglcheck";
+import Promise from "promise-polyfill";
+import { getHashQ, getHashLngLat, setHash, urlArgsToHash } from "./js/history";
+import fetchNearest from "./js/nearest";
+import Search from "./components/search";
+import Map from "./components/map";
+import App from "./components/app";
+import ReportHeader from "./components/report-header";
+import Offline from "./components/offline";
 
 // Fix for axios on IE11
 if (!window.Promise) {
@@ -29,9 +28,6 @@ if (!window.Promise) {
 
 // move legacy get args to hash
 urlArgsToHash();
-
-// enabe sidebar hamburger menu
-toggleSidebar();
 
 // the shared state between components
 let appState = {
@@ -46,7 +42,7 @@ let appState = {
     label: null,
     address: null
   },
-  show: 'welcome',
+  show: "welcome",
   initLnglatFlag: false,
   glSupport: webglCheck()
 };
@@ -54,14 +50,10 @@ let appState = {
 // process tab from hash
 let hashQ = getHashQ();
 if (hashQ) {
-  let elem = document.querySelector(
-    `.mdl-navigation__link[data-type="${hashQ}"]`
-  );
+  let elem = document.querySelector(`a[data-load="${hashQ}"]`);
   if (elem) {
-    document
-      .querySelector(`.mdl-navigation__link[data-type="welcome"]`)
-      .classList.remove('active');
-    elem.classList.add('active');
+    document.querySelector(`a[data-load="welcome"]`).classList.remove("active");
+    elem.classList.add("active");
     appState.show = hashQ;
   }
 }
@@ -73,51 +65,56 @@ if (hashLngLat) {
   fetchNearest(hashLngLat[1], hashLngLat[0], appState);
 }
 
-// navigation
-let navlinks = document.querySelectorAll('.mdl-navigation__link');
-for (let i = 0; i < navlinks.length; i++) {
-  navlinks[i].addEventListener('click', function() {
-    let item = navlinks[i];
+// sidebar event
+let sideNavLinks = document.querySelectorAll(".sidebar .nav a");
+Array.from(sideNavLinks).forEach((element, index) => {
+  element.addEventListener("click", function() {
+    Array.from(sideNavLinks).forEach((element, index) => {
+      element.classList.remove("active");
+    });
+    this.classList.add("active");
 
-    if (!item.classList.contains('active')) {
-      for (let i = 0; i < navlinks.length; i++) {
-        navlinks[i].classList.remove('active');
-      }
-      item.classList.add('active');
+    let q = this.getAttribute("data-load");
 
-      let q = item.getAttribute('data-type');
-
-      // push state and GA
-      if (appState.selected.lnglat) {
-        setHash(appState.selected.lnglat, q);
-      } else {
-        setHash([], q);
-      }
-      if (window.ga) {
-        window.ga('send', 'event', q, 'question');
-      }
-
-      appState.show = q;
-      scrollToElement(document.querySelector('.report-container'));
+    // push state and GA
+    if (appState.selected.lnglat) {
+      setHash(appState.selected.lnglat, q);
+    } else {
+      setHash([], q);
     }
+    if (window.ga) {
+      window.ga("send", "event", q, "question");
+    }
+
+    appState.show = q;
+
+    window.scrollTo(0, 0);
   });
+});
+
+// sidebar button
+document.querySelector(".btnSidebar").addEventListener("click", sidebarToggle);
+
+document.addEventListener("keydown", keyDownTextField, false);
+
+function keyDownTextField(e) {
+  var keyCode = e.keyCode;
+  if (keyCode == 27) {
+    sidebarToggle();
+  }
 }
 
-// scroll to element if top is past viewport available, otherwise it jumps
-function scrollToElement(elem) {
-  if (elem.getBoundingClientRect().top < 0) {
-    elem.scrollIntoView({
-      block: 'start',
-      behavior: 'smooth'
-    });
-  }
+function sidebarToggle() {
+  document.querySelector(".content").classList.toggle("isOpen");
+  document.querySelector(".sidebar .title").classList.toggle("isOpen");
+  document.querySelector(".btnSidebar").classList.toggle("active");
 }
 
 // initialize search
 Search.data = function() {
   return {
     privateState: {
-      query: '',
+      query: "",
       results: [],
       gps: true
     },
@@ -125,7 +122,7 @@ Search.data = function() {
   };
 };
 new Vue({
-  el: 'sc-search',
+  el: "sc-search",
   render: h => h(Search)
 });
 
@@ -139,7 +136,7 @@ App.data = function() {
   };
 };
 new Vue({
-  el: 'sc-app',
+  el: "sc-app",
   render: h => h(App)
 });
 
@@ -150,13 +147,13 @@ ReportHeader.data = function() {
   };
 };
 new Vue({
-  el: 'sc-reportheader',
+  el: "sc-reportheader",
   render: h => h(ReportHeader)
 });
 
 // offline message
 new Vue({
-  el: 'sc-offline',
+  el: "sc-offline",
   render: h => h(Offline)
 });
 
@@ -175,8 +172,8 @@ Map.data = function() {
 };
 
 // set toggle map button click
-let toggleMap = document.querySelector('.toggle-map');
-toggleMap.addEventListener('click', function() {
+let toggleMap = document.querySelector(".toggle-map");
+toggleMap.addEventListener("click", function() {
   if (appState.glSupport) {
     initMap();
   }
@@ -191,7 +188,7 @@ if (!appState.glSupport) {
 if (appState.glSupport && document.body.getBoundingClientRect().width > 840) {
   initMap();
 } else {
-  window.addEventListener('resize', resizeMapInit, false);
+  window.addEventListener("resize", resizeMapInit, false);
 }
 
 // resize window function
@@ -204,12 +201,12 @@ function resizeMapInit() {
 // initialize map, remove map toggle button, remove window resize event
 function initMap() {
   mapVM = new Vue({
-    el: 'sc-map',
+    el: "sc-map",
     render: h => h(Map)
   });
-  let toggleMap = document.querySelector('.toggle-map');
+  let toggleMap = document.querySelector(".toggle-map");
   if (toggleMap) {
     toggleMap.parentNode.removeChild(toggleMap);
   }
-  window.removeEventListener('resize', resizeMapInit, false);
+  window.removeEventListener("resize", resizeMapInit, false);
 }

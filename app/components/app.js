@@ -1,13 +1,13 @@
-import Introduction from "./introduction/introduction";
-import Parks from "./parks/parks";
-import Libraries from "./libraries/libraries";
-import Property from "./property/property";
-import Impervious from "./impervious/impervious";
-import Schools from "./schools/schools";
-import Trash from "./trash/trash";
-import Environment from "./environment/environment";
+import Introduction from "./introduction";
+import Parks from "./parks";
+import Libraries from "./libraries";
+import Property from "./property";
+import Impervious from "./impervious";
+import Schools from "./schools";
+import Trash from "./trash";
+import Environment from "./environment";
 import Voting from "./voting/voting";
-import QualityOfLife from "./qol/qualityoflife";
+import QualityOfLife from "./qualityoflife";
 
 let template = `
     <component :is="privateState.show">

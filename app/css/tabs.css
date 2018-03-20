@@ -1,8 +1,0 @@
-
-.mdl-tabs__tab {
-    outline: none;
-}
-.tabActive {
-    border-bottom: 3px solid var(--colorIconic);
-    font-weight: bold;
-}

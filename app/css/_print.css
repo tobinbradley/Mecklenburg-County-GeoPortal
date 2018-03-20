@@ -1,0 +1,24 @@
+.print-only {
+  display: none;
+}
+
+@media print {
+  .header {
+    position: static;
+  }
+  nav {
+    display: none;
+  }
+
+  body > *:not(content) {
+    display: none;
+  }
+
+  a[href^="http"]:not([href*="mywebsite.com"])::after {
+    content: " (" attr(href) ")";
+  }
+
+  .print-only {
+    display: inherit;
+  }
+}

@@ -1,0 +1,134 @@
+.report-container {
+  padding: 32px;
+  min-height: 650px;
+}
+@media (max-width: 500px) {
+  .report-container {
+    padding: 15px;
+  }
+  .col-responsive {
+    display: none;
+  }
+}
+
+/** report header */
+.selected-location {
+  margin: 10px auto 30px;
+}
+
+/** property photos */
+.photos {
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 0;
+  margin-top: 15px;
+}
+.photo-big img,
+.photo-big a {
+  width: 100%;
+  display: block;
+  min-height: 230px;
+}
+.photo-thumb img {
+  display: inline-block;
+  width: 20%;
+  margin: 5px;
+  cursor: pointer;
+}
+
+/** highlight record */
+.report-record-highlight {
+  margin: 0 auto 60px;
+  max-width: 500px;
+}
+.report-record-highlight h1,
+.report-record-highlight h2,
+.report-record-highlight h3,
+.report-record-highlight h4 {
+  margin: 0;
+  line-height: normal;
+}
+.report-record-highlight h1 {
+  font-size: 2.1em;
+  padding: 10px 0 6px;
+  font-weight: bold;
+  color: var(--colorIconic);
+}
+.report-record-highlight h2 {
+  font-size: 1.3em;
+  padding-top: 10px;
+}
+.report-record-highlight h3 {
+  font-size: 1.2em;
+}
+.report-record-highlight h4 {
+  font-size: 1em;
+  margin-top: 5px;
+}
+.report-record-highlight icon {
+  font-size: 9em;
+  color: var(--colorIconic);
+  /*text-shadow: rgb(22, 118, 210) 1px 1px 3px;*/
+}
+
+.report-record-highlight svg.icon {
+  width: 9em;
+  height: 9em;
+  fill: var(--colorIconic);
+}
+
+/* more info */
+.report-moreinfo {
+  margin-top: 120px;
+}
+.report-moreinfo ul {
+  column-count: 2;
+  column-gap: 35px;
+}
+@media (max-width: 900px) {
+  .report-moreinfo ul {
+    column-count: 1;
+  }
+}
+.report-moreinfo h5 {
+  line-height: normal;
+  font-size: 1.1em;
+  font-weight: normal;
+  margin: 0;
+}
+
+/** Quality of Life */
+.qol {
+  & tr[data-qolgroup="Neighborhood"] td {
+    font-weight: bold;
+    font-size: 1.1em;
+    color: #555;
+    background-color: #cddc38;
+    cursor: default;
+  }
+
+  & .qol-chart-trend .ct-series-b .ct-line,
+  & .qol-chart-trend .ct-series-b .ct-point {
+    stroke: #ba00e4;
+  }
+
+  & .ct-distributionchart .ct-area {
+    fill: url(#gradient);
+    fill-opacity: 1;
+  }
+}
+
+.qol-comparison {
+  margin: 10px 0;
+
+  & tr {
+    cursor: pointer;
+    &:hover {
+      background-color: rgb(228, 228, 228);
+    }
+  }
+
+  & tr:first-of-type td {
+    border-top: none;
+  }
+}

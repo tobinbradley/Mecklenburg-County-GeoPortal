@@ -1,0 +1,41 @@
+.chip {
+  padding: 6px 10px;
+  border: 0;
+  border-radius: 16px;
+  background-color: #dedede;
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.87);
+  margin: 2px 0;
+  white-space: nowrap;
+  transition: background-color 0.4s ease;
+  outline: none;
+}
+
+.chip-active {
+  background-color: var(--colorHighlight);
+}
+
+.tabs {
+  margin-bottom: 30px;
+}
+.tabs-bar {
+  border-bottom: 1px solid #ccc;
+}
+
+.tab {
+  padding: 0 14px;
+  line-height: 65px;
+  outline: none;
+  color: rgba(0, 0, 0, 0.54);
+  border: none;
+  height: 48px;
+  background-color: inherit;
+  text-transform: uppercase;
+  position: relative;
+  bottom: -3px;
+}
+
+.tabActive {
+  border-bottom: 3px solid var(--colorIconic);
+  font-weight: bold;
+}

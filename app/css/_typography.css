@@ -1,0 +1,39 @@
+/* Set default font  */
+body {
+  font-family: var(--fontFamilySans);
+  font-size: 16px;
+  line-height: 1.4;
+  text-align: left;
+  color: var(--colorText);
+  background-color: #eee;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-weight: normal;
+}
+
+p {
+  /* max-width: 65ch; */
+}
+
+a {
+  color: #d32d65;
+}
+
+.muted {
+  color: var(--colorTextMuted);
+}
+
+/** text alignment */
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
