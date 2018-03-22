@@ -66,3 +66,17 @@ body {
 .btnSidebar.active .middle {
   width: 0;
 }
+
+/** offline */
+.offline {
+  background-color: yellow !important;
+
+  & h3 {
+    font-weight: bold;
+    margin: 0;
+  }
+
+  & p {
+    margin: 10px 0 0;
+  }
+}

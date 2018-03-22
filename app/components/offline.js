@@ -1,12 +1,14 @@
 let template = `
-    <div v-show="!online" class="offline mdl-shadow--2dp mdl-cell mdl-cell--12-col no-print">
+    <div v-show="!online" class="row gutter no-print">
+      <div class="column card offline">
         <h3>You are currently offline!</h3>
         <p>GeoPortal will begin working again when you reconnect to the Internet.</p>
+      </div>
     </div>
 `;
 
 export default {
-  name: "offline",
+  name: 'offline',
   template: template,
   data: function() {
     return {
@@ -15,12 +17,12 @@ export default {
   },
   mounted: function() {
     let _this = this;
-    if ("onLine" in navigator) {
+    if ('onLine' in navigator) {
       if (navigator.onLine === false) {
         _this.online = false;
       }
-      window.addEventListener("online", _this.onLine);
-      window.addEventListener("offline", _this.offLine);
+      window.addEventListener('online', _this.onLine);
+      window.addEventListener('offline', _this.offLine);
     }
   },
   methods: {
