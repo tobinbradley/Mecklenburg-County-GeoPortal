@@ -11,7 +11,7 @@ let template = `
                 <h3>of Impervious Surface</h3>
                 <h4></h4>
             </div>
-            <table v-if="results && results.length > 0" style="min-width: 300px; max-width: 100%;">
+            <table v-if="results && results.length > 0">
                 <caption>Details</caption>
                 <thead>
                     <tr>

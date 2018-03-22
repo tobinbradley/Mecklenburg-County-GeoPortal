@@ -16,7 +16,7 @@ https://www.taniarascia.com/easiest-flex-grid-ever/ */
 }
 
 /* fixed column sizes for > 800px */
-@media screen and (min-width: 800px) {
+@media screen and (min-width: 1000px) {
   .row {
     display: flex;
     flex-direction: row;
@@ -38,5 +38,12 @@ https://www.taniarascia.com/easiest-flex-grid-ever/ */
   }
   ._30 {
     flex: 3;
+  }
+}
+
+/* fixed column sizes for > 800px */
+@media screen and (max-width: 500px) {
+  .row.gutter .column {
+    margin: 10px 10px 0;
   }
 }

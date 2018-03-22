@@ -41,6 +41,7 @@
 table {
   white-space: normal;
   margin: 60px auto;
+  max-width: 100%;
 }
 table caption {
   text-align: left;
@@ -54,6 +55,9 @@ table th {
 }
 table td {
   border-top: 1px solid rgba(0, 0, 0, 0.12);
+  font-size: 0.9em;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 table .nowrap {
   white-space: nowrap;

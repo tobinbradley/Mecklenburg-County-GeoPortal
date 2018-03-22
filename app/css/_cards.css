@@ -8,3 +8,10 @@
 .card.nopadding {
   padding: 0;
 }
+
+/* fixed column sizes for > 800px */
+@media screen and (max-width: 500px) {
+  .card {
+    padding: 10px;
+  }
+}

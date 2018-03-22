@@ -189,7 +189,7 @@ let template = `
             </div>
             <div class="row">
                 <div class="column text-center">
-                    <div style="padding: 10px 20px;">
+                    <div style="padding: 10px 0;">
                         Neighborhood vs
                         <select v-model="neighborhoodCompare">
                           <option value="Jurisdiction">Jurisdiction</option>
@@ -317,7 +317,7 @@ export default {
         this.metric
       }&y=${this.year}&s=${this.qolData.selected.join(
         ","
-      )}" style="width: 500px; height: 500px; border: 1px solid #595959"></iframe>`;
+      )}" style="width: 100%; height: 500px; border: 1px solid #595959"></iframe>`;
       _this.metaURL = `https://mcmap.org/qol-mecklenburg/embed/data/meta/m${
         _this.metric
       }.html`;

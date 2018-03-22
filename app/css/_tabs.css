@@ -47,3 +47,10 @@
     font-size: 0.85em;
   }
 }
+
+@media (max-width: 390px) {
+  .tab {
+    padding: 0 3px;
+    font-size: 0.85em;
+  }
+}
