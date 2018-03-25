@@ -27,6 +27,9 @@
 	<meta name="msapplication-TileImage" content="img/ms-touch-icon-144x144-precomposed.png">
 	<meta name="msapplication-TileColor" content="#3372DF">
 
+	<!-- Preload assets -->
+	<link rel="preload" as="image" href="img/youtube-bg.svg">
+
 	<!-- CSS -->
 	<link rel="stylesheet" href="bundle.css">
 </head>
@@ -274,7 +277,8 @@
 
 	<!-- javascript -->
 	<script src="bundle.js"></script>
-	<script defer>
+
+	<script>
 		// Check that service workers are registered
 		if ('serviceWorker' in navigator) {
 			// Use the window load event to keep the page load performant
