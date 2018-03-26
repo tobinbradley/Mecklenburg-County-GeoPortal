@@ -36,7 +36,7 @@ let template = `
             <div class="column">
                 <div v-if="resultsPostconstruction">
                     <div class="report-record-highlight">
-                        <svg class="icon icon-construction"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-construction"></use></svg>
+                        <svg class="icon icon-briefcase"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-briefcase"></use></svg>
                         <div v-if="resultsPostconstruction.length > 0">
                             <h2>This property is in a</h2>
                             <h1>{{ resultsPostconstruction | postconstruction }}</h1>
@@ -51,7 +51,7 @@ let template = `
             </div>
             <div class="column">
                 <div class="report-record-highlight" v-if="resultsWatershed">
-                    <svg class="icon icon-environment"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-environment"></use></svg>
+                    <svg class="icon icon-watershed"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-watershed"></use></svg>
                     <h2>This property is in the</h2>
                     <h1>{{resultsWatershed[0].name.toUpperCase()}} WATERSHED</h1>
                     <h4>
