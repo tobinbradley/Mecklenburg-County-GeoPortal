@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "yarn run assets:dev && npm-run-all --parallel watch:*",
-    "build":
-      "NODE_ENV=production yarn run assets:prod && npm-run-all prod:* && yarn run critical && yarn run pwa",
+    "build": "NODE_ENV=production yarn run assets:prod && npm-run-all prod:* && yarn run critical && yarn run pwa",
     "assets:dev": "node build/copy.js",
     "assets:prod": "node build/clean.js",
     "critical": "node build/critical.css.js",
@@ -25,7 +24,7 @@
     "chartist": "^0.11.0",
     "format-number": "^3.0.0",
     "lodash.debounce": "^4.0.8",
-    "mapbox-gl": "^0.44.1",
+    "mapbox-gl": "0.44.2",
     "normalize.css": "^8.0.0",
     "promise-polyfill": "^7.1.0",
     "vue": "^2.5.16",
