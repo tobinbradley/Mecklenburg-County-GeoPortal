@@ -157,7 +157,7 @@ export default {
       }
       // create the popup
       let popup = new mapboxgl.Popup({
-        offset: [2, -23]
+        offset: [20, -23]
       }).setHTML(
         `<strong>${poi.label}</strong><br>${
           poi.address
@@ -171,7 +171,7 @@ export default {
       el.classList.add('poiMarker');
       // create the marker
       this.privateState.poiMarker = new mapboxgl.Marker(el, {
-        offset: [-20, -20]
+        offset: [0, -20]
       })
         .setLngLat(poi.lnglat)
         .setPopup(popup) // sets a popup on this marker
@@ -194,7 +194,7 @@ export default {
       setHash(selected.lnglat, _this.sharedState.show);
       // create the popup
       let popup = new mapboxgl.Popup({
-        offset: [2, -23]
+        offset: [20, -23]
       }).setHTML(`<strong>${selected.label}</strong><br>${selected.address}`);
       // create DOM element for the marker
       var el = document.createElement('div');
@@ -208,7 +208,7 @@ export default {
       }
       // create the marker
       this.privateState.locationMarker = new mapboxgl.Marker(el, {
-        offset: [-20, -20]
+        offset: [0, -20]
       })
         .setLngLat(selected.lnglat)
         .setPopup(popup) // sets a popup on this marker
