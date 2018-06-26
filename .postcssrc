@@ -1,7 +1,7 @@
 {
   "plugins": {
     "postcss-import": {},
-    "postcss-cssnext": { "warnForDuplicates": false },
+    "postcss-preset-env": { "warnForDuplicates": false },
     "cssnano": {}
   }
 }
