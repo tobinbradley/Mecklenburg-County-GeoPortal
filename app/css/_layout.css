@@ -36,17 +36,20 @@ body {
 }
 
 /* sidebar activation button */
+
 .btnSidebar {
   width: 30px;
+  margin: 0 8px;
 }
 
 .bar {
   display: block;
   height: 4px;
   width: 30px;
-  background-color: black;
+  background-color: #eee;
   margin: 5px auto;
 }
+
 .bar {
   transition: all 0.7s ease;
 }
@@ -68,14 +71,13 @@ body {
 }
 
 /** offline */
+
 .offline {
   background-color: yellow !important;
-
   & h3 {
     font-weight: bold;
     margin: 0;
   }
-
   & p {
     margin: 10px 0 0;
   }

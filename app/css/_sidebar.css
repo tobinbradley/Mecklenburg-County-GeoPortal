@@ -3,12 +3,11 @@
 }
 
 /* nav title */
+
 .title {
   font-size: 16px;
-  line-height: 60px;
-  text-align: center;
   text-transform: uppercase;
-  letter-spacing: 7px;
+  letter-spacing: 5px;
   color: rgba(238, 238, 238, 0);
   border-bottom: 1px solid #222;
   background: #2a2a2a;
@@ -30,6 +29,7 @@
 }
 
 /* nav links */
+
 .nav li a {
   position: relative;
   display: flex;
@@ -52,6 +52,7 @@
 }
 
 /* sidebar icons */
+
 .nav .icon {
   margin: 0 15px 0 15px;
   font-size: 24px;
