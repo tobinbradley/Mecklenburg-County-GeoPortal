@@ -26,7 +26,7 @@ module.exports = {
             width: 1200
           }
         ],
-        include: ['#map', '.mapboxgl-missing-css']
+        include: ['#map', '.mapboxgl-missing-css', '.toggle-map']
       }));
     }
   }
