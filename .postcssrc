@@ -1,7 +1,0 @@
-{
-  "plugins": {
-    "postcss-import": {},
-    "postcss-preset-env": { "warnForDuplicates": false },
-    "cssnano": {}
-  }
-}
