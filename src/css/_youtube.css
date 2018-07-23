@@ -8,7 +8,7 @@
   height: 0px;
   clear: both;
   margin: 20px 0 30px;
-  background-image: url("../assets/youtube-bg.svg");
+  background-image: url("./assets/youtube-bg.svg");
 }
 
 .youtube::before {

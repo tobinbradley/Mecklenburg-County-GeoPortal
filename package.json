@@ -23,6 +23,7 @@
     "@vue/cli-plugin-pwa": "^3.0.0-rc.5",
     "@vue/cli-service": "^3.0.0-rc.5",
     "html-critical-webpack-plugin": "^2.1.0",
+    "postcss-import": "^11.1.0",
     "postcss-preset-env": "^5.2.2",
     "vue-template-compiler": "^2.5.16"
   }
