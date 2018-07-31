@@ -49,7 +49,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr v-if="results.filter(({type}) => type === 'YARD WASTE').length > 0">
                             <td>
                                 Yard Waste
                             </td>
@@ -57,7 +57,7 @@
                                 {{ results | typeFilter('YARD WASTE') | itemFilter('day') }}
                             </td>
                         </tr>
-                        <tr>
+                        <tr v-if="results.filter(({type}) => type === 'BULKY').length > 0">
                             <td>
                                 Bulky Items
                             </td>
