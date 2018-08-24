@@ -6,7 +6,7 @@
                 <h2>Your ELEMENTARY school<span v-if="elementary.length > 1">s</span> {{ elementary.length > 1 ? 'are' : 'is' }}</h2>
                 <template v-for="(item, index) in elementary">
                 <h1>{{item.name.toUpperCase()}}</h1>
-                <h3>{{item.grade_level}}</h3>
+                <h3>Grades {{item.grade_level}}</h3>
                 <h3><a href="javascript:void(0)" v-on:click="locationClick(elementary[index])">
                         {{item.address}}</a></h3>
                 <h4>{{ item.distance | distance }}</h4>
@@ -20,7 +20,7 @@
                     <h2>Your MIDDLE school<span v-if="middle.length > 1">s</span> {{ middle.length > 1 ? 'are' : 'is' }}</h2>
                     <template v-for="(item, index) in middle">
                     <h1>{{item.name.toUpperCase()}}</h1>
-                    <h3>{{item.grade_level}}</h3>
+                    <h3>Grades {{item.grade_level}}</h3>
                     <h3><a href="javascript:void(0)" v-on:click="locationClick(middle[index])">
                             {{item.address}}</a></h3>
                     <h4>{{ item.distance | distance }}</h4>
@@ -33,7 +33,7 @@
                     <h2>Your HIGH school<span v-if="high.length > 1">s</span> {{ high.length > 1 ? 'are' : 'is' }}</h2>
                     <template v-for="(item, index) in high">
                     <h1>{{item.name.toUpperCase()}}</h1>
-                    <h3>{{item.grade_level}}</h3>
+                    <h3>Grades {{item.grade_level}}</h3>
                     <h3><a href="javascript:void(0)" v-on:click="locationClick(middle[index])">
                             {{item.address}}</a></h3>
                     <h4>{{ item.distance | distance }}</h4>
