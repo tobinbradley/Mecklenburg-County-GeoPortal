@@ -8,20 +8,17 @@
   font-size: 16px;
   text-transform: uppercase;
   letter-spacing: 5px;
-  color: rgba(238, 238, 238, 0);
+  color: rgba(238, 238, 238, 1);
   border-bottom: 1px solid #222;
   background: #2a2a2a;
   transition: color 0.3s ease-in;
-}
-
-.title.isOpen {
-  color: rgba(238, 238, 238, 1);
 }
 
 .title a {
   color: inherit;
   text-decoration: none;
   transition: color 0.5s ease-in;
+  padding-left: 6px;
 }
 
 .title a:hover {

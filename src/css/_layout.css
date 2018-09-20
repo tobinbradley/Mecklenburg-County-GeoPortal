@@ -31,7 +31,8 @@ body {
   z-index: 1;
 }
 
-.content.isOpen {
+.content.isOpen,
+.content.isHover {
   transform: translate3d(170px, 0, 0);
 }
 

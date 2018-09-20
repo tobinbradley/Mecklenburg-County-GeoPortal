@@ -52,6 +52,8 @@ export default {
       }
     },
     gotTab: function() {
+      document.querySelector('.content').classList.remove('isOpen');
+      document.querySelector('.btnSidebar').classList.remove('active');
       if (
         this.sharedState.selected.lnglat ||
         this.sharedState.show === "qualityoflife"
