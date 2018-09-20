@@ -6,6 +6,10 @@ module.exports = {
   css: {
     sourceMap: true
   },
+  devServer: {
+    host: '0.0.0.0',
+    disableHostCheck: true
+  },
   configureWebpack: config => {
     //config.module.noParse = /(mapbox-gl)\.js$/;
     if (process.env.NODE_ENV === 'production') {
@@ -17,7 +21,8 @@ module.exports = {
           inline: true,
           minify: true,
           extract: false,
-          dimensions: [{
+          dimensions: [
+            {
               height: 200,
               width: 400
             },
