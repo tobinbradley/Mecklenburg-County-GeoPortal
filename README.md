@@ -2,7 +2,7 @@
 
 [GeoPortal](https://mcmap.org/geoportal) is a *one stop shopping for location information* app. It weighs ~400KB on desktop, ~250KB on mobile, and it's now a Progressive Web App! 
 
-![Imgur](http://i.imgur.com/vhpOqNj.png)
+![Imgur](https://i.imgur.com/wcM85pa.png)
 
 Created by Mecklenburg County GIS, with much ♥ for the projects that make this site possible: OpenStreetMap, OpenMapTiles, Mapbox GL JS, Vue.js, and Material Design Lite
 
