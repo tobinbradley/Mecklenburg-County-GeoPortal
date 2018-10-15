@@ -8,7 +8,7 @@ https://www.taniarascia.com/easiest-flex-grid-ever/ */
 }
 
 .row.gutter .column {
-  margin: var(--gutterSize, 10px) var(--gutterSize, 10px) 0;
+  margin: var(--gutterSize) var(--gutterSize) 0;
 }
 
 .column {
