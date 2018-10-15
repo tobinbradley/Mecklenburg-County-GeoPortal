@@ -13,18 +13,18 @@
     "chartist": "^0.11.0",
     "format-number": "^3.0.0",
     "lodash.debounce": "^4.0.8",
-    "mapbox-gl": "^0.49.0",
+    "mapbox-gl": "^0.50.0",
     "normalize.css": "^8.0.0",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.17"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.0.3",
-    "@vue/cli-plugin-pwa": "^3.0.3",
-    "@vue/cli-service": "^3.0.3",
+    "@vue/cli-plugin-babel": "^3.0.5",
+    "@vue/cli-plugin-pwa": "^3.0.5",
+    "@vue/cli-service": "^3.0.5",
     "html-critical-webpack-plugin": "^2.1.0",
     "postcss-import": "^12.0.0",
-    "postcss-preset-env": "^6.0.0",
+    "postcss-preset-env": "^6.1.1",
     "vue-template-compiler": "^2.5.17"
   }
 }
