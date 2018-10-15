@@ -11,14 +11,6 @@
       "tiles": ["https://tiles.mcmap.org/osm/{z}/{x}/{y}.pbf"],
       "maxzoom": 14,
       "minzoom": 0
-    },
-    "parcels": {
-      "type": "vector",
-      "tiles": [
-        "https://tiles.mcmap.org/parcels_and_buildings/{z}/{x}/{y}.pbf"
-      ],
-      "maxzoom": 14,
-      "minzoom": 13
     }
   },
   "sprite": "https://mcmap.org/gl-styles/sprites/osm-liberty",
@@ -1188,33 +1180,12 @@
     {
       "id": "tax_parcels_outline",
       "type": "line",
-      "source": "parcels",
-      "source-layer": "parcels",
+      "source": "openmaptiles",
+      "source-layer": "parcel",
       "minzoom": 17,
       "paint": {
         "line-color": "#DEDEDE",
         "line-width": 1.5
-      }
-    },
-    {
-      "id": "building",
-      "type": "fill",
-      "metadata": {},
-      "source": "parcels",
-      "source-layer": "buildings",
-      "minzoom": 13,
-      "layout": {
-        "visibility": "visible"
-      },
-      "paint": {
-        "fill-color": "hsl(35, 8%, 85%)",
-        "fill-outline-color": {
-          "base": 1,
-          "stops": [
-            [13, "hsla(35, 6%, 79%, 0.32)"],
-            [14, "hsl(35, 6%, 79%)"]
-          ]
-        }
       }
     },
     {
@@ -1223,7 +1194,7 @@
       "metadata": {},
       "source": "openmaptiles",
       "source-layer": "building",
-      "minzoom": 14,
+      "minzoom": 13,
       "paint": {
         "fill-extrusion-color": "hsl(35, 8%, 85%)",
         "fill-extrusion-height": {
