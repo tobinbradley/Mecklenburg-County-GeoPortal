@@ -97,46 +97,50 @@ export default {
       // add overlays for tabs
       switch (_this.sharedState.show) {
         case 'impervious':
-          map.addLayer({
-            id: 'overlay',
-            type: 'raster',
-            source: {
-              type: 'raster',
-              tiles: [
-                `https://mcmap.org/geoserver/postgis/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&width=256&height=256&layers=postgis:impervious_surface&transparent=true`
-              ],
-              tileSize: 256,
-              maxzoom: 18
-            },
-            minzoom: 15,
-            maxzoom: 22,
-            paint: {
-              'raster-opacity': 1
-            }
-          });
-          break;
-        case 'environment':
           map.addLayer(
             {
               id: 'overlay',
-              type: 'raster',
               source: {
-                type: 'raster',
-                tiles: [
-                  `https://mcmap.org/geoserver/postgis/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&width=256&height=256&layers=postgis:view_regulated_floodplains&transparent=true`
-                ],
-                tileSize: 256,
-                maxzoom: 18
+                type: 'vector',
+                tiles: ['https://mcmap.org/api2/v1/mvt/impervious_surface/{z}/{x}/{y}?columns=type'],
+                minzoom: 16,
+                maxzoom: 16
               },
-              minzoom: 14,
-              maxzoom: 22,
+              'source-layer': 'impervious_surface',
+              minzoom: 16,
+              type: 'fill',
               paint: {
-                'raster-opacity': 1
+                'fill-color': [
+                  'match',
+                  ['get', 'type'],
+                  'Commercial', '#B982A5',
+                  'Residential', '#B3C663',
+                  '#ccc'
+                ]
+              }
+            }
+          );
+          break;
+        case 'environment':          
+          map.addLayer(
+            {
+              id: 'overlay',
+              source: {
+                type: 'vector',
+                tiles: ['https://mcmap.org/api2/v1/mvt/view_regulated_floodplains/{z}/{x}/{y}?geom_column=the_geom'],
+                minzoom: 14,
+                maxzoom: 14
+              },
+              'source-layer': 'view_regulated_floodplains',
+              minzoom: 14,
+              type: 'fill',
+              paint: {
+                'fill-color': '#D9FDFF'
               }
             },
             'waterway_river'
           );
-          break;
+          break; 
       }
     },
     addPOI: function() {
