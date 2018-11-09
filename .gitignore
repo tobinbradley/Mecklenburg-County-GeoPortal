@@ -2,7 +2,6 @@
 .htaccess
 node_modules
 deploy.sh
-public
 TODO.md
 .vscode
 dist
