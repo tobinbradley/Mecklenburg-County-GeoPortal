@@ -19,7 +19,6 @@ import Map from './components/map.vue';
 import App from './components/app.vue';
 import ReportHeader from './components/report-header.vue';
 import Offline from './components/offline.vue';
-import GoogleAnalytics from './js/ga';
 import './registerServiceWorker';
 
 Vue.config.productionTip = false;
@@ -217,6 +216,3 @@ function initMap() {
   }
   window.removeEventListener('resize', resizeMapInit, false);
 }
-
-// fire up Google Analytics
-GoogleAnalytics('UA-42311520-2');
