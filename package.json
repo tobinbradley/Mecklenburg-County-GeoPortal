@@ -13,7 +13,7 @@
     "chartist": "^0.11.0",
     "format-number": "^3.0.0",
     "lodash.debounce": "^4.0.8",
-    "mapbox-gl": "^0.50.0",
+    "mapbox-gl": "^0.51.0",
     "normalize.css": "^8.0.0",
     "register-service-worker": "^1.5.2",
     "vue": "^2.5.17"
