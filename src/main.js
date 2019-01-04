@@ -95,13 +95,6 @@ const hasTouch = () => {
   return 'ontouchstart' in window || navigator.maxTouchPoints;
 };
 
-document.addEventListener('keydown', keyDownTextField, false);
-function keyDownTextField(e) {
-  var keyCode = e.keyCode;
-  if (keyCode == 27) {
-    sidebarToggle();
-  }
-}
 function sidebarToggle() {
   document.querySelector('.content').classList.toggle('isOpen');
   document.querySelector('.btnSidebar').classList.toggle('active');
