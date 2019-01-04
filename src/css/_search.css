@@ -98,19 +98,19 @@
 }
 #search-results li {
   list-style-type: none;
-  padding: 5px;
-  border: 1px solid rgb(0, 145, 234);
+  padding: 0;
+  border: 1px solid var(--colorIconic);
   border-radius: 3px;
-  margin: 5px 0 5px 0;
+  margin: 8px 0 0 0;
   display: inline-block;
   width: 100%;
   box-sizing: border-box;
   cursor: pointer;
   transition: 0.2s ease all;
-  color: rgb(0, 145, 234);
+  color: var(--colorIconic);
 }
 #search-results li:hover {
-  background: rgb(0, 145, 234);
+  background: var(--colorIconic);
   color: white;
 }
 #search-results .search-result-label {
@@ -122,11 +122,10 @@
 }
 
 .search-result-type {
-  background-color: rgb(0, 145, 234);
+  background-color: var(--colorIconic);
   color: white;
   padding: 3px;
-  font-weight: bold;
-  border-radius: 3px;
+  border-radius: 3px 0 0 3px;
 }
 @media (max-width: 900px) {
   #search-results {
