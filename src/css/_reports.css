@@ -15,8 +15,11 @@
 .selected-location {
   margin: 10px auto 30px;
 
-  & span {
-    font-size: 1.1em;
+  & h3 {
+    color: var(--colorIconic);
+    font-weight: bold;
+    font-size: 1.8em;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -57,6 +60,7 @@
   padding: 10px 0 6px;
   font-weight: bold;
   color: var(--colorIconic);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 .report-record-highlight h2 {
   font-size: 1.3em;

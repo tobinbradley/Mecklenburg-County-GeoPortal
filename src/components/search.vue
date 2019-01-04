@@ -3,7 +3,7 @@
         <div>
             <div class="search-container">
                 <div class="search-input-container">
-                    <input type="text" aria-label="search" name="search-input" class="search-input" autocomplete="off" placeholder="Tell me about..." v-on:focus="search()" v-model="privateState.query" @blur="lostFocus()" />
+                    <input type="text" aria-label="search" name="search-input" class="search-input" autocomplete="off" placeholder="Tell me about..." v-on:focus="search()" v-model="privateState.query" @blur="lostFocus()" autofocus />
                     <div class="border"></div>
                     <p class="muted">Try typing part of an address, like <em>700 N</em>. <span v-if="privateState.gps">Or we can <a href="javascript:void(0)" @click="geoLocation">take a guess</a>.</span></p>                    
                 </div>

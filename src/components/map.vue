@@ -93,6 +93,10 @@ export default {
         map.removeLayer('overlay');
         map.removeSource('overlay');
       }
+      if (map.getLayer('overlay2')) {
+        map.removeLayer('overlay2');
+        map.removeSource('overlay2');
+      }
 
       // add overlays for tabs
       switch (_this.sharedState.show) {
@@ -140,6 +144,26 @@ export default {
             },
             'waterway_river'
           );
+          // map.addLayer(
+          //   {
+          //     id: 'overlay2',
+          //     source: {
+          //       type: 'vector',
+          //       tiles: ['https://mcmap.org/api2/v1/mvt/water_quality_buffers/{z}/{x}/{y}?geom_column=the_geom'],
+          //       minzoom: 14,
+          //       maxzoom: 14
+          //     },
+          //     'source-layer': 'water_quality_buffers',
+          //     minzoom: 14,
+          //     type: 'fill',
+          //     paint: {
+          //       'fill-color': 'rgb(239,37,222)',
+          //       'fill-opacity': 0.1,
+          //       'fill-outline-color': 'rgb(239,37,222)'
+          //     }
+          //   },
+          //   'waterway_river'
+          // );
           break; 
       }
     },

@@ -94,16 +94,7 @@ document.querySelector('.btnSidebar').addEventListener('click', sidebarToggle);
 const hasTouch = () => {
   return 'ontouchstart' in window || navigator.maxTouchPoints;
 };
-if (!hasTouch()) {
-  const sidebar = document.querySelector('.sidebar');
-  const content = document.querySelector('.content');
-  sidebar.addEventListener('mouseover', function() {
-    content.classList.add('isHover');
-  });
-  sidebar.addEventListener('mouseout', function() {
-    content.classList.remove('isHover');
-  });
-}
+
 document.addEventListener('keydown', keyDownTextField, false);
 function keyDownTextField(e) {
   var keyCode = e.keyCode;

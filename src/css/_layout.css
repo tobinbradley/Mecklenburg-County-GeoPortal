@@ -14,7 +14,7 @@ body {
 
 .sidebar {
   position: fixed;
-  width: 220px;
+  width: 200px;
   top: 0;
   bottom: 0;
   overflow: visible;
@@ -23,18 +23,18 @@ body {
 
 .content {
   flex: 1;
-  background: #eee;
+  background: white;
   will-change: transform;
   transition: transform 0.5s ease-in-out;
-  margin-left: 50px;
   padding-bottom: 20px;
   z-index: 1;
 }
 
 .content.isOpen,
 .content.isHover {
-  transform: translate3d(170px, 0, 0);
-  transition-delay: 0.7s;
+  transform: translate3d(200px, 0, 0);
+  /* margin-left: 220px; */
+  /* transition-delay: 0.7s; */
 }
 
 /* sidebar activation button */
@@ -42,17 +42,17 @@ body {
 .btnSidebar {
   width: 30px;
   margin: 0 8px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
 }
 
 .bar {
   display: block;
   height: 4px;
   width: 30px;
-  background-color: #eee;
+  background-color: #333;
   margin: 5px auto;
-}
-
-.bar {
   transition: all 0.7s ease;
 }
 
@@ -82,5 +82,14 @@ body {
   }
   & p {
     margin: 10px 0 0;
+  }
+}
+
+@media (min-width: 1000px) {
+  .content {
+    margin-left: 200px;
+  }
+  .btnSidebar {
+    display: none;
   }
 }
