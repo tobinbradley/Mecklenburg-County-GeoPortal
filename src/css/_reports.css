@@ -19,7 +19,10 @@
     color: var(--colorIconic);
     font-weight: bold;
     font-size: 1.8em;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+    background-color: #333;
+    color: transparent;
+    text-shadow: 0px 2px 3px rgba(255,255,255,0.5);
+    background-clip: text;
   }
 }
 
@@ -56,11 +59,10 @@
   line-height: normal;
 }
 .report-record-highlight h1 {
-  font-size: 2.1em;
+  font-size: 1.6em;
   padding: 10px 0 6px;
   font-weight: bold;
   color: var(--colorIconic);
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
 }
 .report-record-highlight h2 {
   font-size: 1.3em;
@@ -80,8 +82,8 @@
 }
 
 .report-record-highlight svg.icon {
-  width: 9em;
-  height: 9em;
+  width: 7em;
+  height: 7em;
   fill: var(--colorIconic);
 }
 
