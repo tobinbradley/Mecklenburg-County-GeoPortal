@@ -13,7 +13,11 @@
             <div id="search-results">
                 <ul v-for="(item, index) in privateState.results">
                     <li v-on:click="select(index)">
-                        <span class='search-result-type'>{{ item.type }}</span>
+                        <span class='search-result-type'>
+                          <svg class="icon icon-location">
+                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-location"></use>
+                          </svg>
+                        </span>
                         <span class='search-result-label'>{{ item.label }}</span>
                     </li>
                 </ul>
@@ -97,7 +101,7 @@ export default {
         address: rec.address,
         pid: rec.pid
       };
-      _this.privateState.results = [];
+      _this.privateState.results = []
       // push state
       setHash(_this.sharedState.selected.lnglat, _this.sharedState.show);
     }
