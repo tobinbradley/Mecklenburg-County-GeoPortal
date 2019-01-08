@@ -1,6 +1,11 @@
 <template>
     <div>
-        <div class="text-center">
+      <Poll :coords=$parent.sharedState.selected.lnglat />
+      <National :officials=resultsOfficials :coords=$parent.sharedState.selected.lnglat />
+      <State :officials=resultsOfficials :coords=$parent.sharedState.selected.lnglat />
+      <County :officials=resultsOfficials :coords=$parent.sharedState.selected.lnglat />
+      <Local :officials=resultsOfficials :coords=$parent.sharedState.selected.lnglat />
+        <!--<div class="text-center">
             <div class="report-record-highlight" v-if="resultsPrecinct.length > 0">
                 <svg class="icon icon-voting"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-voting"></use></svg>
                 <h2>Your Polling Location is</h2>
@@ -87,16 +92,28 @@
             <ul class="list-unstyled">
                 <li><a href="http://www.meckboe.org/" target="_blank"  rel="noopener">Mecklenburg County Board of Elections</a></li>
             </ul>
-        </div>
+        </div>-->
     </div>
 </template>
 
 <script>
-import jsonToURL from "../js/jsontourl";
-import format from "format-number";
+import jsonToURL from '../js/jsontourl'
+import format from 'format-number'
+import National from './voting_national'
+import State from './voting_state'
+import County from './voting_county'
+import Local from './voting_local'
+import Poll from './voting_polling'
 
 export default {
   name: "voting",
+  components: {
+    National: National,
+    State: State,
+    County: County,
+    Local: Local,
+    Poll: Poll
+  },
   data: function() {
     return {
       resultsOfficials: [],
@@ -146,10 +163,8 @@ export default {
     getOfficials: function() {
       let _this = this;
       _this.apiFetch(
-        {
-          sort: "district"
-        },
-        "https://mcmap.org/api/query/v1/elected_officials",
+        {},
+        "https://mcmap.org/api2/v1/query/boe_elected_officials",
         "resultsOfficials"
       );
     },
