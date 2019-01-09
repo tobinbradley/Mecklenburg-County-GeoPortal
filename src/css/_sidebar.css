@@ -25,7 +25,6 @@
 }
 
 .title a:hover {
-  color: #5b5;
   color: var(--colorIconic);
 }
 
@@ -48,7 +47,6 @@
 }
 
 .nav li a.active {
-  box-shadow: inset 7px 0 0 #5b5;
   box-shadow: inset 7px 0 0 var(--colorIconic);
   background: #444;
 }
