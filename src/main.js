@@ -11,17 +11,17 @@
 
 import './main.css';
 import Vue from 'vue';
-import webglCheck from './js/webglcheck';
+import {Autocomplete} from 'element-ui'
 import {getHashQ, getHashLngLat, setHash, urlArgsToHash} from './js/history';
 import fetchNearest from './js/nearest';
 import Search from './components/search.vue';
 import Map from './components/map.vue';
 import App from './components/app.vue';
-import ReportHeader from './components/report-header.vue';
 import Offline from './components/offline.vue';
 import './registerServiceWorker';
 
 Vue.config.productionTip = false;
+Vue.use(Autocomplete);
 
 // move legacy get args to hash
 urlArgsToHash();
@@ -40,8 +40,7 @@ let appState = {
     address: null
   },
   show: 'welcome',
-  initLnglatFlag: false,
-  glSupport: webglCheck()
+  initLnglatFlag: false
 };
 
 // process tab from hash
@@ -103,14 +102,11 @@ function sidebarToggle() {
 // initialize search
 Search.data = function() {
   return {
-    privateState: {
-      query: '',
-      results: [],
-      gps: true
-    },
+    links: [],
+    state: '',    
     sharedState: appState
-  };
-};
+  }
+}
 new Vue({
   el: 'sc-search',
   render: h => h(Search)
@@ -128,17 +124,6 @@ App.data = function() {
 new Vue({
   el: 'sc-app',
   render: h => h(App)
-});
-
-// report header
-ReportHeader.data = function() {
-  return {
-    sharedState: appState
-  };
-};
-new Vue({
-  el: 'sc-reportheader',
-  render: h => h(ReportHeader)
 });
 
 // offline message
@@ -162,20 +147,14 @@ Map.data = function() {
 };
 
 // set toggle map button click
-let toggleMap = document.querySelector('.toggle-map');
+let toggleMap = document.querySelector('.toggle-map')
 toggleMap.addEventListener('click', function() {
-  if (appState.glSupport) {
-    initMap();
-  }
-});
+  initMap()
+})
 
-// remove map toggle button if gl not supported
-if (!appState.glSupport) {
-  toggleMap.parentNode.removeChild(toggleMap);
-}
 
 // initialize map if gl supported and not in single column mode
-if (appState.glSupport && document.body.getBoundingClientRect().width > 840) {
+if (document.body.getBoundingClientRect().width > 840) {
   initMap();
 } else {
   window.addEventListener('resize', resizeMapInit, false);
