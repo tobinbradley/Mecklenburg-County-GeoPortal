@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     focusSearch: function() {
-      let search = document.querySelector(".search-input");
+      let search = document.querySelector(".el-input__inner");
       search.focus();
       search.classList.add("shake");
       setTimeout(function() {
