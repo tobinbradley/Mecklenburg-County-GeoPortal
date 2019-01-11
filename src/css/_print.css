@@ -2,12 +2,12 @@
   display: none;
 }
 
+.print-header {
+  text-align: center;
+}
+
 @media print {
   nav {
-    display: none;
-  }
-
-  body > *:not(content) {
     display: none;
   }
 
@@ -23,7 +23,6 @@
   }
 
   .card {
-    box-shadow: none;
     padding: 0;
   }
 
