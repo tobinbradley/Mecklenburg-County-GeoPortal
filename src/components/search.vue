@@ -45,6 +45,13 @@
     watch: {
       "sharedState.selected": "updateState"
     },
+    mounted: function() {
+      // fix up some ally stuff
+      document.querySelector('.el-input__inner').setAttribute('aria-label', 'search')
+      document.querySelector('.el-input__inner').removeAttribute('aria-autocomplete')
+      document.querySelector('.el-input__inner').removeAttribute('aria-controls')
+      document.querySelector('.el-input__inner').removeAttribute('aria-activedescendant')
+    },
     methods: {
       updateState() {
         if (this.state !== this.sharedState.selected.address) {
