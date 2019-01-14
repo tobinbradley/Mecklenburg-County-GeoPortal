@@ -21,6 +21,11 @@ p {
 
 a {
   color: #d32d65;
+  transition: 0.5s text-shadow;
+}
+
+a:hover {
+  text-shadow: 0 0 2px #d32d65;
 }
 
 .muted {
