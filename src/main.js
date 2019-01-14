@@ -89,14 +89,10 @@ Array.from(sideNavLinks).forEach((element, index) => {
 });
 
 // sidebar open and close
-document.querySelector('.btnSidebar').addEventListener('click', sidebarToggle);
-const hasTouch = () => {
-  return 'ontouchstart' in window || navigator.maxTouchPoints;
-};
+document.querySelector('.ham').addEventListener('click', sidebarToggle);
 
 function sidebarToggle() {
   document.querySelector('.content').classList.toggle('isOpen');
-  document.querySelector('.btnSidebar').classList.toggle('active');
 }
 
 // initialize search

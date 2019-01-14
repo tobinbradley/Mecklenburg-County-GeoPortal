@@ -10,7 +10,7 @@
   <title>GeoPortal</title>
   <script>
     window.fetch || document.write('<script src="https://unpkg.com/whatwg-fetch@1.0.0/fetch.js"><\/script>');
-	</script>
+  </script>
 </head>
 
 <body>
@@ -88,11 +88,11 @@
 
       <h2 class="print-only print-header">GeoPortal<br>Mecklenburg County GIS</h2>
       <div class="row gutter">
-        <div class="btnSidebar no-print">
-          <div class="bar top"></div>
-          <div class="bar middle"></div>
-          <div class="bar bottom"></div>
-        </div>
+        <svg class="ham hamRotate ham1 noprint" viewBox="0 0 100 100" width="70" onclick="this.classList.toggle('active')">
+          <path class="line top" d="m 30,33 h 40 c 0,0 9.044436,-0.654587 9.044436,-8.508902 0,-7.854315 -8.024349,-11.958003 -14.89975,-10.85914 -6.875401,1.098863 -13.637059,4.171617 -13.637059,16.368042 v 40" />
+          <path class="line middle" d="m 30,50 h 40" />
+          <path class="line bottom" d="m 30,67 h 40 c 12.796276,0 15.357889,-11.717785 15.357889,-26.851538 0,-15.133752 -4.786586,-27.274118 -16.667516,-27.274118 -11.88093,0 -18.499247,6.994427 -18.435284,17.125656 l 0.252538,40" />
+        </svg>
         <div class="column card">
           <sc-search>
             <div style="height: 65px;"></div>
