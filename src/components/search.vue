@@ -162,6 +162,9 @@
   color: var(--colorIconic);
   display: block;
   padding: 5px 5px 0;
+  &::selection {
+    background: #ccc; 
+  }
 }
 
 .el-autocomplete-suggestion__list {
@@ -244,7 +247,7 @@
   }
   .search-input-container {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 28px;
   }
 }
 @media print {
