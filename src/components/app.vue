@@ -53,7 +53,16 @@ export default {
     },
     gotTab: function() {
       document.querySelector('.content').classList.remove('isOpen')
-      document.querySelector('.ham').classList.remove('active')
+      // die IE11, die. Can't do classlist on SVG element.
+      try {
+        document.querySelector('.ham').classList.remove('active')
+      }
+      catch(error) {
+        console.error(error);
+      }
+      if (document.querySelector('.ham').classList) {
+        document.querySelector('.ham').classList.remove('active')
+      }
       if (
         this.sharedState.selected.lnglat ||
         this.sharedState.show === "qualityoflife"
