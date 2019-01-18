@@ -56,7 +56,7 @@ export default {
   },
   methods: {
     focusSearch: function() {
-      let search = document.querySelector(".el-input__inner");
+      let search = document.querySelector("#autosuggest__input");
       search.focus();
       search.classList.add("shake");
       setTimeout(function() {

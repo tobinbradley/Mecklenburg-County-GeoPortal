@@ -95,7 +95,13 @@
         </svg>
         <div class="column card">
           <sc-search>
-            <div style="height: 65px;"></div>
+            <div class="autosuggest__container"><input id="autosuggest__input" type="search" placeholder="Tell me about..."
+                aria-label="search for address, parks, libraries, and parcel id's" autocomplete="off" 
+                class="">
+              <div class="border no-print"></div>
+              <p class="muted no-print">Try typing part of an address, like <em>700
+                  N</em>. Or we can <a href="javascript:void(0)">take a guess</a>.</p>
+            </div>
           </sc-search>
         </div>
       </div>

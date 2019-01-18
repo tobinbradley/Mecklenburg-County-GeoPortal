@@ -11,7 +11,6 @@
 
 import './main.css';
 import Vue from 'vue';
-import {Autocomplete} from 'element-ui'
 import {getHashQ, getHashLngLat, setHash, urlArgsToHash} from './js/history';
 import fetchNearest from './js/nearest';
 import Search from './components/search.vue';
@@ -21,7 +20,6 @@ import Offline from './components/offline.vue';
 import './registerServiceWorker';
 
 Vue.config.productionTip = false;
-Vue.use(Autocomplete);
 
 // move legacy get args to hash
 urlArgsToHash();
@@ -96,16 +94,11 @@ function sidebarToggle() {
 }
 
 // initialize search
-Search.data = function() {
-  return {
-    links: [],
-    state: '',    
-    sharedState: appState
-  }
-}
 new Vue({
   el: 'sc-search',
-  render: h => h(Search)
+  render(h) {
+    return h(Search, { props: { sharedState: appState } })
+  }
 });
 
 // initialize main app
