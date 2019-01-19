@@ -1,9 +1,9 @@
 .map-container {
-  margin-top: 50px;
+  width: 315px;
+  height: 420px;
 }
 
 #map {
-  min-height: 420px;
   width: 100%;
   height: 100%;
   border: 1px solid #ccc;
