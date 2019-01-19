@@ -200,6 +200,7 @@
 </script>
 
 <style>
+@import '../css/_variables.css';
 
 .autosuggest__container {
   width: 80%;
@@ -226,10 +227,10 @@
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
-  &::selection {
-    background: var(--colorIconic); 
-    color: white;
-  }
+}
+#autosuggest__input::selection {
+  background: var(--colorIconic); 
+  color: white;
 }
 
 .autocomplete-results {
