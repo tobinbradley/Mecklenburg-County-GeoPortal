@@ -65,7 +65,7 @@
         if (value === 'ADDRESS') value = 'icon-location'
         if (value === 'PARK') value = 'icon-park'
         if (value === 'LIBRARY') value = 'icon-library'
-        if (value === 'PID') value = 'icon-property'
+        if (value === 'TAX PARCEL') value = 'icon-property'
         if (isId) value = `#${value}`
         return value
       },
@@ -217,7 +217,8 @@
   border-radius: 0;
   font-size: 2em;
   color: var(--colorIconic);
-  caret-color: #ddd;
+  background: white;
+  /* caret-color: #ddd; */
   display: block;
   padding: 5px 5px 0;
   outline: none;
