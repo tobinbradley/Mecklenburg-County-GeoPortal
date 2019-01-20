@@ -94,12 +94,21 @@ function sidebarToggle() {
 }
 
 // initialize search
+Search.data = function() {
+  return {
+    isOpen: false,
+    results: [],
+    search: '',
+    arrowCounter: 0,
+    minLength: 4,
+    items: [],
+    sharedState: appState
+  }
+}
 new Vue({
   el: 'sc-search',
-  render(h) {
-    return h(Search, { props: { sharedState: appState } })
-  }
-});
+  render: h => h(Search)
+})
 
 // initialize main app
 App.data = function() {

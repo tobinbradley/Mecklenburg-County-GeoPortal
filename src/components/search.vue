@@ -47,18 +47,23 @@
   export default {
     name: 'search',
 
-    props: ['sharedState'],
+    // props: {
+    //   sharedState: {
+    //     type: Object,
+    //     required: true
+    //   }
+    // },
 
-    data() {
-      return {
-        isOpen: false,
-        results: [],
-        search: '',
-        arrowCounter: 0,
-        minLength: 4,
-        items: []
-      };
-    },
+    // data() {
+    //   return {
+    //     isOpen: false,
+    //     results: [],
+    //     search: '',
+    //     arrowCounter: 0,
+    //     minLength: 4,
+    //     items: []
+    //   };
+    // },
 
     methods: {
       setIcon(value, isId = false) {        
@@ -78,14 +83,14 @@
 
         clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
-          this.fetch(this.search)
+          this.fetchData(this.search)
         }, 250);
         
         // Let's warn the parent that a change was made
         this.$emit('input', this.search);
       },
 
-      async fetch(queryString) {
+      async fetchData(queryString) {
         // address
         const addressURL = 'https://mcmap.org/api2/v1/query/master_address_table'
         const addressArg = {
@@ -126,7 +131,7 @@
       },
 
       setResult(result) {
-        this.search = result.value
+        //this.search = result.value
         this.isOpen = false
         this.arrowCounter = -1;
         this.sharedState.selected = {
@@ -140,7 +145,6 @@
       onArrowDown(evt) {
         if (this.arrowCounter < this.results.length) {
           this.arrowCounter = this.arrowCounter + 1;
-          // document.querySelector('.autocomplete-result.is-active').focus()
         }
       },
       onArrowUp() {
@@ -165,9 +169,6 @@
       },
       focus() {
         document.querySelector(".border").classList.add('active')
-        setTimeout(() => {
-          this.onChange()
-        }, 100);
       },
       blur() {      
         document.querySelector(".border").classList.remove('active')
@@ -192,9 +193,14 @@
         // actually compare them
         if (val.length !== oldValue.length) {
           this.results = val;
-          this.isLoading = false;
         }
-      }
+      },
+      sharedState:{
+        handler: function (val, oldVal) { 
+          this.search = val.selected.address
+        },
+        deep: true
+      }      
     }
   };
 </script>
