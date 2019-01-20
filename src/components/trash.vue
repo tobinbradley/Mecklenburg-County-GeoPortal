@@ -3,7 +3,6 @@
         <div v-if="results && results.length > 0" class="text-center">
             <div class="row" v-if="results[0].jurisdiction !== 'charlotte'">
                 <div class="column">
-                    <Print></Print>
                     <div class="report-record-highlight">
                         <svg class="icon icon-trash"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trash"></use></svg>
                         <h2>Your TRASH day is</h2>
