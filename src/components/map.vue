@@ -1,6 +1,8 @@
 <template>
-  <div class="map-container card nopadding">
-    <div id="map" />
+  <div class="row gutter">
+    <div class="column column_map">  
+      <div id="map" />
+    </div>
   </div>
 </template>
 
@@ -103,7 +105,6 @@ export default {
                   address: data.address,
                   pid: data.pid
               })
-              _this.$store.commit("initLnglatFlag", false)
             })
         }
         _this.markerClicked = false;
