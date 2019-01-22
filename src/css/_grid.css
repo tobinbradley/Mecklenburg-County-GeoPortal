@@ -16,7 +16,9 @@ https://www.taniarascia.com/easiest-flex-grid-ever/ */
 }
 
 .column_map {
-  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* fixed column sizes for > 800px */
@@ -36,12 +38,6 @@ https://www.taniarascia.com/easiest-flex-grid-ever/ */
   }
   .column {
     flex: 1;
-  }
-  .column_map {
-    width: 315px;
-    height: 420px;
-    margin-right: 15px;
-    margin-top: 50px;
   }
   
   ._70 {
