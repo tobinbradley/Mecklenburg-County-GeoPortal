@@ -49,7 +49,6 @@ if (hashLngLat) {
       address: data.address,
       pid: data.pid
     })
-    store.commit("initLnglatFlag", false)
   })
 }
 
@@ -105,40 +104,3 @@ new Vue({
   render: h => h(Offline)
 });
 
-// Kick the map
-let mapVM = null;
-
-// set toggle map button click
-let toggleMap = document.querySelector('.toggle-map')
-toggleMap.addEventListener('click', function() {
-  initMap()
-})
-
-
-// initialize map if gl supported and not in single column mode
-if (document.body.getBoundingClientRect().width > 840) {
-  initMap();
-} else {
-  window.addEventListener('resize', resizeMapInit, false);
-}
-
-// resize window function
-function resizeMapInit() {
-  if (document.body.getBoundingClientRect().width > 840 && !mapVM) {
-    initMap();
-  }
-}
-
-// initialize map, remove map toggle button, remove window resize event
-function initMap() {
-  mapVM = new Vue({
-    store,
-    el: 'sc-map',
-    render: h => h(Map)
-  });
-  let toggleMap = document.querySelector('.toggle-map');
-  if (toggleMap) {
-    toggleMap.parentNode.removeChild(toggleMap);
-  }
-  window.removeEventListener('resize', resizeMapInit, false);
-}
