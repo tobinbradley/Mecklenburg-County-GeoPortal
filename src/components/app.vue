@@ -1,6 +1,6 @@
 <template>
-<component :is="privateState.show">
-    </component>
+  <component :is="show">
+  </component>
 </template>
 
 <script>
@@ -15,6 +15,7 @@ import Trash from "./trash.vue";
 import Environment from "./environment.vue";
 import Voting from "./voting.vue";
 import QualityOfLife from "./qualityoflife.vue";
+import { setTimeout } from 'timers';
 
 export default {
   name: "app",
@@ -30,28 +31,39 @@ export default {
     voting: Voting,
     qualityoflife: QualityOfLife
   },
+
+  computed: {
+    selected () {
+      return this.$store.getters.selected
+    },
+    tab () {
+      return this.$store.getters.show
+    },
+    show() {
+      return this.selected.lnglat ? this.tab : 'welcome'
+    }
+  },
+
   watch: {
-    "sharedState.selected.lnglat": "gotRecord",
-    "sharedState.show": "gotTab"
+    selected: "gotRecord",
+    show: "gotTab",
+    tab: "gotTab"
   },
-  mounted: function() {
-    this.gotTab();
-  },
+
   methods: {
     gotRecord: function() {
-      if (this.sharedState.show === "welcome") {
-        this.sharedState.show = "schools";
+      if (this.$store.getters.show === "welcome") {
+        this.$store.commit('show', 'schools')
         let navlinks = document.querySelectorAll(".sidebar .nav a");
         for (let i = 0; i < navlinks.length; i++) {
           navlinks[i].classList.remove("active");
         }
         let elem = document.querySelector(`a[data-load="schools"]`);
         elem.classList.add("active");
-      } else {
-        this.privateState.show = this.sharedState.show;
-      }
+      } 
     },
     gotTab: function() {
+      let _this = this
       document.querySelector('.content').classList.remove('isOpen')
       // die IE11, die. Can't do classlist on SVG element.
       try {
@@ -60,16 +72,12 @@ export default {
       catch(error) {
         console.error(error);
       }
-      if (document.querySelector('.ham').classList) {
-        document.querySelector('.ham').classList.remove('active')
-      }
-      if (
-        this.sharedState.selected.lnglat ||
-        this.sharedState.show === "qualityoflife"
-      ) {
-        this.privateState.show = this.sharedState.show;
-      } else {
-        this.privateState.show = "welcome";
+
+      if (!this.selected.lnglat) {
+        const search = document.querySelector('#autosuggest__input')
+        search.focus()
+        search.classList.add('shake')
+        setTimeout(function(){ search.classList.remove('shake') }, 750);
       }
     }
   }

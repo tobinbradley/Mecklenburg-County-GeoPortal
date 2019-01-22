@@ -1,5 +1,3 @@
-
-
 <template>
     <div>
         <div class="text-center">
@@ -46,11 +44,27 @@ import format from "format-number";
 
 export default {
   name: "impervious",
+
   data: function() {
     return {
       results: null
     };
   },
+
+  computed: {
+    selected () {
+      return this.$store.getters.selected
+    },
+    show () {
+      return this.$store.getters.show
+    }
+  },
+
+  watch: {
+    selected: "getResults",
+    show: "getResults"
+  },
+
   filters: {
     area: function(num) {
       return format({
@@ -59,23 +73,21 @@ export default {
       })(num);
     }
   },
-  watch: {
-    "$parent.sharedState.selected.lnglat": "getResults",
-    "$parent.sharedState.show": "getResults"
-  },
+
   mounted: function() {
     this.getResults();
   },
+
   methods: {
     getResults: function() {
       let _this = this;
       if (
-        _this.$parent.sharedState.selected.lnglat &&
-        _this.$parent.sharedState.show.indexOf("impervious") !== -1
+        _this.selected.lnglat &&
+        _this.show.indexOf("impervious") !== -1
       ) {
         let params = {
           columns: "sum(sum_of_area) as area, subtheme",
-          filter: `commonpid='${_this.$parent.sharedState.selected.pid}'`,
+          filter: `commonpid='${_this.selected.pid}'`,
           sort: "subtheme",
           group: "subtheme"
         };

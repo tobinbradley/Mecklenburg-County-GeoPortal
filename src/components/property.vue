@@ -3,9 +3,9 @@
         <div class="report-record-highlight text-center">
             <svg class="icon icon-property"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-property"></use></svg>
             <h2>Tax Parcel</h2>
-            <h1>{{$parent.sharedState.selected.pid}}</h1>
+            <h1>{{selected.pid}}</h1>
             <h3 v-if="resultsZoning.length > 0">Zoned as {{ resultsZoning[0].zone_class}} {{resultsZoning[0].zone_des}}</h3>
-            <Photos></Photos>
+            <Photos :pid="selected.pid"></Photos>
         </div>
         <div v-if="resultsOwnership.length > 0">
             <table>
@@ -199,6 +199,11 @@ import Photos from "./photos.vue";
 
 export default {
   name: "property",
+
+  components: {
+    Photos: Photos
+  },
+
   data: function() {
     return {
       resultsZoning: [],
@@ -210,14 +215,24 @@ export default {
       resultsPermits: []
     };
   },
+
   computed: {
     reversePermits() {
       return this.resultsPermits.slice().reverse();
+    },
+    selected () {
+      return this.$store.getters.selected
+    },
+    show () {
+      return this.$store.getters.show
     }
   },
-  components: {
-    Photos: Photos
+
+  watch: {
+    selected: "getResults",
+    show: "getResults"
   },
+
   filters: {
     money: function(num) {
       return format({
@@ -240,13 +255,11 @@ export default {
       return value.slice().reverse();
     }
   },
-  watch: {
-    "$parent.sharedState.selected.lnglat": "getResults",
-    "$parent.sharedState.show": "getResults"
-  },
+
   mounted: function() {
     this.getResults();
   },
+
   methods: {
     apiFetch: function(params, url, setter) {
       let _this = this;
@@ -264,8 +277,8 @@ export default {
     getResults: function() {
       let _this = this;
       if (
-        _this.$parent.sharedState.selected.pid &&
-        _this.$parent.sharedState.show.indexOf("property") !== -1
+        _this.selected.pid &&
+        _this.show.indexOf("property") !== -1
       ) {
         // zoning
         _this.apiFetch(
@@ -274,7 +287,7 @@ export default {
             filter: "zone_des <> 'sm_towns'",
             geom_column: "the_geom"
           },
-          `https://mcmap.org/api/intersect_point/v1/view_zoning/${_this.$parent.sharedState.selected.lnglat.join(
+          `https://mcmap.org/api/intersect_point/v1/view_zoning/${_this.selected.lnglat.join(
             ","
           )}/4326`,
           "resultsZoning"
@@ -282,7 +295,7 @@ export default {
         // ownership
         _this.apiFetch(
           {
-            pid: _this.$parent.sharedState.selected.pid
+            pid: _this.selected.pid
           },
           "https://mcmap.org/rest/v3/ws_cama_ownership.php",
           "resultsOwnership"
@@ -290,7 +303,7 @@ export default {
         // appraisal
         _this.apiFetch(
           {
-            pid: _this.$parent.sharedState.selected.pid
+            pid: _this.selected.pid
           },
           "https://mcmap.org/rest/v3/ws_cama_appraisal.php",
           "resultsAppraisal"
@@ -298,7 +311,7 @@ export default {
         // sales history
         _this.apiFetch(
           {
-            pid: _this.$parent.sharedState.selected.pid
+            pid: _this.selected.pid
           },
           "https://mcmap.org/rest/v3/ws_cama_saleshistory.php",
           "resultsSales"
@@ -306,7 +319,7 @@ export default {
         // land use
         _this.apiFetch(
           {
-            pid: _this.$parent.sharedState.selected.pid
+            pid: _this.selected.pid
           },
           "https://mcmap.org/rest/v3/ws_cama_landuse.php",
           "resultsLanduse"
@@ -314,7 +327,7 @@ export default {
         // building information
         _this.apiFetch(
           {
-            pid: _this.$parent.sharedState.selected.pid
+            pid: _this.selected.pid
           },
           "https://mcmap.org/rest/v3/ws_cama_building.php",
           "resultsBuildings"
@@ -325,7 +338,7 @@ export default {
             columns:
               "extract(year from t.date_completed_co_process) as theyear, t.project_name,t.square_footage,t.construction_cost",
             filter: `f.pid = '${
-              _this.$parent.sharedState.selected.pid
+              _this.selected.pid
             }' and t.job_status = 'COMPL'`,
             sort: "t.date_completed_co_process",
             limit: 100,

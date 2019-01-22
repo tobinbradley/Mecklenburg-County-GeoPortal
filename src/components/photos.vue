@@ -19,28 +19,35 @@ import jsonToURL from "../js/jsontourl";
 
 export default {
   name: "photos",
+
+  props: {
+    pid: {
+      type: String
+    }
+  },
+  
   data: function() {
     return {
       results: [],
       photoIndex: 0
     };
   },
+
   mounted: function() {
     this.getResults();
   },
+
   watch: {
-    "$parent.$parent.sharedState.selected.pid": "getResults"
+    pid: "getResults"
   },
+
   methods: {
     getResults: function() {
       let _this = this;
-      if (
-        _this.$parent.$parent.sharedState.selected &&
-        _this.$parent.$parent.sharedState.selected.pid
-      ) {
+      if (_this.pid) {
         _this.photoIndex = 0;
         let params = {
-          pid: _this.$parent.$parent.sharedState.selected.pid,
+          pid: _this.pid,
           photo_source: "mvideo,ilookabout"
         };
         fetch(

@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="scatterplot text-center">
-            <h4>Data Distribution, {{$parent.year}}</h4>
+            <h4>Data Distribution, {{year}}</h4>
             <div class="ct-distributionchart"></div>
         </div>
     </div>
@@ -14,11 +14,25 @@ import abbrNumber from "../js/abbreviatenumber";
 
 export default {
   name: "sc-distributionchart",
-  watch: {
-    "$parent.qolData": "renderChart",
-    "sharedState.selected": "renderChart",
-    "sharedState.year": "renderChart"
+
+  props: {
+    qolData: {
+      type: Object
+    },
+    selected: {
+      type: Object
+    },
+    year: {
+      type: String
+    }
   },
+
+  watch: {
+    qolData: "renderChart",
+    selected: "renderChart",
+    year: "renderChart"
+  },
+
   methods: {
     renderChart: function() {
       let data = this.updateData();
@@ -69,8 +83,8 @@ export default {
       });
     },
     updateData: function() {
-      const data = this.$parent.qolData.data.map;
-      const year = this.$parent.year;
+      const data = this.qolData.data.map;
+      const year = this.year;
       let vals = [];
       let labels = [];
 

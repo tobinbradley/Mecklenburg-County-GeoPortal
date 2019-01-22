@@ -23,14 +23,38 @@ function isIEorEDGE() {
 
 export default {
   name: 'themap',
+
   mounted: function() {
     this.initMap();
   },
-  watch: {
-    'sharedState.selected.lnglat': 'addMarker',
-    'sharedState.show': 'mapOverlay',
-    'sharedState.poi': 'addPOI'
+
+  data() {
+    return {
+      map: null,
+      locationMarker: null,
+      poiMarker: null,
+      markerClicked: false
+    }
   },
+
+  computed: {
+    selected () {
+      return this.$store.getters.selected
+    },
+    show () {
+      return this.$store.getters.show
+    },
+    poi () {
+      return this.$store.getters.poi
+    }
+  },
+    
+  watch: {
+    selected: 'addMarker',
+    show: 'mapOverlay',
+    poi: 'addPOI'
+  },
+  
   methods: {
     initMap: function() {
       let _this = this;
@@ -45,8 +69,8 @@ export default {
         preserveDrawingBuffer: true
       };
 
-      _this.privateState.map = new mapboxgl.Map(mapOptions);
-      let map = _this.privateState.map;
+      _this.map = new mapboxgl.Map(mapOptions);
+      let map = _this.map;
 
       // hack for IE/Edge not loading map every other load
       if (isIEorEDGE()) {
@@ -58,7 +82,7 @@ export default {
         // get map overlays
         _this.mapOverlay();
         // do marker if available
-        if (_this.sharedState.selected.lnglat) {
+        if (_this.$store.getters.selected.lnglat) {
           _this.addMarker();
         }
         // add controls
@@ -67,25 +91,36 @@ export default {
         map.addControl(new AerialToggle({}), 'bottom-right');
       });
 
-      map.on('click', function(e) {
-        if (map.getZoom() >= 14 && !_this.privateState.markerClicked) {
-          fetchNearest(e.lngLat.lat, e.lngLat.lng, _this.sharedState);
+      map.on('click', function(e) {        
+        if (map.getZoom() >= 14 && !_this.markerClicked) {
+          fetchNearest(
+              e.lngLat.lat, e.lngLat.lng
+            )
+            .then(data => {
+              _this.$store.commit("selected", {
+                  lnglat: [data.lng, data.lat],
+                  label: data.label,
+                  address: data.address,
+                  pid: data.pid
+              })
+              _this.$store.commit("initLnglatFlag", false)
+            })
         }
-        _this.privateState.markerClicked = false;
+        _this.markerClicked = false;
       });
     },
     mapPitch: function() {
-      this.privateState.map.getPitch() === 0
-        ? this.privateState.map.easeTo({
+      this.map.getPitch() === 0
+        ? this.map.easeTo({
             pitch: 90
           })
-        : this.privateState.map.easeTo({
+        : this.map.easeTo({
             pitch: 0,
             bearing: 0
           });
     },
     mapOverlay: function() {
-      let map = this.privateState.map;
+      let map = this.map;
       let _this = this;
 
       // remove any overlays
@@ -99,7 +134,7 @@ export default {
       }
 
       // add overlays for tabs
-      switch (_this.sharedState.show) {
+      switch (_this.$store.getters.show) {
         case 'impervious':
           map.addLayer(
             {
@@ -168,9 +203,9 @@ export default {
       }
     },
     addPOI: function() {
-      let map = this.privateState.map;
-      let selected = this.sharedState.selected;
-      let poi = this.sharedState.poi;
+      let map = this.map
+      let selected = this.$store.getters.selected
+      let poi = this.$store.getters.poi
       let _this = this;
       // zoom to selected and poi
       let bounds = new mapboxgl.LngLatBounds();
@@ -180,8 +215,8 @@ export default {
         padding: 40
       });
       // remove old markers if they exist
-      if (this.privateState.poiMarker) {
-        this.privateState.poiMarker.remove();
+      if (this.poiMarker) {
+        this.poiMarker.remove();
       }
       // create the popup
       let popup = new mapboxgl.Popup({
@@ -198,7 +233,7 @@ export default {
       var el = document.createElement('div');
       el.classList.add('poiMarker');
       // create the marker
-      this.privateState.poiMarker = new mapboxgl.Marker(el, {
+      this.poiMarker = new mapboxgl.Marker(el, {
         offset: [0, -20]
       })
         .setLngLat(poi.lnglat)
@@ -207,19 +242,19 @@ export default {
       document
         .querySelector('.poiMarker')
         .addEventListener('click', function(e) {
-          _this.privateState.markerClicked = true;
+          _this.markerClicked = true;
         });
     },
     addMarker: function() {
-      let map = this.privateState.map;
-      let selected = this.sharedState.selected;
+      let map = this.map;
+      let selected = this.$store.getters.selected
       let _this = this;
       map.flyTo({
         center: selected.lnglat,
         zoom: 17
       });
       // push state
-      setHash(selected.lnglat, _this.sharedState.show);
+      setHash(selected.lnglat, _this.$store.getters.show);
       // create the popup
       let popup = new mapboxgl.Popup({
         offset: [20, -23]
@@ -228,14 +263,14 @@ export default {
       var el = document.createElement('div');
       el.classList.add('locationMarker');
       // remove old markers if they exist
-      if (this.privateState.locationMarker) {
-        this.privateState.locationMarker.remove();
+      if (this.locationMarker) {
+        this.locationMarker.remove();
       }
-      if (this.privateState.poiMarker) {
-        this.privateState.poiMarker.remove();
+      if (this.poiMarker) {
+        this.poiMarker.remove();
       }
       // create the marker
-      this.privateState.locationMarker = new mapboxgl.Marker(el, {
+      this.locationMarker = new mapboxgl.Marker(el, {
         offset: [0, -20]
       })
         .setLngLat(selected.lnglat)
@@ -244,7 +279,7 @@ export default {
       document
         .querySelector('.locationMarker')
         .addEventListener('click', function(e) {
-          _this.privateState.markerClicked = true;
+          _this.markerClicked = true;
         });
     }
   }

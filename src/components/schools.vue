@@ -98,6 +98,7 @@ import format from "format-number";
 
 export default {
   name: "schools",
+
   data: function() {
     return {
       magnet: [],
@@ -107,6 +108,21 @@ export default {
       zone: null
     };
   },
+
+  computed: {
+    selected () {
+      return this.$store.getters.selected
+    },
+    show () {
+      return this.$store.getters.show
+    }
+  },
+
+  watch: {
+    selected: "getResults",
+    show: "getResults"
+  },
+
   filters: {
     distance: function(dist) {
       return format({
@@ -124,10 +140,7 @@ export default {
       }
     }
   },
-  watch: {
-    "$parent.sharedState.selected.lnglat": "getResults",
-    "$parent.sharedState.show": "getResults"
-  },
+
   mounted: function() {
     this.getResults();
   },
@@ -135,12 +148,12 @@ export default {
     getResults: function() {
       let _this = this;
       if (
-        _this.$parent.sharedState.selected.lnglat &&
-        _this.$parent.sharedState.show.indexOf("schools") !== -1
+        _this.selected.lnglat &&
+        _this.show.indexOf("schools") !== -1
       ) {
 
         // school assignments and transportation zone
-        fetch(`https://mcmap.org/api/intersect_point/v1/cms_parcels/${_this.$parent.sharedState.selected.lnglat[0]},${_this.$parent.sharedState.selected.lnglat[1]}/4326?columns=elem_num,high_zone,midd_num,high_num,schl_other`)
+        fetch(`https://mcmap.org/api/intersect_point/v1/cms_parcels/${_this.selected.lnglat[0]},${_this.selected.lnglat[1]}/4326?columns=elem_num,high_zone,midd_num,high_num,schl_other`)
           .then( response => response.json())
           .then( response => {
             // set transportation zone
@@ -151,8 +164,8 @@ export default {
             if (response[0].schl_other) {              
               schlnums = schlnums.concat(response[0].schl_other.split(',').map(Number));
             }
-            return fetch(`https://mcmap.org/api/query/v1/cms_schools?columns=city,zipcode::int,address,name,type,grade_level,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.$parent.sharedState.selected.lnglat[0]         )} ${Number(
-              _this.$parent.sharedState.selected.lnglat[1]
+            return fetch(`https://mcmap.org/api/query/v1/cms_schools?columns=city,zipcode::int,address,name,type,grade_level,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0]         )} ${Number(
+              _this.selected.lnglat[1]
             )} )',4326), 2264)) as distance&filter=num in(${schlnums.join()})`)
           })
           .then( response => response.json())
@@ -168,8 +181,8 @@ export default {
         // magnet schools
         fetch(`https://mcmap.org/api/query/v1/cms_schools?${jsonToURL({
           filter: "magnet <> 'Non-Magnet'",
-          columns: `num,city,zipcode::int,address,name,type,grade_level,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat,magnet,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.$parent.sharedState.selected.lnglat[0]         )} ${Number(
-              _this.$parent.sharedState.selected.lnglat[1]
+          columns: `num,city,zipcode::int,address,name,type,grade_level,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat,magnet,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0]         )} ${Number(
+              _this.selected.lnglat[1]
             )} )',4326), 2264)) as distance`,
             sort: 'distance'
             })}`)
@@ -184,7 +197,7 @@ export default {
       }
     },
     locationClick: function(rec) {
-      this.$parent.sharedState.poi = {
+      this.poi = {
         lnglat: [rec.lng, rec.lat],
         address: rec.address,
         label: rec.name ? rec.name : rec.schlname

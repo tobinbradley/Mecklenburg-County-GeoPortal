@@ -218,7 +218,7 @@
                         <span class="legend"><svg class="icon icon-trending_up legend-selected"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-trending_up"></use></svg> Neighborhood</span>
                         <div class="qol-chart-trend"></div>
                     </div>
-                    <distChart></distChart>
+                    <distChart :qolData="qolData" :year="year" :selected="selected"></distChart>
                     <div class="no-print" style="margin-top: 20px">
                         <a class="button button-accent" v-bind:href="reportURL" target="_blank"  rel="noopener">Report</a>
                         <a class="button button-accent" v-bind:href="metaURL" target="_blank"  rel="noopener">META</a>
@@ -246,9 +246,11 @@ import distChart from "./qol-distchart.vue";
 
 export default {
   name: "quality_of_life",
+
   components: {
     distChart: distChart
   },
+
   data: function() {
     return {
       trends: null,
@@ -267,6 +269,16 @@ export default {
       qolData: null
     };
   },
+
+  computed: {
+    selected () {
+      return this.$store.getters.selected
+    },
+    show () {
+      return this.$store.getters.show
+    }
+  },
+
   mounted: function() {
     let _this = this;
 
@@ -277,13 +289,12 @@ export default {
     }
 
     // if you have a lnglat, get getResults
-    if (_this.$parent.sharedState.selected.lnglat) {
+    if (_this.selected.lnglat) {
       _this.getResults();
     }
     // if you have lnglat or the init flag is set,
     if (
-      !_this.$parent.sharedState.selected.lnglat &&
-      !_this.$parent.sharedState.initLnglatFlag
+      !_this.selected.lnglat
     ) {
       _this.setIframe();
     }
@@ -294,16 +305,18 @@ export default {
       }
     };
   },
+
   watch: {
     qolData: "dataReceived",
     neighborhood: "setIframe",
-    "$parent.sharedState.selected.lnglat": "getResults",
-    "$parent.sharedState.show": "getResults",
+    selected: "getResults",
+    show: "getResults",
     metric: "passMetric",
     chartData: "chart",
     chartCompare: "chart",
     neighborhoodCompare: "changeNeighborhoodCompare"
   },
+
   methods: {
     dataReceived: function() {
       let _this = this;
@@ -353,8 +366,8 @@ export default {
     },
     getResults: function() {
       if (
-        this.$parent.sharedState.selected.lnglat &&
-        this.$parent.sharedState.show.indexOf("qualityoflife") !== -1
+        this.selected.lnglat &&
+        this.show.indexOf("qualityoflife") !== -1
       ) {
         let _this = this;
         let params = {
@@ -363,7 +376,7 @@ export default {
           limit: 1
         };
         fetch(
-          `https://mcmap.org/api/intersect_point/v1/neighborhoods/${_this.$parent.sharedState.selected.lnglat.join(
+          `https://mcmap.org/api/intersect_point/v1/neighborhoods/${_this.selected.lnglat.join(
             ","
           )}/4326?${jsonToURL(params)}`
         )

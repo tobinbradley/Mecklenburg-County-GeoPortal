@@ -9,54 +9,48 @@
 //                ||     ||
 //
 
-import './main.css';
-import Vue from 'vue';
-import {getHashQ, getHashLngLat, setHash, urlArgsToHash} from './js/history';
-import fetchNearest from './js/nearest';
-import Search from './components/search.vue';
-import Map from './components/map.vue';
-import App from './components/app.vue';
-import Offline from './components/offline.vue';
-import './registerServiceWorker';
+import './main.css'
+import Vue from 'vue'
+import { store } from './store'
+import {getHashQ, getHashLngLat, setHash, urlArgsToHash} from './js/history'
+import fetchNearest from './js/nearest'
+import Search from './components/search.vue'
+import Map from './components/map.vue'
+import App from './components/app.vue'
+import Offline from './components/offline.vue'
+import './registerServiceWorker'
 
 Vue.config.productionTip = false;
 
 // move legacy get args to hash
 urlArgsToHash();
 
-// the shared state between components
-let appState = {
-  selected: {
-    lnglat: null,
-    label: null,
-    address: null,
-    pid: null
-  },
-  poi: {
-    lnglat: null,
-    label: null,
-    address: null
-  },
-  show: 'welcome',
-  initLnglatFlag: false
-};
-
 // process tab from hash
 let hashQ = getHashQ();
 if (hashQ) {
   let elem = document.querySelector(`a[data-load="${hashQ}"]`);
   if (elem) {
-    document.querySelector(`a[data-load="welcome"]`).classList.remove('active');
-    elem.classList.add('active');
-    appState.show = hashQ;
+    document.querySelector(`a[data-load="welcome"]`).classList.remove('active')
+    elem.classList.add('active')
+    store.commit("show", hashQ)
   }
 }
 
 // process lnglat from hash
 let hashLngLat = getHashLngLat();
 if (hashLngLat) {
-  appState.initLnglatFlag = true;
-  fetchNearest(hashLngLat[1], hashLngLat[0], appState);
+  fetchNearest(
+    hashLngLat[1], hashLngLat[0]
+  )
+  .then(data => {
+    store.commit("selected", {
+      lnglat: [data.lng, data.lat],
+      label: data.label,
+      address: data.address,
+      pid: data.pid
+    })
+    store.commit("initLnglatFlag", false)
+  })
 }
 
 // sidebar event
@@ -71,8 +65,8 @@ Array.from(sideNavLinks).forEach((element, index) => {
     let q = this.getAttribute('data-load');
 
     // push state and GA
-    if (appState.selected.lnglat) {
-      setHash(appState.selected.lnglat, q);
+    if (store.getters.selected.lnglat) {
+      setHash(store.getters.selected.lnglat, q);
     } else {
       setHash([], q);
     }
@@ -80,46 +74,27 @@ Array.from(sideNavLinks).forEach((element, index) => {
       window.ga('send', 'event', q, 'question');
     }
 
-    appState.show = q;
-
+    store.commit("show", q)
+    
     window.scrollTo(0, 0);
   });
 });
 
 // sidebar open and close
-document.querySelector('.ham').addEventListener('click', sidebarToggle);
+document.querySelector('.ham').addEventListener('click', function() {
+  document.querySelector('.content').classList.toggle('isOpen')
+})
 
-function sidebarToggle() {
-  document.querySelector('.content').classList.toggle('isOpen');
-}
-
-// initialize search
-Search.data = function() {
-  return {
-    isOpen: false,
-    results: [],
-    search: '',
-    arrowCounter: 0,
-    minLength: 4,
-    items: [],
-    sharedState: appState
-  }
-}
+// search
 new Vue({
+  store,
   el: 'sc-search',
   render: h => h(Search)
 })
 
 // initialize main app
-App.data = function() {
-  return {
-    sharedState: appState,
-    privateState: {
-      show: appState.show
-    }
-  };
-};
 new Vue({
+  store,
   el: 'sc-app',
   render: h => h(App)
 });
@@ -132,17 +107,6 @@ new Vue({
 
 // Kick the map
 let mapVM = null;
-Map.data = function() {
-  return {
-    privateState: {
-      map: null,
-      locationMarker: null,
-      poiMarker: null,
-      markerClicked: false
-    },
-    sharedState: appState
-  };
-};
 
 // set toggle map button click
 let toggleMap = document.querySelector('.toggle-map')
@@ -168,6 +132,7 @@ function resizeMapInit() {
 // initialize map, remove map toggle button, remove window resize event
 function initMap() {
   mapVM = new Vue({
+    store,
     el: 'sc-map',
     render: h => h(Map)
   });

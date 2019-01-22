@@ -101,6 +101,7 @@ import jsonToURL from "../js/jsontourl";
 
 export default {
   name: "environment",
+
   data: function() {
     return {
       resultsFloodplain: null,
@@ -110,10 +111,25 @@ export default {
       resultsWatershed: null
     };
   },
-  watch: {
-    "$parent.sharedState.selected.lnglat": "getResults",
-    "$parent.sharedState.show": "getResults"
+
+  computed: {
+    selected () {
+      return this.$store.getters.selected
+    },
+    show () {
+      return this.$store.getters.show
+    }
   },
+
+  watch: {
+    selected: "getResults",
+    show: "getResults"
+  },
+
+  mounted: function() {
+    this.getResults();
+  },
+
   filters: {
     postconstruction: function(items) {
       items = items.filter(function(item) {
@@ -141,9 +157,7 @@ export default {
       return typesArr.join(", ");
     }
   },
-  mounted: function() {
-    this.getResults();
-  },
+  
   methods: {
     apiFetch: function(params, url, setter) {
       let _this = this;
@@ -161,14 +175,14 @@ export default {
     getResults: function() {
       let _this = this;
       if (
-        _this.$parent.sharedState.selected.lnglat &&
-        _this.$parent.sharedState.show.indexOf("environment") !== -1
+        _this.selected.lnglat &&
+        _this.show.indexOf("environment") !== -1
       ) {
         // floodplain
         _this.apiFetch(
           {
             columns: "t.gid",
-            filter: `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
+            filter: `f.pid = '${_this.selected.pid}'`,
             geom_column_from: "the_geom",
             geom_column_to: "the_geom"
           },
@@ -180,7 +194,7 @@ export default {
           {
             columns: "type, name",
             filter: `f.pid = '${
-              _this.$parent.sharedState.selected.pid
+              _this.selected.pid
             }' and t.type in ('TRANSIT CORRIDOR', 'BUSINESS CORRIDOR') `,
             geom_column_from: "the_geom",
             geom_column_to: "the_geom"
@@ -192,7 +206,7 @@ export default {
         _this.apiFetch(
           {
             columns: "distinct name,description,hydrologic_group",
-            filter: `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
+            filter: `f.pid = '${_this.selected.pid}'`,
             geom_column_from: "the_geom",
             geom_column_to: "the_geom"
           },
@@ -203,7 +217,7 @@ export default {
         _this.apiFetch(
           {
             columns: "distinct type,label",
-            filter: `f.pid = '${_this.$parent.sharedState.selected.pid}'`,
+            filter: `f.pid = '${_this.selected.pid}'`,
             geom_column_from: "the_geom",
             geom_column_to: "the_geom"
           },
@@ -216,7 +230,7 @@ export default {
             columns: "name,type,subarea",
             geom_column: "the_geom"
           },
-          `https://mcmap.org/api/intersect_point/v1/watersheds/${_this.$parent.sharedState.selected.lnglat.join(
+          `https://mcmap.org/api/intersect_point/v1/watersheds/${_this.selected.lnglat.join(
             ","
           )}/4326`,
           "resultsWatershed"

@@ -47,23 +47,22 @@
   export default {
     name: 'search',
 
-    // props: {
-    //   sharedState: {
-    //     type: Object,
-    //     required: true
-    //   }
-    // },
+    data() {
+      return {
+        isOpen: false,
+        results: [],
+        search: '',
+        arrowCounter: 0,
+        minLength: 4,
+        items: []
+      };
+    },
 
-    // data() {
-    //   return {
-    //     isOpen: false,
-    //     results: [],
-    //     search: '',
-    //     arrowCounter: 0,
-    //     minLength: 4,
-    //     items: []
-    //   };
-    // },
+    computed: {
+      selected () {
+        return this.$store.getters.selected
+      }
+    },
 
     methods: {
       setIcon(value, isId = false) {        
@@ -134,13 +133,13 @@
         //this.search = result.value
         this.isOpen = false
         this.arrowCounter = -1;
-        this.sharedState.selected = {
+        this.$store.commit("selected", {
           lnglat: [result.lng, result.lat],
           label: result.type,
           address: result.address,
           pid: result.pid
-        }      
-        setHash(this.sharedState.selected.lnglat, this.sharedState.show)
+        })     
+        setHash(this.$store.getters.selected.lnglat, this.$store.getters.selected.show)
       },
       onArrowDown(evt) {
         if (this.arrowCounter < this.results.length) {
@@ -161,10 +160,18 @@
           navigator.geolocation.getCurrentPosition(function(position) {
             fetchNearest(
               position.coords.latitude,
-              position.coords.longitude,
-              _this.sharedState
-            );
-          });
+              position.coords.longitude
+            )
+            .then(data => {
+              _this.$store.commit("selected", {
+                  lnglat: [data.lng, data.lat],
+                  label: data.label,
+                  address: data.address,
+                  pid: data.pid
+              })
+              _this.$store.commit("initLnglatFlag", false)
+            })
+          })
         }
       },
       focus() {
@@ -176,8 +183,8 @@
       },
       handleClickOutside(evt) {
         if (!this.$el.contains(evt.target)) {
-          this.isOpen = false;
-          this.arrowCounter = -1;
+          this.isOpen = false
+          this.arrowCounter = -1
         }
       }
     },
@@ -189,20 +196,17 @@
       document.removeEventListener('click', this.handleClickOutside)
     },
     watch: {
-      items: function (val, oldValue) {
+      items: function (val, oldVal) {
         // actually compare them
-        if (val.length !== oldValue.length) {
+        if (val.length !== oldVal.length) {
           this.results = val;
         }
       },
-      sharedState:{
-        handler: function (val, oldVal) { 
-          this.search = val.selected.address
-        },
-        deep: true
+      selected: function(val, oldVal) {
+        this.search = val.address
       }      
     }
-  };
+  }
 </script>
 
 <style>

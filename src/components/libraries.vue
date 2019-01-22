@@ -55,11 +55,25 @@ import format from "format-number";
 
 export default {
   name: "libraries",
+
   data: function() {
     return {
       results: null
     };
   },
+
+  computed: {
+    selected () {
+      return this.$store.getters.selected
+    },
+    show () {
+      return this.$store.getters.show
+    },
+    poi () {
+      return this.$store.getters.poi
+    }
+  },
+
   filters: {
     distance: function(dist) {
       return format({
@@ -68,19 +82,22 @@ export default {
       })(dist / 5280);
     }
   },
+
   watch: {
-    "$parent.sharedState.selected.lnglat": "getResults",
-    "$parent.sharedState.show": "getResults"
+    selected: "getResults",
+    show: "getResults"
   },
+
   mounted: function() {
     this.getResults();
   },
+
   methods: {
     getResults: function() {
       let _this = this;
       if (
-        _this.$parent.sharedState.selected.lnglat &&
-        _this.$parent.sharedState.show.indexOf("libraries") !== -1
+        _this.selected.lnglat &&
+        _this.show.indexOf("libraries") !== -1
       ) {
         let params = {
           geom_column: "the_geom",
@@ -89,7 +106,7 @@ export default {
           limit: "5"
         };
         fetch(
-          `https://mcmap.org/api/nearest/v1/libraries/${_this.$parent.sharedState.selected.lnglat.join(
+          `https://mcmap.org/api/nearest/v1/libraries/${_this.selected.lnglat.join(
             ","
           )}/4326?${jsonToURL(params)}`
         )
@@ -106,11 +123,11 @@ export default {
     },
     locationClick: function(index) {
       let poi = this.results[index];
-      this.$parent.sharedState.poi = {
+      this.$store.commit("poi", {
         lnglat: [poi.lng, poi.lat],
         address: poi.address,
         label: poi.name
-      };
+      })
     }
   }
 };

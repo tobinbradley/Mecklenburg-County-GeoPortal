@@ -97,15 +97,27 @@ import jsonToURL from "../js/jsontourl";
 
 export default {
   name: "trash",
+
   data: function() {
     return {
       results: []
     };
   },
-  watch: {
-    "$parent.sharedState.selected.lnglat": "getResults",
-    "$parent.sharedState.show": "getResults"
+
+  computed: {
+    selected () {
+      return this.$store.getters.selected
+    },
+    show () {
+      return this.$store.getters.show
+    }
   },
+
+  watch: {
+    selected: "getResults",
+    show: "getResults"
+  },
+
   filters: {
     typeFilter: function(items, val) {
       items = items.filter(function(rec) {
@@ -117,22 +129,24 @@ export default {
       return item[col];
     }
   },
+
   mounted: function() {
     this.getResults();
   },
+
   methods: {
     getResults: function() {
       let _this = this;
       if (
-        _this.$parent.sharedState.selected.lnglat &&
-        _this.$parent.sharedState.show.indexOf("trash") !== -1
+        _this.selected.lnglat &&
+        _this.show.indexOf("trash") !== -1
       ) {
         let params = {
           geom_column: "the_geom",
           columns: "jurisdiction, day, week, type"
         };
         fetch(
-          `https://mcmap.org/api/intersect_point/v1/solid_waste/${_this.$parent.sharedState.selected.lnglat.join(
+          `https://mcmap.org/api/intersect_point/v1/solid_waste/${_this.selected.lnglat.join(
             ","
           )}/4326?${jsonToURL(params)}`
         )

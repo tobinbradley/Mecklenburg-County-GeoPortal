@@ -1,10 +1,10 @@
 <template>
     <div>
-      <Poll :coords=$parent.sharedState.selected.lnglat />
-      <National :officials=resultsOfficials :coords=$parent.sharedState.selected.lnglat />
-      <State :officials=resultsOfficials :coords=$parent.sharedState.selected.lnglat />
-      <County :officials=resultsOfficials :coords=$parent.sharedState.selected.lnglat />
-      <Local :officials=resultsOfficials :coords=$parent.sharedState.selected.lnglat />
+      <Poll :coords=selected.lnglat />
+      <National :officials=resultsOfficials :coords=selected.lnglat />
+      <State :officials=resultsOfficials :coords=selected.lnglat />
+      <County :officials=resultsOfficials :coords=selected.lnglat />
+      <Local :officials=resultsOfficials :coords=selected.lnglat />
     </div>
 </template>
 
@@ -26,14 +26,26 @@ export default {
     Local: Local,
     Poll: Poll
   },
+
   data: function() {
     return {
       resultsOfficials: []
     };
   },
+
   mounted: function() {
     this.getOfficials();
   },
+
+  computed: {
+    selected () {
+      return this.$store.getters.selected
+    },
+    show () {
+      return this.$store.getters.show
+    }
+  },
+  
   methods: {
     apiFetch: function(params, url, setter) {
       let _this = this;
