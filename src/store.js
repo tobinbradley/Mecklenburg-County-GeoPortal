@@ -17,13 +17,13 @@ export const store = new Vuex.Store({
       address: null
     },
     show: 'welcome',
-    initLnglatFlag: false
+    drawMap: false
   },
   getters: {
     selected: state => state.selected,
     poi: state => state.poi,
     show: state => state.show,
-    initLnglatFlag: state => state.initLnglatFlag
+    drawMap: state => state.drawMap
   },
   mutations: {
     selected (state, payload) {
@@ -44,8 +44,8 @@ export const store = new Vuex.Store({
     show (state, n) {
       state.show = n
     },
-    initLnglatFlag (state, n) {
-      state.initLnglatFlag = n
+    drawMap (state, n) {
+      state.drawMap = n
     }
   }
 })
