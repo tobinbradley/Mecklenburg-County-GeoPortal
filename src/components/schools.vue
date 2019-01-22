@@ -166,7 +166,7 @@ export default {
             }
             return fetch(`https://mcmap.org/api/query/v1/cms_schools?columns=city,zipcode::int,address,name,type,grade_level,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0]         )} ${Number(
               _this.selected.lnglat[1]
-            )} )',4326), 2264)) as distance&filter=num in(${schlnums.join()})`)
+            )} )',4326), 2264)) as distance,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat&filter=num in(${schlnums.join()})`)
           })
           .then( response => response.json())
           .then( schools => {
@@ -197,11 +197,11 @@ export default {
       }
     },
     locationClick: function(rec) {
-      this.poi = {
+      this.$store.commit("poi", {
         lnglat: [rec.lng, rec.lat],
         address: rec.address,
         label: rec.name ? rec.name : rec.schlname
-      };
+      })
     }
   }
 };
