@@ -83,3 +83,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+h1, h2 {
+  margin-bottom: 0 !important;
+  margin-block-start: 0;
+}
+
+</style>
