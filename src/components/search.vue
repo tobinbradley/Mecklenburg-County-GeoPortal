@@ -34,7 +34,8 @@
         </svg>  {{ result.value }}
       </li>
     </ul>
-    <p class="muted no-print">Try typing part of an address, like <em>700 N</em>. Or we can <a href="javascript:void(0)" @click="geoLocation">take a guess</a>.</p>
+    <p class="muted no-print text-center">Try typing part of an address, like <em>700 N</em>. Or we can <a href="javascript:void(0)" @click="geoLocation">take a guess</a>.</p>
+    <Toggle />
   </div>
 </template>
 
@@ -43,9 +44,14 @@
   import jsonToURL from '../js/jsontourl.js'
   import { setHash } from '../js/history'
   import fetchNearest from '../js/nearest'
+  import Toggle from './toggle.vue'
 
   export default {
     name: 'search',
+
+    components: {
+      Toggle: Toggle
+    },
 
     data() {
       return {
@@ -169,7 +175,6 @@
                   address: data.address,
                   pid: data.pid
               })
-              _this.$store.commit("initLnglatFlag", false)
             })
           })
         }
