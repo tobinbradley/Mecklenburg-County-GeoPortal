@@ -1,6 +1,8 @@
 <template>
-  <component :is="show">
-  </component>
+  <div>
+    <MapGL v-if="drawMap" />
+    <component :is="show"></component>
+  </div>
 </template>
 
 <script>
@@ -15,10 +17,12 @@ import Trash from "./trash.vue";
 import Environment from "./environment.vue";
 import Voting from "./voting.vue";
 import QualityOfLife from "./qualityoflife.vue";
-import { setTimeout } from 'timers';
+import MapGL from "./map.vue"
+import { setTimeout } from 'timers'
 
 export default {
   name: "app",
+
   components: {
     welcome: Introduction,
     parks: Parks,
@@ -29,7 +33,8 @@ export default {
     trash: Trash,
     environment: Environment,
     voting: Voting,
-    qualityoflife: QualityOfLife
+    qualityoflife: QualityOfLife,
+    MapGL: MapGL
   },
 
   computed: {
@@ -41,6 +46,9 @@ export default {
     },
     show() {
       return this.selected.lnglat ? this.tab : 'welcome'
+    },
+    drawMap() {
+      return this.$store.getters.drawMap
     }
   },
 
