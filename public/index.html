@@ -96,18 +96,20 @@
         <div class="column card">
           <sc-search>
             <div class="autosuggest__container"><input id="autosuggest__input" type="search" placeholder="Tell me about..."
-                aria-label="search for address, parks, libraries, and parcel id's" autocomplete="off" 
-                class="">
+                aria-label="search for address, parks, libraries, and parcel id's" autocomplete="off" class="">
               <div class="border no-print"></div>
-              <p class="muted no-print">Try typing part of an address, like <em>700
+              <p class="muted no-print text-center">Try typing part of an address, like <em>700
                   N</em>. Or we can <a href="javascript:void(0)">take a guess</a>.</p>
+              <div class="text-center no-print"><a href="javascript:void(0)">Show Map</a>
+                |
+                <a href="javascript:void(0)">Print</a></div>
             </div>
           </sc-search>
         </div>
       </div>
 
       <div class="row gutter">
-        <div class="column _70 card">
+        <div class="column card">
           <sc-app>
             <div class="text-center">
               <h1>
@@ -142,11 +144,6 @@
               </p>
             </div>
           </sc-app>
-        </div>
-
-        <div class="column_map">
-          <sc-map></sc-map>
-          <button class="button button-accent toggle-map">Show Map</button>
         </div>
       </div>
     </div>
