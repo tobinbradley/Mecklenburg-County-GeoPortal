@@ -29,6 +29,7 @@
   .report-record-highlight svg.icon {
     width: 5em;
     height: 5em;
+    display: none;
   }
 
   .mapboxgl-control-container {
