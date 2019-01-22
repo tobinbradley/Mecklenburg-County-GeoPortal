@@ -2,7 +2,7 @@ const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin');
 const path = require('path');
 
 module.exports = {
-  baseUrl: process.env.NODE_ENV === 'production' ? '' : '/',
+  publicPath: process.env.NODE_ENV === 'production' ? '' : '/',
   css: {
     sourceMap: true
   },
