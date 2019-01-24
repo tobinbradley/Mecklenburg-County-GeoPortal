@@ -331,7 +331,7 @@
   }
   .autosuggest__container {
     width: 100%;
-    margin-top: 32px;
+    margin-top: 42px;
   }
 }
 @media print {
