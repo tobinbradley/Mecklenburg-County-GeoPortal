@@ -20,7 +20,7 @@ module.exports = {
           dest: 'index.html',
           inline: true,
           minify: true,
-          extract: false,
+          extract: true,
           dimensions: [
             {
               height: 200,
@@ -31,11 +31,10 @@ module.exports = {
               width: 1200
             }
           ],
+          penthouse: {
+            blockJSRequests: false,
+          },
           include: [
-            '#map',
-            '.mapboxgl-missing-css',
-            '.toggle-map',
-            '.mapboxgl-map'
           ]
         })
       );
