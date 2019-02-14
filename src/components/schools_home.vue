@@ -48,12 +48,7 @@
       detectOverlap(arr) {
         if (arr.length < 2) return false
 
-        let fixedArr = []
-
-        for (var value of arr) {
-          fixedArr.push(value.grade_level.replace(/k/ig, '0').split('-').map(Number))
-        }
-
+        let fixedArr = arr.map(x => x.grade_level.replace(/k/ig, '0').split('-').map(Number))
         let totalRange = Math.max(...fixedArr.map(x => x[1])) - Math.min(...fixedArr.map(x => x[0]))
         let sumOfRanges = fixedArr.map(x => x[1] - x[0]).reduce((a, b) => a + b, 0)
 
