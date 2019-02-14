@@ -1,127 +1,72 @@
 <template>
     <div>
-        <div class="text-center">
-            <div class="report-record-highlight" v-if="elementary.length > 0">
-                <svg class="icon icon-school"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-school"></use></svg>
-                <h2>Your ELEMENTARY school<span v-if="elementary.length > 1">s</span> {{ elementary.length > 1 ? 'are' : 'is' }}</h2>
-                <template v-for="(item, index) in elementary">
-                <h1>{{item.name.toUpperCase()}}</h1>
-                <h3>
-                  Grades {{item.grade_level}}
-                </h3>
-                <h3><a href="javascript:void(0)" v-on:click="locationClick(elementary[index])">
-                        {{item.address}}</a></h3>
-                <h4>{{ item.distance | distance }}</h4>                
-                </template>
-                <h4 v-if="detectOverlap(elementary)" style="font-style: italic; font-size: 0.9em;">
-                  If you or your child is in a grade level that could be assigned to more than one of 
-                  the schools listed above,
-                  please contact Charlotte-Mecklenburg Schools Pupil Assignment at (980) XXX-XXXX for your 
-                  home school placement.
-                </h4>
-            </div>
+      <div class="flex-container">
+        <HomeSchool :recs=elementary heading="ELEMENTARY" />
+        <HomeSchool :recs=middle heading="MIDDLE" />
+        <HomeSchool :recs=high heading="HIGH" />
+        <div class="report-record-highlight flex-item text-center" v-if="zone">
+          <svg class="icon icon-bus"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bus"></use></svg>
+          <h2>Your Transportation Zone is</h2>
+          <h1>{{zone}}</h1>
         </div>
-        <div class="row">
-            <div class="column text-center">
-                <div class="report-record-highlight" v-if="middle.length > 0">
-                    <svg class="icon icon-school"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-school"></use></svg>
-                    <h2>Your MIDDLE school<span v-if="middle.length > 1">s</span> {{ middle.length > 1 ? 'are' : 'is' }}</h2>
-                    <template v-for="(item, index) in middle">
-                    <h1>{{item.name.toUpperCase()}}</h1>
-                    <h3>
-                       Grades {{item.grade_level}}
-                    </h3>
-                    <h3><a href="javascript:void(0)" v-on:click="locationClick(middle[index])">
-                            {{item.address}}</a></h3>
-                    <h4>{{ item.distance | distance }}</h4>
-                    </template>
-                    <h4 v-if="detectOverlap(middle)" style="font-style: italic; font-size: 0.9em;">
-                      If you or your child is in a grade level that could be assigned to more than one of 
-                      the schools listed above,
-                      please contact Charlotte-Mecklenburg Schools Pupil Assignment at (980) XXX-XXXX for your 
-                      home school placement.
-                    </h4>
-                </div>
-            </div>
-            <div class="column text-center">
-                <div class="report-record-highlight" v-if="high.length > 0">
-                    <svg class="icon icon-school"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-school"></use></svg>
-                    <h2>Your HIGH school<span v-if="high.length > 1">s</span> {{ high.length > 1 ? 'are' : 'is' }}</h2>
-                    <template v-for="(item, index) in high">
-                    <h1>{{item.name.toUpperCase()}}</h1>
-                    <h3>
-                       Grades {{item.grade_level}}
-                    </h3>
-                    <h3><a href="javascript:void(0)" v-on:click="locationClick(middle[index])">
-                            {{item.address}}</a></h3>
-                    <h4>{{ item.distance | distance }}</h4>                   
-                    </template>
-                    <h4 v-if="detectOverlap(high)" style="font-style: italic; font-size: 0.9em;">
-                      If you or your child is in a grade level that could be assigned to more than one of 
-                      the schools listed above,
-                      please contact Charlotte-Mecklenburg Schools Pupil Assignment at (980) XXX-XXXX for your 
-                      home school placement.
-                    </h4>
-                </div>
-            </div>
-        </div>
-        <div class="text-center">
-            <div class="report-record-highlight" v-if="zone">
-                <svg class="icon icon-bus"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bus"></use></svg>
-                <h2>Your Transportation Zone is</h2>
-                <h1>{{zone}}</h1>
-            </div>
-        </div>
-        <div v-if="magnet">
-            <table>
-                <caption>Magnet Schools</caption>
-                <thead>
-                    <tr>
-                        <th>School</th>
-                        <th>Address</th>
-                        <th>Grades</th>
-                        <th class="col-responsive text-right">Distance</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(item, index) in magnet">
-                        <td>
-                            {{item.name}}{{ item.num | getAsterik }}
-                        </td>
-                        <td>
-                            <a href="javascript:void(0)" v-on:click="locationClick(magnet[index])">
-                                    {{item.address}}, {{item.city}}</a>
-                        </td>
-                        <td>
-                          {{item.grade_level}}
-                        </td>
-                        <td class="nowrap col-responsive text-right">
-                            {{ item.distance | distance }}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="report-moreinfo">
-            <p>
-                Transportation eligibility is determined by the transportation zone in which you live. The county is divided into three transportation zones: violet, blue and green. Magnet schools are assigned a zone to serve with transportation. If the distance
-                is to the magnet greater than 5 miles, you may be assigned to a shuttle stop location. Some programs (*) provide county-wide transportation, meaning that regardless of your zone, you would receive transportation. For more information please
-                contact Charlotte-Mecklenburg School Transportation Services at (980) 343-6715.
-            </p>
-            <h5>For more information, please visit:</h5>
-            <ul class="list-unstyled">
-                <li><a href="http://www.cms.k12.nc.us/" target="_blank"  rel="noopener">Charlotte-Mecklenburg Schools</a></li>
-            </ul>
-        </div>
-    </div>
+      </div>
+        
+      <div v-if="magnet">
+        <table>
+            <caption>Magnet Schools</caption>
+            <thead>
+                <tr>
+                    <th>School</th>
+                    <th>Address</th>
+                    <th>Grades</th>
+                    <th class="col-responsive text-right">Distance</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(item, index) in magnet">
+                    <td>
+                        {{item.name}}{{ item.num | getAsterik }}
+                    </td>
+                    <td>
+                        <a href="javascript:void(0)" v-on:click="locationClick(magnet[index])">
+                                {{item.address}}, {{item.city}}</a>
+                    </td>
+                    <td>
+                      {{item.grade_level}}
+                    </td>
+                    <td class="nowrap col-responsive text-right">
+                        {{ item.distance | distance }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+      </div>
+
+      <div class="report-moreinfo">
+        <p>
+            Transportation eligibility is determined by the transportation zone in which you live. The county is divided into three transportation zones: violet, blue and green. Magnet schools are assigned a zone to serve with transportation. If the distance
+            is to the magnet greater than 5 miles, you may be assigned to a shuttle stop location. Some programs (*) provide county-wide transportation, meaning that regardless of your zone, you would receive transportation. For more information please
+            contact Charlotte-Mecklenburg School Transportation Services at (980) 343-6715.
+        </p>
+        <h5>For more information, please visit:</h5>
+        <ul class="list-unstyled">
+            <li><a href="http://www.cms.k12.nc.us/" target="_blank"  rel="noopener">Charlotte-Mecklenburg Schools</a></li>
+        </ul>
+      </div>
+  </div>
 </template>
 
 <script>
 import jsonToURL from "../js/jsontourl";
 import format from "format-number";
+import HomeSchool from './schools_home.vue'
 
 export default {
   name: "schools",
+
+  components: {
+    HomeSchool
+  },
 
   data: function() {
     return {
@@ -168,25 +113,8 @@ export default {
   mounted: function() {
     this.getResults();
   },
-  methods: {
-    detectOverlap(arr) {
-      if (arr.length < 2) return false
 
-      let fixedArr = []
-
-      for (var value of arr) {
-        fixedArr.push(value.grade_level.replace(/k/ig, '0').split('-').map(Number))
-      }
-
-      let totalRange = Math.max(...fixedArr.map(x => x[1])) - Math.min(...fixedArr.map(x => x[0]))
-      let sumOfRanges = fixedArr.map(x => x[1] - x[0]).reduce((a, b) => a + b, 0)
-
-      if (sumOfRanges >= totalRange) {
-        return true
-      } else {
-        return false
-      }      
-    },    
+  methods: {       
     getResults: function() {
       let _this = this;
       if (
@@ -248,3 +176,18 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.flex-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+.flex-item {
+  flex-wrap: wrap;
+}
+.report-record-highlight {
+  margin: 20px;
+  text-align: center;
+}
+</style>
