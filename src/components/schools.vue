@@ -6,11 +6,19 @@
                 <h2>Your ELEMENTARY school<span v-if="elementary.length > 1">s</span> {{ elementary.length > 1 ? 'are' : 'is' }}</h2>
                 <template v-for="(item, index) in elementary">
                 <h1>{{item.name.toUpperCase()}}</h1>
-                <h3>Grades {{item.grade_level}}</h3>
+                <h3>
+                  Grades {{item.grade_level}}
+                </h3>
                 <h3><a href="javascript:void(0)" v-on:click="locationClick(elementary[index])">
                         {{item.address}}</a></h3>
-                <h4>{{ item.distance | distance }}</h4>
+                <h4>{{ item.distance | distance }}</h4>                
                 </template>
+                <h4 v-if="detectOverlap(elementary)" style="font-style: italic; font-size: 0.9em;">
+                  If you or your child is in a grade level that could be assigned to more than one of 
+                  the schools listed above,
+                  please contact Charlotte-Mecklenburg Schools Pupil Assignment at (980) XXX-XXXX for your 
+                  home school placement.
+                </h4>
             </div>
         </div>
         <div class="row">
@@ -20,11 +28,19 @@
                     <h2>Your MIDDLE school<span v-if="middle.length > 1">s</span> {{ middle.length > 1 ? 'are' : 'is' }}</h2>
                     <template v-for="(item, index) in middle">
                     <h1>{{item.name.toUpperCase()}}</h1>
-                    <h3>Grades {{item.grade_level}}</h3>
+                    <h3>
+                       Grades {{item.grade_level}}
+                    </h3>
                     <h3><a href="javascript:void(0)" v-on:click="locationClick(middle[index])">
                             {{item.address}}</a></h3>
                     <h4>{{ item.distance | distance }}</h4>
                     </template>
+                    <h4 v-if="detectOverlap(middle)" style="font-style: italic; font-size: 0.9em;">
+                      If you or your child is in a grade level that could be assigned to more than one of 
+                      the schools listed above,
+                      please contact Charlotte-Mecklenburg Schools Pupil Assignment at (980) XXX-XXXX for your 
+                      home school placement.
+                    </h4>
                 </div>
             </div>
             <div class="column text-center">
@@ -33,11 +49,19 @@
                     <h2>Your HIGH school<span v-if="high.length > 1">s</span> {{ high.length > 1 ? 'are' : 'is' }}</h2>
                     <template v-for="(item, index) in high">
                     <h1>{{item.name.toUpperCase()}}</h1>
-                    <h3>Grades {{item.grade_level}}</h3>
+                    <h3>
+                       Grades {{item.grade_level}}
+                    </h3>
                     <h3><a href="javascript:void(0)" v-on:click="locationClick(middle[index])">
                             {{item.address}}</a></h3>
-                    <h4>{{ item.distance | distance }}</h4>
+                    <h4>{{ item.distance | distance }}</h4>                   
                     </template>
+                    <h4 v-if="detectOverlap(high)" style="font-style: italic; font-size: 0.9em;">
+                      If you or your child is in a grade level that could be assigned to more than one of 
+                      the schools listed above,
+                      please contact Charlotte-Mecklenburg Schools Pupil Assignment at (980) XXX-XXXX for your 
+                      home school placement.
+                    </h4>
                 </div>
             </div>
         </div>
@@ -144,7 +168,25 @@ export default {
   mounted: function() {
     this.getResults();
   },
-  methods: {    
+  methods: {
+    detectOverlap(arr) {
+      if (arr.length < 2) return false
+
+      let fixedArr = []
+
+      for (var value of arr) {
+        fixedArr.push(value.grade_level.replace(/k/ig, '0').split('-').map(Number))
+      }
+
+      let totalRange = Math.max(...fixedArr.map(x => x[1])) - Math.min(...fixedArr.map(x => x[0]))
+      let sumOfRanges = fixedArr.map(x => x[1] - x[0]).reduce((a, b) => a + b, 0)
+
+      if (sumOfRanges >= totalRange) {
+        return true
+      } else {
+        return false
+      }      
+    },    
     getResults: function() {
       let _this = this;
       if (
@@ -153,7 +195,7 @@ export default {
       ) {
 
         // school assignments and transportation zone
-        fetch(`https://mcmap.org/api/intersect_point/v1/cms_parcels/${_this.selected.lnglat[0]},${_this.selected.lnglat[1]}/4326?columns=elem_num,high_zone,midd_num,high_num,schl_other`)
+        fetch(`https://mcmap.org/api/nearest/v1/cms_parcels/${_this.selected.lnglat[0]},${_this.selected.lnglat[1]}/4326?columns=elem_num,high_zone,midd_num,high_num,schl_other&limit=1`)
           .then( response => response.json())
           .then( response => {
             // set transportation zone
@@ -170,9 +212,9 @@ export default {
           })
           .then( response => response.json())
           .then( schools => {
-            _this.elementary = schools.filter(item => item.type === 'ELEMENTARY');
-            _this.middle = schools.filter(item => item.type === 'MIDDLE');
-            _this.high = schools.filter(item => item.type === 'HIGH');
+            _this.elementary = schools.filter(item => item.type === 'ELEMENTARY').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.middle = schools.filter(item => item.type === 'MIDDLE').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.high = schools.filter(item => item.type === 'HIGH').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
           })
           .catch(function(ex) {
             console.log("parsing failed", ex);
