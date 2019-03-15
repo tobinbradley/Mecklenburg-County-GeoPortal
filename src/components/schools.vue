@@ -26,6 +26,7 @@
                 <tr v-for="(item, index) in magnet">
                     <td>
                         {{item.name}}{{ item.num | getAsterik }}
+                        <span class="magnet-focus">{{item.mag_focus}}</span>
                     </td>
                     <td>
                         <a href="javascript:void(0)" v-on:click="locationClick(magnet[index])">
@@ -150,8 +151,8 @@ export default {
 
         // magnet schools
         fetch(`https://mcmap.org/api/query/v1/cms_schools?${jsonToURL({
-          filter: "magnet <> 'Non-Magnet'",
-          columns: `num,city,zipcode::int,address,name,type,grade_level,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat,magnet,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0]         )} ${Number(
+          filter: "magnet in ('Full', 'Partial')",
+          columns: `num,city,zipcode::int,address,name,type,grade_level,mag_focus,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat,magnet,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0]         )} ${Number(
               _this.selected.lnglat[1]
             )} )',4326), 2264)) as distance`,
             sort: 'distance'
@@ -189,5 +190,10 @@ export default {
 .report-record-highlight {
   margin: 20px;
   text-align: center;
+}
+.magnet-focus {
+  display: block;
+  font-size: 0.85em;
+  color: #6b6b6b;
 }
 </style>
