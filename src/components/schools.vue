@@ -1,9 +1,9 @@
 <template>
     <div>
       <div class="flex-container">
-        <HomeSchool :recs=elementary heading="ELEMENTARY" />
-        <HomeSchool :recs=middle heading="MIDDLE" />
-        <HomeSchool :recs=high heading="HIGH" />
+        <HomeSchool :recs=current.elementary heading="ELEMENTARY" />
+        <HomeSchool :recs=current.middle :future=future.middle heading="MIDDLE" />
+        <HomeSchool :recs=current.high heading="HIGH" />
         <div class="report-record-highlight flex-item text-center" v-if="zone">
           <svg class="icon icon-bus"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bus"></use></svg>
           <h2>Your Transportation Zone is</h2>
@@ -72,9 +72,16 @@ export default {
   data: function() {
     return {
       magnet: [],
-      elementary: [],
-      middle: [],
-      high: [],
+      current: {
+        elementary: null,
+        middle: null,
+        high: null,
+      },
+      future: {
+        elementary: null,
+        middle: null,
+        high: null,
+      },
       zone: null
     };
   },
@@ -123,49 +130,88 @@ export default {
         _this.show.indexOf("schools") !== -1
       ) {
 
-        // school assignments and transportation zone
-        fetch(`https://mcmap.org/api/nearest/v1/cms_parcels/${_this.selected.lnglat[0]},${_this.selected.lnglat[1]}/4326?columns=elem_num,high_zone,midd_num,high_num,schl_other&limit=1`)
+        // magnet schools
+        _this.fetchMagnet()
+
+        // current school assignments
+        _this.fetchParcel('cms_parcels')        
           .then( response => response.json())
           .then( response => {
             // set transportation zone
-              _this.zone = response[0].high_zone;
+            _this.zone = response[0].high_zone;
 
             // get schools
             let schlnums = [response[0].elem_num, response[0].midd_num, response[0].high_num];
             if (response[0].schl_other) {              
               schlnums = schlnums.concat(response[0].schl_other.split(',').map(Number));
             }
-            return fetch(`https://mcmap.org/api/query/v1/cms_schools?columns=city,zipcode::int,address,name,type,grade_level,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0]         )} ${Number(
-              _this.selected.lnglat[1]
-            )} )',4326), 2264)) as distance,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat&filter=num in(${schlnums.join()})`)
+
+            return _this.fetchSchool('cms_schools', schlnums)
           })
           .then( response => response.json())
           .then( schools => {
-            _this.elementary = schools.filter(item => item.type === 'ELEMENTARY').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-            _this.middle = schools.filter(item => item.type === 'MIDDLE').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-            _this.high = schools.filter(item => item.type === 'HIGH').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.current.elementary = schools.filter(item => item.type === 'ELEMENTARY').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.current.middle = schools.filter(item => item.type === 'MIDDLE').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.current.high = schools.filter(item => item.type === 'HIGH').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
           })
           .catch(function(ex) {
             console.log("parsing failed", ex);
           });
 
-        // magnet schools
-        fetch(`https://mcmap.org/api/query/v1/cms_schools?${jsonToURL({
-          filter: "magnet in ('Full', 'Partial')",
-          columns: `num,city,zipcode::int,address,name,type,grade_level,mag_focus,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat,magnet,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0]         )} ${Number(
-              _this.selected.lnglat[1]
-            )} )',4326), 2264)) as distance`,
-            sort: 'distance'
-            })}`)
+        // future school assignments
+        _this.fetchParcel('cms_parcels_futyr')        
           .then( response => response.json())
           .then( response => {
-            _this.magnet = response;
+
+            // get schools
+            let schlnums = [response[0].elem_num, response[0].midd_num, response[0].high_num];
+            if (response[0].schl_other) {              
+              schlnums = schlnums.concat(response[0].schl_other.split(',').map(Number));
+            }
+
+            return _this.fetchSchool('cms_schools_futyr', schlnums)
+          })
+          .then( response => response.json())
+          .then( schools => {
+            _this.future.elementary = schools.filter(item => item.type === 'ELEMENTARY').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.future.middle = schools.filter(item => item.type === 'MIDDLE').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.future.high = schools.filter(item => item.type === 'HIGH').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
           })
           .catch(function(ex) {
             console.log("parsing failed", ex);
           });
-
+        
       }
+    },
+    fetchParcel(table) {
+      let _this = this
+
+      return fetch(`https://mcmap.org/api/nearest/v1/${table}/${_this.selected.lnglat[0]},${_this.selected.lnglat[1]}/4326?columns=elem_num,high_zone,midd_num,high_num,schl_other&limit=1`)
+    },
+    fetchSchool(table = 'cms_schools', nums) {
+      let _this = this
+
+      return fetch(`https://mcmap.org/api/query/v1/${table}?columns=city,zipcode::int,address,name,type,grade_level,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0])} ${Number(
+        _this.selected.lnglat[1]
+        )} )',4326), 2264)) as distance,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat&filter=num in(${nums.join()})`)
+    },
+    fetchMagnet() {
+      let _this = this
+
+      fetch(`https://mcmap.org/api/query/v1/cms_schools?${jsonToURL({
+        filter: "magnet in ('Full', 'Partial')",
+        columns: `num,city,zipcode::int,address,name,type,grade_level,mag_focus,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat,magnet,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0]         )} ${Number(
+            _this.selected.lnglat[1]
+          )} )',4326), 2264)) as distance`,
+          sort: 'distance'
+          })}`)
+        .then( response => response.json())
+        .then( response => {
+          _this.magnet = response;
+        })
+        .catch(function(ex) {
+          console.log("parsing failed", ex);
+        });
     },
     locationClick: function(rec) {
       this.$store.commit("poi", {
