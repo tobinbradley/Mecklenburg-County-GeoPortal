@@ -150,9 +150,9 @@ export default {
           })
           .then( response => response.json())
           .then( schools => {
-            _this.current.elementary = schools.filter(item => item.type === 'ELEMENTARY').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-            _this.current.middle = schools.filter(item => item.type === 'MIDDLE').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-            _this.current.high = schools.filter(item => item.type === 'HIGH').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.current.elementary = schools.filter(item => item.type.indexOf('ELEMENTARY') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.current.middle = schools.filter(item => item.type.indexOf('MIDDLE') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.current.high = schools.filter(item => item.type.indexOf('HIGH') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
           })
           .catch(function(ex) {
             console.log("parsing failed", ex);
@@ -173,9 +173,9 @@ export default {
           })
           .then( response => response.json())
           .then( schools => {
-            _this.future.elementary = schools.filter(item => item.type === 'ELEMENTARY').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-            _this.future.middle = schools.filter(item => item.type === 'MIDDLE').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-            _this.future.high = schools.filter(item => item.type === 'HIGH').sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.future.elementary = schools.filter(item => item.type.indexOf('ELEMENTARY') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.future.middle = schools.filter(item => item.type.indexOf('MIDDLE') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+            _this.future.high = schools.filter(item => item.type.indexOf('HIGH') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
           })
           .catch(function(ex) {
             console.log("parsing failed", ex);
