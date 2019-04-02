@@ -68,7 +68,7 @@ export default {
         zoom: 8.5,
         minZoom: 8,
         maxBounds: [[-82.641, 34.115], [-79.008, 36.762]],
-        preserveDrawingBuffer: true
+        preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf("firefox") > -1
       };
 
       _this.map = new mapboxgl.Map(mapOptions);
