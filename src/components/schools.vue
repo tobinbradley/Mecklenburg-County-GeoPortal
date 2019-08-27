@@ -10,7 +10,7 @@
           <h1>{{zone}}</h1>
         </div>
       </div>
-        
+
       <div v-if="magnet">
         <table>
             <caption>Magnet Schools</caption>
@@ -62,6 +62,8 @@ import jsonToURL from "../js/jsontourl";
 import format from "format-number";
 import HomeSchool from './schools_home.vue'
 
+// Address to test multiple schools: 1001 BERKELEY AV CHARLOTTE NC 28203
+
 export default {
   name: "schools",
 
@@ -72,6 +74,7 @@ export default {
   data: function() {
     return {
       magnet: [],
+      cms_parcel: null,
       current: {
         elementary: null,
         middle: null,
@@ -122,7 +125,7 @@ export default {
     this.getResults();
   },
 
-  methods: {       
+  methods: {
     getResults: function() {
       let _this = this;
       if (
@@ -134,64 +137,80 @@ export default {
         _this.fetchMagnet()
 
         // current school assignments
-        _this.fetchParcel('cms_parcels')        
+        _this.fetchParcel('cms_parcels')
           .then( response => response.json())
           .then( response => {
             // set transportation zone
-            _this.zone = response[0].high_zone;
+            _this.zone = response[0].high_zone
 
-            // get schools
-            let schlnums = [response[0].elem_num, response[0].midd_num, response[0].high_num];
-            if (response[0].schl_other) {              
-              schlnums = schlnums.concat(response[0].schl_other.split(',').map(Number));
-            }
+            // set record to get grade levels
+            delete response[0].distance
+            delete response[0].high_zone
+            _this.cms_parcel = response[0]
+
+            // set school numbers to grab
+            let schlnums = [...new Set(Object.values(response[0]))] // unique values array
 
             return _this.fetchSchool('cms_schools', schlnums)
           })
           .then( response => response.json())
           .then( schools => {
-            _this.current.elementary = schools.filter(item => item.type.indexOf('ELEMENTARY') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-            _this.current.middle = schools.filter(item => item.type.indexOf('MIDDLE') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-            _this.current.high = schools.filter(item => item.type.indexOf('HIGH') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+
+            const grades = _this.cms_parcel
+            const gradeKeys = Object.keys(grades)
+
+            schools.forEach(school => {
+              school.grades = []
+              gradeKeys.forEach(grade => {
+                if (grades[grade] === school.schlnum) {
+                  school.grades.push(grade.replace("grade", "").replace("k", "0k"))
+                }
+              })
+              school.grades.sort((a, b) => a.localeCompare(b, "en-US", {numeric: true, ignorePunctuation: true}))
+              school.grades = school.grades.map(el => el === "0k" ? "K" : el)
+
+            })
+
+            _this.current.elementary = schools.filter(item => item.type.indexOf('ELEMENTARY') !== -1).sort((a,b) => {if (a.grades[0] < b.grades[0]) {return 1} else {return -1}})
+            _this.current.middle = schools.filter(item => item.type.indexOf('MIDDLE') !== -1).sort((a,b) => {if (a.grades[0] > b.grades[0]) {return 1} else {return -1}})
+            _this.current.high = schools.filter(item => item.type.indexOf('HIGH') !== -1).sort((a,b) => {if (a.grades[0] < b.grades[0]) {return 1} else {return -1}})
           })
           .catch(function(ex) {
             console.log("parsing failed", ex);
           });
 
         // future school assignments
-        _this.fetchParcel('cms_parcels_futyr')        
-          .then( response => response.json())
-          .then( response => {
+        // _this.fetchParcel('cms_parcels_futyr')
+        //   .then( response => response.json())
+        //   .then( response => {
 
-            // get schools
-            let schlnums = [response[0].elem_num, response[0].midd_num, response[0].high_num];
-            if (response[0].schl_other) {              
-              schlnums = schlnums.concat(response[0].schl_other.split(',').map(Number));
-            }
+        //     // get schools
+        //     let schlnums = [response[0].elem_num, response[0].midd_num, response[0].high_num];
+        //     if (response[0].schl_other) {
+        //       schlnums = schlnums.concat(response[0].schl_other.split(',').map(Number));
+        //     }
 
-            return _this.fetchSchool('cms_schools_futyr', schlnums)
-          })
-          .then( response => response.json())
-          .then( schools => {
-            _this.future.elementary = schools.filter(item => item.type.indexOf('ELEMENTARY') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-            _this.future.middle = schools.filter(item => item.type.indexOf('MIDDLE') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-            _this.future.high = schools.filter(item => item.type.indexOf('HIGH') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-          })
-          .catch(function(ex) {
-            console.log("parsing failed", ex);
-          });
-        
+        //     return _this.fetchSchool('cms_schools_futyr', schlnums)
+        //   })
+        //   .then( response => response.json())
+        //   .then( schools => {
+        //     _this.future.elementary = schools.filter(item => item.type.indexOf('ELEMENTARY') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+        //     _this.future.middle = schools.filter(item => item.type.indexOf('MIDDLE') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+        //     _this.future.high = schools.filter(item => item.type.indexOf('HIGH') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
+        //   })
+        //   .catch(function(ex) {
+        //     console.log("parsing failed", ex);
+        //   });
+
       }
     },
     fetchParcel(table) {
-      let _this = this
-
-      return fetch(`https://mcmap.org/api/nearest/v1/${table}/${_this.selected.lnglat[0]},${_this.selected.lnglat[1]}/4326?columns=elem_num,high_zone,midd_num,high_num,schl_other&limit=1`)
+      return fetch(`https://mcmap.org/api/nearest/v1/${table}/${this.selected.lnglat[0]},${this.selected.lnglat[1]}/4326?columns=high_zone,gradek,grade1,grade2,grade3,grade4,grade5,grade6,grade7,grade8,grade9,grade10,grade11,grade12&limit=1`)
     },
     fetchSchool(table = 'cms_schools', nums) {
       let _this = this
 
-      return fetch(`https://mcmap.org/api/query/v1/${table}?columns=city,zipcode::int,address,name,type,grade_level,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0])} ${Number(
+      return fetch(`https://mcmap.org/api/query/v1/${table}?columns=city,zipcode::int,num as schlnum,address,name,type,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0])} ${Number(
         _this.selected.lnglat[1]
         )} )',4326), 2264)) as distance,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat&filter=num in(${nums.join()})`)
     },

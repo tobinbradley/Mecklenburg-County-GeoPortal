@@ -5,11 +5,12 @@
     <template v-for="(item, index) in recs">
       <h1>{{item.name.toUpperCase()}}</h1>
       <h3>
-        Grades {{item.grade_level}}<span v-if="detectOverlap(recs)">*</span>
+        Grade<span v-if="item.grades.length > 1">s</span>
+        {{item.grades[0]}}<span v-if="item.grades.length > 1">-{{item.grades[item.grades.length - 1]}}</span>
       </h3>
       <h3><a href="javascript:void(0)" v-on:click="locationClick(recs[index])">
               {{item.address}}</a></h3>
-      <h4>{{ item.distance | distance }}</h4>                
+      <h4>{{ item.distance | distance }}</h4>
     </template>
 
     <div v-if="detectDifference()" class="futureSchools">
@@ -21,12 +22,12 @@
         </p>
     </div>
 
-    <h4 v-if="detectOverlap(recs) || detectOverlap(future)" class="schoolOverlap">      
-      *If the grade your child is entering 
-      is available at more than one of the {{heading}} schools above, 
-      please contact Charlotte-Mecklenburg Schools at (980) 343-5335 for your 
+    <!-- <h4 v-if="detectOverlap(recs) || detectOverlap(future)" class="schoolOverlap">
+      *If the grade your child is entering
+      is available at more than one of the {{heading}} schools above,
+      please contact Charlotte-Mecklenburg Schools at (980) 343-5335 for your
       home school placement.
-    </h4>
+    </h4> -->
   </div>
 </template>
 
@@ -35,7 +36,7 @@
 
   export default {
     name: 'schools_home',
-    
+
     props: {
       recs: {
         type: Array
@@ -70,7 +71,7 @@
             if (this.recs[i].name !== this.future[i].name || this.recs[i].grade_level !== this.future[i].grade_level) return true
           }
 
-        } 
+        }
         return false
       },
       detectOverlap(arr) {
@@ -81,7 +82,7 @@
         let totalRange = Math.max(...fixedArr.map(x => x[1])) - Math.min(...fixedArr.map(x => x[0]))
         let sumOfRanges = fixedArr.map(x => x[1] - x[0]).reduce((a, b) => a + b, 0)
 
-        return (sumOfRanges >= totalRange)      
+        return (sumOfRanges >= totalRange)
       },
       locationClick(rec) {
         this.$store.commit("poi", {
@@ -90,7 +91,7 @@
           label: rec.name ? rec.name : rec.schlname
         })
       }
-    }   
+    }
   }
 </script>
 
@@ -105,7 +106,7 @@
   text-align: center;
 }
 .schoolOverlap {
-  font-style: regular; 
+  font-style: regular;
   font-size: 0.9em;
   max-width: 300px;
 }
