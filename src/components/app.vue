@@ -16,7 +16,9 @@ import Schools from "./schools.vue";
 import Trash from "./trash.vue";
 import Environment from "./environment.vue";
 import Voting from "./voting.vue";
-import QualityOfLife from "./qualityoflife.vue";
+//import QualityOfLife from "./qualityoflife.vue";
+import Community from "./community"
+
 import MapGL from "./map.vue"
 import { setTimeout } from 'timers'
 
@@ -33,7 +35,7 @@ export default {
     trash: Trash,
     environment: Environment,
     voting: Voting,
-    qualityoflife: QualityOfLife,
+    community: Community,
     MapGL: MapGL
   },
 
@@ -68,7 +70,7 @@ export default {
         }
         let elem = document.querySelector(`a[data-load="schools"]`);
         elem.classList.add("active");
-      } 
+      }
     },
     gotTab: function() {
       let _this = this
