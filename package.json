@@ -10,21 +10,20 @@
   "author": "Tobin Bradley",
   "license": "MIT",
   "dependencies": {
-    "chartist": "^0.11.0",
     "format-number": "^3.0.0",
-    "mapbox-gl": "^0.53.1",
+    "mapbox-gl": "^1.2.1",
     "normalize.css": "^8.0.1",
-    "register-service-worker": "^1.5.2",
-    "vue": "^2.6.6",
-    "vuex": "^3.1.0"
+    "register-service-worker": "^1.6.2",
+    "vue": "^2.6.10",
+    "vuex": "^3.1.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^3.4.0",
-    "@vue/cli-plugin-pwa": "^3.4.0",
-    "@vue/cli-service": "^3.4.0",
+    "@vue/cli-plugin-babel": "^3.11.0",
+    "@vue/cli-plugin-pwa": "^3.11.0",
+    "@vue/cli-service": "^3.11.0",
     "html-critical-webpack-plugin": "^2.1.0",
     "postcss-import": "^12.0.1",
-    "postcss-preset-env": "^6.5.0",
-    "vue-template-compiler": "^2.6.6"
+    "postcss-preset-env": "^6.7.0",
+    "vue-template-compiler": "^2.6.10"
   }
 }
