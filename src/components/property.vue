@@ -154,7 +154,7 @@
         </div>
         <div v-if="resultsPermits.length > 0">
             <table>
-                <caption>Permits</caption>
+                <caption>Building Permits</caption>
                 <thead>
                     <tr>
                         <th>Year</th>
@@ -187,6 +187,7 @@
                 <li><a href="http://polaris.mecklenburgcountync.gov/" target="_blank"  rel="noopener">POLARIS</a></li>
                 <li><a href="http://charmeck.org/mecklenburg/county/AssessorsOffice/Pages/Home.aspx" target="_blank"  rel="noopener">County Assessor's Office</a></li>
                 <li><a href="http://charmeck.org/city/charlotte/planning/Pages/Home.aspx" target="_blank"  rel="noopener">Charlotte-Mecklenburg Planning</a></li>
+                <li><a href="http://webpermit.mecklenburgcountync.gov/Default.aspx?PosseMenuName=ViewPermits" target="_blank"  rel="noopener">Customer Permit Lookup</a></li>
             </ul>
         </div>
     </div>
