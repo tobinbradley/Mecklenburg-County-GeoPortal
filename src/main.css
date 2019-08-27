@@ -13,7 +13,6 @@ ____________________________________
 /* vendor stuff */
 @import "../node_modules/normalize.css/normalize.css";
 @import "../node_modules/mapbox-gl/dist/mapbox-gl.css";
-@import "../node_modules/chartist/dist/chartist.css";
 
 /* aweseome stuff */
 @import "./css/_variables.css";
@@ -31,4 +30,3 @@ ____________________________________
 @import "./css/_youtube.css";
 @import "./css/_burger.css";
 @import "./css/_print.css";
-
