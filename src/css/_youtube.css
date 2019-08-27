@@ -2,7 +2,7 @@
   /* continer (responsive) */
   position: relative;
   cursor: pointer;
-  background: no-repeat center center / cover;
+  background: no-repeat center center / contain;
   padding-bottom: 56.25%;
   /* 16:9 */
   height: 0px;
