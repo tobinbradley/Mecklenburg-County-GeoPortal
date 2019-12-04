@@ -1,9 +1,11 @@
 <template>
     <div>
       <div class="flex-container">
-        <HomeSchool :recs=current.elementary heading="ELEMENTARY" />
-        <HomeSchool :recs=current.middle :future=future.middle heading="MIDDLE" />
-        <HomeSchool :recs=current.high heading="HIGH" />
+        <HomeSchool :recs=current heading="THIS" />
+        <HomeSchool :recs=future heading="NEXT" />
+      </div>
+
+      <div class="flex-container">
         <div class="report-record-highlight flex-item text-center" v-if="zone">
           <svg class="icon icon-bus"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-bus"></use></svg>
           <h2>Your Transportation Zone is</h2>
@@ -23,22 +25,22 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in magnet">
-                    <td>
-                        {{item.name}}{{ item.num | getAsterik }}
-                        <span class="magnet-focus">{{item.mag_focus}}</span>
-                    </td>
-                    <td>
-                        <a href="javascript:void(0)" v-on:click="locationClick(magnet[index])">
-                                {{item.address}}, {{item.city}}</a>
-                    </td>
-                    <td>
-                      {{item.grade_level}}
-                    </td>
-                    <td class="nowrap col-responsive text-right">
-                        {{ item.distance | distance }}
-                    </td>
-                </tr>
+              <tr v-for="(item, index) in magnet">
+                <td>
+                    {{item.name}}{{ item.num | getAsterik }}
+                    <span class="magnet-focus">{{item.mag_focus}}</span>
+                </td>
+                <td>
+                    <a href="javascript:void(0)" v-on:click="locationClick(magnet[index])">
+                            {{item.address}}, {{item.city}}</a>
+                </td>
+                <td>
+                  {{item.grade_level}}
+                </td>
+                <td class="nowrap col-responsive text-right">
+                    {{ item.distance | distance }}
+                </td>
+              </tr>
             </tbody>
         </table>
       </div>
@@ -75,16 +77,8 @@ export default {
     return {
       magnet: [],
       cms_parcel: null,
-      current: {
-        elementary: null,
-        middle: null,
-        high: null,
-      },
-      future: {
-        elementary: null,
-        middle: null,
-        high: null,
-      },
+      current: null,
+      future: null,
       zone: null
     };
   },
@@ -133,86 +127,68 @@ export default {
         _this.show.indexOf("schools") !== -1
       ) {
 
+        const urls = [
+          `https://mcmap.org/api/nearest/v1/cms_parcels/${this.selected.lnglat[0]},${this.selected.lnglat[1]}/4326?columns=high_zone,gradek,grade1,grade2,grade3,grade4,grade5,grade6,grade7,grade8,grade9,grade10,grade11,grade12&limit=1`,
+          `https://mcmap.org/api/nearest/v1/cms_parcels_future_py/${this.selected.lnglat[0]},${this.selected.lnglat[1]}/4326?columns=high_zone,gradek,grade1,grade2,grade3,grade4,grade5,grade6,grade7,grade8,grade9,grade10,grade11,grade12&limit=1`
+        ]
+
+        Promise.all(urls.map(url =>
+          fetch(url).then(resp => resp.json())
+        )).then(jsons => {
+          let current = jsons[0][0]
+          let future = jsons[1][0]
+
+
+          // set transportation zone
+          this.zone = current["high_zone"];
+
+          // remove unneeded stuff
+          [current, future].forEach((elem) => {
+            delete elem.distance
+            delete elem.high_zone
+          })
+
+
+
+          // school numbers to fetch
+          const schlnums = [...new Set(Object.values(current).concat(Object.values(future)))]
+
+          fetch(`https://mcmap.org/api/query/v1/cms_schools?columns=city,zipcode::int,num as schlnum,address,name,type,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(this.selected.lnglat[0])} ${Number(
+              this.selected.lnglat[1]
+              )} )',4326), 2264)) as distance,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat&filter=num in(${schlnums.join()})`)
+              .then(schools => schools.json())
+              .then(schools => {
+
+                [current, future].forEach((elem, idx) => {
+                  let results = []
+                  let schls = [...new Set(Object.values(elem))]
+                  const year = idx === 0 ? 'current' : 'future'
+
+                  schls.forEach(scl => {
+                    let grades = []
+
+                    Object.keys(elem).forEach(key => {
+                      if (elem[key] === scl) grades.push(key.replace("grade", '').toUpperCase())
+                    })
+
+                    let result = JSON.parse(JSON.stringify(schools.filter(el => el.schlnum === scl)[0]))
+
+                    result.grades = grades
+                    result.year = year
+
+                    results.push(result)
+                  })
+
+                  this[year] = results
+                })
+              })
+
+        })
+
         // magnet schools
         _this.fetchMagnet()
 
-        // current school assignments
-        _this.fetchParcel('cms_parcels')
-          .then( response => response.json())
-          .then( response => {
-            // set transportation zone
-            _this.zone = response[0].high_zone
-
-            // set record to get grade levels
-            delete response[0].distance
-            delete response[0].high_zone
-            _this.cms_parcel = response[0]
-
-            // set school numbers to grab
-            let schlnums = [...new Set(Object.values(response[0]))] // unique values array
-
-            return _this.fetchSchool('cms_schools', schlnums)
-          })
-          .then( response => response.json())
-          .then( schools => {
-
-            const grades = _this.cms_parcel
-            const gradeKeys = Object.keys(grades)
-
-            schools.forEach(school => {
-              school.grades = []
-              gradeKeys.forEach(grade => {
-                if (grades[grade] === school.schlnum) {
-                  school.grades.push(grade.replace("grade", "").replace("k", "0k"))
-                }
-              })
-              school.grades.sort((a, b) => a.localeCompare(b, "en-US", {numeric: true, ignorePunctuation: true}))
-              school.grades = school.grades.map(el => el === "0k" ? "K" : el)
-
-            })
-
-            _this.current.elementary = schools.filter(item => item.type.indexOf('ELEMENTARY') !== -1).sort((a,b) => {if (a.grades[0] < b.grades[0]) {return 1} else {return -1}})
-            _this.current.middle = schools.filter(item => item.type.indexOf('MIDDLE') !== -1).sort((a,b) => {if (a.grades[0] > b.grades[0]) {return 1} else {return -1}})
-            _this.current.high = schools.filter(item => item.type.indexOf('HIGH') !== -1).sort((a,b) => {if (a.grades[0] < b.grades[0]) {return 1} else {return -1}})
-          })
-          .catch(function(ex) {
-            console.log("parsing failed", ex);
-          });
-
-        // future school assignments
-        // _this.fetchParcel('cms_parcels_futyr')
-        //   .then( response => response.json())
-        //   .then( response => {
-
-        //     // get schools
-        //     let schlnums = [response[0].elem_num, response[0].midd_num, response[0].high_num];
-        //     if (response[0].schl_other) {
-        //       schlnums = schlnums.concat(response[0].schl_other.split(',').map(Number));
-        //     }
-
-        //     return _this.fetchSchool('cms_schools_futyr', schlnums)
-        //   })
-        //   .then( response => response.json())
-        //   .then( schools => {
-        //     _this.future.elementary = schools.filter(item => item.type.indexOf('ELEMENTARY') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-        //     _this.future.middle = schools.filter(item => item.type.indexOf('MIDDLE') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-        //     _this.future.high = schools.filter(item => item.type.indexOf('HIGH') !== -1).sort((a,b) => {if (a.grade_level < b.grade_level) {return 1} else {return -1}})
-        //   })
-        //   .catch(function(ex) {
-        //     console.log("parsing failed", ex);
-        //   });
-
       }
-    },
-    fetchParcel(table) {
-      return fetch(`https://mcmap.org/api/nearest/v1/${table}/${this.selected.lnglat[0]},${this.selected.lnglat[1]}/4326?columns=high_zone,gradek,grade1,grade2,grade3,grade4,grade5,grade6,grade7,grade8,grade9,grade10,grade11,grade12&limit=1`)
-    },
-    fetchSchool(table = 'cms_schools', nums) {
-      let _this = this
-
-      return fetch(`https://mcmap.org/api/query/v1/${table}?columns=city,zipcode::int,num as schlnum,address,name,type,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${Number(_this.selected.lnglat[0])} ${Number(
-        _this.selected.lnglat[1]
-        )} )',4326), 2264)) as distance,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat&filter=num in(${nums.join()})`)
     },
     fetchMagnet() {
       let _this = this
