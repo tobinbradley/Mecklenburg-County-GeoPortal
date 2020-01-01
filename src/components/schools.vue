@@ -47,8 +47,8 @@
 
       <div class="report-moreinfo">
         <p>
-            Transportation eligibility is determined by the transportation zone in which you live. The county is divided into three transportation zones: violet, blue and green. Magnet schools are assigned a zone to serve with transportation. If the distance
-            is to the magnet greater than 5 miles, you may be assigned to a shuttle stop location. Some programs (*) provide county-wide transportation, meaning that regardless of your zone, you would receive transportation. For more information please
+            Transportation eligibility is determined by the transportation zone in which you live. The county is divided into three transportation zones: violet, blue and green. Magnet schools are assigned a zone to serve with transportation.
+            Some programs (*) provide county-wide transportation, meaning that regardless of your zone, you would receive transportation. For more information please
             contact Charlotte-Mecklenburg School Transportation Services at (980) 343-6715.
         </p>
         <h5>For more information, please visit:</h5>
