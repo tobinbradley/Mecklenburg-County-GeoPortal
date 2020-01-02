@@ -1,24 +1,29 @@
-# GeoPortal v3
+# GeoPortal v4
 
-[GeoPortal](https://mcmap.org/geoportal) is a *one stop shopping for location information* app. It weighs ~400KB on desktop, ~250KB on mobile, and it's now a Progressive Web App! 
+[GeoPortal](https://mcmap.org/geoportal) is a *one stop shopping for location information* government app. Highlights include:  
 
-![Imgur](https://i.imgur.com/wcM85pa.png)
+* Perfect Lighthouse score. 
+* Code splitting utilized to keep page size down. Initial page load < 50KB.
+* Progressive web app.
+* Works great on mobile devices.
 
-Created by Mecklenburg County GIS, with much ♥ for the projects that make this site possible: OpenStreetMap, OpenMapTiles, Mapbox GL JS, Vue.js, and Material Design Lite
+![imgur](https://i.imgur.com/m9MAQcL.gif)
+
+![Imgur](https://i.imgur.com/3OGcvgS.png)
+
+![Imgur](https://i.imgur.com/mL958Eo.png)
+
+Created by Mecklenburg County GIS, with much ♥ for the projects that make this site possible: OpenStreetMap, OpenMapTiles, Mapbox GL JS, TailwindCSS, and Svelte.
 
 
-## Getting started
+## Get Started
 
 ```bash
 git clone https://github.com/tobinbradley/Mecklenburg-County-GeoPortal.git geoportal
 cd geoportal
 npm install
-npm run build
-npm start
+npm run dev
 ```
 
-To build the app for deployment (service worker precache, uglify JS, minimize CSS and images, etc.), run the build again:
+To build the app for deployment, `npm run build` and copy the contents of the `public` folder to your web server.
 
-``` bash
-npm run build
-```

@@ -1,8 +1,27 @@
-.directory
-.htaccess
+.DS_Store
 node_modules
-deploy.sh
-TODO.md
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
 .vscode
-dist
-yarn-error.log
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Extras
+TODO.md
+deploy.sh
+public/js
+public/css
+public/service-worker.js

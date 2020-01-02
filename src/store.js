@@ -1,51 +1,78 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import { writable } from 'svelte/store'
+import { readable } from 'svelte/store'
 
-Vue.use(Vuex)
+// export let location = writable({
+//   label: '5515 RUTH DR CHARLOTTE NC 28215',
+//   address: '5515 RUTH DR CHARLOTTE NC 28215',
+//   lnglat: [-80.7591, 35.2483],
+//   pid: '09910232',
+//   groundpid: '09910232'
+// })
 
-export const store = new Vuex.Store({
-  state: {
-    selected: {
-      lnglat: null,
-      label: null,
-      address: null,
-      pid: null
-    },
-    poi: {
-      lnglat: null,
-      label: null,
-      address: null
-    },
-    show: 'welcome',
-    drawMap: false
+let initLocation = {
+  label: null,
+  address: null,
+  lnglat: null,
+  pid: null,
+  groundpid: null
+}
+
+const initTabs = [
+  {
+    name: 'Schools',
+    id: 'schools'
   },
-  getters: {
-    selected: state => state.selected,
-    poi: state => state.poi,
-    show: state => state.show,
-    drawMap: state => state.drawMap
+  {
+    name: 'Trash & Recycling',
+    id: 'trash'
   },
-  mutations: {
-    selected (state, payload) {
-      state.selected = {
-        lnglat: payload.lnglat,
-        label: payload.label,
-        address: payload.address,
-        pid: payload.pid
-      }
-    },
-    poi (state, payload) {
-      state.poi = {
-        lnglat: payload.lnglat,
-        label: payload.label,
-        address: payload.address
-      }
-    },
-    show (state, n) {
-      state.show = n
-    },
-    drawMap (state, n) {
-      state.drawMap = n
-    }
+  {
+    name: 'Property',
+    id: 'property'
+  },
+  {
+    name: 'Environment',
+    id: 'environment'
+  },
+  {
+    name: 'Impervious',
+    id: 'impervious'
+  },
+  {
+    name: 'Voting',
+    id: 'voting'
+  },
+  {
+    name: 'Parks',
+    id: 'parks'
+  },
+  {
+    name: 'Libraries',
+    id: 'libraries'
+  },
+  {
+    name: 'Community',
+    id: 'community'
   }
-})
+]
+
+let defaultTabs = ['schools']
+
+export let scroll = writable(false)
+export let location = writable(initLocation)
+export const tabs = readable(initTabs)
+
+
+// process hash on load
+const args = window.location.hash.replace('#', '').split('/')
+if (args.length === 2) {
+  // default tabs
+  if (args[1].length > 0) {
+    const argsTabs = args[1].split(',')
+    const tabVals = initTabs.map(el => el.id)
+    if (argsTabs.every(r => tabVals.indexOf(r)) !== -1)
+      defaultTabs = argsTabs
+  }
+}
+
+export let activeTabs = writable(defaultTabs)

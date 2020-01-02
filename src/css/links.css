@@ -1,0 +1,7 @@
+main a {
+  @apply underline text-blue-700;
+  transition: color ease-in-out 0.2s;
+}
+main a:hover {
+  @apply text-blue-800;
+}

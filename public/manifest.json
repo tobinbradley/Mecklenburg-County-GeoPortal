@@ -1,5 +1,5 @@
 {
-  "name": "Mecklenburg County GeoPortal",
+  "name": "GeoPortal",
   "short_name": "GeoPortal",
   "icons": [{
       "src": "img/icons/android-chrome-192x192.png",
@@ -14,6 +14,6 @@
   ],
   "start_url": "index.html",
   "display": "standalone",
-  "background_color": "#1676D2",
-  "theme_color": "#1676D2"
+  "background_color": "#2a4365",
+  "theme_color": "#2a4365"
 }

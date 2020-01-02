@@ -1,0 +1,11 @@
+.report-pages {
+  page-break-after: always;
+}
+
+.report-pages:last-of-type {
+  page-break-after: avoid;
+}
+
+.report-highlight {
+  page-break-inside: avoid;
+}

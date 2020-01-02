@@ -1,0 +1,11 @@
+.transition-border {
+  transition: border-color 0.2s ease-in-out;
+}
+
+.transition-background {
+  transition: background-color 0.2s ease-in-out;
+}
+
+.transition-all {
+  transition: all 0.2s ease-in-out;
+}
