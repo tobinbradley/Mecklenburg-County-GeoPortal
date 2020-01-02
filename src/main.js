@@ -2,14 +2,9 @@ import 'promise-polyfill/src/polyfill'
 import './js/registerServiceWorker'
 import AppLoader from './AppLoader.svelte'
 import Search from './components/Search.svelte'
-import YouTube from './components/YouTube.svelte'
 import BackToTop from './components/BackToTop.svelte'
 import './utils.css'
 
-// service worker conditionally
-if (navigator.serviceWorker) {
-  import(/* webpackChunkName: "registerSW" */ './js/registerServiceWorker')
-}
 
 // Get the polyfills - thank you IE
 const polyfills = []
@@ -27,12 +22,6 @@ Promise.all(polyfills).then(() => {
     target: document.querySelector('#search')
   })
 
-  new YouTube({
-    target: document.querySelector(
-      '#tutorial'
-    )
-  })
-
   new AppLoader({
     target: document.querySelector('#app')
   })
@@ -47,4 +36,11 @@ Promise.all(polyfills).then(() => {
       )
     }
   })
+})
+
+// Youtube player
+document.querySelector('.play-button').addEventListener('click', () => {
+  let yt = document.querySelector('#youtube')
+  yt.setAttribute('src', 'https://www.youtube.com/embed/DtEIu-h2FQo?autoplay=1')
+  yt.classList.remove('hidden')
 })
