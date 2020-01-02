@@ -18,7 +18,7 @@
   const resourceLinks = [
     {
       name: 'Mecklenburg County Board of Elections',
-      url: 'https://www.mecknc.gov'
+      url: 'https://www.mecknc.gov/BOE/Pages/default.aspx'
     },
     {
       name: 'Voting Precincts and Polling Locations on Open Mapping',

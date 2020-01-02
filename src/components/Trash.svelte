@@ -21,23 +21,23 @@
   const resourceLinks = [
     {
       name: 'Charlotte Solid Waste Services',
-      url: 'https://en.wikipedia.org/wiki/Impervious_surface'
+      url: 'http://charmeck.org/city/charlotte/SWS'
     },
     {
       name: 'Cornelius Solid Waste Services',
-      url: 'https://charlottenc.gov/stormwater/Pages/default.aspx'
+      url: 'http://www.cornelius.org/index.aspx?nid=208'
     },
     {
       name: 'Huntersville Solid Waste and Recycling Collection',
-      url: 'http://maps.co.mecklenburg.nc.us/openmapping/data.html?search=impervious'
+      url: 'http://www.huntersville.org/Departments/EngineeringPublicWorks/SolidWasteRecycling.aspx'
     },
     {
       name: 'Town of Pineville',
-      url: 'http://maps.co.mecklenburg.nc.us/openmapping/data.html?search=impervious'
+      url: 'http://www.pinevillenc.gov/'
     },
     {
       name: 'Town of Matthews',
-      url: 'http://maps.co.mecklenburg.nc.us/openmapping/data.html?search=impervious'
+      url: 'http://www.matthewsnc.gov/'
     }
   ]
 
