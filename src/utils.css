@@ -7,6 +7,7 @@
 @import '../node_modules/mapbox-gl/dist/mapbox-gl.css';
 
 /* My stuff */
+@import './css/layout.css';
 @import './css/transitions.css';
 @import './css/scrollbar.css';
 @import './css/button.css';
