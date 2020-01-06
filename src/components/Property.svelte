@@ -204,7 +204,7 @@
           useTable.rows.push([
             el.txt_LandUse_fullDesc,
             el.cnt_landunits,
-            el.txt_neigh_desc
+            el.txt_neigh_desc || ''
           ])
         })
       })
