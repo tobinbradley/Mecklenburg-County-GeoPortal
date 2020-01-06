@@ -3,6 +3,7 @@ import './js/registerServiceWorker'
 import AppLoader from './AppLoader.svelte'
 import Search from './components/Search.svelte'
 import BackToTop from './components/BackToTop.svelte'
+import YouTube from './components/YouTube.svelte'
 import './utils.css'
 
 
@@ -22,6 +23,10 @@ Promise.all(polyfills).then(() => {
     target: document.querySelector('#search')
   })
 
+  new YouTube({
+    target: document.querySelector('#tutorial')
+  })
+
   new AppLoader({
     target: document.querySelector('#app')
   })
@@ -37,10 +42,4 @@ Promise.all(polyfills).then(() => {
     }
   })
 
-  // Youtube play button
-  document.querySelector('.play-button').addEventListener('click', () => {
-    let yt = document.querySelector('#youtube')
-    yt.setAttribute('src', 'https://www.youtube.com/embed/DtEIu-h2FQo?autoplay=1')
-    yt.classList.remove('hidden')
-  })
 })
