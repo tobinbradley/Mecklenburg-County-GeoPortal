@@ -6,7 +6,7 @@ import BackToTop from './components/BackToTop.svelte'
 import './utils.css'
 
 
-// Get the polyfills - thank you IE
+// Optional polyfills - thank you IE
 const polyfills = []
 if (!window.fetch) {
   polyfills.push(import(/* webpackChunkName: "polyfill-fetch" */ 'whatwg-fetch'))
@@ -36,11 +36,11 @@ Promise.all(polyfills).then(() => {
       )
     }
   })
-})
 
-// Youtube player
-document.querySelector('.play-button').addEventListener('click', () => {
-  let yt = document.querySelector('#youtube')
-  yt.setAttribute('src', 'https://www.youtube.com/embed/DtEIu-h2FQo?autoplay=1')
-  yt.classList.remove('hidden')
+  // Youtube play button
+  document.querySelector('.play-button').addEventListener('click', () => {
+    let yt = document.querySelector('#youtube')
+    yt.setAttribute('src', 'https://www.youtube.com/embed/DtEIu-h2FQo?autoplay=1')
+    yt.classList.remove('hidden')
+  })
 })

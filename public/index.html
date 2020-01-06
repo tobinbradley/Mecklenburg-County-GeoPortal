@@ -11,9 +11,9 @@
   <title>GeoPortal - Mecklenburg County GIS</title>
 
   <!-- prefect for performance -->
-  <link rel="prefetch" href="css/bundle.css">
+  <link rel="preload" href="css/bundle.css">
   <link rel="prefetch" href="js/bundle.js">
-  <link rel="prefetch" href="img/logo.svg">
+  <link rel="preload" href="img/logo.svg">
   <link rel="preconnect" href="https://www.google-analytics.com">
   <link rel="preconnect" href="https://storage.googleapis.com">
 
@@ -30,7 +30,7 @@
   <meta name="msapplication-TileImage" content="img/icons/msapplication-icon-144x144.png">
   <meta name="msapplication-TileColor" content="#2a4365">
 
-  <link rel='stylesheet' href='css/bundle.css'>
+  <link rel='stylesheet' type="text/css" href='css/bundle.css'>
 
 </head>
 
@@ -71,8 +71,8 @@
     <div id="tutorial" class="print:hidden">
       <div class="max-w-4xl mx-auto mt-16 mb-8 print:hidden">
         <div class="tutorial-wrapper relative">
-          <div class="youtube w-full flex justify-center items-center absolute top-0 bottom-0"><img src="img/logo.svg"
-              alt="logo image" loading="lazy" class="h-full w-auto">
+          <div class="youtube w-full flex justify-center items-center absolute top-0 bottom-0">
+            <img src="img/logo.svg" alt="logo image" loading="lazy" class="h-full w-auto" width="611" height="603">
             <div class="play-button bg-blue-900 cursor-pointer z-10 rounded-lg shadow-md transition-background hover:bg-red-700 hover:shadow-lg"></div>
             <iframe id="youtube" class="hidden w-full h-full absolute t-0 b-0 z-20" title="video tutorial" frameborder="0"></iframe>
           </div>
