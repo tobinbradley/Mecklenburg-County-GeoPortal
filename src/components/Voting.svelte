@@ -12,7 +12,6 @@
   // Map
   let showMap = false
   const mapLinks = false
-  const toggleLayers = 'impervious'
 
   // Resources
   const resourceLinks = [
@@ -197,7 +196,7 @@
 
 <Title title="VOTING" icon="voting" />
 
-<Map showMap={showMap} toggleLayers={toggleLayers} mapPoints={mapPoints} />
+<Map showMap={showMap} mapPoints={mapPoints} />
 
 <!-- Polling Location -->
 
