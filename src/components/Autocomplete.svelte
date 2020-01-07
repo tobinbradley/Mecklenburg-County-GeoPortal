@@ -58,8 +58,8 @@ function filterResults () {
     }
   });
 
-  const height = results.length > maxItems ? maxItems : results.length
-  list.style.height = `${height * 2.25}rem`
+  // const height = results.length > maxItems ? maxItems : results.length
+  // list.style.height = `${height * 2.25}rem`
 }
 
 function onKeyDown (event) {
@@ -95,6 +95,7 @@ function close (index = -1) {
 <style>
 .autocomplete-results {
   top: 50px;
+  min-height: 100px;
 }
 
 .autocomplete-result > :global(span) {
