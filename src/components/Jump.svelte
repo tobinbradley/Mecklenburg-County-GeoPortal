@@ -28,7 +28,7 @@ const setTab = (tab) => () => {
 </script>
 
 
-<div class="md:flex flex-wrap justify-center items-center text-center md:mx-24 print:hidden">
+<div class="md:flex mt-4 flex-wrap justify-center items-center text-center md:mx-24 print:hidden">
   {#each $tabs as tab}
   <button class="btn m-1 hover:shadow-lg {setButtonStyle(tab.id, $activeTabs)}"
       on:click={setTab(tab.id)}>
