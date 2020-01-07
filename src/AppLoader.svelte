@@ -13,7 +13,10 @@
   }
 
   location.subscribe(value => {
-    if (value.lnglat && !showApp) showApp = true
+    if (value.lnglat && !showApp) {
+      showApp = true
+      document.querySelector("#print").classList.remove("hidden")
+    }
   })
 
   // detect lnglat URL arg
