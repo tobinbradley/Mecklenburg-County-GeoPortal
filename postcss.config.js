@@ -9,7 +9,7 @@ module.exports = {
     require('postcss-preset-env')(),
     production &&
       purgecss({
-        content: ['./public/**/*.html', './src/**/*.svelte'],
+        content: ['./src/**/*.html', './src/**/*.svelte'],
         defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || [],
         whitelistPatterns: [/mapboxgl/, /svelte-/]
       }),

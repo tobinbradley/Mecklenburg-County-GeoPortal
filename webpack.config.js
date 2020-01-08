@@ -1,4 +1,5 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path');
 const { postcss } = require('svelte-preprocess')
 const rimraf = require('rimraf')
@@ -23,8 +24,8 @@ module.exports = {
   },
   output: {
     path: __dirname + '/public',
-    filename: 'js/[name].js',
-    chunkFilename: 'js/[name].[id].js'
+    filename: 'js/[name].[hash].js',
+    chunkFilename: 'js/[name].[hash].js'
   },
   module: {
     rules: [
@@ -71,7 +72,11 @@ module.exports = {
   mode,
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css'
+      filename: 'css/[name].[hash].css',
+      chunkFilename: 'css/[name].[hash].css'
+    }),
+    new HtmlWebpackPlugin({
+      template: 'src/index.html'
     })
   ],
   devtool: prod ? false : 'source-map',
