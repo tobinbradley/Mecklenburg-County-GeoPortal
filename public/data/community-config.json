@@ -1,0 +1,112 @@
+[
+  {
+    "metric": "34",
+    "title": "Bicycle Friendliness",
+    "label": "Index Value (1-3)"
+  },
+  {
+    "metric": "54",
+    "title": "Births to Adolescents"
+  },
+  {
+    "metric": "10",
+    "title": "Commuters Driving Alone"
+  },
+  {
+    "metric": "59",
+    "title": "Crime - Property",
+    "label": "Crimes per 1,000 People"
+  },
+  {
+    "metric": "58",
+    "title": "Crime - Violent",
+    "label": "Crimes per 1,000 People"
+  },
+  {
+    "metric": "20",
+    "title": "Education Level - Bachelor's Degree"
+  },
+  {
+    "metric": "26",
+    "title": "Energy Consumption - Electricity",
+    "label": "Kilowatt hours per month per unit"
+  },
+  {
+    "metric": "80",
+    "title": "Food and Nutrition Services"
+  },
+  {
+    "metric": "65",
+    "title": "High School Graduation Rate"
+  },
+  {
+    "metric": "76",
+    "title": "Home Sales Price"
+  },
+  {
+    "metric": "37",
+    "title": "Household Income"
+  },
+  {
+    "metric": "33",
+    "title": "Long Commute"
+  },
+  {
+    "metric": "13",
+    "title": "Population - Older Adult"
+  },
+  {
+    "metric": "12",
+    "title": "Population - Youth"
+  },
+  {
+    "metric": "47",
+    "title": "Population Density",
+    "label": "People per Acre"
+  },
+  {
+    "metric": "36",
+    "title": "Proximity to Public Transportation"
+  },
+  {
+    "metric": "45",
+    "title": "Proximity to a Grocery Store"
+  },
+  {
+    "metric": "81",
+    "title": "Public Health Insurance"
+  },
+  {
+    "metric": "15",
+    "title": "Race/Ethnicity - Black or African American"
+  },
+  {
+    "metric": "18",
+    "title": "Race/Ethnicity - Hispanic or Latino"
+  },
+  {
+    "metric": "14",
+    "title": "Race/Ethnicity - White or Caucasian"
+  },
+  {
+    "metric": "40",
+    "title": "Rental Costs"
+  },
+  {
+    "metric": "64",
+    "title": "Test Proficiency - High School"
+  },
+  {
+    "metric": "3",
+    "title": "Tree Canopy"
+  },
+  {
+    "metric": "48",
+    "title": "Voter Participation"
+  },
+  {
+    "metric": "27",
+    "title": "Water Consumption",
+    "label": "Gallons per Day per unit"
+  }
+]
