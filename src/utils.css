@@ -2,10 +2,6 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 
-
-/* Import other vendor stuff */
-@import '../node_modules/mapbox-gl/dist/mapbox-gl.css';
-
 /* My stuff */
 @import './css/layout.css';
 @import './css/transitions.css';

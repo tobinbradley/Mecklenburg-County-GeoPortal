@@ -148,6 +148,8 @@
 </script>
 
 <style>
+  @import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+
   .map {
     height: 500px;
     max-width: 7.5in;
