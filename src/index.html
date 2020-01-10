@@ -134,6 +134,16 @@
     </div>
   </footer>
 
+  <!-- service worker detected update -->
+  <div class="alert-footer fixed bottom-0 right-0 mr-3 mb-3 hidden" id="swUpdate">
+    <div class="flex items-center justify-between w-full p-2 shadow-lg rounded bg-gray-200">
+      GeoPortal has been updated.
+      <button class="btn bg-blue-800 text-white shadow hover:bg-blue-900 hover:shadow-md ml-3 capitalize" onclick="location.reload(true)">reload</button>
+      <button class="btn shadow-none hover:bg-gray-400 hover:shadow ml-1 text-gray-700"
+        onclick='document.querySelector("#swUpdate").classList.add("hidden")'>dismiss</button>
+    </div>
+  </div>
+
   <!-- analytics -->
   <script>
     (function (i, s, o, g, r, a, m) {

@@ -16,6 +16,7 @@ register('service-worker.js', {
   },
   updated(registration) {
     console.log('New content is available; please refresh.')
+    document.querySelector("#swUpdate").classList.remove("hidden")
   },
   offline() {
     console.log('No internet connection found. App is running in offline mode.')
