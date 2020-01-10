@@ -81,10 +81,7 @@
     if (!w) return ''
     var theDate = new Date();
     if (typeof w == "object") {
-      let items = w.filter(function(rec) {
-        return rec.type === "RECYCLING" || "Garbage and Recycling";
-      });
-      w = items[0].week;
+      w = w.filter(rec => rec.type === "RECYCLING" || rec.type === "Garbage and Recycling")[0].week
     }
     theDate.setHours(0, 0, 0, 0);
     var currentWeek = checkOddEven(weekNumber(theDate.getTime()));
