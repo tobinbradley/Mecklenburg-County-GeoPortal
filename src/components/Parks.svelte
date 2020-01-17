@@ -12,7 +12,6 @@
   let rows = []
 
   // Map
-  const mapLinks = true
   let showMap = false
   let mapPoints = []
   let focusPoint = null
@@ -74,11 +73,6 @@
       })
   }
 
-  function handleMapLink(event) {
-    focusPoint = event.detail
-    showMap = true
-  }
-
 </script>
 
 
@@ -86,6 +80,6 @@
 
 <Map showMap={showMap} mapPoints={mapPoints} focusPoint={focusPoint} />
 
-<Table rows={rows} columns={columns} caption="10 Closest Parks" alignRight={alignRight} mapLinks={mapLinks} on:mapLink={handleMapLink} />
+<Table rows={rows} columns={columns} caption="10 Closest Parks" alignRight={alignRight} />
 
 <Resources links={resourceLinks} />

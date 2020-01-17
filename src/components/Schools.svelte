@@ -28,7 +28,6 @@
   let zone = ''
 
   // Map
-  const mapLinks = true
   let showMap = false
   let mapPoints = []
   let focusPoint = null
@@ -159,11 +158,6 @@
       })
   }
 
-  function handleMapLink(event) {
-    focusPoint = event.detail
-    showMap = true
-  }
-
 </script>
 
 
@@ -171,11 +165,11 @@
 
 <Map showMap={showMap} mapPoints={mapPoints} focusPoint={focusPoint} />
 
-<Table rows={schoolsCurrent.rows} columns={schoolsCurrent.columns} caption="Current School Year" alignRight={schoolsCurrent.alignRight} mapLinks={mapLinks} on:mapLink={handleMapLink} />
+<Table rows={schoolsCurrent.rows} columns={schoolsCurrent.columns} caption="Current School Year" alignRight={schoolsCurrent.alignRight} />
 
-<Table rows={schoolsFuture.rows} columns={schoolsFuture.columns} caption="Next School Year" alignRight={schoolsFuture.alignRight} mapLinks={mapLinks} on:mapLink={handleMapLink} />
+<Table rows={schoolsFuture.rows} columns={schoolsFuture.columns} caption="Next School Year" alignRight={schoolsFuture.alignRight} />
 
-<Table rows={magnetTable.rows} columns={magnetTable.columns} caption={'Magnet Schools (You Are in <a class="transition-all" href="https://cmschoice.org/your-choices/transportation-zones/" target="_blank">Zone ' + zone + '</a>)'} alignRight={magnetTable.alignRight} mapLinks={mapLinks} on:mapLink={handleMapLink} />
+<Table rows={magnetTable.rows} columns={magnetTable.columns} caption={'Magnet Schools (You Are in <a class="transition-all" href="https://cmschoice.org/your-choices/transportation-zones/" target="_blank">Zone ' + zone + '</a>)'} alignRight={magnetTable.alignRight} />
 
 <p class="p-8">
   Transportation eligibility is determined by the transportation zone in which you live.

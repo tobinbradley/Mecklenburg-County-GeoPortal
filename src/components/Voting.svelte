@@ -11,7 +11,6 @@
 
   // Map
   let showMap = false
-  const mapLinks = false
 
   // Resources
   const resourceLinks = [

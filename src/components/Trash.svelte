@@ -14,7 +14,6 @@
 
   // Map
   let showMap = false
-  const mapLinks = false
   const toggleLayers = 'impervious'
 
   // Resources
@@ -144,7 +143,7 @@
   <RecordHighlight top="Your RECYCLING collection day is" sub={`Recycling pickup is every other week${getColor(collectionData)}.`}
     headline={getDay(collectionData, ['RECYCLING', 'GARBAGE AND RECYCLING']) + ' ' + recyclingWeek(collectionData)} />
 </div>
-<Table caption="All Collection Services" rows={rows} columns={columns} alignRight={alignRight} mapLinks={mapLinks} />
+<Table caption="All Collection Services" rows={rows} columns={columns} alignRight={alignRight} />
 {/if}
 
 {#if collectionData && collectionData.length === 0}
