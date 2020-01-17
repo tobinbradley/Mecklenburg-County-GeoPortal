@@ -3,6 +3,7 @@
   import Title from './Title.svelte'
   import Table from './Table.svelte'
   import Resources from './Resources.svelte'
+  import Map from './MapCommunity.svelte'
   import jsonToURL from '../js/jsonToURL.js'
 
 
@@ -19,7 +20,16 @@
   ]
 
   let rows = []
+  let mapLinks = []
   const columns = ["metric", "neighborhood", "charlotte", "mecklenburg"]
+
+  // map stuff
+  let showMap = false
+  let npa = null
+  let npaConfig = null
+  let mapTitle = null
+  let npaData = null
+  let mapData = null
 
   location.subscribe(value => {
 		fetchData()
@@ -41,6 +51,7 @@
       .then(response => response.json())
       .then(data => {
         makeTable(data[0].id)
+        npa = data[0].id
       })
       .catch(ex => {
         console.log("parsing failed", ex);
@@ -49,6 +60,7 @@
 
   function makeTable(npa) {
     rows = []
+    mapLinks = []
     const urls = ["./data/community-config.json", "./data/community-group.json", "./data/community-npa.json"]
 
     Promise.all(urls.map(url =>
@@ -57,6 +69,10 @@
         const config = jsons[0]
         const groups = jsons[1]
         const npas = jsons[2]
+        npaData = npas
+        npaConfig = config
+        mapData = npas["37"]
+        mapTitle = config.filter(el => el.metric === "37")[0].title
 
         config.forEach(m => {
           rows.push([
@@ -65,14 +81,27 @@
             groups.charlotte[m.metric],
             groups.mecklenburg[m.metric]
           ])
+          mapLinks.push(m.metric)
         })
-    }).then(() => rows = rows)
+    }).then(() => {
+      rows = rows
+      mapLinks = mapLinks
+    })
+  }
+
+  function handleMapLink(event) {
+    showMap = true
+    const config = npaConfig.filter(el => el.metric === event.detail.toString())
+    mapData = npaData[event.detail.toString()]
+    mapTitle = config[0].title
   }
 
 </script>
 
 <Title title="Community" icon="community" />
 
-<Table caption="Your Neighborhood" rows={rows} columns={columns} alignRight={[2, 3, 4]} />
+<Map showMap={showMap} mapTitle={mapTitle} mapData={mapData} mapNPA={npa} />
+
+<Table caption="Your Neighborhood" rows={rows} columns={columns} alignRight={[2, 3, 4]} mapLinks={mapLinks} on:mapLink={handleMapLink} />
 
 <Resources links={resourceLinks} />
