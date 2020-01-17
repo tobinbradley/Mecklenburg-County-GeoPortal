@@ -10,6 +10,10 @@
   @apply pt-6 shadow-xl;
 }
 
+.mapboxgl-popup-community .mapboxgl-popup-content {
+  @apply py-1;
+}
+
 .mapboxgl-popup-close-button,
 .mapboxgl-popup-close-button:hover {
   @apply w-5 h-5 text-white bg-blue-800;
@@ -33,4 +37,11 @@
 
 .mapPoints-maker b {
   transform: rotateZ(135deg);
+}
+
+.map {
+  height: 500px;
+  max-width: 7.5in;
+  max-height: 100vh;
+  @apply shadow-lg w-full mx-auto border-blue-800 border-t-8 rounded-lg rounded-t-none;
 }
