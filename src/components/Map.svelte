@@ -150,18 +150,11 @@
 <style>
   @import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
   @import '../css/map.css';
-
-  .map {
-    height: 500px;
-    max-width: 7.5in;
-    max-height: 100vh;
-    @apply shadow-lg w-full mt-8 mb-12 mx-auto border-blue-800 border-t-8 rounded-lg rounded-t-none;
-  }
 </style>
 
 
 {#if showMap}
-<div class="map" id={mapContainer}></div>
+<div class="map mt-8 mb-12" id={mapContainer}></div>
 {/if}
 
 <div class="text-center mt-4 print:hidden">
