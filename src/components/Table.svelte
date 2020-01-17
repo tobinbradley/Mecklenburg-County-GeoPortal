@@ -6,7 +6,7 @@
   export let columns
   export let rows
   export let alignRight = []
-  export let mapLinks = false
+  export let mapLinks = null
 
   function textAlign(idx) {
     if (alignRight.indexOf(idx + 1) !== -1) {
@@ -16,18 +16,18 @@
   }
 
   const mapLinkClick = (idx) => () => {
-    //if (mapLinks === true) dispatch('mapLink', idx)
+    if (mapLinks) dispatch('mapLink', idx)
   }
 
 </script>
 
 <style>
-/* .mapLink {
+.mapLink {
   @apply  cursor-pointer;
 }
 .mapLink:hover {
   @apply bg-blue-200;
-} */
+}
 
 @media screen and (max-width: 639px) {
   .table-component thead { display: none; }
@@ -75,7 +75,7 @@
     {#if rows}
     <tbody>
       {#each rows as row, idx}
-        <tr class="transition-all" class:mapLink="{mapLinks === true}" on:click={mapLinkClick(idx)}>
+        <tr class="transition-all" class:mapLink="{mapLinks}" on:click={mapLinkClick(mapLinks[idx])}>
           {#each row as elem, i}
             <td data-label="{ columns[i] }" class="px-4 py-2 {textAlign(i)}">{@html elem }</td>
           {/each}
