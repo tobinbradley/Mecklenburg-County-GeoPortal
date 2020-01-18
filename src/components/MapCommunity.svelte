@@ -8,7 +8,6 @@
   export let showMap = false
   export let mapTitle = ''
   export let mapData = ''
-  export let mapNPA = null
 
   const mapContainer = `mapID${Math.floor((Math.random() * 10000) + 1)}`
   let mapElement
@@ -60,7 +59,6 @@
   }
 
   function color(min, max, n, npa) {
-    //if (npa == mapNPA) return '#FAF089'
     n = n - min
     n = ((n * 100) / max) / 100
     return interpolate(n)

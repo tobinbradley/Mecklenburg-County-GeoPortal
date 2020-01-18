@@ -9,7 +9,6 @@
   export let mapPoints = null
   export let fullMap = false
   export let toggleLayers = null
-  export let focusPoint = null
 
   const mapContainer = `mapID${Math.floor((Math.random() * 10000) + 1)}`
   let mapElement
