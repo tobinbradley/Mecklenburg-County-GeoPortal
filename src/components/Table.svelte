@@ -43,6 +43,7 @@
   .table-component td {
     display: block;
     text-align: right;
+    font-size: .875rem;
     /* @apply block text-right; */
   }
 
@@ -51,6 +52,8 @@
     text-transform: uppercase;
     float: left;
     font-weight: bold;
+    color: #718096;
+    font-size: .875rem;
     /* @apply uppercase float-left font-bold; */
   }
 }
@@ -59,7 +62,7 @@
 <div class="w-full pt-10 pb-5">
   <table class="table-component table-auto w-full">
     {#if caption}
-    <caption class="text-left text-xl font-bold uppercase">{@html caption }</caption>
+    <caption class="text-left text-lg md:text-xl font-bold uppercase">{@html caption }</caption>
     {/if}
 
     {#if columns}

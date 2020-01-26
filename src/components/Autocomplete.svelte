@@ -112,7 +112,7 @@ function close (index = -1) {
 
 <div class="mt-8 mb-5 md:mx-24 relative">
   <input
-    class="appearance-none bg-transparent border-b-4 border-blue-700 focus:border-orange-600 w-full text-2xl md:text-3xl text-gray-900 mr-3 py-1 px-2 leading-tight focus:outline-none transition-border"
+    class="appearance-none bg-transparent border-b-4 border-blue-700 focus:border-orange-600 w-full text-xl md:text-3xl text-gray-900 mr-3 py-1 px-2 leading-tight focus:outline-none transition-border"
     type="text"
     aria-label="search for an address or a place"
     onfocus="this.select()"

@@ -13,15 +13,15 @@
 
 <div class="record-highlight text-center px-2 py-8 max-w-full report-highlight print:mx-auto">
   {#if top}
-  <p class="text-2xl">{top}</p>
+  <p class="text-xl md:text-2xl">{top}</p>
   {/if}
 
   {#if headline}
-  <h3 class="text-4xl font-bold text-orange-600">{headline}</h3>
+  <h3 class="text-2xl md:text-4xl font-bold text-orange-600">{headline}</h3>
   {/if}
 
   {#if sub}
-  <p class="text-xl">{@html sub}</p>
+  <p class="text-lg md:text-xl">{@html sub}</p>
   {/if}
 
   {#if detail}
