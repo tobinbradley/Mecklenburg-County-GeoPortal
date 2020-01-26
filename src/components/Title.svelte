@@ -14,22 +14,23 @@
 </script>
 
 <style>
-  .title-hr:after {
-    content: attr(data-title);
-    @apply px-4 text-gray-600 bg-white relative inline-block tracking-wider uppercase text-3xl font-bold;
+  .separator::before, .separator::after {
+    content: '';
+    @apply border-dashed border-b-2 border-gray-400 flex-1;
+  }
+  .separator::before {
+    @apply mr-2;
+  }
+  .separator::after {
+    @apply ml-2;
   }
 </style>
 
 <div class="mt-24 print:mt-0">
-  <hr
-    style="--title:'{title}'"
-    class="title-hr border-dashed border-0 border-b-2 border-gray-400 text-center h-6"
-    data-title={title}
-    bind:this={pointer}
-  />
+  <div bind:this={pointer} class="separator flex items-center text-center text-2xl md:text-3xl tracking-wider uppercase font-bold text-gray-600">{title}</div>
 
-  <div class="text-blue-800 text-center mt-16">
-    <svg class="w-56 h-56 block m-auto fill-current">
+  <div class="text-blue-800 text-center mt-12">
+    <svg class="w-48 h-48 md:w-56 md:h-56 block m-auto fill-current">
       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{icon}" filter="url(#dropShadow)"></use>
     </svg>
   </div>
