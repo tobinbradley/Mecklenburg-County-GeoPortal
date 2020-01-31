@@ -156,6 +156,6 @@
 <div class="map mt-8 mb-12" id={mapContainer}></div>
 {/if}
 
-<div class="text-center mt-4 print:hidden">
+<div class="text-center mt-2 print:hidden">
   <button on:click={handleShowButton} class="btn py-1 px-2 text-sm hover:bg-gray-200 hover:shadow capitalize shadow-none text-gray-600">{#if !showMap}show{:else}hide{/if} map</button>
 </div>
