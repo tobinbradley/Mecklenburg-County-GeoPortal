@@ -7,14 +7,12 @@
   import jsonToURL from '../js/jsonToURL.js'
 
   // Base table
-  const columns = ["Park", "Address", "Distance"]
-  const alignRight = [3]
-  let rows = []
+  let parkRows = []
+  let greenwayRows = []
 
   // Map
   let showMap = false
   let mapPoints = []
-  let focusPoint = null
 
   // Resources
   const resourceLinks = [
@@ -33,12 +31,13 @@
   ]
 
   location.subscribe(value => {
-		fetchData()
+    fetchParks()
+    fetchGreenways()
 	})
 
-  function fetchData() {
+  function fetchParks() {
     // reset variables
-    rows = []
+    parkRows = []
     mapPoints = []
 
     const params = {
@@ -51,7 +50,7 @@
       .then(data => {
         // make records for table
         data.forEach(el => {
-          rows.push([
+          parkRows.push([
             el.name,
             `${el.address}, ${el.city}`,
             `${(el.distance / 5280).toFixed(1)} miles`
@@ -65,8 +64,38 @@
         })
       })
       .then(() => {
-        rows = rows
+        parkRows = parkRows
         mapPoints = mapPoints
+      })
+      .catch(ex => {
+        console.log("parsing failed", ex);
+      })
+  }
+
+  function fetchGreenways() {
+    // reset variables
+    greenwayRows = []
+
+    const params = {
+      columns: "trail_id, trail_surf",
+      limit: "3",
+      geom_column: "the_geom"
+    }
+
+    fetch(`https://mcmap.org/api2/v1/nearest/greenways_prk/${$location.lnglat.join(",")},4326?${jsonToURL(params)}`)
+      .then(response => response.json())
+      .then(data => {
+        // make records for table
+        data.forEach(el => {
+          greenwayRows.push([
+            el.trail_id,
+            el.trail_surf,
+            `${(el.distance / 5280).toFixed(1)} miles`
+          ])
+        })
+      })
+      .then(() => {
+        greenwayRows = greenwayRows
       })
       .catch(ex => {
         console.log("parsing failed", ex);
@@ -78,8 +107,10 @@
 
 <Title title="PARKS" icon="park" />
 
-<Map showMap={showMap} mapPoints={mapPoints} focusPoint={focusPoint} />
+<Map showMap={showMap} mapPoints={mapPoints} />
 
-<Table rows={rows} columns={columns} caption="10 Closest Parks" alignRight={alignRight} />
+<Table rows={parkRows} columns={["Park", "Address", "Distance"]} caption="10 Closest Parks" alignRight={[3]} />
+
+<Table rows={greenwayRows} columns={["Greenway", "Surface", "Distance"]} caption="5 Closest Greenways" alignRight={[3]} />
 
 <Resources links={resourceLinks} />
