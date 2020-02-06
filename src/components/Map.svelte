@@ -157,5 +157,5 @@
 {/if}
 
 <div class="text-center mt-2 print:hidden">
-  <button on:click={handleShowButton} class="btn py-1 px-2 text-sm hover:bg-gray-200 hover:shadow capitalize shadow-none text-gray-600">{#if !showMap}show{:else}hide{/if} map</button>
+  <button on:click={handleShowButton} class="btn py-1 px-2 text-sm hover:bg-gray-200 hover:shadow capitalize shadow-none text-gray-600 transition duration-200 ease-in-out">{#if !showMap}show{:else}hide{/if} map</button>
 </div>

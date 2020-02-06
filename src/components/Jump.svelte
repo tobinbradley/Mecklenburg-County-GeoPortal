@@ -30,7 +30,7 @@ const setTab = (tab) => () => {
 
 <div class="md:flex mt-4 flex-wrap justify-center items-center text-center md:mx-24 print:hidden">
   {#each $tabs as tab}
-  <button class="btn m-1 hover:shadow-lg {setButtonStyle(tab.id, $activeTabs)}"
+  <button class="btn m-1 transition duration-200 ease-in-out hover:shadow-lg {setButtonStyle(tab.id, $activeTabs)}"
       on:click={setTab(tab.id)}>
     { tab.name }
   </button>

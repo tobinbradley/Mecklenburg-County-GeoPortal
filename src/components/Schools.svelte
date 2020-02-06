@@ -169,7 +169,7 @@
 
 <Table rows={schoolsFuture.rows} columns={schoolsFuture.columns} caption="Next School Year" alignRight={schoolsFuture.alignRight} />
 
-<Table rows={magnetTable.rows} columns={magnetTable.columns} caption={'Magnet Schools (You Are in <a class="transition-all" href="https://cmschoice.org/your-choices/transportation-zones/" target="_blank">Zone ' + zone + '</a>)'} alignRight={magnetTable.alignRight} />
+<Table rows={magnetTable.rows} columns={magnetTable.columns} caption={'Magnet Schools (You Are in <a href="https://cmschoice.org/your-choices/transportation-zones/" target="_blank">Zone ' + zone + '</a>)'} alignRight={magnetTable.alignRight} />
 
 <p class="p-8">
   Transportation eligibility is determined by the transportation zone in which you live.
