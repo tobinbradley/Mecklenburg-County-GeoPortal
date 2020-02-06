@@ -135,6 +135,18 @@
             'visible'
           )
         }
+        if (toggleLayers === 'parks') {
+          map.setLayoutProperty(
+            'greenways',
+            'visibility',
+            'visible'
+          )
+          map.setLayoutProperty(
+            'greenways_label',
+            'visibility',
+            'visible'
+          )
+        }
     })
   }
 

@@ -24,6 +24,14 @@
       "minzoom": 14,
       "maxzoom": 14
     },
+    "greenways": {
+      "type": "vector",
+      "tiles": [
+        "https://mcmap.org/api2/v1/mvt/greenways_union/{z}/{x}/{y}?columns=trail_id"
+      ],
+      "minzoom": 10,
+      "maxzoom": 14
+    },
     "satellite": {
       "type": "raster",
       "tiles": [
@@ -3123,6 +3131,21 @@
       }
     },
     {
+      "id": "greenways",
+      "type": "line",
+      "source": "greenways",
+      "source-layer": "greenways_union",
+      "minzoom": 10,
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "line-color": "#38A169",
+        "line-width": 3,
+        "line-gap-width": 2
+      }
+    },
+    {
       "id": "building-3d",
       "type": "fill-extrusion",
       "source": "openmaptiles",
@@ -3242,6 +3265,25 @@
             ]
           ]
         }
+      }
+    },
+    {
+      "id": "greenways_label",
+      "type": "symbol",
+      "source": "greenways",
+      "source-layer": "greenways_union",
+      "minzoom": 10,
+      "layout": {
+        "text-field": "{trail_id}",
+        "text-font": ["Roboto Condensed Italic"],
+        "text-max-width": 5,
+        "text-size": 12,
+        "symbol-placement": "line"
+      },
+      "paint": {
+        "text-color": "#276749",
+        "text-halo-color": "rgba(255,255,255,0.7)",
+        "text-halo-width": 1
       }
     },
     {
