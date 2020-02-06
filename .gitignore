@@ -26,3 +26,5 @@ public/js
 public/css
 public/service-worker.js
 public/index.html
+public/**/*.map
+public/workbox*
