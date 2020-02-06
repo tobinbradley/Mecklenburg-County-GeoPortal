@@ -78,11 +78,10 @@
 
     const params = {
       columns: "trail_id, trail_surf",
-      limit: "3",
-      geom_column: "the_geom"
+      limit: "3"
     }
 
-    fetch(`https://mcmap.org/api2/v1/nearest/greenways_prk/${$location.lnglat.join(",")},4326?${jsonToURL(params)}`)
+    fetch(`https://mcmap.org/api2/v1/nearest/greenways_union/${$location.lnglat.join(",")},4326?${jsonToURL(params)}`)
       .then(response => response.json())
       .then(data => {
         // make records for table
