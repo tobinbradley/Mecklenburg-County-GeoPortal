@@ -93,7 +93,6 @@ function close (index = -1) {
 <style>
 .autocomplete-results {
   top: 50px;
-  min-height: 50px;
   max-height: 100vh;
 }
 
