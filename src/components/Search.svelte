@@ -4,6 +4,7 @@ import { location } from '../store.js'
 import jsonToURL from '../js/jsonToURL.js'
 
 let items = []
+let nomatch = false
 
 // set store to selected value
 function handleHit(event) {
@@ -46,9 +47,9 @@ function handleQuery(event) {
   urls.push(`https://mcmap.org/api2/v1/query/libraries l, tax_parcels p?${jsonToURL(libraryArg)}`)
 
   // pid
-  if (queryString.length > 6 && !isNaN(queryString)) {
+  if (!isNaN(queryString)) {
     const pidArg = {
-      columns: `num_parent_parcel as value, 'TAX PARCEL' as type, groundpid, round(ST_X(ST_Transform(the_geom, 4326))::NUMERIC,4) as lng, round(ST_Y(ST_Transform(the_geom, 4326))::NUMERIC,4) as lat, num_parent_parcel as pid, full_address as address`,
+      columns: `num_parent_parcel as value, 'PARCEL' as type, groundpid, round(ST_X(ST_Transform(the_geom, 4326))::NUMERIC,4) as lng, round(ST_Y(ST_Transform(the_geom, 4326))::NUMERIC,4) as lat, num_parent_parcel as pid, full_address as address`,
       limit: 5,
       filter: `num_parent_parcel like '%${queryString}%' and num_x_coord > 0 and cde_status='A'`
     }
@@ -59,13 +60,15 @@ function handleQuery(event) {
   Promise.all(urls.map(url =>
     fetch(url).then(resp => resp.json())
   )).then(jsons => {
+    nomatch = false
     items = [].concat(...jsons).map(elem => {
       elem.groundpid = elem.groundpid || elem.pid
       return elem
     })
+    if (items.length === 0) nomatch = true
   })
 }
 </script>
 
 
-<AutoComplete placeholder="Try '2145 Suttle' or 'Jetton'" minChar="4" {items} on:hit={handleHit} on:query={handleQuery} value={$location.address} />
+<AutoComplete placeholder="Try '2145 Suttle' or 'Jetton'" minChar="4" nomatch={nomatch} {items} on:hit={handleHit} on:query={handleQuery} value={$location.address} />

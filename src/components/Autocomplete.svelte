@@ -7,9 +7,10 @@ export let name= '';
 export let value= '';
 export let placeholder = '';
 export let items= [];
+export let nomatch = false
 export let isOpen= false;
 export let results= [];
-export let search= value;
+export let search = value;
 export let arrowCounter= 0;
 export let minChar= 2
 
@@ -34,13 +35,11 @@ const regExpEscape = (s) => {
 
 $: if (items.length > 0) {
   filterResults()
-  isOpen = true
-} else {
-  isOpen = false
 }
 
 async function onChange (event) {
   if (search.trim().length >= Number(minChar)) {
+    isOpen = true;
     (debounce((e) => {
       dispatch('query', search)
     }, 100))()
@@ -54,12 +53,10 @@ function filterResults () {
     const text = typeof item !== 'string' ? item.value : item
     return {
       value: item.value || item,
-      label: search.trim() === '' ? text : text.replace(RegExp(regExpEscape(search.trim()), 'i'), "<span>$&</span>")
+      type: item.type,
+      label: search.trim() === '' ? text : text.replace(RegExp(regExpEscape(search.trim()), 'i'), "<span class='text-gray-700 font-bold'>$&</span>")
     }
   });
-
-  // const height = results.length > maxItems ? maxItems : results.length
-  // list.style.height = `${height * 2.25}rem`
 }
 
 function onKeyDown (event) {
@@ -83,8 +80,9 @@ function close (index = -1) {
   arrowCounter = -1;
 
   if (index > -1) {
-    input.blur();
-    value = results[index].value;
+    input.blur()
+    value = results[index].value
+    search = value
     dispatch('hit', items[index])
   } else if (!value) {
     isOpen = false
@@ -95,11 +93,12 @@ function close (index = -1) {
 <style>
 .autocomplete-results {
   top: 50px;
-  min-height: 100px;
+  min-height: 50px;
+  max-height: 100vh;
 }
 
-.autocomplete-result > :global(span) {
-  @apply text-gray-700 font-bold;
+.autocomplete-nomatch {
+  @apply text-gray-700 font-bold py-1 px-2;
 }
 
 .autocomplete-result.is-active,
@@ -119,7 +118,6 @@ function close (index = -1) {
     autofocus
     {name}
     {placeholder}
-    value="{value || ''}"
     autocomplete="{name}"
     bind:value="{search}"
     on:input="{(event)=>onChange(event)}"
@@ -128,10 +126,15 @@ function close (index = -1) {
   >
 
   <ul class="autocomplete-results {!isOpen ? 'hidden' : ''} w-full border-gray-500 shadow-md bg-white absolute max-h-screen overflow-y-auto overflow-x-hidden z-50" bind:this={list}>
-		{#each results as result, i}
-				<li on:click="{()=>close(i)}" class="autocomplete-result { i === arrowCounter ? ' is-active' : '' }  text-gray-700 py-1 px-2 cursor-pointer">
-				{@html result.label}
-				</li>
-		{/each}
+		{#if !nomatch}
+      {#each results as result, i}
+        <li on:click="{()=>close(i)}" class="autocomplete-result { i === arrowCounter ? ' is-active' : '' }  text-gray-700 py-1 px-2 cursor-pointer">
+        <span class="bg-blue-700 px-2 py-1 text-white font-bold rounded-sm text-sm">{result.type}</span>
+        {@html result.label}
+        </li>
+      {/each}
+    {:else}
+      <li class="autocomplete-nomatch">No matches found.</li>
+    {/if}
   </ul>
 </div>
