@@ -85,6 +85,7 @@ module.exports = {
     host: '0.0.0.0',
     disableHostCheck: true,
     contentBase: [path.join(__dirname, 'public')],
+    open: true,
     stats: {
       colors: true,
       hash: false,
