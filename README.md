@@ -1,8 +1,8 @@
 # GeoPortal v4
 
-[GeoPortal](https://mcmap.org/geoportal) is a *one stop shopping for location information* government app. Highlights include:  
+[GeoPortal](https://mcmap.org/geoportal) is a *one stop shopping for location information* government app. Highlights include:
 
-* Perfect Lighthouse score. 
+* Perfect Lighthouse score.
 * Code splitting utilized to keep page size down. Initial page load < 50KB.
 * Progressive web app.
 * Works great on mobile devices.
@@ -25,5 +25,6 @@ npm install
 npm run dev
 ```
 
-To build the app for deployment, `npm run build` and copy the contents of the `public` folder to your web server.
+The development server runs at `http://localhost:3000`.
 
+To build the app for deployment, `npm run build` and copy the contents of the `public` folder to your web server.
