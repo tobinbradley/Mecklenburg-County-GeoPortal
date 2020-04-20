@@ -29,11 +29,6 @@
 
   const mapStyle = {
     "version": 8,
-    "light": {
-      "anchor": "viewport",
-      "color": "white",
-      "intensity": 0.3
-    },
     "sources": {
       "npa": {
         "type": "geojson",
@@ -42,12 +37,20 @@
     },
     "layers": [
       {
+        "id": "background",
+        "type": "background",
+        "paint": {
+          "background-color": "white"
+        }
+      },
+      {
         "id": "npa",
         "source": "npa",
         "type": "fill-extrusion",
         "paint": {
           "fill-extrusion-opacity": 1,
-          "fill-extrusion-color": "#fff"
+          "fill-extrusion-color": ["feature-state", "color"],
+          "fill-extrusion-height": ["feature-state", "height"]
         }
       }
     ]
@@ -118,7 +121,7 @@
 
     map.on('mousemove', 'npa', function(e) {
       const coordinates = e.lngLat
-      const id = e.features[0].properties.id
+      const id = e.features[0].id
       map.getCanvas().style.cursor = 'crosshair';
 
       popup
@@ -135,6 +138,8 @@
 
   function paintNPAs() {
     let mapDataNumeric = JSON.parse(JSON.stringify(mapData))
+    const mapIds = [...new Set(map.querySourceFeatures('npa').map(el => el.id ))]
+
     Object.keys(mapDataNumeric).forEach(npa => {
       mapDataNumeric[npa] = mapDataNumeric[npa].replace(/[^\d.-]/g, '')
     })
@@ -143,39 +148,17 @@
     const min = Math.min.apply(Math, Object.values(mapDataNumeric))
     const max = Math.max.apply(Math, Object.values(mapDataNumeric))
 
-    // poly colors
-    const colorStops = []
-    Object.keys(mapDataNumeric).forEach(npa => {
-      colorStops.push([npa, color(min, max, mapDataNumeric[npa], npa)])
+    mapIds.forEach(npa => {
+      mapDataNumeric[npa] ?
+        map.setFeatureState({source: 'npa', id: npa}, { color: color(min, max, mapDataNumeric[npa], npa)}) :
+        map.setFeatureState({source: 'npa', id: npa}, { color: "#fff" })
     })
-    const fillColor = {
-      property: "id",
-      default: "rgb(242,243,240)",
-      type: "categorical",
-      stops: colorStops
-    }
-    map.setPaintProperty(
-      "npa",
-      "fill-extrusion-color",
-      fillColor
-    )
 
-    // poly height
-    const heightStops = []
-    Object.keys(mapDataNumeric).forEach(npa => {
-      heightStops.push([npa, height(min, max, mapDataNumeric[npa])])
+    mapIds.forEach(npa => {
+      mapDataNumeric[npa] ?
+      map.setFeatureState({source: 'npa', id: npa}, { height: height(min, max, mapDataNumeric[npa]) }) :
+      map.setFeatureState({source: 'npa', id: npa}, { height: 0 })
     })
-    const npaHeight = {
-      property: "id",
-      default: 0,
-      type: "categorical",
-      stops: heightStops
-    }
-    map.setPaintProperty(
-      "npa",
-      "fill-extrusion-height",
-      npaHeight
-    )
   }
 
   function render() {
