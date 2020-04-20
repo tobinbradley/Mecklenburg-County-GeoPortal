@@ -48,7 +48,7 @@
         "source": "npa",
         "type": "fill-extrusion",
         "paint": {
-          "fill-extrusion-opacity": 1,
+          "fill-extrusion-opacity": 0,
           "fill-extrusion-color": ["feature-state", "color"],
           "fill-extrusion-height": ["feature-state", "height"]
         }
@@ -159,6 +159,13 @@
       map.setFeatureState({source: 'npa', id: npa}, { height: height(min, max, mapDataNumeric[npa]) }) :
       map.setFeatureState({source: 'npa', id: npa}, { height: 0 })
     })
+
+    // set layer visible for first paint
+    map.setPaintProperty(
+      'npa',
+      'fill-extrusion-opacity',
+      1
+    )
   }
 
   function render() {
