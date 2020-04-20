@@ -5,6 +5,6 @@ module.exports = {
     "js/**/*.js",
     "css/**/*.css"
    ],
-  "globIgnores": ["service-worker.js", "**/*.map", "js/*polyfill*.js"],
+  "globIgnores": ["service-worker.js", "workbox-*", "**/*.map", "js/*polyfill*.js"],
   "swDest": "public/service-worker.js"
 };
