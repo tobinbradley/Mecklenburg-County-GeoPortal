@@ -18,7 +18,12 @@ function handleHit(event) {
 }
 
 // fetch suggestions
-function handleQuery(event) {
+async function handleQuery(event) {
+  // Big old hack
+  // For ilike queries, the county firewall rejects the number 23 in the beginning
+  // of queryString if doing a like '%2320%', so I skip park and library queries
+  // in those cases. Sigh.
+
   const queryString = event.detail.trim()
   const urls = []
 
@@ -31,27 +36,31 @@ function handleQuery(event) {
   urls.push(`https://mcmap.org/api2/v1/query/master_address_table?${jsonToURL(addressArg)}`)
 
   // parks
-  const parkArg = {
-    columns: `prkname as value, 'PARK' as type, round(ST_X(ST_Transform(p.the_geom, 4326))::NUMERIC,4) as lng, round(ST_Y(ST_Transform(p.the_geom, 4326))::NUMERIC,4) as lat, t.pid as pid, prkaddr as address`,
-    limit: 5,
-    filter: `prkname ilike '%${queryString}%' and p.the_geom && t.the_geom`
+  if (queryString.substring(0, 2) !== '23') {
+    const parkArg = {
+      columns: `prkname as value, 'PARK' as type, round(ST_X(ST_Transform(p.the_geom, 4326))::NUMERIC,4) as lng, round(ST_Y(ST_Transform(p.the_geom, 4326))::NUMERIC,4) as lat, t.pid as pid, prkaddr as address`,
+      limit: 5,
+      filter: `prkname ilike '%${queryString}%' and p.the_geom && t.the_geom`
+    }
+    urls.push(`https://mcmap.org/api2/v1/query/parks p, tax_parcels t?${jsonToURL(parkArg)}`)
   }
-  urls.push(`https://mcmap.org/api2/v1/query/parks p, tax_parcels t?${jsonToURL(parkArg)}`)
 
   // libraries
-  const libraryArg = {
-    columns: `name as value, 'LIBRARY' as type, round(ST_X(ST_Transform(l.the_geom, 4326))::NUMERIC,4) as lng, round(ST_Y(ST_Transform(l.the_geom, 4326))::NUMERIC,4) as lat, p.pid as pid, address`,
-    limit: 5,
-    filter: `name ilike '%${queryString}%' and l.the_geom && p.the_geom`
+  if (queryString.substring(0, 2) !== '23') {
+    const libraryArg = {
+      columns: `name as value, 'LIBRARY' as type, round(ST_X(ST_Transform(l.the_geom, 4326))::NUMERIC,4) as lng, round(ST_Y(ST_Transform(l.the_geom, 4326))::NUMERIC,4) as lat, p.pid as pid, address`,
+      limit: 5,
+      filter: `name ilike '%${queryString}%' and l.the_geom && p.the_geom`
+    }
+    urls.push(`https://mcmap.org/api2/v1/query/libraries l, tax_parcels p?${jsonToURL(libraryArg)}`)
   }
-  urls.push(`https://mcmap.org/api2/v1/query/libraries l, tax_parcels p?${jsonToURL(libraryArg)}`)
 
   // pid
   if (!isNaN(queryString)) {
     const pidArg = {
       columns: `num_parent_parcel as value, 'PARCEL' as type, groundpid, round(ST_X(ST_Transform(the_geom, 4326))::NUMERIC,4) as lng, round(ST_Y(ST_Transform(the_geom, 4326))::NUMERIC,4) as lat, num_parent_parcel as pid, full_address as address`,
       limit: 5,
-      filter: `num_parent_parcel like '%${queryString}%' and num_x_coord > 0 and cde_status='A'`
+      filter: `num_parent_parcel like '${queryString}%' and num_x_coord > 0 and cde_status='A'`
     }
     urls.push(`https://mcmap.org/api2/v1/query/master_address_table?${jsonToURL(pidArg)}`)
   }
@@ -67,6 +76,7 @@ function handleQuery(event) {
     })
     if (items.length === 0) nomatch = true
   })
+
 }
 </script>
 
