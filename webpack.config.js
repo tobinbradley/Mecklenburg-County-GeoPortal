@@ -1,15 +1,14 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const path = require('path');
+const { GenerateSW } = require('workbox-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const { postcss } = require('svelte-preprocess')
-const rimraf = require('rimraf')
+const path = require('path');
 
 const mode = process.env.NODE_ENV || 'development';
 const prod = mode === 'production';
 
-// clean destination folders
-rimraf('./public/js', () => {})
-rimraf('./public/css', () => {})
 
 module.exports = {
   entry: {
@@ -71,12 +70,21 @@ module.exports = {
   },
   mode,
   plugins: [
+    new CleanWebpackPlugin(),
+    new CopyPlugin({
+      patterns: [
+        { from: 'src/assets' }
+      ],
+    }),
     new MiniCssExtractPlugin({
       filename: 'css/[name].[hash].css',
       chunkFilename: 'css/[name].[hash].css'
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
+    }),
+    new GenerateSW({
+      excludeChunks: ["vendors~polyfill-core-js", "polyfill-fetch", "polyfill-io"]
     })
   ],
   devtool: prod ? false : 'source-map',
