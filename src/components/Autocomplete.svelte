@@ -42,7 +42,7 @@ async function onChange (event) {
     isOpen = true;
     (debounce((e) => {
       dispatch('query', search)
-    }, 100))()
+    }, 200))()
   } else {
     isOpen = false
   }
