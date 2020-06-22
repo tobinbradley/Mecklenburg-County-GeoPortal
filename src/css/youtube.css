@@ -1,0 +1,19 @@
+.youtube {
+  width: 426px;
+  height: 240px;
+  max-width: 100%;
+}
+
+@screen md {
+  .youtube {
+    width: 640px;
+    height: 360px;
+  }
+}
+
+@screen xl {
+  .youtube {
+    width: 854px;
+    height: 480px;
+  }
+}
