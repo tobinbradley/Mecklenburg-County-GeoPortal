@@ -2,111 +2,255 @@
   {
     "metric": "34",
     "title": "Bicycle Friendliness",
+    "years": [
+      "2011",
+      "2013",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
     "label": "Index Value (1-3)"
   },
   {
     "metric": "54",
-    "title": "Births to Adolescents"
+    "title": "Births to Adolescents",
+    "years": [
+      "2010",
+      "2012",
+      "2014",
+      "2016"
+    ]
   },
   {
     "metric": "10",
-    "title": "Commuters Driving Alone"
+    "title": "Commuters Driving Alone",
+    "years": [
+      "2017"
+    ]
   },
   {
     "metric": "59",
     "title": "Crime - Property",
+    "years": [
+      "2011",
+      "2013",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
     "label": "Crimes per 1,000 People"
   },
   {
     "metric": "58",
     "title": "Crime - Violent",
+    "years": [
+      "2011",
+      "2013",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
     "label": "Crimes per 1,000 People"
   },
   {
     "metric": "20",
-    "title": "Education Level - Bachelor's Degree"
+    "title": "Education Level - Bachelor's Degree",
+    "years": [
+      "2017"
+    ]
   },
   {
     "metric": "26",
     "title": "Energy Consumption - Electricity",
+    "years": [
+      "2012",
+      "2013"
+    ],
     "label": "Kilowatt hours per month per unit"
   },
   {
     "metric": "80",
-    "title": "Food and Nutrition Services"
+    "title": "Food and Nutrition Services",
+    "years": [
+      "2011",
+      "2013",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ]
   },
   {
     "metric": "65",
-    "title": "High School Graduation Rate"
+    "title": "High School Graduation Rate",
+    "years": [
+      "2013",
+      "2014",
+      "2015",
+      "2016",
+      "2017"
+    ]
   },
   {
     "metric": "76",
-    "title": "Home Sales Price"
+    "title": "Home Sales Price",
+    "years": [
+      "2013",
+      "2015"
+    ]
   },
   {
     "metric": "37",
-    "title": "Household Income"
+    "title": "Household Income",
+    "years": [
+      "2017"
+    ]
   },
   {
     "metric": "33",
-    "title": "Long Commute"
+    "title": "Long Commute",
+    "years": [
+      "2017"
+    ]
   },
   {
     "metric": "13",
-    "title": "Population - Older Adult"
+    "title": "Population - Older Adult",
+    "years": [
+      "2017"
+    ]
   },
   {
     "metric": "12",
-    "title": "Population - Youth"
+    "title": "Population - Youth",
+    "years": [
+      "2017"
+    ]
   },
   {
     "metric": "47",
     "title": "Population Density",
+    "years": [
+      "2000",
+      "2010",
+      "2013",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ],
     "label": "People per Acre"
   },
   {
     "metric": "36",
-    "title": "Proximity to Public Transportation"
+    "title": "Proximity to Public Transportation",
+    "years": [
+      "2011",
+      "2013",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ]
   },
   {
     "metric": "45",
-    "title": "Proximity to a Grocery Store"
+    "title": "Proximity to a Grocery Store",
+    "years": [
+      "2011",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ]
   },
   {
     "metric": "81",
-    "title": "Public Health Insurance"
+    "title": "Public Health Insurance",
+    "years": [
+      "2014",
+      "2015",
+      "2017"
+    ]
   },
   {
     "metric": "15",
-    "title": "Race/Ethnicity - Black or African American"
+    "title": "Race/Ethnicity - Black or African American",
+    "years": [
+      "2000",
+      "2010",
+      "2017"
+    ]
   },
   {
     "metric": "18",
-    "title": "Race/Ethnicity - Hispanic or Latino"
+    "title": "Race/Ethnicity - Hispanic or Latino",
+    "years": [
+      "2000",
+      "2010",
+      "2017"
+    ]
   },
   {
     "metric": "14",
-    "title": "Race/Ethnicity - White or Caucasian"
+    "title": "Race/Ethnicity - White or Caucasian",
+    "years": [
+      "2000",
+      "2010",
+      "2017"
+    ]
   },
   {
     "metric": "40",
-    "title": "Rental Costs"
+    "title": "Rental Costs",
+    "years": [
+      "2017"
+    ]
   },
   {
     "metric": "64",
-    "title": "Test Proficiency - High School"
+    "title": "Test Proficiency - High School",
+    "years": [
+      "2014",
+      "2015",
+      "2016",
+      "2017"
+    ]
   },
   {
     "metric": "3",
-    "title": "Tree Canopy"
+    "title": "Tree Canopy",
+    "years": [
+      "2012"
+    ]
   },
   {
     "metric": "48",
-    "title": "Voter Participation"
+    "title": "Voter Participation",
+    "years": [
+      "2010",
+      "2012",
+      "2014",
+      "2015",
+      "2016",
+      "2017",
+      "2018"
+    ]
   },
   {
     "metric": "27",
     "title": "Water Consumption",
+    "years": [
+      "2010",
+      "2013",
+      "2014",
+      "2016",
+      "2018"
+    ],
     "label": "Gallons per Day per unit"
   }
 ]
