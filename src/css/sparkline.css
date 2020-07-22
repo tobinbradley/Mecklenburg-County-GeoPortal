@@ -1,0 +1,8 @@
+.sparkline--cursor {
+  stroke: orange;
+}
+
+.sparkline--spot {
+  fill: red;
+  stroke: red;
+}
