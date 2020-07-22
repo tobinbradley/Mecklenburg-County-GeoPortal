@@ -3,7 +3,7 @@ module.exports = {
     mode: 'all',
     content: ['./src/**/*.html', './src/**/*.svelte', './src/**/*.vue', './src/**/*.jsx'],
     options: {
-      whitelistPatterns: [/mapboxgl/, /svelte-/, /.sparkline--/]
+      whitelistPatterns: [/mapboxgl/, /svelte-/, /sparkline--/]
     }
   },
   theme: {
