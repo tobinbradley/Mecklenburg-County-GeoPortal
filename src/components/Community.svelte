@@ -21,6 +21,7 @@
 
   let rows = []
   let mapLinks = []
+  let sparklines = []
   const columns = ["metric", "neighborhood", "charlotte", "mecklenburg"]
 
   // map stuff
@@ -58,9 +59,31 @@
       })
   }
 
+  // Make sparkline data array
+  function makeSparklineData(years, data) {
+    const sparklineData = []
+
+    years.forEach((y, idx) => {
+      if (data[idx]) {
+        sparklineData.push({
+          label: `${y}: ${data[idx]}`,
+          value: data[idx].replace(/[^\d.-]/g, '')
+        })
+      } else {
+        sparklineData.push({
+          label: null,
+          value: null
+        })
+      }
+    })
+
+    return sparklineData
+  }
+
   function makeTable(npa) {
     rows = []
     mapLinks = []
+    sparklines = []
     const urls = ["./data/community-config.json", "./data/community-group.json", "./data/community-npa.json"]
 
     Promise.all(urls.map(url =>
@@ -72,20 +95,32 @@
         npaData = npas
         npaConfig = config
         mapData = npas["37"]
-        mapTitle = config.filter(el => el.metric === "37")[0].title
+        let thisConfig = config.filter(el => el.metric === "37")[0]
+        mapTitle = thisConfig.title + ', ' + thisConfig.years[thisConfig.years.length - 1]
 
         config.forEach(m => {
+          const npaValues = npas[m.metric][npa]
+
           rows.push([
-            m.label ?  `${m.title}<span class="block text-sm">${m.label}</span>` :  m.title,
-            npas[m.metric][npa] || 'N/A',
-            groups.charlotte[m.metric],
-            groups.mecklenburg[m.metric]
+            m.label ?  `${m.title}, ${m.years[m.years.length - 1]}<span class="block text-sm">${m.label}</span>` :  m.title + ', ' + m.years[m.years.length - 1],
+            npaValues[npaValues.length - 1] || 'N/A',
+            groups.charlotte[m.metric][groups.charlotte[m.metric].length - 1],
+            groups.mecklenburg[m.metric][groups.mecklenburg[m.metric].length - 1]
+          ])
+
+
+          sparklines.push([
+            null,
+            makeSparklineData(m.years, npaValues),
+            makeSparklineData(m.years, groups.charlotte[m.metric]),
+            makeSparklineData(m.years, groups.mecklenburg[m.metric])
           ])
           mapLinks.push(m.metric)
         })
     }).then(() => {
       rows = rows
       mapLinks = mapLinks
+      sparklines = sparklines
     })
   }
 
@@ -93,7 +128,7 @@
     showMap = true
     const config = npaConfig.filter(el => el.metric === event.detail.toString())
     mapData = npaData[event.detail.toString()]
-    mapTitle = config[0].title
+    mapTitle = config[0].title + ', ' + config[0].years[config[0].years.length - 1]
   }
 
 </script>
@@ -102,6 +137,6 @@
 
 <Map showMap={showMap} mapTitle={mapTitle} mapData={mapData} mapNPA={npa} />
 
-<Table caption="Your Neighborhood" rows={rows} columns={columns} alignRight={[2, 3, 4]} mapLinks={mapLinks} on:mapLink={handleMapLink} />
+<Table caption="Your Neighborhood" rows={rows} columns={columns} alignCenter={[2, 3, 4]} mapLinks={mapLinks} on:mapLink={handleMapLink} sparklines={sparklines} />
 
 <Resources links={resourceLinks} />

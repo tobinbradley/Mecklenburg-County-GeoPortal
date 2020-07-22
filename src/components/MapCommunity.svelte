@@ -126,7 +126,7 @@
 
       popup
         .setLngLat(coordinates)
-        .setHTML(mapData[id] || 'N/A')
+        .setHTML(mapData[id][mapData[id].length - 1] || 'N/A')
         .addTo(map)
     })
 
@@ -141,7 +141,12 @@
     const mapIds = [...new Set(map.querySourceFeatures('npa').map(el => el.id ))]
 
     Object.keys(mapDataNumeric).forEach(npa => {
-      mapDataNumeric[npa] = mapDataNumeric[npa].replace(/[^\d.-]/g, '')
+      if (!mapDataNumeric[npa][mapDataNumeric[npa].length - 1]) {
+        delete mapDataNumeric[npa]
+      } else {
+        mapDataNumeric[npa] = mapDataNumeric[npa][mapDataNumeric[npa].length - 1].toString()
+        mapDataNumeric[npa] = mapDataNumeric[npa].replace(/[^\d.-]/g, '')
+      }
     })
 
     // figure out min/max

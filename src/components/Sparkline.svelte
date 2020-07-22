@@ -60,6 +60,6 @@
 
 <div class="relative inline-block">
   <div>{@html label }</div>
-  <svg bind:this={svgElement} class="inline" width="100" height="20" stroke-width="2" stroke="#2C5282" fill="#BEE3F8"></svg>
+  <svg bind:this={svgElement} class="inline" width="100" height="20" stroke-width="2" stroke="#2C5282" fill="#90CDF4"></svg>
   <span class="tooltip" hidden="true"></span>
 </div>

@@ -1,16 +1,23 @@
 <script>
   import { createEventDispatcher } from 'svelte'
+  import Sparkline from "./Sparkline.svelte"
 
   const dispatch = createEventDispatcher()
   export let caption = null
   export let columns
   export let rows
   export let alignRight = []
+  export let alignCenter = []
+
   export let mapLinks = null
+  export let sparklines = null
 
   function textAlign(idx) {
     if (alignRight.indexOf(idx + 1) !== -1) {
       return 'text-right'
+    }
+    if (alignCenter.indexOf(idx + 1) !== -1) {
+      return 'text-center'
     }
     return ''
   }
@@ -26,6 +33,14 @@
   @apply  cursor-pointer;
 }
 .mapLink:hover {
+  @apply bg-blue-200;
+}
+
+.table-component tr:nth-child(even) {
+  @apply bg-gray-100;
+}
+
+.table-component tr:nth-child(even).mapLink:hover {
   @apply bg-blue-200;
 }
 
@@ -56,6 +71,8 @@
     font-size: .875rem;
     /* @apply uppercase float-left font-bold; */
   }
+
+
 }
 </style>
 
@@ -80,7 +97,13 @@
       {#each rows as row, idx}
         <tr class="transition-colors duration-200 ease-in-out" class:mapLink="{mapLinks}" on:click={mapLinkClick(mapLinks[idx])}>
           {#each row as elem, i}
-            <td data-label="{ columns[i] }" class="px-4 py-2 {textAlign(i)}">{@html elem }</td>
+            <td data-label="{ columns[i] }" class="px-4 py-2 {textAlign(i)}">
+              {#if sparklines && sparklines[idx][i] && sparklines[idx][i].length > 1}
+                <Sparkline data={sparklines[idx][i]} idlink={`sparkline${idx}-${i}`} label={elem} />
+              {:else}
+                {@html elem }
+              {/if}
+            </td>
           {/each}
         </tr>
       {/each}
