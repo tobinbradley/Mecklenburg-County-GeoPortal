@@ -97,11 +97,11 @@ const goGroup = async () => {
           config.filter(c => c.metric === m)[0],
           rJSON
             .filter(el => charlotte.indexOf(el.id) !== -1)
-            .map(el => Number(el[keys[keys.length - 1]]))
+            .map(el => Number(el[key]))
             .reduce((a, b) => a + b) /
             dJSON
               .filter(el => charlotte.indexOf(el.id) !== -1)
-              .map(el => Number(el[keys[keys.length - 1]]))
+              .map(el => Number(el[key]))
               .reduce((a, b) => a + b)
         )
       )
