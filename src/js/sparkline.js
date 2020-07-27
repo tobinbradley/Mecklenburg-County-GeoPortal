@@ -3,7 +3,9 @@
  */
 
 function getY(max, height, diff, value) {
-  return parseFloat((height - (value * height / max) + diff).toFixed(2));
+  let val = parseFloat((height - (value * height / max) + diff).toFixed(2))
+  if (isNaN(val)) val = diff
+  return val;
 }
 
 function removeChildren(svg) {

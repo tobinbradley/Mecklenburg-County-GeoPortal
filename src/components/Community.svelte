@@ -59,6 +59,7 @@
       })
   }
 
+
   // Make sparkline data array
   function makeSparklineData(years, data) {
     const sparklineData = []
@@ -66,19 +67,48 @@
     years.forEach((y, idx) => {
       if (data[idx]) {
         sparklineData.push({
+          year: y,
           label: `${y}: ${data[idx]}`,
           value: data[idx].replace(/[^\d.-]/g, '')
         })
-      } else {
+      }
+      // else {
+      //   sparklineData.push({
+      //     year: y,
+      //     label: `${y}: ${data[idx]}`,
+      //     value: null
+      //   })
+      // }
+    })
+
+    // no data
+    if (sparklineData.length === 0) return null
+
+    const yearMin = Math.min.apply(Math, sparklineData.map(y => { return parseInt(y.year) }))
+    const yearMax = Math.max.apply(Math, sparklineData.map(y => { return parseInt(y.year) }))
+
+
+    // fill any missing values
+    for (let i = yearMin + 1; i < yearMax; i++) {
+      if (sparklineData.filter(el => el.year == i).length === 0) {
         sparklineData.push({
+          year: i.toString(),
           label: null,
           value: null
         })
       }
+    }
+
+    // only one data point
+    if (sparklineData.length < 2) return null
+
+    sparklineData.sort((a, b) => {
+      return a.year - b.year;
     })
 
     return sparklineData
   }
+
 
   function makeTable(npa) {
     rows = []
