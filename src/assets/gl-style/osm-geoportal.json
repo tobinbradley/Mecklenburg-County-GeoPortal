@@ -3104,7 +3104,7 @@
       "id": "tax_parcels_outline",
       "type": "line",
       "source": "openmaptiles",
-      "source-layer": "parcel",
+      "source-layer": "parcels",
       "minzoom": 17,
       "paint": {
         "line-color": "#DEDEDE",
