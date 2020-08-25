@@ -30,6 +30,5 @@
 </style>
 
 
-<img src="img/logo.svg" alt="logo" loading="lazy" class="h-full w-auto">
 <div class="play-button bg-blue-900 cursor-pointer z-10 rounded-lg shadow-md transition duration-200 ease-in-out hover:bg-red-700 hover:shadow-lg" on:click|once={loadVideo} data-embed="agzk5yeHafg"></div>
 <iframe bind:this={tutorialIframe} class="absolute hidden w-full h-full z-20" frameborder="0" title="video tutorial" />
