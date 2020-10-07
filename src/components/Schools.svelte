@@ -170,9 +170,9 @@
 
 <Map showMap={showMap} mapPoints={mapPoints} focusPoint={focusPoint} />
 
-<Table rows={schoolsCurrent.rows} columns={schoolsCurrent.columns} caption={`${y + yFactor}-${y + yFactor + 1} School Year`} alignRight={schoolsCurrent.alignRight} />
+<Table rows={schoolsCurrent.rows} columns={schoolsCurrent.columns} caption="Currnet School Year" alignRight={schoolsCurrent.alignRight} />
 
-<Table rows={schoolsFuture.rows} columns={schoolsFuture.columns} caption={`${y + yFactor + 1}-${y + yFactor + 2} School Year`} alignRight={schoolsFuture.alignRight} />
+<!-- <Table rows={schoolsFuture.rows} columns={schoolsFuture.columns} caption={`${y + yFactor + 1}-${y + yFactor + 2} School Year`} alignRight={schoolsFuture.alignRight} /> -->
 
 <Table rows={magnetTable.rows} columns={magnetTable.columns} caption={'Magnet Schools (You Are in <a href="https://cmschoice.org/your-choices/transportation-zones/" target="_blank">Zone ' + zone + '</a>)'} alignRight={magnetTable.alignRight} />
 
