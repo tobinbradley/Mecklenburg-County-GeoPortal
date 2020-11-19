@@ -8,6 +8,7 @@
   export let rows
   export let alignRight = []
   export let alignCenter = []
+  export let highlightRow = -1
 
   export let mapLinks = null
   export let sparklines = null
@@ -18,6 +19,13 @@
     }
     if (alignCenter.indexOf(idx + 1) !== -1) {
       return 'text-center'
+    }
+    return ''
+  }
+
+  function highlight(idx) {
+    if (idx == highlightRow) {
+      return 'row-highlight'
     }
     return ''
   }
@@ -42,6 +50,10 @@
 
 .table-component tr:nth-child(even).mapLink:hover {
   @apply bg-blue-200;
+}
+
+.table-component tr.row-highlight {
+  @apply bg-orange-300;
 }
 
 @media screen and (max-width: 639px) {
@@ -95,7 +107,7 @@
     {#if rows}
     <tbody>
       {#each rows as row, idx}
-        <tr class="transition-colors duration-200 ease-in-out" class:mapLink="{mapLinks}" on:click={mapLinkClick(mapLinks[idx])}>
+        <tr class="transition-colors duration-200 ease-in-out {highlight(idx, highlightRow)}" class:mapLink="{mapLinks}" on:click={mapLinkClick(mapLinks[idx])}>
           {#each row as elem, i}
             <td data-label="{ columns[i] }" class="px-4 py-2 {textAlign(i)}">
               {#if sparklines && sparklines[idx][i] && sparklines[idx][i].length > 1}

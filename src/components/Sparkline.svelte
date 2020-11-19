@@ -2,7 +2,7 @@
   import sparkline from "../js/sparkline.js"
 
   export let data
-  export let label = 'hi'
+  export let label
 
   let svgElement
 

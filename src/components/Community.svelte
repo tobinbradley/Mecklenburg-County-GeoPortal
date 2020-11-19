@@ -23,6 +23,7 @@
   let mapLinks = []
   let sparklines = []
   const columns = ["metric", "neighborhood", "charlotte", "mecklenburg"]
+  let highlightRow = 10
 
   // map stuff
   let showMap = false
@@ -72,13 +73,6 @@
           value: data[idx].replace(/[^\d.-]/g, '')
         })
       }
-      // else {
-      //   sparklineData.push({
-      //     year: y,
-      //     label: `${y}: ${data[idx]}`,
-      //     value: null
-      //   })
-      // }
     })
 
     // no data
@@ -98,9 +92,6 @@
         })
       }
     }
-
-    // only one data point
-    if (sparklineData.length < 2) return null
 
     sparklineData.sort((a, b) => {
       return a.year - b.year;
@@ -157,8 +148,17 @@
   function handleMapLink(event) {
     showMap = true
     const config = npaConfig.filter(el => el.metric === event.detail.toString())
+    let idx = 0
+    npaConfig.forEach((el, i) => {
+      if (el.metric === event.detail.toString()) idx = i
+    })
     mapData = npaData[event.detail.toString()]
     mapTitle = config[0].title + ', ' + config[0].years[config[0].years.length - 1]
+    highlightRow = idx
+    window.scrollTo({
+      top: 720,
+      behavior: 'smooth',
+    })
   }
 
 </script>
@@ -167,6 +167,6 @@
 
 <Map showMap={showMap} mapTitle={mapTitle} mapData={mapData} mapNPA={npa} />
 
-<Table caption="Your Neighborhood" rows={rows} columns={columns} alignCenter={[2, 3, 4]} mapLinks={mapLinks} on:mapLink={handleMapLink} sparklines={sparklines} />
+<Table caption="Your Neighborhood" rows={rows} columns={columns} alignCenter={[2, 3, 4]} mapLinks={mapLinks} on:mapLink={handleMapLink} sparklines={sparklines} highlightRow={highlightRow} />
 
 <Resources links={resourceLinks} />
