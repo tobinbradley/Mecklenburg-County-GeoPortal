@@ -8,6 +8,14 @@
       "maxzoom": 14,
       "minzoom": 0
     },
+    "parcels": {
+      "type": "vector",
+      "tiles": [
+        "https://mcmap.org/api2/v1/mvt/tax_parcels/{z}/{x}/{y}?geom_column=the_geom"
+      ],
+      "minzoom": 16,
+      "maxzoom": 16
+    },
     "impervious": {
       "type": "vector",
       "tiles": [
@@ -3103,9 +3111,9 @@
     {
       "id": "tax_parcels_outline",
       "type": "line",
-      "source": "openmaptiles",
-      "source-layer": "parcels",
-      "minzoom": 17,
+      "source": "parcels",
+      "source-layer": "tax_parcels",
+      "minzoom": 16,
       "paint": {
         "line-color": "#DEDEDE",
         "line-width": 1.5
