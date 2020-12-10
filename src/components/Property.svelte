@@ -7,6 +7,7 @@
   import RecordHighlight from './RecordHighlight.svelte'
   import jsonToURL from '../js/jsonToURL.js'
   import { formatCommas, formatMoney, formatDate } from '../js/formatNumbers.js'
+  import toastMaker from '../js/toastMaker'
 
   // Tables
   const ownerTable = {
@@ -76,9 +77,6 @@
     }
   ]
 
-  // Total impervious surface
-  let imperviousTotal = 0
-
   location.subscribe(value => {
 		fetchData()
 	})
@@ -104,7 +102,6 @@
         photo = `<a href=${data[0].image_path} class="block mt-2" target="_blank">
             <img src=${data[0].image_path} class="max-w-full shadow-xl rounded-lg" alt="property photo">
           </a>`
-        //photo = data[0].image_path
         : photo = null
       })
       .catch(ex => {
@@ -143,6 +140,7 @@
         ownerTable.rows = ownerTable.rows
       })
       .catch(ex => {
+        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
@@ -167,6 +165,7 @@
         appraisalTable.rows = appraisalTable.rows
       })
       .catch(ex => {
+        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
@@ -190,6 +189,7 @@
         saleTable.rows = saleTable.rows
       })
       .catch(ex => {
+        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
@@ -212,6 +212,7 @@
         useTable.rows = useTable.rows
       })
       .catch(ex => {
+        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
@@ -237,6 +238,7 @@
         buildingTable.rows = buildingTable.rows
       })
       .catch(ex => {
+        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
@@ -262,6 +264,7 @@
         permitTable.rows = permitTable.rows
       })
       .catch(ex => {
+        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
