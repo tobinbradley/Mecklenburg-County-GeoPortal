@@ -4,6 +4,7 @@ import AppLoader from './AppLoader.svelte'
 import Search from './components/Search.svelte'
 import BackToTop from './components/BackToTop.svelte'
 import YouTube from './components/YouTube.svelte'
+import Toast from './components/Toast.svelte'
 import './utils.css'
 
 
@@ -40,6 +41,10 @@ Promise.all(polyfills).then(() => {
         '#search'
       )
     }
+  })
+
+  new Toast({
+    target: document.querySelector('#toast')
   })
 
 })
