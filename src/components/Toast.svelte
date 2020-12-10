@@ -24,15 +24,6 @@
     show = false
   }
 
-  function getColor(msgType) {
-    if (msgType === "warning") { return "orange" }
-    if (msgType === "error") { return "red" }
-    if (msgType === "info") { return "blue" }
-    if (msgType === "success") { return "green" }
-    return "gray"
-  }
-
-
 </script>
 
 <style>
@@ -48,13 +39,22 @@
 {#if show}
 
 <div
-  class="toastMessage fixed z-50 cursor-pointer flex items-center bg-{getColor($toastMessage.messageType)}-600 border-l-4 border-{getColor($toastMessage.messageType)}-800 py-2 px-3 shadow-md mb-2 "
+  class="toastMessage fixed z-50 cursor-pointer flex items-center py-2 px-3 shadow-md mb-2 border-l-4
+    {$toastMessage.messageType === "error" ? 'bg-red-600 border-red-800' : ''}
+    {$toastMessage.messageType === "warning" ? 'bg-orange-600 border-orange-800' : ''}
+    {$toastMessage.messageType === "info" ? 'bg-blue-600 border-blue-800' : ''}
+    {$toastMessage.messageType === "success" ? 'bg-green-600 border-green-800' : ''}"
   on:click|once={handleClick}
   in:fly="{{ y: 200, duration: 1000 }}"
   out:fly="{{ y: 200, duration: 2000 }}"
 >
   <!-- icon -->
-  <div class="text-{getColor($toastMessage.messageType)}-600 rounded-full bg-white mr-3">
+  <div class="rounded-full bg-white mr-3
+    {$toastMessage.messageType === "error" ? 'text-red-600' : ''}
+    {$toastMessage.messageType === "warning" ? 'text-orange-600' : ''}
+    {$toastMessage.messageType === "info" ? 'text-blue-600' : ''}
+    {$toastMessage.messageType === "success" ? 'text-green-600' : ''}"
+  >
     <svg width="1.8em" height="1.8em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
       {#if $toastMessage.messageType === "warning"}
         <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
