@@ -5,6 +5,7 @@ import jsonToURL from '../js/jsonToURL.js'
 
 let items = []
 let nomatch = false
+let spinner = false
 
 // set store to selected value
 function handleHit(event) {
@@ -66,9 +67,12 @@ async function handleQuery(event) {
   }
 
   // Fetch all the things
+  spinner = true
   Promise.all(urls.map(url =>
-    fetch(url).then(resp => resp.json())
+    fetch(url)
+      .then(resp => resp.json())
   )).then(jsons => {
+    spinner = false
     nomatch = false
     items = [].concat(...jsons).map(elem => {
       elem.groundpid = elem.groundpid || elem.pid
@@ -81,4 +85,4 @@ async function handleQuery(event) {
 </script>
 
 
-<AutoComplete placeholder="Try '2145 Suttle' or 'Jetton'" minChar="4" nomatch={nomatch} {items} on:hit={handleHit} on:query={handleQuery} value={$location.address} />
+<AutoComplete placeholder="Try '2145 Suttle' or 'Jetton'" minChar="4" nomatch={nomatch} {items} on:hit={handleHit} on:query={handleQuery} value={$location.address} spinner={spinner} />

@@ -1,5 +1,6 @@
 <script>
 import { createEventDispatcher } from 'svelte'
+import Spinner from './Spinner.svelte'
 
 const dispatch = createEventDispatcher()
 
@@ -13,6 +14,7 @@ export let results= [];
 export let search = value;
 export let arrowCounter= 0;
 export let minChar= 2
+export let spinner = false
 
 let maxItems= 10;
 let fromStart= false; // Default type ahead
@@ -123,6 +125,9 @@ function close (index = -1) {
     on:keydown="{(event)=>onKeyDown(event)}"
     bind:this={input}
   >
+  {#if spinner}
+    <Spinner position="top: 10px; right: 34px;" />
+  {/if}
 
   <ul class="autocomplete-results {!isOpen ? 'hidden' : ''} w-full border-gray-500 shadow-md bg-white absolute max-h-screen overflow-y-auto overflow-x-hidden z-50" bind:this={list}>
 		{#if !nomatch}
