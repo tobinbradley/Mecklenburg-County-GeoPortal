@@ -34,7 +34,7 @@ async function handleQuery(event) {
     limit: 8,
     filter: `ts @@ to_tsquery('addressing_en', '${queryString.toUpperCase().replace(/ /g, '&') + ':*'}') and cde_status='A' and the_geom is not null`
   }
-  urls.push(`https://mcmap.org/api2/v1/query/master_address_table?${jsonToURL(addressArg)}`)
+  urls.push(`https://api.mcmap.org/v1/query/master_address_table?${jsonToURL(addressArg)}`)
 
   // parks
   if (queryString.substring(0, 2) !== '23') {
@@ -43,7 +43,7 @@ async function handleQuery(event) {
       limit: 5,
       filter: `prkname ilike '%${queryString}%' and p.the_geom && t.the_geom`
     }
-    urls.push(`https://mcmap.org/api2/v1/query/parks p, tax_parcels t?${jsonToURL(parkArg)}`)
+    urls.push(`https://api.mcmap.org/v1/query/parks p, tax_parcels t?${jsonToURL(parkArg)}`)
   }
 
   // libraries
@@ -53,7 +53,7 @@ async function handleQuery(event) {
       limit: 5,
       filter: `name ilike '%${queryString}%' and l.the_geom && p.the_geom`
     }
-    urls.push(`https://mcmap.org/api2/v1/query/libraries l, tax_parcels p?${jsonToURL(libraryArg)}`)
+    urls.push(`https://api.mcmap.org/v1/query/libraries l, tax_parcels p?${jsonToURL(libraryArg)}`)
   }
 
   // pid
@@ -63,7 +63,7 @@ async function handleQuery(event) {
       limit: 5,
       filter: `num_parent_parcel like '${queryString}%' and the_geom is not null and cde_status='A'`
     }
-    urls.push(`https://mcmap.org/api2/v1/query/master_address_table?${jsonToURL(pidArg)}`)
+    urls.push(`https://api.mcmap.org/v1/query/master_address_table?${jsonToURL(pidArg)}`)
   }
 
   // Fetch all the things

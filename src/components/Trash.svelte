@@ -56,7 +56,7 @@
       columns: "jurisdiction, day, week, type"
     }
 
-    fetch(`https://mcmap.org/api2/v1/intersect_point/solid_waste/${lng},${lat},4326?${jsonToURL(params)}`)
+    fetch(`https://api.mcmap.org/v1/intersect_point/solid_waste/${lng},${lat},4326?${jsonToURL(params)}`)
       .then(response => response.json())
       .then(data => {
         // make records for table

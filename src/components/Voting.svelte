@@ -56,7 +56,7 @@
     })
     mapPoints = []
 
-    fetch('https://mcmap.org/api2/v1/query/boe_elected_officials')
+    fetch('https://api.mcmap.org/v1/query/boe_elected_officials')
       .then(response => response.json())
       .then(json => {
         officials = json
@@ -84,7 +84,7 @@
         `,
       filter: 'voting_precincts.precno = pl.precno'
     }
-    fetch(`https://mcmap.org/api2/v1/intersect_point/voting_precincts%2C%20polling_locations%20pl/${lng},${lat},4326?` + jsonToURL(params))
+    fetch(`https://api.mcmap.org/v1/intersect_point/voting_precincts%2C%20polling_locations%20pl/${lng},${lat},4326?` + jsonToURL(params))
       .then(response => response.json())
       .then(json => {
         pollingLocation.headline = json[0].name
@@ -104,7 +104,7 @@
       geom_column: "the_geom",
       columns: "district"
     }
-    fetch(`https://mcmap.org/api2/v1/intersect_point/national_congressional/${lng},${lat},4326?` + jsonToURL(params))
+    fetch(`https://api.mcmap.org/v1/intersect_point/national_congressional/${lng},${lat},4326?` + jsonToURL(params))
       .then(response => response.json())
       .then(json => {
         nationalHouse = officials.filter(el => el.branch.indexOf('US House of Representatives') !== -1 && el.district === json[0].district)
@@ -112,7 +112,7 @@
   }
 
   function fetchState(lng, lat) {
-    fetch(`https://mcmap.org/api2/v1/intersect_point/state_senate/${lng},${lat},4326?` +
+    fetch(`https://api.mcmap.org/v1/intersect_point/state_senate/${lng},${lat},4326?` +
         jsonToURL({
           geom_column: "the_geom",
           columns: "senate as district"
@@ -123,7 +123,7 @@
         stateSenate = officials.filter(el => el.branch.indexOf('NC State Senate') !== -1 && el.district === json[0].district)
       })
 
-    fetch(`https://mcmap.org/api2/v1/intersect_point/state_house/${lng},${lat},4326?` +
+    fetch(`https://api.mcmap.org/v1/intersect_point/state_house/${lng},${lat},4326?` +
         jsonToURL({
           geom_column: "the_geom",
           columns: "house as district"
@@ -136,7 +136,7 @@
   }
 
   function fetchCounty(lng, lat) {
-    fetch(`https://mcmap.org/api2/v1/intersect_point/voting_precincts/${lng},${lat},4326?` +
+    fetch(`https://api.mcmap.org/v1/intersect_point/voting_precincts/${lng},${lat},4326?` +
         jsonToURL({
           geom_column: "the_geom",
           columns: "cc, school"
@@ -152,7 +152,7 @@
   }
 
   function fetchLocal(lng, lat) {
-    fetch(`https://mcmap.org/api2/v1/intersect_point/city_council/${lng},${lat},4326?` +
+    fetch(`https://api.mcmap.org/v1/intersect_point/city_council/${lng},${lat},4326?` +
         jsonToURL({
           geom_column: "the_geom",
           columns: "citydist as district"
@@ -170,7 +170,7 @@
   }
 
   function fetchLocalTowns(lng, lat) {
-    fetch(`https://mcmap.org/api2/v1/intersect_point/jurisdictions/${lng},${lat},4326?` +
+    fetch(`https://api.mcmap.org/v1/intersect_point/jurisdictions/${lng},${lat},4326?` +
         jsonToURL({
           geom_column: "the_geom",
           columns: "name as city"

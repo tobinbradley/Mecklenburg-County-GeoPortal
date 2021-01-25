@@ -11,7 +11,7 @@
     "parcels": {
       "type": "vector",
       "tiles": [
-        "https://mcmap.org/api2/v1/mvt/tax_parcels/{z}/{x}/{y}?geom_column=the_geom"
+        "https://api.mcmap.org/v1/mvt/tax_parcels/{z}/{x}/{y}?geom_column=the_geom"
       ],
       "minzoom": 16,
       "maxzoom": 16
@@ -19,7 +19,7 @@
     "impervious": {
       "type": "vector",
       "tiles": [
-        "https://mcmap.org/api2/v1/mvt/impervious_surface/{z}/{x}/{y}?columns=type"
+        "https://api.mcmap.org/v1/mvt/impervious_surface/{z}/{x}/{y}?columns=type"
       ],
       "minzoom": 16,
       "maxzoom": 16
@@ -27,7 +27,7 @@
     "floodplains": {
       "type": "vector",
       "tiles": [
-        "https://mcmap.org/api2/v1/mvt/view_regulated_floodplains/{z}/{x}/{y}?geom_column=the_geom"
+        "https://api.mcmap.org/v1/mvt/view_regulated_floodplains/{z}/{x}/{y}?geom_column=the_geom"
       ],
       "minzoom": 14,
       "maxzoom": 14
@@ -35,7 +35,7 @@
     "greenways": {
       "type": "vector",
       "tiles": [
-        "https://mcmap.org/api2/v1/mvt/greenways_union/{z}/{x}/{y}?columns=trail_id"
+        "https://api.mcmap.org/v1/mvt/greenways_union/{z}/{x}/{y}?columns=trail_id"
       ],
       "minzoom": 10,
       "maxzoom": 14

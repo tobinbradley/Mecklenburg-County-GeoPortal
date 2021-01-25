@@ -45,7 +45,7 @@
       limit: "10"
     }
 
-    fetch(`https://mcmap.org/api2/v1/nearest/parks_all/${$location.lnglat.join(",")},4326?${jsonToURL(params)}`)
+    fetch(`https://api.mcmap.org/v1/nearest/parks_all/${$location.lnglat.join(",")},4326?${jsonToURL(params)}`)
       .then(response => response.json())
       .then(data => {
         // make records for table
@@ -81,7 +81,7 @@
       limit: "3"
     }
 
-    fetch(`https://mcmap.org/api2/v1/nearest/greenways_union/${$location.lnglat.join(",")},4326?${jsonToURL(params)}`)
+    fetch(`https://api.mcmap.org/v1/nearest/greenways_union/${$location.lnglat.join(",")},4326?${jsonToURL(params)}`)
       .then(response => response.json())
       .then(data => {
         // make records for table

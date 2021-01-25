@@ -91,7 +91,7 @@
 
 
     // house photo
-    fetch(`https://mcmap.org/api2/v1/query/property_photos?${jsonToURL({
+    fetch(`https://api.mcmap.org/v1/query/property_photos?${jsonToURL({
       columns: 'image_path,image_date',
       filter: `taxpid = '${$location.pid}'`,
       sort: 'image_date desc'
@@ -109,7 +109,7 @@
       })
 
     // zoning
-    fetch(`https://mcmap.org/api2/v1/intersect_point/view_zoning/${$location.lnglat.join(',')},4326?${jsonToURL({
+    fetch(`https://api.mcmap.org/v1/intersect_point/view_zoning/${$location.lnglat.join(',')},4326?${jsonToURL({
       columns: 'zone_des,zone_class',
       geom_column: "the_geom"
     })}`)
@@ -123,8 +123,8 @@
       })
 
     // ownership
-    fetch(`https://mcmap.org/api2/v1/cama/tb_pubowner?${jsonToURL({
-      columns: 'nme_ownerlastname,nme_ownerfirstname,txt_mailaddr1,txt_mailaddr2,txt_city,txt_State,txt_zipcode',
+    fetch(`https://api.mcmap.org/v1/query/cama_tb_pubowner?${jsonToURL({
+      columns: 'nme_ownerlastname,nme_ownerfirstname,txt_mailaddr1,txt_mailaddr2,txt_city,txt_state,txt_zipcode',
       filter: `id_pid = '${$location.pid}'`
     })}`)
       .then(response => response.json())
@@ -132,7 +132,7 @@
         data.forEach(el => {
           ownerTable.rows.push([
             `${el.nme_ownerfirstname} ${el.nme_ownerlastname}`,
-            `${el.txt_mailaddr1} ${el.txt_mailaddr2}<br>${el.txt_city}, ${el.txt_State} ${el.txt_zipcode}`
+            `${el.txt_mailaddr1} ${el.txt_mailaddr2 || ''}<br>${el.txt_city}, ${el.txt_state} ${el.txt_zipcode}`
           ])
         })
       })
@@ -145,8 +145,8 @@
       })
 
     // appraisal
-    fetch(`https://mcmap.org/api2/v1/cama/tb_pubparcelinfo?${jsonToURL({
-      columns: 'txt_taxyear,amt_netbldgvalue,amt_Extrafeaturevalue,amt_Landvalue,amt_totalvalue',
+    fetch(`https://api.mcmap.org/v1/query/cama_tb_pubparcelinfo?${jsonToURL({
+      columns: 'txt_taxyear,amt_netbldgvalue,amt_extrafeaturevalue,amt_landvalue,amt_totalvalue',
       filter: `id_pid = '${$location.pid}'`
     })}`)
       .then(response => response.json())
@@ -155,8 +155,8 @@
           appraisalTable.rows.push([
             el.txt_taxyear,
             formatMoney(el.amt_netbldgvalue),
-            formatMoney(el.amt_Landvalue),
-            formatMoney(el.amt_Extrafeaturevalue),
+            formatMoney(el.amt_landvalue),
+            formatMoney(el.amt_extrafeaturevalue),
             formatMoney(el.amt_totalvalue)
           ])
         })
@@ -170,7 +170,7 @@
       })
 
     // sale history
-    fetch(`https://mcmap.org/api2/v1/cama/tb_pubsales?${jsonToURL({
+    fetch(`https://api.mcmap.org/v1/query/cama_tb_pubsales?${jsonToURL({
       columns: 'dte_dateofsale,amt_price,txt_deedbook,txt_deedpage,txt_legalreference',
       filter: `id_pid = '${$location.pid}'`
     })}`)
@@ -194,16 +194,16 @@
       })
 
     // land use
-    fetch(`https://mcmap.org/api2/v1/cama/tb_publand,ctb_publanduse?${jsonToURL({
-      columns: 'txt_LandUse_fullDesc,cnt_landunits,txt_neigh_desc',
-      filter: `tb_publand.cde_LandUseCode = ctb_publanduse.cde_LandUse and id_pid = '${$location.pid}'`
+    fetch(`https://api.mcmap.org/v1/query/cama_tb_publand,cama_ctb_publanduse?${jsonToURL({
+      columns: 'txt_landUse_fulldesc,cnt_landunits,txt_neigh_desc',
+      filter: `cama_tb_publand.cde_landusecode = cama_ctb_publanduse.cde_landuse and id_pid = '${$location.pid}'`
     })}`)
       .then(response => response.json())
       .then(data => {
         data.forEach(el => {
           useTable.rows.push([
-            el.txt_LandUse_fullDesc,
-            el.cnt_landunits,
+            el.txt_landuse_fulldesc,
+            formatCommas(el.cnt_landunits),
             el.txt_neigh_desc || ''
           ])
         })
@@ -217,7 +217,7 @@
       })
 
     // buildings
-    fetch(`https://mcmap.org/api2/v1/cama/tb_pubbuilding?${jsonToURL({
+    fetch(`https://api.mcmap.org/v1/query/cama_tb_pubbuilding?${jsonToURL({
       columns: 'txt_propertyuse_desc,num_yearbuilt,txt_extwall_desc,num_grossarea,num_bedrooms,cnt_fullbaths,cnt_threeqtrbaths,cnt_halfbaths',
       filter: `id_pid = '${$location.pid}'`
     })}`)
@@ -243,7 +243,7 @@
       })
 
     // building permits
-    fetch(`https://mcmap.org/api2/v1/intersect_feature/tax_parcels/building_permits?${jsonToURL({
+    fetch(`https://api.mcmap.org/v1/intersect_feature/tax_parcels/building_permits?${jsonToURL({
       columns: 'date_completed_co_process,project_name,square_footage,construction_cost',
       filter: `tax_parcels.pid = '${$location.pid}'`,
       geom_column_from: "the_geom",

@@ -67,8 +67,8 @@
 
   function fetchSchools(lng, lat) {
     const urls = [
-      `https://mcmap.org/api2/v1/nearest/cms_parcels/${lng},${lat},4326?columns=high_zone,gradek,grade1,grade2,grade3,grade4,grade5,grade6,grade7,grade8,grade9,grade10,grade11,grade12&limit=1`,
-      `https://mcmap.org/api2/v1/nearest/cms_parcels_future_py/${lng},${lat},4326?columns=high_zone,gradek,grade1,grade2,grade3,grade4,grade5,grade6,grade7,grade8,grade9,grade10,grade11,grade12&limit=1`
+      `https://api.mcmap.org/v1/nearest/cms_parcels/${lng},${lat},4326?columns=high_zone,gradek,grade1,grade2,grade3,grade4,grade5,grade6,grade7,grade8,grade9,grade10,grade11,grade12&limit=1`,
+      `https://api.mcmap.org/v1/nearest/cms_parcels_future_py/${lng},${lat},4326?columns=high_zone,gradek,grade1,grade2,grade3,grade4,grade5,grade6,grade7,grade8,grade9,grade10,grade11,grade12&limit=1`
     ]
 
     Promise.all(urls.map(url =>
@@ -86,7 +86,7 @@
       // school numbers to fetch
       const schlnums = [...new Set(Object.values(jsons[0][0]).concat(Object.values(jsons[1][0])))]
 
-      fetch(`https://mcmap.org/api2/v1/query/cms_schools?columns=city,num as schlnum,address,name,type,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat&filter=num in(${schlnums.join()})`)
+      fetch(`https://api.mcmap.org/v1/query/cms_schools?columns=city,num as schlnum,address,name,type,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat&filter=num in(${schlnums.join()})`)
         .then(schools => schools.json())
         .then(schools => {
 
@@ -139,7 +139,7 @@
       sort: 'distance'
     }
 
-    fetch(`https://mcmap.org/api2/v1/query/cms_schools?${jsonToURL(params)}`)
+    fetch(`https://api.mcmap.org/v1/query/cms_schools?${jsonToURL(params)}`)
       .then(response => response.json())
       .then(data => {
         // make records for table
