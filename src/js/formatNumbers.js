@@ -1,11 +1,11 @@
 function formatCommas(num, decimals = 0) {
   if (num === null) return '0'
-  return num.toFixed(decimals).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  return parseFloat(num).toFixed(decimals).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
 function formatMoney(num, decimals = 0) {
   if (num === null) return '$0'
-  return '$' + num.toFixed(decimals).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  return '$' + parseFloat(num).toFixed(decimals).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
 }
 
 function formatDate(dateString) {
