@@ -149,7 +149,7 @@
 {#if collectionData && collectionData.length === 0}
 <p class="p-8 text-lg">
 Unfortunately we are unable to determine collection information for this address.
-For collection information for you location, please visit you local government web site.
+Please visit your local government web site.
 </p>
 {/if}
 
