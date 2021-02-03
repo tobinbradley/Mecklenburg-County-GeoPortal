@@ -110,7 +110,7 @@ function close (index = -1) {
 
 <svelte:window on:click="{()=>close()}" />
 
-<div class="mt-8 mb-5 md:mx-24 relative">
+<div class="relative">
   <input
     class="appearance-none bg-transparent border-b-4 border-blue-700 focus:border-orange-600 w-full text-xl md:text-3xl text-gray-900 mr-3 py-1 px-2 leading-tight focus:outline-none transition-colors duration-200 ease-in-out"
     type="text"
