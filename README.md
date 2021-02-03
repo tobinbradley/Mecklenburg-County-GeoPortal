@@ -16,15 +16,18 @@
 Created by Mecklenburg County GIS, with much ♥ for the projects that make this site possible: OpenStreetMap, OpenMapTiles, Mapbox GL JS, TailwindCSS, and Svelte.
 
 
-## Get Started
+## Dev server
 
 ```bash
-git clone https://github.com/tobinbradley/Mecklenburg-County-GeoPortal.git geoportal
-cd geoportal
-npm install
-npm run dev
+npm run start
 ```
 
 The development server runs at `http://localhost:3000`.
 
-To build the app for deployment, `npm run build` and copy the contents of the `public` folder to your web server.
+## Production build
+
+```bash
+npm run build
+```
+
+The production code will be in the `dist` folder.
