@@ -1,18 +1,23 @@
 module.exports = {
-  purge: {
-    mode: 'all',
-    content: ['./src/**/*.html', './src/**/*.svelte', './src/**/*.vue', './src/**/*.jsx'],
-    options: {
-      whitelistPatterns: [/mapboxgl/, /svelte-/, /sparkline--/]
-    }
-  },
+  // purge: {
+  //   mode: 'all',
+  //   content: ['./src/**/*.svelte', './public/*.html'],
+  //   options: {
+  //     whitelistPatterns: [/mapboxgl/, /svelte-/, /sparkline--/]
+  //   }
+  // },
+  purge: ['./src/**/*.svelte', './public/*.html'],
+  darkMode: false,
   theme: {
     extend: {
       screens: {
-        'print': { 'raw': 'print' }
+        'print': { 'raw': 'print' },
+        'screen': { 'raw': 'screen' }
       }
     }
   },
-  variants: {},
+  variants: {
+    extend: {},
+  },
   plugins: []
 }

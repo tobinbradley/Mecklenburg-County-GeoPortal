@@ -1,27 +1,33 @@
-import { register } from 'register-service-worker'
+import toastMaker from './toastMaker'
 
-register('service-worker.js', {
-  registrationOptions: { scope: './' },
-  ready(registration) {
-    console.log('Service worker is active.')
-  },
-  registered(registration) {
-    console.log('Service worker has been registered.')
-  },
-  cached(registration) {
-    console.log('Content has been cached for offline use.')
-  },
-  updatefound(registration) {
-    console.log('New content is downloading.')
-  },
-  updated(registration) {
-    console.log('New content is available; please refresh.')
-    document.querySelector("#swUpdate").classList.remove("hidden")
-  },
-  offline() {
-    console.log('No internet connection found. App is running in offline mode.')
-  },
-  error(error) {
-    console.error('Error during service worker registration:', error)
-  }
-})
+let newWorker
+
+// Register service worker and show update notice if new content
+if ('serviceWorker' in navigator) {
+  // Register the service worker
+  navigator.serviceWorker.register('./service-worker.js').then(reg => {
+    reg.addEventListener('updatefound', () => {
+
+      // An updated service worker has appeared in reg.installing!
+      newWorker = reg.installing;
+
+      newWorker.addEventListener('statechange', () => {
+
+        // Has service worker state changed?
+        switch (newWorker.state) {
+          case 'installed':
+
+            // There is a new service worker available, show the notification
+            if (navigator.serviceWorker.controller) {
+              console.log('New content is available, please refresh.')
+              newWorker.postMessage({ type: 'SKIP_WAITING' })
+              toastMaker( "info", "GeoPortal has been updated.", 0, 8000, true)
+            }
+
+            break;
+        }
+      });
+    });
+  });
+
+}

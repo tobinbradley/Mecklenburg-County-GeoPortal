@@ -28,18 +28,14 @@
 
 <style>
   .toastMessage {
-    width: 400px;
     max-width: 90%;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
   }
 </style>
 
 {#if show}
 
 <div
-  class="toastMessage fixed z-50 cursor-pointer flex items-center py-2 px-3 shadow-md mb-2 border-l-4
+  class="toastMessage fixed z-50 right-0 bottom-0 cursor-pointer flex items-center py-2 px-3 shadow-md border-l-4 mb-3 mr-3
     {$toastMessage.messageType === "error" ? 'bg-red-600 border-red-800' : ''}
     {$toastMessage.messageType === "warning" ? 'bg-orange-600 border-orange-800' : ''}
     {$toastMessage.messageType === "info" ? 'bg-blue-600 border-blue-800' : ''}
@@ -73,8 +69,13 @@
     </svg>
   </div>
   <!-- message -->
-  <div class="text-white">
+  <div class="text-white flex-grow">
     {@html $toastMessage.message }
+  </div>
+  <div>
+    {#if $toastMessage.reloadButton}
+      <button class="bg-white border-solid border-blue-400 text-blue-600 shadow-none hover:bg-blue-100 hover:shadow ml-3 capitalize font-bold py-2 px-4 rounded whitespace-no-wrap inline-flex items-center" onclick="location.reload()">reload</button>
+    {/if}
   </div>
 </div>
 

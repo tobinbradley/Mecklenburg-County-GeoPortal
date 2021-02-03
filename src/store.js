@@ -64,7 +64,8 @@ const toastData = {
   message: "",
   messageType: "success",
   loadDelay: 1000,
-  dismissDelay: 5000
+  dismissDelay: 5000,
+  reloadButton: false
 }
 
 // export the things

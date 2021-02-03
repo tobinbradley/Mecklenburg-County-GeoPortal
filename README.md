@@ -1,9 +1,9 @@
-# GeoPortal v4
+# GeoPortal v5
 
 [GeoPortal](https://mcmap.org/geoportal) is a *one stop shopping for location information* government app. Highlights include:
 
 * Perfect Lighthouse score.
-* Code splitting utilized to keep page size down. Initial page load < 50KB.
+* Code splitting keeps initial page size low.
 * Progressive web app.
 * Works great on mobile devices.
 

@@ -29,7 +29,14 @@
 
 </head>
 
-<body>
+<body class="flex flex-col h-screen">
+
+  <!-- IE message, remove in saner times. -->
+  <div id="iewarning" class="bg-yellow-400 text-black p-3 leading-3 text-bold hidden">
+    <span class="bg-yellow-600 rounded px-2">Warning!</span>
+    Internet Explorer is not supported and may not work on this site.
+  </div>
+
   <!-- header -->
   <nav class="bg-blue-900 shadow-lg print:hidden">
     <div class="flex justify-between flex-wrap px-2 py-2 md:py-4 max-w-6xl mx-auto">
@@ -50,7 +57,7 @@
   </nav>
 
   <!-- main content -->
-  <main class="max-w-5xl mx-auto py-10 px-5 md:px-4 print:py-1">
+  <main class="w-full max-w-5xl mx-auto py-10 px-5 md:px-4 print:py-1 flex-grow">
     <div class="text-center print:hidden">
       <h1 class="text-xl md:text-3xl">
         Discover data about <strong class="text-orange-600">places</strong> in your community.
@@ -129,7 +136,7 @@
             class="btn bg-orange-700 hover:bg-orange-800 transition-colors duration-200 ease-in-out text-white uppercase"
             target="_blank"
             href="https://twitter.com/MeckGIS">
-            Follow Us ON TWITTER
+              @MeckGIS
           </a>
         </p>
       </div>
@@ -138,16 +145,6 @@
   </footer>
 
   <div id="toast"></div>
-
-  <!-- service worker detected update -->
-  <div class="alert-footer fixed bottom-0 right-0 mr-3 mb-3 hidden" id="swUpdate">
-    <div class="flex items-center justify-between w-full p-2 shadow-lg rounded bg-gray-200">
-      GeoPortal has been updated.
-      <button class="btn bg-blue-800 text-white shadow hover:bg-blue-900 hover:shadow-md ml-3 capitalize" onclick="location.reload(true)">reload</button>
-      <button class="btn shadow-none hover:bg-gray-400 hover:shadow ml-1 text-gray-700"
-        onclick='document.querySelector("#swUpdate").classList.add("hidden")'>dismiss</button>
-    </div>
-  </div>
 
   <!-- analytics -->
   <script>
@@ -167,5 +164,14 @@
     ga('send', 'pageview');
   </script>
 
+  <!-- IE warning -->
+  <script>
+    if (window.document.documentMode) {
+      document.querySelector('#iewarning').classList.remove('hidden')
+    }
+  </script>
+
+  <script type="module" src="dist/index.js"></script>
 </body>
+
 </html>

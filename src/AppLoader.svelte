@@ -5,11 +5,14 @@
   let showApp = false
 
   $: if (showApp === true) {
-    import(/* webpackChunkName: "app" */ './App.svelte').then(({ default: App }) => {
-      new App({
-        target: document.querySelector('#app')
+    (async () => {
+      const { default: App } = await import(
+        "./App.svelte"
+      )
+      let app = new App({
+        target: document.querySelector("#app"),
       })
-    })
+    })();
   }
 
   location.subscribe(value => {

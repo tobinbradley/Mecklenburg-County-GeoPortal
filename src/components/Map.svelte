@@ -19,9 +19,10 @@
   }
 
   $: if (showMap === true) {
-    import(/* webpackChunkName: "mapbox-gl" */ 'mapbox-gl').then(({ default: gl }) => {
+    (async () => {
+      const { default: gl } = await import("mapbox-gl")
       createMap(gl)
-    })
+    })();
   }
 
   function createMap(gl) {
@@ -159,7 +160,7 @@
 </script>
 
 <style>
-  @import '../../node_modules/mapbox-gl/dist/mapbox-gl.css';
+  @import 'mapbox-gl/dist/mapbox-gl.css';
   @import '../css/map.css';
 </style>
 

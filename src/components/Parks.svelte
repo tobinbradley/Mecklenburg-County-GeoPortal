@@ -110,6 +110,6 @@
 
 <Table rows={parkRows} columns={["Park", "Address", "Distance"]} caption="10 Closest Parks" alignRight={[3]} />
 
-<Table rows={greenwayRows} columns={["Greenway", "Surface", "Distance"]} caption="5 Closest Greenways" alignRight={[3]} />
+<Table rows={greenwayRows} columns={["Greenway", "Surface", "Distance"]} caption="3 Closest Greenways" alignRight={[3]} />
 
 <Resources links={resourceLinks} />
