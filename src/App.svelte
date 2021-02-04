@@ -1,4 +1,5 @@
 <script>
+  import fetchNearest from './js/fetchNearestMAT.js'
   import { activeTabs, tabs, location } from './store.js'
   import Schools from './components/Schools.svelte'
   import Trash from './components/Trash.svelte'
@@ -24,18 +25,34 @@
     voting: Voting
   }
 
-  // Set history hash
-  // #-80.8486,35.1528/welcome
-  location.subscribe(value => {
-    history.replaceState(null, null, `#${value.lnglat}/${$activeTabs.join(',')}`)
-  })
-  activeTabs.subscribe(value => {
-    if ($location.lnglat) updateHistory()
-  })
-  function updateHistory() {
-    history.replaceState(null, null, `#${$location.lnglat}/${$activeTabs.join(',')}`)
-  }
 
+  location.subscribe(value => {
+    if (value.lnglat) {
+      document.querySelector("#print").classList.remove("hidden")
+      history.replaceState(null, null, `#${value.lnglat}/${$activeTabs.join(',')}`)
+    }
+  })
+  // Set history hash
+  activeTabs.subscribe(value => {
+    if (value.lnglat) {
+      history.replaceState(null, null, `#${$location.lnglat}/${$activeTabs.join(',')}`)
+    }
+  })
+
+  // detect lnglat URL arg
+  const regexLnglat = /^[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?),\s*[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?)$/gm;
+  const hashCoords = window.location.hash.replace('#', '').split('/')[0]
+  if (regexLnglat.test(hashCoords)) {
+    fetchNearest(hashCoords.split(',')).then(json => {
+      location.set({
+        label: json[0].address,
+        address: json[0].address,
+        lnglat: [Number(json[0].lng), Number(json[0].lat)],
+        pid: json[0].pid,
+        groundpid: json[0].groundpid
+      })
+    })
+  }
 
 </script>
 
