@@ -3,7 +3,7 @@
   "version": "5.0.0",
   "scripts": {
     "start": "snowpack dev",
-    "build": "snowpack build && mv dist/_snowpack dist/dist/ && workbox generateSW workbox-config.js"
+    "build": "snowpack build && mv dist/_snowpack dist/dist/ && rm dist/build-manifest.json && workbox generateSW workbox-config.js"
   },
   "dependencies": {
     "d3-scale-chromatic": "^2.0.0",
