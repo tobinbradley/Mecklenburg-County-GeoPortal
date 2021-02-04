@@ -7,8 +7,7 @@ module.exports = {
   plugins: [
     '@snowpack/plugin-svelte',
     '@snowpack/plugin-dotenv',
-    '@snowpack/plugin-postcss',
-    '@snowpack/plugin-webpack'
+    '@snowpack/plugin-postcss'
   ],
   devOptions: {
     port: 3000
@@ -16,5 +15,12 @@ module.exports = {
   buildOptions: {
     baseUrl: './',
     out: 'dist'
+  },
+  optimize: {
+   minify: true,
+   bundle: true,
+   splitting: true,
+   treeshake: true,
+   target: 'es2018'
   }
 }
