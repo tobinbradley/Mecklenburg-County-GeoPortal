@@ -198,7 +198,6 @@
 </script>
 
 <style>
-  @import 'mapbox-gl/dist/mapbox-gl.css';
   @import '../css/map.css';
 </style>
 

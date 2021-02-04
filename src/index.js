@@ -9,9 +9,10 @@ import './css/links.css'
 import './css/sparkline.css'
 import './css/print.css'
 import './css/youtube.css'
+import './css/map.css'
 
 // APP
-import AppLoader from './AppLoader.svelte'
+import App from './App.svelte'
 import Search from './components/Search.svelte'
 import BackToTop from './components/BackToTop.svelte'
 import YouTube from './components/YouTube.svelte'
@@ -24,7 +25,7 @@ new Search({
 new YouTube({
   target: document.querySelector('#tutorial')
 })
-new AppLoader({
+new App({
   target: document.querySelector('#app')
 })
 new BackToTop({
