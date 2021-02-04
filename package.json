@@ -3,7 +3,7 @@
   "version": "5.0.0",
   "scripts": {
     "start": "snowpack dev",
-    "build": "snowpack build && rm -rf ./dist/_snowpack && rm -rf ./dist/dist && workbox generateSW workbox-config.js"
+    "build": "snowpack build && mv dist/_snowpack dist/dist/ && workbox generateSW workbox-config.js"
   },
   "dependencies": {
     "d3-scale-chromatic": "^2.0.0",
@@ -14,7 +14,6 @@
     "@snowpack/plugin-dotenv": "^2.0.5",
     "@snowpack/plugin-postcss": "^1.1.0",
     "@snowpack/plugin-svelte": "^3.5.2",
-    "@snowpack/plugin-webpack": "^2.3.0",
     "autoprefixer": "^10.2.4",
     "postcss": "^8.2.4",
     "postcss-cli": "^8.3.1",
