@@ -2,7 +2,7 @@
 import './js/registerServiceWorker'
 
 // CSS
-import './css/tailwind.css'
+import './css/tailwindtop.css'
 import './css/scrollbar.css'
 import './css/button.css'
 import './css/links.css'
@@ -10,6 +10,7 @@ import './css/sparkline.css'
 import './css/print.css'
 import './css/youtube.css'
 import './css/map.css'
+import './css/tailwindbottom.css'
 
 // APP
 import App from './App.svelte'
