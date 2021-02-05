@@ -2,10 +2,6 @@
   @apply py-2 px-4 rounded whitespace-no-wrap inline-flex items-center shadow-md capitalize;
 }
 
-.btn.hidden {
-  @apply hidden;
-}
-
 .btn:focus {
   @apply outline-none shadow-outline;
 }
