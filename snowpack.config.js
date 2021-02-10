@@ -17,10 +17,10 @@ module.exports = {
     out: 'dist'
   },
   optimize: {
-   minify: true,
-   bundle: true,
-   splitting: true,
-   treeshake: true,
-   target: 'es2018'
+    minify: true,
+    bundle: true,
+    splitting: true,
+    treeshake: true,
+    target: 'es2019'
   }
 }
