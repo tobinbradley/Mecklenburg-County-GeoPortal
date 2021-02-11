@@ -3,5 +3,9 @@
 }
 
 .btn:focus {
-  @apply outline-none shadow-outline;
+  @apply outline-none;
+}
+
+.btn:focus-visible {
+  @apply shadow-outline;
 }
