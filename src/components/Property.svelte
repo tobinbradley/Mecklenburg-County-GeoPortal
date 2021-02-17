@@ -131,7 +131,7 @@
       .then(data => {
         data.forEach(el => {
           ownerTable.rows.push([
-            `${el.nme_ownerfirstname} ${el.nme_ownerlastname}`,
+            `${el.nme_ownerfirstname || ''} ${el.nme_ownerlastname || ''}`,
             `${el.txt_mailaddr1} ${el.txt_mailaddr2 || ''}<br>${el.txt_city}, ${el.txt_state} ${el.txt_zipcode}`
           ])
         })
