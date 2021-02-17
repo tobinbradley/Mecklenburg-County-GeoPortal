@@ -35,7 +35,6 @@
   // Map
   let showMap = false
   let mapPoints = []
-  let focusPoint = null
 
   // Resources
   const resourceLinks = [
@@ -168,7 +167,7 @@
 
 <Title title="SCHOOLS" icon="school" />
 
-<Map showMap={showMap} mapPoints={mapPoints} focusPoint={focusPoint} />
+<Map showMap={showMap} mapPoints={mapPoints} />
 
 <Table rows={schoolsCurrent.rows} columns={schoolsCurrent.columns} caption="Currnet School Year" alignRight={schoolsCurrent.alignRight} />
 

@@ -14,7 +14,6 @@
   // Map
   let showMap = false
   let mapPoints = []
-  let focusPoint = null
 
   // Resources
   const resourceLinks = [
@@ -79,7 +78,7 @@
 
 <Title title="LIBRARIES" icon="library" />
 
-<Map showMap={showMap} mapPoints={mapPoints} focusPoint={focusPoint} on:mapOff={handleMapOff} />
+<Map showMap={showMap} mapPoints={mapPoints} on:mapOff={handleMapOff} />
 
 <Table rows={rows} columns={columns} caption="5 Closest Libraries" alignRight={alignRight} />
 

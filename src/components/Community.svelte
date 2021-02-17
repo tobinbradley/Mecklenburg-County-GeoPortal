@@ -27,7 +27,6 @@
 
   // map stuff
   let showMap = false
-  let npa = null
   let npaConfig = null
   let mapTitle = null
   let npaData = null
@@ -53,7 +52,6 @@
       .then(response => response.json())
       .then(data => {
         makeTable(data[0].id)
-        npa = data[0].id
       })
       .catch(ex => {
         console.log("parsing failed", ex);
@@ -165,7 +163,7 @@
 
 <Title title="Community" icon="community" />
 
-<Map showMap={showMap} mapTitle={mapTitle} mapData={mapData} mapNPA={npa} />
+<Map showMap={showMap} mapTitle={mapTitle} mapData={mapData} />
 
 <Table caption="Your Neighborhood" rows={rows} columns={columns} alignCenter={[2, 3, 4]} mapLinks={mapLinks} on:mapLink={handleMapLink} sparklines={sparklines} highlightRow={highlightRow} />
 
