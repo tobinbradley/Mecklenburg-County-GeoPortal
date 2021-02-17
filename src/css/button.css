@@ -1,5 +1,5 @@
 .btn {
-  @apply py-2 px-4 rounded whitespace-no-wrap inline-flex items-center shadow-md capitalize;
+  @apply py-2 px-4 rounded whitespace-nowrap inline-flex items-center shadow-md capitalize;
 }
 
 .btn:focus {
@@ -7,5 +7,5 @@
 }
 
 .btn:focus-visible {
-  @apply shadow-outline;
+  @apply ring;
 }

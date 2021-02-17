@@ -74,7 +74,7 @@
   </div>
   <div>
     {#if $toastMessage.reloadButton}
-      <button class="bg-white border-solid border-blue-400 text-blue-600 shadow-none hover:bg-blue-100 hover:shadow ml-3 capitalize font-bold py-2 px-4 rounded whitespace-no-wrap inline-flex items-center" onclick="location.reload()">reload</button>
+      <button class="bg-white border-solid border-blue-400 text-blue-600 shadow-none hover:bg-blue-100 hover:shadow ml-3 capitalize font-bold py-2 px-4 rounded whitespace-nowrap inline-flex items-center" onclick="location.reload()">reload</button>
     {/if}
   </div>
 </div>
