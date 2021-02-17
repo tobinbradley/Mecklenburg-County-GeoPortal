@@ -34,7 +34,7 @@
   })
   // Set history hash
   activeTabs.subscribe(value => {
-    if (value.lnglat) {
+    if ($location.lnglat) {
       history.replaceState(null, null, `#${$location.lnglat}/${$activeTabs.join(',')}`)
     }
   })
