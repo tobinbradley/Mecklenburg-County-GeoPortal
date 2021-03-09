@@ -7,11 +7,6 @@
   import jsonToURL from '../js/jsonToURL.js'
   import { formatCommas } from '../js/formatNumbers.js'
 
-  // Figure out what to label the school years
-  const d = new Date()
-  const y = d.getFullYear()
-  const yFactor = d.getMonth() + 1 <= 7 ? -1 : 0
-
   // Magnet table
   const magnetTable = {
     columns: ["School", "Focus", "Grades", "Address", "Distance"],
@@ -169,9 +164,9 @@
 
 <Map showMap={showMap} mapPoints={mapPoints} />
 
-<Table rows={schoolsCurrent.rows} columns={schoolsCurrent.columns} caption="Currnet School Year" alignRight={schoolsCurrent.alignRight} />
+<Table rows={schoolsCurrent.rows} columns={schoolsCurrent.columns} caption="Current School Year" alignRight={schoolsCurrent.alignRight} />
 
-<!-- <Table rows={schoolsFuture.rows} columns={schoolsFuture.columns} caption={`${y + yFactor + 1}-${y + yFactor + 2} School Year`} alignRight={schoolsFuture.alignRight} /> -->
+<Table rows={schoolsFuture.rows} columns={schoolsFuture.columns} caption="Next School Year" alignRight={schoolsFuture.alignRight} />
 
 <Table rows={magnetTable.rows} columns={magnetTable.columns} caption={'Magnet Schools (You Are in <a href="https://cmschoice.org/your-choices/transportation-zones/" target="_blank">Zone ' + zone + '</a>)'} alignRight={magnetTable.alignRight} />
 
