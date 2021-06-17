@@ -29,7 +29,7 @@
   }
   const useTable = {
     caption: "Land Use",
-    columns: ["Use", "Units", "Neighborhood"],
+    columns: ["Use", "Units", "Tax Neighborhood"],
     alignRight: [2],
     rows: []
   }
@@ -243,11 +243,9 @@
       })
 
     // building permits
-    fetch(`https://api.mcmap.org/v1/intersect_feature/tax_parcels/building_permits?${jsonToURL({
+    fetch(`https://api.mcmap.org/v1/query/building_permits?${jsonToURL({
       columns: 'date_completed_co_process,project_name,square_footage,construction_cost',
-      filter: `tax_parcels.pid = '${$location.pid}'`,
-      geom_column_from: "the_geom",
-      geom_column_to: "the_geom"
+      filter: `mat_parcel_id = '${$location.pid}'`
     })}`)
       .then(response => response.json())
       .then(data => {
