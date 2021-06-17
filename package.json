@@ -3,23 +3,23 @@
   "version": "5.0.0",
   "scripts": {
     "start": "snowpack dev",
-    "build": "snowpack build && mv dist/_snowpack dist/dist/ && rm dist/build-manifest.json && workbox generateSW workbox-config.js"
+    "build": "snowpack build && workbox generateSW workbox-config.js"
   },
   "dependencies": {
-    "d3-scale-chromatic": "^2.0.0",
+    "d3-scale-chromatic": "^3.0.0",
     "mapbox-gl": "^1.13.0",
-    "svelte": "^3.37.0"
+    "svelte": "^3.38.2"
   },
   "devDependencies": {
     "@snowpack/plugin-dotenv": "^2.1.0",
-    "@snowpack/plugin-postcss": "^1.2.2",
-    "@snowpack/plugin-svelte": "^3.6.1",
-    "autoprefixer": "^10.2.5",
-    "postcss": "^8.2.9",
+    "@snowpack/plugin-postcss": "^1.4.1",
+    "@snowpack/plugin-svelte": "^3.7.0",
+    "autoprefixer": "^10.2.6",
+    "postcss": "^8.3.5",
     "postcss-cli": "^8.3.1",
-    "snowpack": "^3.2.2",
-    "tailwindcss": "^2.1.1",
-    "workbox-cli": "^6.1.2"
+    "snowpack": "^3.5.9",
+    "tailwindcss": "^2.2.0",
+    "workbox-cli": "^6.1.5"
   },
   "browserslist": [
     ">1%",
