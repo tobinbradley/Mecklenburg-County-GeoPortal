@@ -26,7 +26,7 @@
   }
 </style>
 
-<div class="mt-24 print:mt-0">
+<div class="mt-24 print:mt-0" id="{title}-scrollTarget">
   <div bind:this={pointer} class="separator flex items-center text-center text-2xl md:text-3xl tracking-wider uppercase font-bold text-gray-600">{title}</div>
 
   <div class="text-blue-800 text-center mt-8">
