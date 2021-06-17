@@ -11,7 +11,6 @@
   export let toggleLayers = null
 
   const mapContainer = `mapID${Math.floor((Math.random() * 10000) + 1)}`
-  let mapElement
   let map = null
 
   $: if ($location) {
@@ -32,7 +31,6 @@
       attributionControl: false,
       minZoom: 8,
       maxBounds: [[-82.641, 34.115], [-79.008, 36.762]],
-      pitch: 40,
       preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf("firefox") > -1
     }
 
@@ -160,7 +158,7 @@
 </script>
 
 <style>
-  @import 'mapbox-gl/dist/mapbox-gl.css';
+  /* @import 'mapbox-gl/dist/mapbox-gl.css'; */
 </style>
 
 
