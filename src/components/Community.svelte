@@ -153,10 +153,13 @@
     mapData = npaData[event.detail.toString()]
     mapTitle = config[0].title + ', ' + config[0].years[config[0].years.length - 1]
     highlightRow = idx
-    window.scrollTo({
-      top: 720,
-      behavior: 'smooth',
-    })
+
+    document
+      .querySelector('#Community-scrollTarget')
+      .scrollIntoView({
+        block: 'start',
+        behavior: 'smooth'
+      })
   }
 
 </script>
