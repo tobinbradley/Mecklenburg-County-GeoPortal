@@ -6,6 +6,6 @@
   page-break-after: avoid;
 }
 
-/* .report-highlight {
+.report-highlight {
   page-break-inside: avoid;
-} */
+}
