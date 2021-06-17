@@ -10,7 +10,6 @@
   export let mapData = ''
 
   const mapContainer = `mapID${Math.floor((Math.random() * 10000) + 1)}`
-  let mapElement
   let map = null
 
   $: if ($location) {
@@ -69,6 +68,7 @@
   }
 
   function createMap(gl) {
+    console.log(gl)
     let mapOptions = {
       container: mapContainer,
       style: mapStyle,
