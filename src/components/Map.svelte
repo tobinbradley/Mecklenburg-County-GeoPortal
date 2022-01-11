@@ -19,7 +19,7 @@
 
   $: if (showMap === true) {
     (async () => {
-      const { default: gl } = await import("mapbox-gl")
+      const { default: gl } = await import("maplibre-gl")
       createMap(gl)
     })();
   }
@@ -156,10 +156,6 @@
     }
   }
 </script>
-
-<style>
-  /* @import 'mapbox-gl/dist/mapbox-gl.css'; */
-</style>
 
 
 {#if showMap}

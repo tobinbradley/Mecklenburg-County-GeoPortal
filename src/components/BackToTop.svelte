@@ -20,9 +20,9 @@
     aria-label="Back to Top"
     transition:fade
     on:click={scrollUp}
-    class="btn transition duration-200 ease-in-out bg-orange-700 hover:bg-orange-800 hover:shadow-lg text-white fixed top-0 right-0 mt-5 mr-3 px-3 py-3"
+    class="btn transition duration-200 ease-in-out shadow bg-orange-600 shadow-orange-600/50 hover:bg-orange-700 hover:shadow-orange-700/50 hover:shadow-lg text-white fixed bottom-0 right-0 mb-5 mr-5 px-3 p-3"
   >
-    <svg class="fill-current h-3 w-4"><use xlink:href="#icon-arrow-up"></use></svg>
+    <svg class="fill-current h-5 w-6"><use xlink:href="#icon-arrow-up"></use></svg>
   </button>
 
   <symbol id="icon-arrow-up" viewBox="0 0 32 32">

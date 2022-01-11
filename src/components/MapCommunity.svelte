@@ -22,7 +22,7 @@
 
   $: if (showMap === true) {
     (async () => {
-      const { default: gl } = await import("mapbox-gl")
+      const { default: gl } = await import("maplibre-gl")
       createMap(gl)
     })();
   }
@@ -75,10 +75,10 @@
       attributionControl: false,
       minZoom: 8,
       maxBounds: [[-82.641, 34.115], [-79.008, 36.762]],
-      zoom: 9.3,
-      center: [-80.84, 35.23], //$location.lnglat,
-      pitch: 40,
-      bearing: 10,
+      zoom: 9.1,
+      center: [-80.84, 35.25], //$location.lnglat,
+      pitch: 30,
+      bearing: 5,
       preserveDrawingBuffer: navigator.userAgent.toLowerCase().indexOf("firefox") > -1
     }
 
@@ -196,10 +196,6 @@
     }
   }
 </script>
-
-<style>
-  @import '../css/map.css';
-</style>
 
 
 {#if showMap}

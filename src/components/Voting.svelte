@@ -2,12 +2,10 @@
   import { location } from '../store.js'
   import Title from './Title.svelte'
   import Resources from './Resources.svelte'
-  import Table from './Table.svelte'
   import Map from './Map.svelte'
   import Representative from './Representative.svelte'
   import RecordHighlight from './RecordHighlight.svelte'
   import jsonToURL from '../js/jsonToURL.js'
-  import { formatCommas } from '../js/formatNumbers.js'
 
   // Map
   let showMap = false

@@ -1,31 +1,25 @@
 {
   "name": "geoportal",
-  "version": "5.0.0",
+  "version": "5.1.0",
+  "type": "module",
   "scripts": {
-    "start": "snowpack dev",
-    "build": "snowpack build && workbox generateSW workbox-config.js"
+    "dev": "vite",
+    "build": "vite build",
+    "postbuild": "workbox generateSW workbox-config.cjs",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@sveltejs/vite-plugin-svelte": "^1.0.0-next.34",
+    "autoprefixer": "^10.4.2",
+    "postcss": "^8.4.5",
+    "svelte": "^3.46.0",
+    "svelte-preprocess": "^4.10.1",
+    "tailwindcss": "^3.0.13",
+    "vite": "^2.7.10",
+    "workbox-cli": "^6.4.2"
   },
   "dependencies": {
     "d3-scale-chromatic": "^3.0.0",
-    "mapbox-gl": "^1.13.0",
-    "svelte": "^3.42.6"
-  },
-  "devDependencies": {
-    "@snowpack/plugin-dotenv": "^2.2.0",
-    "@snowpack/plugin-postcss": "^1.4.3",
-    "@snowpack/plugin-svelte": "^3.7.0",
-    "autoprefixer": "^10.3.4",
-    "postcss": "^8.3.6",
-    "postcss-cli": "^8.3.1",
-    "snowpack": "^3.8.8",
-    "tailwindcss": "^2.2.15",
-    "workbox-cli": "^6.3.0"
-  },
-  "browserslist": [
-    ">1%",
-    "not ie 11",
-    "not UCAndroid >0",
-    "not OperaMini all",
-    "not dead"
-  ]
+    "maplibre-gl": "^1.15.2"
+  }
 }

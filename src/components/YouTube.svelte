@@ -8,11 +8,13 @@
 </script>
 
 <style>
-
 .play-button {
   width: 90px;
   height: 60px;
-  box-shadow: 8px 8px 8px #8A8A8A;
+  @apply bg-blue-500 shadow-blue-500/50 cursor-pointer shadow-lg z-10 rounded-lg transition duration-300 ease-in-out;
+}
+.play-button:hover {
+  @apply bg-red-700 shadow-red-700/50;
 }
 .play-button:before {
   content: "";
@@ -31,5 +33,5 @@
 </style>
 
 
-<div class="play-button bg-blue-900 cursor-pointer z-10 rounded-lg transition duration-300 ease-in-out hover:bg-red-700" on:click|once={loadVideo} data-embed="agzk5yeHafg"></div>
+<div class="play-button" on:click|once={loadVideo} data-embed="agzk5yeHafg"></div>
 <iframe bind:this={tutorialIframe} class="absolute hidden w-full h-full z-20" frameborder="0" title="video tutorial" />

@@ -5,7 +5,6 @@
   import Table from './Table.svelte'
   import RecordHighlight from './RecordHighlight.svelte'
   import jsonToURL from '../js/jsonToURL.js'
-  import { formatCommas } from '../js/formatNumbers.js'
 
   // Base table
   const columns = ["Collection Service", "Day"]

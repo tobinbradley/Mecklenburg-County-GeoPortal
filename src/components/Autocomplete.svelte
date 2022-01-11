@@ -21,6 +21,10 @@ let fromStart= false; // Default type ahead
 let list;
 let input;
 
+function focusOnMount(node) {
+  node.focus()
+}
+
 // debounce
 const debounce = (fn, time) => {
   let timeout
@@ -115,8 +119,7 @@ function close (index = -1) {
     class="appearance-none bg-transparent border-b-4 border-blue-700 focus:border-orange-600 w-full text-xl md:text-3xl text-gray-900 mr-3 py-1 px-2 leading-tight focus:outline-none transition-colors duration-200 ease-in-out"
     type="text"
     aria-label="search for an address or a place"
-    onfocus="this.select()"
-    autofocus
+    onfocus="this.select()"    
     {name}
     {placeholder}
     autocomplete="{name}"
@@ -124,6 +127,7 @@ function close (index = -1) {
     on:input="{(event)=>onChange(event)}"
     on:keydown="{(event)=>onKeyDown(event)}"
     bind:this={input}
+    use:focusOnMount
   >
   {#if spinner}
     <Spinner position="top: 10px; right: 34px;" />

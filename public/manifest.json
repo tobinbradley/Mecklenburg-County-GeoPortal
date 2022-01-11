@@ -1,20 +1,15 @@
 {
   "name": "GeoPortal",
   "short_name": "GeoPortal",
-  "icons": [{
-      "src": "img/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
+  "icons": [
     {
       "src": "img/android-chrome-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "img/maskable-196x196.png",
-      "sizes": "196x196",
-      "type": "image/png",
+      "src": "img/logo.svg",
+      "sizes": "192x192 196x196 512x512",
       "purpose": "any maskable"
     }
   ],

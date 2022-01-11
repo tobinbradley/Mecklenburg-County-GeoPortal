@@ -1,5 +1,5 @@
 .btn {
-  @apply py-2 px-4 rounded whitespace-nowrap inline-flex items-center shadow-md capitalize;
+  @apply py-2 px-4 rounded whitespace-nowrap shadow-md capitalize;
 }
 
 .btn:focus {

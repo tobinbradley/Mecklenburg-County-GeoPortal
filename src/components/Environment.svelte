@@ -6,8 +6,7 @@
   import Map from './Map.svelte'
   import RecordHighlight from './RecordHighlight.svelte'
   import jsonToURL from '../js/jsonToURL.js'
-  import { formatCommas } from '../js/formatNumbers.js'
-
+  
   // Soil table
   const columns = ["Soil Type", "Group", "Description"]
   const alignRight = []
