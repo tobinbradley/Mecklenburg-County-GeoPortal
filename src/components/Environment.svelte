@@ -21,6 +21,7 @@
   let waterQualityReport = JSON.parse(JSON.stringify(floodplainReport))
   let watershedReport = JSON.parse(JSON.stringify(floodplainReport))
   let districtReport = JSON.parse(JSON.stringify(floodplainReport))
+  let brownfieldReport = JSON.parse(JSON.stringify(floodplainReport))
 
   // Map
   let showMap = false
@@ -36,8 +37,16 @@
       url: 'https://en.wikipedia.org/wiki/Watershed'
     },
     {
+      name: 'What is a "brownfield"?',
+      url: 'https://en.wikipedia.org/wiki/Brownfield_land'
+    },
+    {
       name: 'Storm Water Services',
       url: 'https://charlottenc.gov/stormwater/Pages/default.aspx'
+    },
+    {
+      name: 'NC DEQ Brownfields Program',
+      url: 'https://deq.nc.gov/about/divisions/waste-management/brownfields-program'
     },
     {
       name: 'Floodplain data on Open Mapping',
@@ -75,11 +84,12 @@
     floodplain($location.groundpid)
     waterqualitybuffer($location.groundpid)
     district($location.groundpid)
+    brownfields($location.groundpid)
     watershed($location.lnglat[0], $location.lnglat[1])
   }
 
   //***************************************************************
-  // district
+  // watershed
   //***************************************************************
   function watershed(lng, lat) {
     const params = {
@@ -132,6 +142,42 @@
         } else {
           districtReport = {
             top: 'This property is not in a distressed business district.',
+            detail: null,
+            headline: null
+          }
+        }
+      })
+      .catch(ex => {
+        console.log("parsing failed", ex);
+      })
+  }
+
+  //***************************************************************
+  // brownfields
+  //***************************************************************
+  function brownfields(pid) {
+    const params = {
+      columns: "luru_link",
+      filter: `tax_parcels.pid = '${
+        pid
+      }'`,
+      geom_column_from: "the_geom",
+      geom_column_to: "geom"
+    }
+
+    fetch(`https://api.mcmap.org/v1/intersect_feature/tax_parcels/nc_deq_brownfields?${jsonToURL(params)}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0) {
+          brownfieldReport = {
+            top: 'This property contains a',
+            detail: `Special restrictions may apply (see NC DEQ <a href="${data[0].luru_link}" rel="noopener" target="_blank">Land Use Restrictions Update</a>).
+                    For more information, please contact the North Carolina Department of Environmental Quality at <a href="tel:+8776236748">877.623.6748</a>.`,
+            headline: 'BROWNFIELD'
+          }
+        } else {
+          brownfieldReport = {
+            top: 'This property does not contain a brownfield.',
             detail: null,
             headline: null
           }
@@ -250,7 +296,8 @@
 <div class="flex flex-row flex-wrap justify-around print:block">
   <RecordHighlight {...floodplainReport} />
   <RecordHighlight {...waterQualityReport} />
-  <RecordHighlight {...districtReport} />
+  <RecordHighlight {...districtReport} />  
+  <RecordHighlight {...brownfieldReport} />
   <RecordHighlight {...watershedReport} />
 </div>
 
