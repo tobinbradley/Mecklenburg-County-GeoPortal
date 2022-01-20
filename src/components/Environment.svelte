@@ -16,7 +16,8 @@
   let floodplainReport = {
     top: '',
     detail: '',
-    headline: ''
+    headline: '',
+    sub: ''
   }
   let waterQualityReport = JSON.parse(JSON.stringify(floodplainReport))
   let watershedReport = JSON.parse(JSON.stringify(floodplainReport))
@@ -136,7 +137,8 @@
         if (data.length > 0) {
           districtReport = {
             top: 'This property is in a',
-            detail: 'PCCO mitigation options apply. For more information, please call <a href="tel:+7044325571">704.432.5571</a>.',
+            sub: 'PCCO Mitigation Options Apply',
+            detail: 'For more information, please call <a href="tel:+7044325571">704.432.5571</a>.',
             headline: 'DISTRESSED BUSINESS DISTRICT'
           }
         } else {
@@ -171,7 +173,8 @@
         if (data.length > 0) {
           brownfieldReport = {
             top: 'This property contains a',
-            detail: `Special restrictions may apply (see NC DEQ <a href="${data[0].luru_link}" rel="noopener" target="_blank">Land Use Restrictions Update</a>).
+            sub: 'Special Restrictions May Apply',
+            detail: `See NC DEQ <a href="${data[0].luru_link}" rel="noopener" target="_blank">Land Use Restrictions Update</a> for details.
                     For more information, please contact the North Carolina Department of Environmental Quality at <a href="tel:+8776236748">877.623.6748</a>.`,
             headline: 'BROWNFIELD'
           }
@@ -205,7 +208,8 @@
         if (data.length > 0) {
           waterQualityReport = {
             top: 'This property is in a',
-            detail: `The buffer(s) are: <strong>${data.map(el => el.label + ' ' + el.type).join(', ')}</strong>. Special restrictions may apply. For more information, please call <a href="tel:+9807214191">980.721.4191</a> for existing single-family lots and those projects not needing a grading permit or <a href="tel:+7044325570">704.432.5570</a> for other projects.`,
+            sub: 'Special Restrictions May Apply',
+            detail: `The buffer(s) are: <strong>${data.map(el => el.label + ' ' + el.type).join(', ')}</strong>. For more information, please call <a href="tel:+9807214191">980.721.4191</a> for existing single-family lots and those projects not needing a grading permit or <a href="tel:+7044325570">704.432.5570</a> for other projects.`,
             headline: 'WATER QUALITY BUFFER'
           }
         } else {
@@ -238,13 +242,15 @@
         if (data.length > 0) {
           floodplainReport = {
             top: 'This property is in a',
-            detail: 'Special restrictions may apply. For more information, please call <a href="tel:7043363728">704.336.3728</a>.',
+            sub: 'Special Restrictions May Apply',
+            detail: 'For more information, please call <a href="tel:7043363728">704.336.3728</a>.',
             headline: 'REGULATED FLOODPLAIN'
           }
         } else {
           floodplainReport = {
             top: 'This property is not in a regulated floodplain.',
             detail: null,
+            sub: null,
             headline: null
           }
         }

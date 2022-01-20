@@ -21,7 +21,7 @@
   {/if}
 
   {#if sub}
-  <p class="text-lg md:text-xl">{@html sub}</p>
+  <p class="text-lg md:text-xl pb-3">{@html sub}</p>
   {/if}
 
   {#if detail}
