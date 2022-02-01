@@ -4,7 +4,7 @@
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "tiles": ["https://tiles.mcmap.org/osm/{z}/{x}/{y}.pbf"],
+      "tiles": ["https://tiles.mcmap.org/osmvt/{z}/{x}/{y}.pbf"],
       "maxzoom": 14,
       "minzoom": 0
     },
@@ -3308,7 +3308,7 @@
         ]
       ],
       "layout": {
-        "text-field": "{name}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Regular"
         ],
@@ -3333,7 +3333,7 @@
         "Point"
       ],
       "layout": {
-        "text-field": "{name}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Regular"
         ],
@@ -3368,7 +3368,7 @@
       "layout": {
         "icon-image": "{class}_11",
         "text-anchor": "top",
-        "text-field": "{name}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Condensed Italic"
         ],
@@ -3413,7 +3413,7 @@
       "layout": {
         "icon-image": "{class}_11",
         "text-anchor": "top",
-        "text-field": "{name}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Condensed Italic"
         ],
@@ -3458,7 +3458,7 @@
       "layout": {
         "icon-image": "{class}_11",
         "text-anchor": "top",
-        "text-field": "{name}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Condensed Italic"
         ],
@@ -3494,7 +3494,7 @@
       "layout": {
         "icon-image": "{class}_11",
         "text-anchor": "left",
-        "text-field": "{name_en}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Condensed Italic"
         ],
@@ -3523,7 +3523,7 @@
       "layout": {
         "symbol-placement": "line",
         "text-anchor": "center",
-        "text-field": "{name}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Regular"
         ],
@@ -3614,7 +3614,7 @@
         ]
       ],
       "layout": {
-        "text-field": "{name_en}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Condensed Italic"
         ],
@@ -3655,7 +3655,7 @@
         ]
       ],
       "layout": {
-        "text-field": "{name_en}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Regular"
         ],
@@ -3708,7 +3708,7 @@
           ]
         },
         "text-anchor": "bottom",
-        "text-field": "{name_en}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Regular"
         ],
@@ -3766,7 +3766,7 @@
           ]
         },
         "text-anchor": "bottom",
-        "text-field": "{name_en}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Medium"
         ],
@@ -3812,7 +3812,7 @@
         ]
       ],
       "layout": {
-        "text-field": "{name_en}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Condensed Italic"
         ],
@@ -3855,7 +3855,7 @@
         ]
       ],
       "layout": {
-        "text-field": "{name_en}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Condensed Italic"
         ],
@@ -3900,7 +3900,7 @@
         ]
       ],
       "layout": {
-        "text-field": "{name_en}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Condensed Italic"
         ],
@@ -3945,7 +3945,7 @@
         ]
       ],
       "layout": {
-        "text-field": "{name_en}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Condensed Italic"
         ],
@@ -3986,7 +3986,7 @@
         ]
       ],
       "layout": {
-        "text-field": "{name_en}",
+        "text-field": "{name:latin}",
         "text-font": [
           "Roboto Condensed Italic"
         ],
