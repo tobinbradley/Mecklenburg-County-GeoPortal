@@ -6,7 +6,7 @@
   import Map from './Map.svelte'
   import RecordHighlight from './RecordHighlight.svelte'
   import jsonToURL from '../js/jsonToURL.js'
-  
+
   // Soil table
   const columns = ["Soil Type", "Group", "Description"]
   const alignRight = []
@@ -159,7 +159,7 @@
   //***************************************************************
   function brownfields(pid) {
     const params = {
-      columns: "luru_link",
+      columns: "rec_docs_link,bf_name",
       filter: `tax_parcels.pid = '${
         pid
       }'`,
@@ -174,8 +174,7 @@
           brownfieldReport = {
             top: 'This property contains a',
             sub: 'Special Restrictions May Apply',
-            detail: `See NC DEQ <a href="${data[0].luru_link}" rel="noopener" target="_blank">Land Use Restrictions Update</a> for details.
-                    For more information, please contact the North Carolina Department of Environmental Quality at <a href="tel:+8776236748">877.623.6748</a>.`,
+            detail: `See NC DEQ <a href="${data[0].rec_docs_link.replace('.aspx:dbid', '.aspx?dbid')}" rel="noopener" target="_blank">recorded documents for ${data[0].bf_name} brownfield</a> for details. For more information, please contact the North Carolina Department of Environmental Quality at <a href="tel:+8776236748">877.623.6748</a>.`,
             headline: 'BROWNFIELD'
           }
         } else {
@@ -302,7 +301,7 @@
 <div class="flex flex-row flex-wrap justify-around print:block">
   <RecordHighlight {...floodplainReport} />
   <RecordHighlight {...waterQualityReport} />
-  <RecordHighlight {...districtReport} />  
+  <RecordHighlight {...districtReport} />
   <RecordHighlight {...brownfieldReport} />
   <RecordHighlight {...watershedReport} />
 </div>
