@@ -1,11 +1,19 @@
+@page {
+  size: 8.5in 11in;
+  margin: 0.75in;
+}
+
 .report-pages {
   page-break-after: always;
+  break-after: always;
 }
 
 .report-pages:last-of-type {
   page-break-after: avoid;
+  break-after: avoid;
 }
 
 .report-highlight {
   page-break-inside: avoid;
+  break-inside: avoid;
 }
