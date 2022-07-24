@@ -22,6 +22,7 @@
 
   $: if (showMap === true) {
     (async () => {
+      await import("maplibre-gl/dist/maplibre-gl.css")
       const { default: gl } = await import("maplibre-gl")
       createMap(gl)
     })();
