@@ -79,7 +79,7 @@
       el.innerHTML = `<span><b>${pt.label || ''}</b></span>`
 
       const popup = new gl.Popup({ offset: 35 }).setHTML(
-        `<h3 class="font-bold text-blue-800 text-base pb-1">${pt.name}</h3>
+        `<h3 class="font-bold text-sky-800 text-base pb-1">${pt.name}</h3>
         ${pt.address}
         <br><a target="_blank" href="${directions($location.lnglat, pt.lngLat)}">Directions</a>`
       )
@@ -96,7 +96,7 @@
     el.className = 'mapboxgl-user-location-dot'
 
     const popup = new gl.Popup({ offset: 9 }).setHTML(
-      `<h3 class="font-bold text-blue-800 text-base pb-1">Your Location</h3>${$location.label}`
+      `<h3 class="font-bold text-sky-800 text-base pb-1">Your Location</h3>${$location.label}`
     )
     const marker = new gl.Marker(el)
       .setLngLat($location.lnglat)
@@ -164,5 +164,5 @@
 {/if}
 
 <div class="text-center mt-2 print:hidden">
-  <button on:click={handleShowButton} class="btn py-1 px-2 text-sm hover:bg-gray-200 hover:shadow capitalize shadow-none text-gray-600 transition duration-200 ease-in-out">{#if !showMap}show{:else}hide{/if} map</button>
+  <button on:click={handleShowButton} class="btn py-1 px-2 text-sm hover:bg-gray-200 hover:shadow capitalize shadow-none text-gray-600 dark:text-gray-300 hover:text-gray-800 transition duration-200 ease-in-out">{#if !showMap}show{:else}hide{/if} map</button>
 </div>

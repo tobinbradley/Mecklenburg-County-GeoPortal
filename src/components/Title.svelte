@@ -27,9 +27,9 @@
 </style>
 
 <div class="mt-24 print:mt-0" id="{title}-scrollTarget">
-  <div bind:this={pointer} class="separator flex items-center text-center text-2xl md:text-3xl tracking-wider uppercase font-bold text-gray-600">{title}</div>
+  <div bind:this={pointer} class="separator flex items-center text-center text-2xl md:text-3xl tracking-wider uppercase font-bold text-gray-600 dark:text-gray-300">{title}</div>
 
-  <div class="text-blue-800 text-center mt-8">
+  <div class="text-sky-800 dark:text-gray-100 text-center mt-8">
     <svg class="w-48 h-48 md:w-56 md:h-56 block m-auto fill-current">
       <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-{icon}" filter="url(#dropShadow)"></use>
     </svg>

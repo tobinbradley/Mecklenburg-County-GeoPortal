@@ -103,7 +103,7 @@ function close (index = -1) {
 }
 
 .autocomplete-nomatch {
-  @apply text-gray-700 font-bold py-1 px-2;
+  @apply text-gray-700 font-semibold py-1 px-2;
 }
 
 .autocomplete-result.is-active,
@@ -116,10 +116,10 @@ function close (index = -1) {
 
 <div class="relative">
   <input
-    class="appearance-none bg-transparent border-b-4 border-blue-700 focus:border-orange-600 w-full text-xl md:text-3xl text-gray-900 mr-3 py-1 px-2 leading-tight focus:outline-none transition-colors duration-200 ease-in-out"
+    class="appearance-none bg-transparent border-b-4 border-orange-400 dark:border-orange-600 focus:border-orange-500 w-full text-xl md:text-3xl text-gray-900 dark:text-gray-200 mr-3 py-1 px-2 leading-tight focus:outline-none transition-colors duration-200 ease-in-out"
     type="text"
     aria-label="search for an address or a place"
-    onfocus="this.select()"    
+    onfocus="this.select()"
     {name}
     {placeholder}
     autocomplete="{name}"
@@ -137,7 +137,7 @@ function close (index = -1) {
 		{#if !nomatch}
       {#each results as result, i}
         <li on:click="{()=>close(i)}" class="autocomplete-result { i === arrowCounter ? ' is-active' : '' }  text-gray-700 py-1 px-2 cursor-pointer">
-        <span class="bg-blue-700 px-2 py-1 text-white font-bold rounded-sm text-sm">{result.type}</span>
+        <span class="bg-sky-700 px-2 py-1 text-white font-bold rounded-sm text-sm">{result.type}</span>
         {@html result.label}
         </li>
       {/each}

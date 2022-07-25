@@ -3,15 +3,15 @@
   height: 500px;
   max-width: 7.5in;
   max-height: 100vh;
-  @apply shadow-lg w-full mx-auto border-blue-800 border-t-8 rounded-lg rounded-t-none;
+  @apply shadow-lg w-full mx-auto border-sky-800 border-t-8 rounded-lg rounded-t-none;
 }
 
 .map .mapboxgl-popup-content {
-  @apply pt-6 shadow-xl;
+  @apply pt-6 shadow-xl text-slate-800;
 }
 .map .mapboxgl-popup-close-button,
 .map .mapboxgl-popup-close-button:hover {
-  @apply w-5 h-5 text-white bg-blue-800;
+  @apply w-5 h-5 text-white bg-slate-800;
 }
 
 .mapboxgl-popup-community .mapboxgl-popup-content {
@@ -44,4 +44,8 @@
 }
 .mapboxgl-ctrl-aerial-active {
   opacity: 1;
+}
+
+.maplibregl-control-container {
+  @apply print:hidden;
 }

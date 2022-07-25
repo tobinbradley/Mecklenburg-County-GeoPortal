@@ -186,7 +186,7 @@
 
 <style>
 .voting-h2 {
-  @apply text-center w-full text-3xl tracking-widest text-gray-600 pt-12 uppercase font-bold;
+  @apply text-center w-full text-3xl tracking-widest text-gray-600 dark:text-gray-400 pt-12 uppercase font-bold;
 }
 </style>
 

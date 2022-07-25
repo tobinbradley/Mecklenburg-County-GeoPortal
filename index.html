@@ -24,10 +24,10 @@
 
 </head>
 
-<body class="flex flex-col h-screen bg-white">
+<body class="flex flex-col h-screen bg-white dark:bg-slate-800 dark:text-white">
 
   <!-- header -->
-  <nav class="bg-blue-900 shadow-lg print:hidden">
+  <nav class="bg-sky-900 dark:bg-slate-800 shadow-lg dark:shadow-none print:hidden dark:border-b dark:border-slate-300/10">
     <div class="flex justify-between flex-wrap px-5 py-2 md:py-4 max-w-7xl mx-auto">
       <div class="flex items-center flex-shrink-0 text-white mr-6">
 
@@ -67,20 +67,20 @@
 
 
   <!-- footer -->
-  <footer class="bg-blue-900 w-full print:hidden">
-    <div class="grid grid-cols-1 md:grid-cols-3 text-white max-w-7xl mx-auto">
+  <footer class="bg-sky-900 dark:bg-slate-800 w-full print:hidden">
+    <div class="grid grid-cols-1 md:grid-cols-3 text-slate-200 max-w-7xl mx-auto">
 
       <!-- about GeoPortal -->
-      <div class="p-5 border-r border-blue-800">
+      <div class="p-5 border-r border-sky-800 dark:border-slate-700">
         <h3 class="mt-6 mb-3 ml-3 text-xl font-semibold">ABOUT GEOPORTAL</h3>
-        <p class="p-3 text-gray-400">
+        <p class="p-3">
           GeoPortal was created by Mecklenburg County GIS and is <a class="underline" rel="noopener"
             href="https://en.wikipedia.org/wiki/Open_source" target="_blank">free and open source software</a>. You can
           find the <a class="underline" rel="noopener" target="_blank"
             href="https://github.com/tobinbradley/Mecklenburg-County-GeoPortal">source code on Github</a>.
           Pull requests are welcome!
         </p>
-        <p class="p-3 text-gray-400">
+        <p class="p-3">
           GeoPortal would not be possible without a number of amazing open source projects, including
           <a class="underline" rel="noopener" href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>,
           <a class="underline" rel="noopener" href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a>,
@@ -91,9 +91,9 @@
       </div>
 
       <!-- about data -->
-      <div class="p-5 border-r border-blue-800">
+      <div class="p-5 border-r border-sky-800 dark:border-slate-700">
         <h3 class="mt-6 mb-3 ml-3 text-xl font-semibold">ABOUT THE DATA</h3>
-        <p class="p-3 text-gray-400">
+        <p class="p-3">
           Whenever possible, Mecklenburg County GIS releases its data as <a class="underline" rel="noopener"
             href="https://en.wikipedia.org/wiki/Open_data" target="_blank">open data</a>. Each section of GeoPortal
           includes links to the data used. Check out our
@@ -102,7 +102,7 @@
           more data
           and open source projects.
         </p>
-        <p class="p-3 text-gray-400">
+        <p class="p-3">
           If you don't already have software to read spatial data,
           we recommend <a class="underline" rel="noopener" target="_blank" href="https://www.qgis.org/en/site/">QGIS</a>,
           a free and open source desktop GIS.
@@ -112,14 +112,14 @@
       <!-- about us -->
       <div class="p-5">
         <h3 class="mt-6 mb-3 ml-3 text-xl font-semibold">ABOUT US</h3>
-        <p class="p-3 text-gray-400">
+        <p class="p-3">
           <a class="underline" rel="noopener" href="https://www.mecknc.gov/LUESA/GIS/Pages/Default.aspx"
             target="_blank">Mecklenburg County GIS</a>'s
           mission is to provide quality geospatial data and technology solutions, empowering customers of Mecklenburg
           County to make
           data-driven decisions.
         </p>
-        <p class="p-3 text-gray-400">
+        <p class="p-3">
           <a rel="noopener"
             class="btn border border-white bg-transparent hover:bg-white hover:text-blue-900 transition-colors duration-200 ease-in-out text-white"
             target="_blank"

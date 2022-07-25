@@ -41,19 +41,19 @@
   @apply  cursor-pointer;
 }
 .mapLink:hover {
-  @apply bg-blue-200;
+  @apply bg-slate-200 dark:bg-slate-700;
 }
 
 .table-component tr:nth-child(even) {
-  @apply bg-gray-100;
+  @apply bg-gray-100 dark:bg-slate-700;
 }
 
 .table-component tr:nth-child(even).mapLink:hover {
-  @apply bg-blue-200;
+  @apply bg-slate-200 dark:bg-slate-700;
 }
 
 .table-component tr.row-highlight {
-  @apply bg-orange-300;
+  @apply bg-orange-300 dark:bg-orange-500;
 }
 
 @media screen and (max-width: 639px) {
@@ -80,6 +80,7 @@
     float: left;
     font-weight: bold;
     color: #718096;
+    @apply text-gray-300;
     font-size: .875rem;
     /* @apply uppercase float-left font-bold; */
   }
@@ -96,9 +97,9 @@
 
     {#if columns}
     <thead>
-      <tr class="border-b-2 border-blue-500">
+      <tr class="border-b-2 border-slate-500">
         {#each columns as column, i}
-        <th class="uppercase text-left px-4 py-2 text-gray-600 {textAlign(i)}">{column}</th>
+        <th class="uppercase text-left px-4 py-2 text-gray-600 dark:text-gray-300 {textAlign(i)}">{column}</th>
         {/each}
       </tr>
     </thead>

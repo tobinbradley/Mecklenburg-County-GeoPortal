@@ -11,7 +11,7 @@
 .play-button {
   width: 90px;
   height: 60px;
-  @apply bg-blue-500 shadow-blue-500/50 cursor-pointer shadow-lg z-10 rounded-lg transition duration-300 ease-in-out;
+  @apply bg-sky-500 shadow-sky-500/50 cursor-pointer shadow-lg z-10 rounded-lg transition duration-300 ease-in-out;
 }
 .play-button:hover {
   @apply bg-red-700 shadow-red-700/50;

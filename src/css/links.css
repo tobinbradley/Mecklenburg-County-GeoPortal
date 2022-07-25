@@ -1,6 +1,6 @@
 main a {
-  @apply underline text-blue-700 transition-colors duration-200 ease-in-out;
+  @apply underline text-sky-700 dark:text-sky-400 transition-colors duration-200 ease-in-out;
 }
 main a:hover {
-  @apply text-blue-800;
+  @apply text-sky-800 dark:text-sky-300;
 }
