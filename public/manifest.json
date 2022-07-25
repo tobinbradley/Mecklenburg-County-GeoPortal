@@ -3,14 +3,15 @@
   "short_name": "GeoPortal",
   "icons": [
     {
-      "src": "img/android-chrome-512x512.png",
+      "src": "img/android-icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     },
     {
-      "src": "img/logo.svg",
-      "sizes": "192x192 196x196 512x512",
-      "purpose": "any maskable"
+      "src": "img/android-icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "start_url": "index.html",
