@@ -19,11 +19,12 @@
     caption: "Tax Appraisal",
     columns: ["Year", "Building", "Land", "Extra", "Total"],
     alignRight: [2,3,4,5],
+    footer: `<a href="http://taxbill.co.mecklenburg.nc.us/publicwebaccess/BillSearchResults.aspx?ParcelNum=${$location.pid}" target="_blank">View Tax Bills</a>`,
     rows: []
   }
   const saleTable = {
     caption: "Sale History",
-    columns: ["Date", "Deed Book", "Legal Reference", "Price"],
+    columns: ["Date", "Deed", "Legal Reference", "Price"],
     alignRight: [2, 3, 4],
     rows: []
   }
@@ -172,14 +173,15 @@
     // sale history
     fetch(`https://api.mcmap.org/v1/query/cama_tb_pubsales?${jsonToURL({
       columns: 'dte_dateofsale,amt_price,txt_deedbook,txt_deedpage,txt_legalreference',
-      filter: `id_pid = '${$location.pid}'`
+      filter: `id_pid = '${$location.pid}'`,
+      sort: 'dte_dateofsale DESC'
     })}`)
       .then(response => response.json())
       .then(data => {
         data.forEach(el => {
           saleTable.rows.push([
             formatDate(el.dte_dateofsale),
-            `${el.txt_deedbook} ${el.txt_deedpage}`,
+            `<a href="https://meckrod.manatron.com/RealEstate/SearchDetail.aspx?bk=${el.txt_deedbook}&pg=${el.txt_deedpage}&type=BkPg" title="Mecklenburg County Register of Deeds" target="_blank">${el.txt_deedbook}-${el.txt_deedpage}</a>`,
             el.txt_legalreference,
             formatMoney(el.amt_price),
           ])
