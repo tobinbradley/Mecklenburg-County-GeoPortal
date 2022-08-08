@@ -126,7 +126,7 @@
   function fetchMagnet(lng, lat) {
     const params = {
       filter: "magnet in ('Full', 'Partial')",
-      columns: `num,city,address,name,grade_level,mag_focus,st_x(st_transform(geom, 4326)) as lng,
+      columns: `num,city,address,name,grade_level,coalesce(mag_focus, '') as mag_focus,st_x(st_transform(geom, 4326)) as lng,
           st_y(st_transform(geom, 4326)) as lat,magnet,
           ST_Distance(geom,ST_Transform(
           GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance`,
