@@ -24,7 +24,7 @@
   }
   const saleTable = {
     caption: "Sale History",
-    columns: ["Date", "Deed", "Legal Reference", "Price"],
+    columns: ["Date", "Deed", "Price"],
     alignRight: [2, 3, 4],
     rows: []
   }
@@ -172,7 +172,7 @@
 
     // sale history
     fetch(`https://api.mcmap.org/v1/query/cama_tb_pubsales?${jsonToURL({
-      columns: 'dte_dateofsale,amt_price,txt_deedbook,txt_deedpage,txt_legalreference',
+      columns: 'dte_dateofsale,amt_price,txt_deedbook,txt_deedpage',
       filter: `id_pid = '${$location.pid}'`,
       sort: 'dte_dateofsale DESC'
     })}`)
@@ -182,7 +182,6 @@
           saleTable.rows.push([
             formatDate(el.dte_dateofsale),
             `<a href="https://meckrod.manatron.com/RealEstate/SearchDetail.aspx?bk=${el.txt_deedbook}&pg=${el.txt_deedpage}&type=BkPg" title="Mecklenburg County Register of Deeds" target="_blank">${el.txt_deedbook}-${el.txt_deedpage}</a>`,
-            el.txt_legalreference,
             formatMoney(el.amt_price),
           ])
         })
