@@ -4,6 +4,7 @@
 
   const dispatch = createEventDispatcher()
   export let caption = null
+  export let footer = null
   export let columns
   export let rows
   export let alignRight = []
@@ -122,5 +123,12 @@
       {/each}
     </tbody>
     {/if}
+
   </table>
+
+  {#if footer}
+  <div class=" text-sm text-right pr-4">
+    {@html footer}
+  </div>
+  {/if}
 </div>
