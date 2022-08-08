@@ -246,7 +246,8 @@
     // building permits
     fetch(`https://api.mcmap.org/v1/query/building_permits?${jsonToURL({
       columns: 'date_completed_co_process,project_name,square_footage,construction_cost',
-      filter: `mat_parcel_id = '${$location.pid}'`
+      filter: `mat_parcel_id = '${$location.pid}'`,
+      sort: 'date_completed_co_process DESC'
     })}`)
       .then(response => response.json())
       .then(data => {
