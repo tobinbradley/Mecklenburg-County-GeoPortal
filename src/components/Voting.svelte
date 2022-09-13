@@ -211,6 +211,8 @@
 <!-- National -->
 <div class="flex flex-row flex-wrap justify-around print:block">
   <h2 class="voting-h2">National</h2>
+  <Representative reps={officials.filter(el => el.branch === 'President of the United States')} />
+  <Representative reps={officials.filter(el => el.branch === 'Vice President of the United States')} />
   <Representative reps={officials.filter(el => el.branch === 'US Senate')} />
   <Representative reps={nationalHouse} />
 </div>
