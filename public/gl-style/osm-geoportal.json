@@ -47,10 +47,23 @@
       ],
       "tileSize": 256,
       "maxzoom": 19
-    }
+    },
+    "terrain_source": {
+			"type":  "raster-dem",
+			"tiles": [
+        "https://tiles.mcmap.org/terrain-meck/{z}/{x}/{y}.pbf"
+      ],
+			"tileSize":  256,
+      "minzoom": 11,
+      "maxzoom": 13
+		}
   },
   "sprite": "https://mcmap.org/gl-styles/sprites/osm-liberty",
   "glyphs": "https://mcmap.org/gl-styles/fonts/{fontstack}/{range}.pbf",
+  "terrain": {
+		"source":  "terrain_source",
+		"exaggeration":  1
+	},
   "layers": [
     {
       "id": "background",
@@ -59,6 +72,12 @@
         "background-color": "white"
       }
     },
+    {
+			"id":  "hills",
+			"type":  "hillshade",
+			"source":  "terrain_source",
+      "minzoom": 11
+		},
     {
       "id": "park",
       "type": "fill",
@@ -3343,91 +3362,6 @@
       "paint": {
         "text-color": "#5d60be",
         "text-halo-color": "rgba(255,255,255,0.7)",
-        "text-halo-width": 1
-      }
-    },
-    {
-      "id": "poi_z16",
-      "type": "symbol",
-      "source": "openmaptiles",
-      "source-layer": "poi",
-      "minzoom": 16,
-      "filter": [
-        "all",
-        [
-          "==",
-          "$type",
-          "Point"
-        ],
-        [
-          ">=",
-          "rank",
-          20
-        ]
-      ],
-      "layout": {
-        "icon-image": "{class}_11",
-        "text-anchor": "top",
-        "text-field": "{name:latin}",
-        "text-font": [
-          "Roboto Condensed Italic"
-        ],
-        "text-max-width": 9,
-        "text-offset": [
-          0,
-          0.6
-        ],
-        "text-size": 12
-      },
-      "paint": {
-        "text-color": "#666",
-        "text-halo-blur": 0.5,
-        "text-halo-color": "#ffffff",
-        "text-halo-width": 1
-      }
-    },
-    {
-      "id": "poi_z15",
-      "type": "symbol",
-      "source": "openmaptiles",
-      "source-layer": "poi",
-      "minzoom": 15,
-      "filter": [
-        "all",
-        [
-          "==",
-          "$type",
-          "Point"
-        ],
-        [
-          ">=",
-          "rank",
-          7
-        ],
-        [
-          "<",
-          "rank",
-          20
-        ]
-      ],
-      "layout": {
-        "icon-image": "{class}_11",
-        "text-anchor": "top",
-        "text-field": "{name:latin}",
-        "text-font": [
-          "Roboto Condensed Italic"
-        ],
-        "text-max-width": 9,
-        "text-offset": [
-          0,
-          0.6
-        ],
-        "text-size": 12
-      },
-      "paint": {
-        "text-color": "#666",
-        "text-halo-blur": 0.5,
-        "text-halo-color": "#ffffff",
         "text-halo-width": 1
       }
     },
