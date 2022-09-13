@@ -69,7 +69,6 @@
   }
 
   function createMap(gl) {
-    console.log(gl)
     let mapOptions = {
       container: mapContainer,
       style: mapStyle,
@@ -203,7 +202,7 @@
 <div class="mt-8 relative">
   <div class="map mb-12" id={mapContainer}></div>
   <div class="text-center absolute top-0 mt-3 w-full">
-    <span class="font-bold p-1 rounded" style="background-color: rgba(255,255,255,0.8);">{ mapTitle }</span>
+    <span class="font-bold p-1 rounded text-black" style="background-color: rgba(255,255,255,0.8);">{ mapTitle }</span>
   </div>
 </div>
 {/if}

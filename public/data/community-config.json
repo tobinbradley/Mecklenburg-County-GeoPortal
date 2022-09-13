@@ -27,7 +27,7 @@
     "metric": "10",
     "title": "Commuters Driving Alone",
     "years": [
-      "2019"
+      "2020"
     ]
   },
   {
@@ -66,7 +66,7 @@
     "metric": "20",
     "title": "Education Level - Bachelor's Degree",
     "years": [
-      "2019"
+      "2020"
     ]
   },
   {
@@ -107,6 +107,13 @@
     ]
   },
   {
+    "metric": "88",
+    "title": "High Speed Internet Access",
+    "years": [
+      "2020"
+    ]
+  },
+  {
     "metric": "76",
     "title": "Home Sales Price",
     "years": [
@@ -121,28 +128,28 @@
     "metric": "37",
     "title": "Household Income",
     "years": [
-      "2019"
+      "2020"
     ]
   },
   {
     "metric": "33",
     "title": "Long Commute",
     "years": [
-      "2019"
+      "2020"
     ]
   },
   {
     "metric": "13",
     "title": "Population - Older Adult",
     "years": [
-      "2019"
+      "2020"
     ]
   },
   {
     "metric": "12",
     "title": "Population - Youth",
     "years": [
-      "2019"
+      "2020"
     ]
   },
   {
@@ -228,7 +235,7 @@
     "metric": "40",
     "title": "Rental Costs",
     "years": [
-      "2019"
+      "2020"
     ]
   },
   {
