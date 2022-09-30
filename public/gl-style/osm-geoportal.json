@@ -1,6 +1,9 @@
 {
   "version": 8,
   "name": "OSM Mecklenburg GeoPortal",
+  "maxPitch": 70,
+  "zoom": 8,
+  "center": [-80.866, 35.3],
   "sources": {
     "openmaptiles": {
       "type": "vector",
@@ -50,19 +53,20 @@
     },
     "terrain_source": {
 			"type":  "raster-dem",
+      "encoding": "terrarium",
 			"tiles": [
-        "https://tiles.mcmap.org/terrain-meck/{z}/{x}/{y}.pbf"
+        "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
       ],
 			"tileSize":  256,
-      "minzoom": 11,
-      "maxzoom": 13
+      "minzoom": 0,
+      "maxzoom": 14
 		}
   },
   "sprite": "https://mcmap.org/gl-styles/sprites/osm-liberty",
   "glyphs": "https://mcmap.org/gl-styles/fonts/{fontstack}/{range}.pbf",
   "terrain": {
 		"source":  "terrain_source",
-		"exaggeration":  1
+		"exaggeration":  1.3
 	},
   "layers": [
     {
@@ -75,8 +79,7 @@
     {
 			"id":  "hills",
 			"type":  "hillshade",
-			"source":  "terrain_source",
-      "minzoom": 11
+			"source":  "terrain_source"
 		},
     {
       "id": "park",
@@ -214,7 +217,7 @@
       "type": "fill",
       "source": "floodplains",
       "source-layer": "view_regulated_floodplains",
-      "minzoom": 15,
+      "minzoom": 14,
       "layout": {
         "visibility": "none"
       },
@@ -3143,7 +3146,7 @@
       "type": "fill",
       "source": "impervious",
       "source-layer": "impervious_surface",
-      "minzoom": 17,
+      "minzoom": 16,
       "layout": {
         "visibility": "none"
       },
