@@ -7,7 +7,7 @@
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "tiles": ["https://tiles.mcmap.org/osmvt/{z}/{x}/{y}.pbf"],
+      "url": "pmtiles://https://pub-41c5b8a60911473a932c7ac0e2fd3b63.r2.dev/tiles.pmtiles",
       "maxzoom": 14,
       "minzoom": 0
     },

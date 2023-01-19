@@ -2,6 +2,7 @@
   import { location } from '../store.js'
   import AerialToggle from '../js/mapcontrolSatellite.js'
   import { createEventDispatcher } from 'svelte'
+  import * as pmtiles from 'pmtiles'
 
   const dispatch = createEventDispatcher()
 
@@ -21,6 +22,11 @@
     (async () => {
       await import("maplibre-gl/dist/maplibre-gl.css")
       const { default: gl } = await import("maplibre-gl")
+
+      //pmtiles
+      let protocol = new pmtiles.Protocol();
+      gl.addProtocol("pmtiles",protocol.tile);
+
       createMap(gl)
     })();
   }
