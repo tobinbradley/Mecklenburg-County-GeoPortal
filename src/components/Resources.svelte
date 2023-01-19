@@ -21,7 +21,7 @@
 
     {#each links as { name, url }}
       <li class="pb-1">
-        <a target="_blank" rel="noopener" href="{url}">{name}</a>
+        <a target="_blank" rel="noreferrer" href="{url}">{name}</a>
       </li>
     {/each}
 

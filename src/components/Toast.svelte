@@ -37,6 +37,7 @@
 <div
   class="toastMessage rounded border-l-4 border-white fixed z-50 right-0 bottom-0 cursor-pointer flex items-center p-4 shadow-lg mb-5 mr-5 bg-sky-800 shadow-sky-800/50"
   on:click|once={handleClick}
+  on:keypress={handleClick}
   in:fly="{{ y: 200, duration: 1000 }}"
   out:fly="{{ y: 200, duration: 2000 }}"
 >
@@ -53,7 +54,7 @@
   </div>
   <div>
     {#if $toastMessage.reloadButton}
-      <button class="btn text-sm ml-4 leading-none border text-white border-white hover:border-transparent hover:text-sky-900 hover:bg-white transition-colors duration-200 ease-in-out" onclick="location.reload()">reload</button>
+      <button class="btn text-sm ml-4 leading-none border text-white border-white hover:border-transparent hover:text-sky-900 hover:bg-white transition-colors duration-200 ease-in-out" onclick="location.reload()" onkeydown="location.reload()">reload</button>
     {/if}
   </div>
 </div>

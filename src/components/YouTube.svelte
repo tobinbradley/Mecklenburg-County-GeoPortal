@@ -33,5 +33,5 @@
 </style>
 
 
-<div class="play-button" on:click|once={loadVideo} data-embed="agzk5yeHafg"></div>
+<div class="play-button" on:click|once={loadVideo} on:keypress={loadVideo} data-embed="agzk5yeHafg"></div>
 <iframe bind:this={tutorialIframe} class="absolute hidden w-full h-full z-20" frameborder="0" title="video tutorial" />

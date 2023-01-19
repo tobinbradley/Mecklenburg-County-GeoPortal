@@ -136,7 +136,7 @@ function close (index = -1) {
   <ul class="autocomplete-results {!isOpen ? 'hidden' : ''} w-full border-gray-500 shadow-md bg-white absolute max-h-screen overflow-y-auto overflow-x-hidden z-50" bind:this={list}>
 		{#if !nomatch}
       {#each results as result, i}
-        <li on:click="{()=>close(i)}" class="autocomplete-result { i === arrowCounter ? ' is-active' : '' }  text-gray-700 py-1 px-2 cursor-pointer">
+        <li on:click="{()=>close(i)}" on:keydown="{()=>close(i)}" class="autocomplete-result { i === arrowCounter ? ' is-active' : '' }  text-gray-700 py-1 px-2 cursor-pointer">
         <span class="bg-sky-700 px-2 py-1 text-white font-bold rounded-sm text-sm">{result.type}</span>
         {@html result.label}
         </li>
