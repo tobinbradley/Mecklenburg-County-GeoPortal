@@ -49,7 +49,6 @@
 
   // other variables
   let zoning = null
-  let photo= null
 
   // Map
   let showMap = false
@@ -85,29 +84,9 @@
   function fetchData() {
     // reset variables
     zoning = null;
-    photo = null;
     [ownerTable, appraisalTable, saleTable, useTable, buildingTable, permitTable].forEach(item => {
       item.rows = []
     })
-
-
-    // house photo
-    fetch(`https://api.mcmap.org/v1/query/property_photos?${jsonToURL({
-      columns: 'image_path,image_date',
-      filter: `taxpid = '${$location.pid}'`,
-      sort: 'image_date desc'
-    })}`)
-      .then(response => response.json())
-      .then(data => {
-        data.length > 0 ?
-        photo = `<a href=${data[0].image_path} class="block mt-2" target="_blank">
-            <img src=${data[0].image_path} class="max-w-full shadow-xl rounded-lg" alt="property photo">
-          </a>`
-        : photo = null
-      })
-      .catch(ex => {
-        console.log("parsing failed", ex);
-      })
 
     // zoning
     fetch(`https://api.mcmap.org/v1/intersect_point/view_zoning/${$location.lnglat.join(',')},4326?${jsonToURL({
@@ -277,7 +256,7 @@
 <Map showMap={showMap} />
 
 <div class="flex flex-row flex-wrap justify-around">
-  <RecordHighlight top="Parcel ID" sub={zoning} headline={$location.pid} detail={photo} />
+  <RecordHighlight top="Parcel ID" sub={zoning} headline={$location.pid} />
 </div>
 
 <Table {...ownerTable} />
