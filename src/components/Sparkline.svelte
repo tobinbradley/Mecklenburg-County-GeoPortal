@@ -54,7 +54,7 @@
 
 <style>
 .tooltip {
-  @apply absolute shadow px-2 py-1 rounded bg-white text-sm whitespace-nowrap z-0;
+  @apply absolute shadow px-2 py-1 rounded bg-white dark:text-black text-sm whitespace-nowrap z-0;
 }
 </style>
 
