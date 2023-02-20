@@ -37,13 +37,6 @@
   })
 
   function fetchData() {
-    const params = {
-      columns: "sum(sum_of_area) as area, subtheme, category",
-      filter: `commonpid='${$location.pid}'`,
-      sort: "subtheme",
-      group: "subtheme, category"
-    }
-
     fetch(`https://api.mcmap.org/v1/nearest/neighborhoods/${$location.lnglat.join(',')},4326?${jsonToURL({
       columns: 'id',
       geom_column: 'the_geom',
