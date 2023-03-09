@@ -1,6 +1,5 @@
 <script>
   import { createEventDispatcher } from 'svelte'
-  import Sparkline from "./Sparkline.svelte"
 
   const dispatch = createEventDispatcher()
   export let caption = null
@@ -9,10 +8,6 @@
   export let rows
   export let alignRight = []
   export let alignCenter = []
-  export let highlightRow = -1
-
-  export let mapLinks = null
-  export let sparklines = null
 
   function textAlign(idx) {
     if (alignRight.indexOf(idx + 1) !== -1) {
@@ -24,71 +19,8 @@
     return ''
   }
 
-  function highlight(idx) {
-    if (idx == highlightRow) {
-      return 'row-highlight'
-    }
-    return ''
-  }
-
-  const mapLinkClick = (idx) => () => {
-    if (mapLinks) dispatch('mapLink', mapLinks[idx])
-  }
-
 </script>
 
-<style>
-.mapLink {
-  @apply  cursor-pointer;
-}
-.mapLink:hover {
-  @apply bg-slate-200 dark:bg-slate-700;
-}
-
-.table-component tr:nth-child(even) {
-  @apply bg-gray-100 dark:bg-slate-700;
-}
-
-.table-component tr:nth-child(even).mapLink:hover {
-  @apply bg-slate-200 dark:bg-slate-700;
-}
-
-.table-component tr.row-highlight {
-  @apply bg-orange-300 dark:bg-orange-500;
-}
-
-@media screen and (max-width: 639px) {
-  .table-component thead { display: none; }
-
-  .table-component tr {
-    display: block;
-    margin: 0.75rem 0;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-    border-radius: .25rem;
-    /* @apply block my-3 shadow rounded; */
-  }
-
-  .table-component td {
-    display: block;
-    text-align: right;
-    font-size: .875rem;
-    /* @apply block text-right; */
-  }
-
-  .table-component td:before {
-    content: attr(data-label);
-    text-transform: uppercase;
-    float: left;
-    font-weight: bold;
-    color: #718096;
-    @apply text-gray-300;
-    font-size: .875rem;
-    /* @apply uppercase float-left font-bold; */
-  }
-
-
-}
-</style>
 
 <div class="w-full pt-10 pb-5">
   <table class="table-component table-auto w-full">
@@ -100,7 +32,7 @@
     <thead>
       <tr class="border-b-2 border-slate-500">
         {#each columns as column, i}
-        <th class="uppercase text-left px-4 py-2 text-gray-600 dark:text-gray-300 {textAlign(i)}">{column}</th>
+        <th class="text-left {textAlign(i)}">{column}</th>
         {/each}
       </tr>
     </thead>
@@ -109,14 +41,10 @@
     {#if rows}
     <tbody>
       {#each rows as row, idx}
-        <tr class="transition-colors duration-200 ease-in-out {highlight(idx, highlightRow)}" class:mapLink="{mapLinks}" on:click={mapLinkClick(idx)}>
+        <tr class="transition-colors duration-200 ease-in-out}">
           {#each row as elem, i}
-            <td data-label="{ columns[i] }" class="px-4 py-2 {textAlign(i)}">
-              {#if sparklines && sparklines[idx][i] && sparklines[idx][i].length > 1}
-                <Sparkline data={sparklines[idx][i]} label={elem} />
-              {:else}
-                {@html elem }
-              {/if}
+            <td data-label="{ columns[i] }" class="{textAlign(i)}">
+              {@html elem }
             </td>
           {/each}
         </tr>

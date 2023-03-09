@@ -4,6 +4,7 @@
 @import "./css/print.css";
 @import "./css/scrollbar.css";
 @import "./css/sparkline.css";
+@import "./css/table.css";
 
 /* Write your global styles here, in PostCSS syntax */
 @tailwind base;

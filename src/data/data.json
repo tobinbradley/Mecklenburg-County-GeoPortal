@@ -1,0 +1,747 @@
+[
+  {
+    "metric": "m2",
+    "category": "Character",
+    "label": "years",
+    "title": "Age of Residents",
+    "world_val": {
+      "y_2020": 35.2
+    },
+    "subtitle": "Median age of residents",
+    "related": ["m47", "m13", "m12"]
+  },
+  {
+    "metric": "m1",
+    "category": "Character",
+    "label": "acres",
+    "title": "Area",
+    "sum": true,
+    "subtitle": "Total land area",
+    "related": ["m47", "m5", "m41", "m75", "m19", "m8", "m9", "m14", "m3"]
+  },
+  {
+    "metric": "m13",
+    "category": "Character",
+    "format": "percent",
+    "title": "Population - Older Adult",
+    "subtitle": "Percentage of the population age 65 and over",
+    "related": ["m12", "m2"]
+  },
+  {
+    "metric": "m12",
+    "category": "Character",
+    "format": "percent",
+    "title": "Population - Youth",
+    "subtitle": "Percentage of the population under the age of 18",
+    "related": ["m13", "m47", "m2", "m22", "m21"]
+  },
+  {
+    "metric": "m47",
+    "category": "Character",
+    "label": "people per Acre",
+    "raw_label": "people",
+    "title": "Population Density",
+    "subtitle": "Concentration of residents",
+    "raw_val": {
+      "y_2020": 1115482
+    },
+    "related": ["m5", "m13", "m12"]
+  },
+  {
+    "metric": "m17",
+    "category": "Character",
+    "format": "percent",
+    "title": "Race/Ethnicity - All Other Races",
+    "subtitle": "Percentage of population self-identified as American Indian, Native Hawaiian, some other race, or two or more races",
+    "related": ["m2", "m18", "m16", "m15", "m14"]
+  },
+  {
+    "metric": "m16",
+    "category": "Character",
+    "format": "percent",
+    "title": "Race/Ethnicity - Asian",
+    "subtitle": "Percentage of population self-identified as Asian",
+    "related": ["m2", "m18", "m15", "m17", "m14"]
+  },
+  {
+    "metric": "m15",
+    "category": "Character",
+    "format": "percent",
+    "title": "Race/Ethnicity - Black or African American",
+    "subtitle": "Percentage of population self-identified as Black or African-American",
+    "related": ["m2", "m18", "m16", "m17", "m14"]
+  },
+  {
+    "metric": "m18",
+    "category": "Character",
+    "format": "percent",
+    "title": "Race/Ethnicity - Hispanic or Latino",
+    "subtitle": "Percentage of population self-identified as Hispanic or Latino",
+    "related": ["m2", "m16", "m15", "m14", "m17"]
+  },
+  {
+    "metric": "m14",
+    "category": "Character",
+    "format": "percent",
+    "title": "Race/Ethnicity - White or Caucasian",
+    "subtitle": "Percentage of population self-identified as White or Caucasian",
+    "related": ["m2", "m18", "m16", "m15", "m17"]
+  },
+  {
+    "metric": "m11",
+    "category": "Character",
+    "format": "percent",
+    "raw_label": "acres",
+    "title": "Vacant Land",
+    "subtitle": "Percentage of land area that is classified as vacant",
+    "related": ["m1", "m3", "m8", "m4", "m19"]
+  },
+  {
+    "metric": "m42",
+    "category": "Economy",
+    "label": "years",
+    "title": "Commercial Building Age",
+    "subtitle": "Average age of commercial buildings",
+    "related": ["m41", "m19", "m75"]
+  },
+  {
+    "metric": "m19",
+    "category": "Economy",
+    "label": "permits per 100 acres",
+    "raw_label": "permits",
+    "title": "Commercial Construction",
+    "decimals": 1,
+    "subtitle": "Concentration of commercial building permits",
+    "related": ["m42", "m41", "m19", "m75"]
+  },
+  {
+    "metric": "m41",
+    "category": "Economy",
+    "label": "average ft<sup>2</sup>",
+    "raw_label": "ft<sup>2</sup>",
+    "title": "Commercial Space",
+    "subtitle": "Average square footage of commercial space per parcel",
+    "related": ["m19", "m42", "m75"]
+  },
+  {
+    "metric": "m38",
+    "category": "Economy",
+    "format": "percent",
+    "title": "Employment",
+    "subtitle": "Percentage of adults in the labor force who are employed",
+    "related": ["m20", "m39", "m33", "m40"]
+  },
+  {
+    "metric": "m80",
+    "category": "Economy",
+    "format": "percent",
+    "title": "Food and Nutrition Services",
+    "subtitle": "Percentage of the population who receive Food and Nutrition Services (FNS)",
+    "related": ["m81", "m45", "m28", "m37"]
+  },
+  {
+    "metric": "m37",
+    "category": "Economy",
+    "format": "money",
+    "title": "Household Income",
+    "world_val": {
+      "y_2020": 69240
+    },
+    "subtitle": "Median household income",
+    "related": ["m38", "m20", "m39", "m47", "m40"]
+  },
+  {
+    "metric": "m75",
+    "category": "Economy",
+    "label": "jobs per acre",
+    "raw_label": "jobs",
+    "title": "Job Density",
+    "decimals": 1,
+    "subtitle": "Concentration of jobs",
+    "related": ["m42", "m41", "m19", "m10", "m33"]
+  },
+  {
+    "metric": "m71",
+    "category": "Environment",
+    "format": "percent",
+    "raw_label": "miles",
+    "title": "Adopt-a-Street Participation",
+    "subtitle": "Percentage of eligible streets adopted for clean-up",
+    "related": ["m43", "m32", "m60", "m32"]
+  },
+  {
+    "metric": "m79",
+    "category": "Economy",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Proximity to Financial Services",
+    "subtitle": "Percentage of housing units within &#189;-mile of a bank or credit union"
+  },
+  {
+    "metric": "m20",
+    "category": "Education",
+    "format": "percent",
+    "title": "Education Level - Bachelor's Degree",
+    "subtitle": "Percentage of adults over age 25 with a Bachelor's degree or higher",
+    "related": ["m39", "m38", "m37", "m80", "m57"]
+  },
+  {
+    "metric": "m39",
+    "category": "Education",
+    "format": "percent",
+    "title": "Education Level - High School Diploma",
+    "subtitle": "Percentage of adults over age 25 with a high school diploma or equivalent",
+    "related": ["m20", "m65", "m38", "m37", "m80"]
+  },
+  {
+    "metric": "m65",
+    "category": "Education",
+    "format": "percent",
+    "title": "High School Graduation Rate",
+    "subtitle": "Percentage of Charlotte-Mecklenburg Schools (CMS) students graduating high school in 4 years",
+    "world_val": {
+      "y_2014": "86.00",
+      "y_2013": "81.00",
+      "y_2017": "89.00",
+      "y_2015": "89.00",
+      "y_2016": "90.00"
+    },
+    "related": ["m39", "m64", "m66", "m38", "m37", "m54"]
+  },
+  {
+    "metric": "m51",
+    "category": "Education",
+    "format": "percent",
+    "title": "Library Card Holders",
+    "subtitle": "Percentage of population with an active library card",
+    "related": ["m12", "m62", "m63", "m64"]
+  },
+  {
+    "metric": "m67",
+    "category": "Education",
+    "format": "percent",
+    "title": "Neighborhood School Attendance ",
+    "subtitle": "Percentage of Charlotte-Mecklenburg Schools (CMS) students attending their home school",
+    "related": ["m12", "m62", "m63", "m64", "m37"]
+  },
+  {
+    "metric": "m21",
+    "category": "Education",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Proximity to Early Care and Education",
+    "subtitle": "Percentage of housing units within &#189;-mile of a licensed early care and education program for children birth to age 5",
+    "related": ["m22", "m12"]
+  },
+  {
+    "metric": "m22",
+    "category": "Education",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Proximity to School-Age Care",
+    "subtitle": "Percentage of housing units within &#189;-mile of a licensed school-age program for children ages 5-12",
+    "related": ["m12", "m21"]
+  },
+  {
+    "metric": "m66",
+    "category": "Education",
+    "format": "percent",
+    "title": "Student Absenteeism",
+    "subtitle": "Percentage of Charlotte-Mecklenburg Schools (CMS) students absent 10 percent or more of school days",
+    "related": ["m12", "m65", "m62", "m63", "m64", "m37", "m38"]
+  },
+  {
+    "metric": "m62",
+    "category": "Education",
+    "format": "percent",
+    "title": "Test Proficiency - Elementary School",
+    "subtitle": "Percentage of Charlotte-Mecklenburg Schools (CMS) students in grades 3-5 proficient in End of Grade testing",
+    "related": ["m63", "m64", "m20", "m39", "m37", "m38"]
+  },
+  {
+    "metric": "m64",
+    "category": "Education",
+    "format": "percent",
+    "title": "Test Proficiency - High School",
+    "subtitle": "Percentage of Charlotte-Mecklenburg Schools (CMS) students in grades 9-12 proficient in End-of-Course testing",
+    "related": ["m62", "m63", "m20", "m39", "m37", "m38"]
+  },
+  {
+    "metric": "m63",
+    "category": "Education",
+    "format": "percent",
+    "title": "Test Proficiency - Middle School",
+    "subtitle": "Percentage of Charlotte-Mecklenburg Schools (CMS) students in grades 6-8 proficient in End of Grade testing",
+    "related": ["m62", "m64", "m20", "m39", "m37", "m38"]
+  },
+  {
+    "metric": "m52",
+    "category": "Engagement",
+    "label": "calls per 100 people",
+    "raw_label": "calls",
+    "title": "311 Requests",
+    "decimals": 1,
+    "subtitle": "Concentration of 311 requests from residents",
+    "related": ["m32", "m68", "m73", "m31"]
+  },
+  {
+    "metric": "m72",
+    "category": "Engagement",
+    "label": "residents serving per 1,000 people",
+    "raw_label": "people",
+    "title": "Municipal Board/Committee Participation",
+    "subtitle": "Number of residents that serve on appointed public boards, committees and commissions per 1,000 residents"
+  },
+  {
+    "metric": "m73",
+    "category": "Engagement",
+    "label": "organizations",
+    "title": "Neighborhood Organizations",
+    "type": "sum",
+    "subtitle": "Number of neighborhood organizations registered with the Charlotte-Mecklenburg Planning Department"
+  },
+  {
+    "metric": "m48",
+    "category": "Engagement",
+    "format": "percent",
+    "raw_label": "people",
+    "title": "Voter Participation",
+    "subtitle": "Percentage of registered voters that voted in the general election",
+    "related": ["m20", "m39", "m37"]
+  },
+  {
+    "metric": "m43",
+    "category": "Environment",
+    "format": "percent",
+    "raw_label": "miles",
+    "title": "Adopt-a-Stream Participation",
+    "subtitle": "Percentage of eligible streams adopted for clean-up",
+    "related": ["m71", "m4", "m73"]
+  },
+  {
+    "metric": "m10",
+    "category": "Environment",
+    "format": "percent",
+    "title": "Commuters Driving Alone",
+    "raw_label": "commuters",
+    "subtitle": "Percentage of workers who commute by driving alone",
+    "world_val": {
+      "y_2017": 83
+    },
+    "related": ["m75", "m33", "m44", "m34"]
+  },
+  {
+    "metric": "m26",
+    "category": "Environment",
+    "label": "<span title='Kilowatt-Hour' class='underline cursor-pointer'>kWh</span> per month per unit",
+    "raw_label": "<span title='Kilowatt-Hour' class='underline cursor-pointer'>kWh</span> per month",
+    "title": "Energy Consumption - Electricity",
+    "subtitle": "Average monthly household electricity consumption",
+    "related": ["m7", "m6", "m77", "m3"]
+  },
+  {
+    "metric": "m77",
+    "category": "Environment",
+    "label": "therms per month per unit",
+    "raw_label": "therms per month",
+    "title": "Energy Consumption - Natural Gas",
+    "subtitle": "Average monthly household natural gas consumption",
+    "related": ["m7", "m6", "m26", "m3"]
+  },
+  {
+    "metric": "m4",
+    "category": "Environment",
+    "format": "percent",
+    "raw_label": "acres",
+    "title": "Impervious Surface",
+    "subtitle": "Percentage of land area that is impervious",
+    "related": ["m11", "m47", "m3"]
+  },
+  {
+    "metric": "m23",
+    "category": "Environment",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Residential Recycling",
+    "subtitle": "Percentage of eligible households that participate in municipal curbside recycling",
+    "related": ["m24", "m25"]
+  },
+  {
+    "metric": "m24",
+    "category": "Environment",
+    "label": "pounds per day per unit",
+    "raw_label": "pounds per day",
+    "title": "Residential Solid Waste",
+    "decimals": 1,
+    "subtitle": "Average daily waste generation per household",
+    "related": ["m23", "m25", "m47"]
+  },
+  {
+    "metric": "m25",
+    "category": "Environment",
+    "format": "percent",
+    "raw_label": "tons",
+    "title": "Residential Solid Waste Diversion",
+    "decimals": 1,
+    "subtitle": "Percentage of residential solid waste diverted from landfills through recycling and yard waste processing",
+    "related": ["m23", "m24", "m47"]
+  },
+  {
+    "metric": "m3",
+    "category": "Environment",
+    "format": "percent",
+    "raw_label": "acres",
+    "title": "Tree Canopy",
+    "subtitle": "Percentage of land area covered by tree canopy",
+    "related": ["m4", "m49"]
+  },
+  {
+    "metric": "m49",
+    "category": "Environment",
+    "format": "percent",
+    "raw_label": "acres",
+    "title": "Tree Canopy - Residential",
+    "subtitle": "Percentage of residential land area covered by tree canopy",
+    "related": ["m4", "m3"]
+  },
+  {
+    "metric": "m27",
+    "category": "Environment",
+    "label": "gallons per day per unit",
+    "raw_label": "gallons per day",
+    "title": "Water Consumption",
+    "subtitle": "Average daily water consumption for single-family housing units",
+    "related": ["m30", "m26", "m77", "m24", "m23", "m4", "m43"]
+  },
+  {
+    "metric": "m57",
+    "category": "Health",
+    "label": "years",
+    "title": "Age of Death",
+    "subtitle": "Average age of death"
+  },
+  {
+    "metric": "m54",
+    "category": "Health",
+    "format": "percent",
+    "title": "Births to Adolescents",
+    "decimals": 1,
+    "subtitle": "Percentage of births to females under 19"
+  },
+  {
+    "metric": "m55",
+    "category": "Health",
+    "format": "percent",
+    "title": "Low Birthweight",
+    "subtitle": "Percentage of births where birth weight was less than 5lb 8oz",
+    "related": ["m56", "m81"]
+  },
+  {
+    "metric": "m56",
+    "category": "Health",
+    "format": "percent",
+    "title": "Prenatal Care",
+    "subtitle": "Percentage of births where mother received adequate pre-natal care",
+    "related": ["m55", "m54", "m81"]
+  },
+  {
+    "metric": "m46",
+    "category": "Health",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Proximity to a Pharmacy",
+    "subtitle": "Percentage of housing units within &#189;-mile of a pharmacy",
+    "related": ["m28", "m81"]
+  },
+  {
+    "metric": "m28",
+    "category": "Health",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Proximity to Low-Cost Health Care",
+    "subtitle": "Percentage of housing units within &#189;-mile of a Medicaid provider or free clinic",
+    "related": ["m46", "m81"]
+  },
+  {
+    "metric": "m74",
+    "category": "Health",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Proximity to Public Outdoor Recreation",
+    "subtitle": "Percentage of housing units within &#189;-mile of an outdoor public recreation area",
+    "related": ["m70", "m3", "m47", "m5", "m37"]
+  },
+  {
+    "metric": "m45",
+    "category": "Health",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Proximity to a Grocery Store",
+    "subtitle": "Percentage of housing units within &#189;-mile of a full-service, chain grocery store",
+    "related": ["m80", "m47", "m5", "m37", "m74"]
+  },
+  {
+    "metric": "m81",
+    "category": "Health",
+    "format": "percent",
+    "title": "Public Health Insurance",
+    "subtitle": "Percentage of the population who receive Medicaid or N.C. Health Choice",
+    "related": ["m80", "m28", "m46", "m37"]
+  },
+  {
+    "metric": "m29",
+    "category": "Housing",
+    "format": "percent",
+    "title": "Home Ownership",
+    "subtitle": "Percentage of housing units that are owner-occupied",
+    "related": ["m30", "m53", "m40", "m37", "m2", "m38", "m82"]
+  },
+  {
+    "metric": "m76",
+    "category": "Housing",
+    "format": "money",
+    "title": "Home Sales Price",
+    "subtitle": "Average sales price of homes",
+    "related": ["m29", "m69", "m30"]
+  },
+  {
+    "metric": "m7",
+    "category": "Housing",
+    "label": "years",
+    "title": "Housing Age",
+    "subtitle": "Average age of single-family housing units",
+    "related": ["m8", "m9", "m68", "m6"]
+  },
+  {
+    "metric": "m82",
+    "category": "Housing",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Housing Assistance – Development-Based",
+    "subtitle": "Percentage of housing units with development-based rental assistance",
+    "related": ["m5", "m8", "m9"]
+  },
+  {
+    "metric": "m68",
+    "category": "Housing",
+    "label": "violations per 100 units",
+    "title": "Housing Code Violations",
+    "raw_label": "violations",
+    "subtitle": "Housing-related code violations per 100 units",
+    "related": ["m32", "m5"]
+  },
+  {
+    "metric": "m5",
+    "category": "Housing",
+    "label": "units per acre",
+    "raw_label": "units",
+    "title": "Housing Density",
+    "decimals": 1,
+    "subtitle": "Concentration of housing units",
+    "related": ["m8", "m47", "m82", "m11", "m35", "m36", "m75"]
+  },
+  {
+    "metric": "m6",
+    "category": "Housing",
+    "label": "average ft<sup>2</sup>",
+    "title": "Housing Size",
+    "subtitle": "Average heated living space of single-family housing units",
+    "related": ["m7", "m76", "m8", "m9", "m26", "m77", "m4", "m3"]
+  },
+  {
+    "metric": "m40",
+    "category": "Housing",
+    "format": "money",
+    "title": "Rental Costs",
+    "world_val": {
+      "y_2020": 1195
+    },
+    "subtitle": "Median gross rent of renter-occupied housing units",
+    "related": ["m53", "m29", "m37", "m82"]
+  },
+  {
+    "metric": "m53",
+    "category": "Housing",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Rental Houses",
+    "subtitle": "Percentage of detached single-family dwellings that are rentals",
+    "related": ["m29", "m7", "m40", "m31", "m69", "m37", "m32"]
+  },
+  {
+    "metric": "m83",
+    "category": "Housing",
+    "label": "demos per 1,000 units",
+    "raw_label": "demolitions",
+    "title": "Residential Demolitions",
+    "decimals": 1,
+    "subtitle": "Concentration of residential demolitions",
+    "related": ["m8", "m9", "m5", "m47", "m29", "m53"]
+  },
+  {
+    "metric": "m69",
+    "category": "Housing",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Residential Foreclosures",
+    "decimals": 1,
+    "subtitle": "Percentage of dwellings that were foreclosed",
+    "related": ["m31", "m76", "m68", "m32", "m5", "m30", "m78"]
+  },
+  {
+    "metric": "m8",
+    "category": "Housing",
+    "label": "units per 100 acres",
+    "raw_label": "units",
+    "title": "Residential New Construction",
+    "decimals": 1,
+    "subtitle": "Concentration of residential units permitted for new construction",
+    "related": ["m9", "m47", "m5", "m7", "m6", "m11"]
+  },
+  {
+    "metric": "m31",
+    "category": "Housing",
+    "format": "percent",
+    "title": "Residential Occupancy",
+    "subtitle": "Percentage of housing units that are occupied",
+    "related": ["m32", "m68", "m40", "m78", "m60"]
+  },
+  {
+    "metric": "m9",
+    "category": "Housing",
+    "label": "units per 100 acres",
+    "raw_label": "units",
+    "title": "Residential Renovation",
+    "decimals": 1,
+    "subtitle": "Concentration of residential units permitted for renovation",
+    "related": ["m8", "m76", "m6"]
+  },
+  {
+    "metric": "m30",
+    "category": "Housing",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Single-Family Housing",
+    "subtitle": "Percentage of housing units that are single-family houses",
+    "related": ["m5", "m47", "m35", "m29", "m53", "m36"]
+  },
+  {
+    "metric": "m61",
+    "category": "Safety",
+    "raw_label": "calls",
+    "title": "Calls for Animal Care and Control",
+    "decimals": 1,
+    "subtitle": "Animal control calls per 1,000 residents",
+    "related": ["m52", "m60"]
+  },
+  {
+    "metric": "m59",
+    "category": "Safety",
+    "raw_label": "crimes",
+    "title": "Crime - Property",
+    "decimals": 1,
+    "subtitle": "Property crime rate per 1,000 residents",
+    "related": ["m32", "m58", "m60", "m73"]
+  },
+  {
+    "metric": "m58",
+    "category": "Safety",
+    "raw_label": "crimes",
+    "title": "Crime - Violent",
+    "decimals": 1,
+    "subtitle": "Violent crime rate per 1,000 residents",
+    "related": ["m60", "m59", "m61", "m73", "m32"]
+  },
+  {
+    "metric": "m60",
+    "category": "Safety",
+    "raw_label": "calls",
+    "title": "Disorder-related Calls",
+    "decimals": 1,
+    "subtitle": "Disorder-related calls per 1,000 residents",
+    "related": ["m59", "m58", "m32", "m68", "m52", "m47"]
+  },
+  {
+    "metric": "m78",
+    "category": "Safety",
+    "raw_label": "calls",
+    "title": "Fire Calls for Service",
+    "decimals": 1,
+    "subtitle": "Fire calls for service per 1,000 residents",
+    "related": ["m47", "m13", "m12", "m68"]
+  },
+  {
+    "metric": "m32",
+    "category": "Safety",
+    "raw_label": "violations",
+    "title": "Nuisance Violations",
+    "decimals": 1,
+    "subtitle": "Nuisance violations per 100 housing units",
+    "related": ["m68", "m59", "m60", "m52", "m73"]
+  },
+  {
+    "metric": "m34",
+    "category": "Transportation",
+    "label": "index value (1-3)",
+    "title": "Bicycle Friendliness",
+    "decimals": 1,
+    "subtitle": "Index measuring the transportation network's ability to comfortably support cycling",
+    "related": ["m74", "m35", "m10", "m47"]
+  },
+  {
+    "metric": "m33",
+    "category": "Transportation",
+    "format": "percent",
+    "title": "Long Commute",
+    "subtitle": "Percentage of auto commuters traveling 20 minutes or more to work",
+    "world_val": {
+      "y_2017": 59
+    },
+    "related": ["m10", "m36", "m47", "m75", "m35"]
+  },
+  {
+    "metric": "m36",
+    "category": "Transportation",
+    "format": "percent",
+    "raw_label": "units",
+    "title": "Proximity to Public Transportation",
+    "subtitle": "Percentage of housing units within &#189;-mile of a transit stop",
+    "related": ["m44", "m10", "m33", "m47"]
+  },
+  {
+    "metric": "m70",
+    "category": "Transportation",
+    "format": "percent",
+    "raw_label": "miles",
+    "title": "Sidewalk Availability",
+    "decimals": 1,
+    "subtitle": "Percentage of paved streets that have sidewalks",
+    "related": ["m74", "m35", "m10", "m48"]
+  },
+  {
+    "metric": "m35",
+    "category": "Transportation",
+    "label": "index value (1-3)",
+    "title": "Street Connectivity",
+    "decimals": 2,
+    "subtitle": "Index measuring the connectedness of the street network",
+    "related": ["m70", "m34", "m44", "m47", "m75", "m30"]
+  },
+  {
+    "metric": "m44",
+    "category": "Transportation",
+    "label": "boardings per stop",
+    "raw_label": "weekly boardings",
+    "title": "Transit Ridership",
+    "subtitle": "Average weekly bus and train boardings per stop",
+    "related": ["m36", "m10", "m33", "m47", "m75"]
+  },
+  {
+    "metric": "m88",
+    "category": "Economy",
+    "format": "percent",
+    "title": "High Speed Internet Access",
+    "subtitle": "Percentage of households with high speed Internet access",
+    "related": ["m2", "m14", "m18", "m16", "m15", "m17", "m12", "m13"]
+  }
+]

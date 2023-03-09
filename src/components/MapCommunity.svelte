@@ -2,12 +2,13 @@
   import { location } from '../store.js'
   import { createEventDispatcher } from 'svelte'
   import { interpolateYlGnBu as interpolate } from 'd3-scale-chromatic'
+  import { formatNumber, isNumeric } from '../js/formatNumbers.js'
 
   const dispatch = createEventDispatcher()
 
   export let showMap = false
-  export let mapTitle = ''
-  export let mapData = ''
+  export let mapMeta = {}
+  export let mapData
 
   const mapContainer = `mapID${Math.floor((Math.random() * 10000) + 1)}`
   let map = null
@@ -65,6 +66,7 @@
   function color(min, max, n, npa) {
     n = n - min
     n = ((n * 100) / max) / 100
+
     return interpolate(n)
   }
 
@@ -127,7 +129,10 @@
 
       popup
         .setLngLat(coordinates)
-        .setHTML(mapData[id][mapData[id].length - 1] || 'N/A')
+        .setHTML(formatNumber(
+              mapData.m[id][mapData.years.length - 1],
+              mapMeta.format || null,
+              mapMeta.decimals || 0))
         .addTo(map)
     })
 
@@ -138,32 +143,28 @@
   }
 
   function paintNPAs() {
-    let mapDataNumeric = JSON.parse(JSON.stringify(mapData))
-    const mapIds = [...new Set(map.querySourceFeatures('npa').map(el => el.id ))]
-
-    Object.keys(mapDataNumeric).forEach(npa => {
-      if (!mapDataNumeric[npa][mapDataNumeric[npa].length - 1]) {
-        delete mapDataNumeric[npa]
-      } else {
-        mapDataNumeric[npa] = mapDataNumeric[npa][mapDataNumeric[npa].length - 1].toString()
-        mapDataNumeric[npa] = mapDataNumeric[npa].replace(/[^\d.-]/g, '')
-      }
-    })
+    // set year index
+    const yearIdx = mapData.years.length - 1
 
     // figure out min/max
-    const min = Math.min.apply(Math, Object.values(mapDataNumeric))
-    const max = Math.max.apply(Math, Object.values(mapDataNumeric))
-
-    mapIds.forEach(npa => {
-      mapDataNumeric[npa] ?
-        map.setFeatureState({source: 'npa', id: npa}, { color: color(min, max, mapDataNumeric[npa], npa)}) :
-        map.setFeatureState({source: 'npa', id: npa}, { color: "#fff" })
+    let dataValues = []
+    Object.keys(mapData.m).forEach(k => {
+      if (isNumeric(mapData.m[k][yearIdx])) {
+        dataValues.push(mapData.m[k][yearIdx])
+      }
     })
+    const min = Math.min.apply(Math, dataValues)
+    const max = Math.max.apply(Math, dataValues)
 
-    mapIds.forEach(npa => {
-      mapDataNumeric[npa] ?
-      map.setFeatureState({source: 'npa', id: npa}, { height: height(min, max, mapDataNumeric[npa]) }) :
-      map.setFeatureState({source: 'npa', id: npa}, { height: 0 })
+    // paint/height
+    Object.keys(mapData.m).forEach(k => {
+      if (isNumeric(mapData.m[k][yearIdx])) {
+        map.setFeatureState({source: 'npa', id: k}, { color: color(min, max, mapData.m[k][yearIdx], k)})
+        map.setFeatureState({source: 'npa', id: k}, { height: height(min, max, mapData.m[k][yearIdx]) })
+      } else {
+        map.setFeatureState({source: 'npa', id: k}, { color: "#fff" })
+        map.setFeatureState({source: 'npa', id: k}, { height: 0 })
+      }
     })
 
     // set layer visible for first paint
@@ -202,7 +203,7 @@
 <div class="mt-8 relative">
   <div class="map mb-12" id={mapContainer}></div>
   <div class="text-center absolute top-0 mt-3 w-full">
-    <span class="font-bold p-1 rounded text-black" style="background-color: rgba(255,255,255,0.8);">{ mapTitle }</span>
+    <span class="font-bold p-1 rounded text-black" style="background-color: rgba(255,255,255,0.8);">{ mapMeta.title }</span>
   </div>
 </div>
 {/if}

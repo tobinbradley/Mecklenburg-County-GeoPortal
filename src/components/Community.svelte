@@ -1,10 +1,17 @@
 <script>
   import { location } from '../store.js'
   import Title from './Title.svelte'
-  import Table from './Table.svelte'
   import Resources from './Resources.svelte'
   import Map from './MapCommunity.svelte'
   import jsonToURL from '../js/jsonToURL.js'
+  import Sparkline from './Sparkline.svelte'
+  import {formatNumber, isNumeric} from '../js/formatNumbers'
+  import metricConfig from '../data/data.json'
+  import metricGroup from '../data/neighborhod-groups.json'
+
+  const metricList = ["m34", "m54", "m10", "m59", "m58", "m20", "m26", "m80", "m65", "m88", "m76", "m37", "m33", "m13", "m12", "m47", "m36", "m45", "m81", "m15", "m18", "m14", "m40", "m64", "m3", "m48", "m27"]
+  const defaultMetric = "m37"
+  let npa
 
 
   // Resources
@@ -19,17 +26,12 @@
     }
   ]
 
-  let rows = []
-  let mapLinks = []
-  let sparklines = []
   const columns = ["metric", "neighborhood", "charlotte", "mecklenburg"]
   let highlightRow = 10
 
   // map stuff
   let showMap = false
-  let npaConfig = null
-  let mapTitle = null
-  let npaData = null
+  let mapMeta = {}
   let mapData = null
 
   location.subscribe(value => {
@@ -44,40 +46,68 @@
     })}`)
       .then(response => response.json())
       .then(data => {
-        makeTable(data[0].id)
+        npa = data[0].id.toString()
       })
       .catch(ex => {
         console.log("parsing failed", ex);
       })
   }
 
+  // map map data
+  function setMap(data, meta) {
+    mapData = data
+    mapMeta = meta
+  }
 
-  // Make sparkline data array
-  function makeSparklineData(years, data) {
+  async function fetchQolData(m) {
+    const res = await fetch(`https://mcmap.org/qol/data/metric/${m}.json`);
+		const json = await res.json();
+
+		if (res.ok) {
+      if (m == defaultMetric) setMap(json, metricConfig.filter(el => el.metric === defaultMetric)[0])
+			return json
+		} else {
+			throw new Error(json);
+		}
+  }
+
+  function sumGroup(data, yearId, grp = null) {
+    let n = []
+    let d = []
+
+    Object.keys(data.m).forEach(k => {
+      if ((!grp || grp.includes(k) ) && isNumeric(data.m[k][yearId]) && isNumeric(data.d[k][yearId])) {
+        n.push(data.m[k][yearId] * data.d[k][yearId])
+        d.push(data.d[k][yearId])
+      }
+    })
+
+    if (n.length > 0) {
+      return n.reduce((x, y) => { return x + y}) / d.reduce((x, y) => { return x + y})
+    }
+    return '--'
+  }
+
+  function sparklineData(data, metric, grp = null) {
     const sparklineData = []
-
-    years.forEach((y, idx) => {
-      if (data[idx]) {
+    data.years.forEach((year, idx) => {
+      const d = sumGroup(data, idx, grp)
+      if (isNumeric(d)) {
         sparklineData.push({
-          year: y,
-          label: `${y}: ${data[idx]}`,
-          value: data[idx].replace(/[^\d.-]/g, '')
+          year: year,
+          label: `${year}: ${formatNumber(d,
+            metricConfig.filter(el => el.metric === metric)[0].format || null,
+            metricConfig.filter(el => el.metric === metric)[0].decimals || 0)}`,
+          value: d
         })
       }
     })
 
-    // no data
-    if (sparklineData.length === 0) return null
-
-    const yearMin = Math.min.apply(Math, sparklineData.map(y => { return parseInt(y.year) }))
-    const yearMax = Math.max.apply(Math, sparklineData.map(y => { return parseInt(y.year) }))
-
-
     // fill any missing values
-    for (let i = yearMin + 1; i < yearMax; i++) {
-      if (sparklineData.filter(el => el.year == i).length === 0) {
+    for (let i = 0; i < data.years.length - 1; i++) {
+      if (sparklineData.filter(el => el.year == data.years[i]).length === 0) {
         sparklineData.push({
-          year: i.toString(),
+          year: data.years[i],
           label: null,
           value: null
         })
@@ -92,60 +122,9 @@
   }
 
 
-  function makeTable(npa) {
-    rows = []
-    mapLinks = []
-    sparklines = []
-    const urls = ["./data/community-config.json", "./data/community-group.json", "./data/community-npa.json"]
-
-    Promise.all(urls.map(url =>
-      fetch(url).then(resp => resp.json())
-    )).then (jsons => {
-        const config = jsons[0]
-        const groups = jsons[1]
-        const npas = jsons[2]
-        npaData = npas
-        npaConfig = config
-        mapData = npas["37"]
-        let thisConfig = config.filter(el => el.metric === "37")[0]
-        mapTitle = thisConfig.title + ', ' + thisConfig.years[thisConfig.years.length - 1]
-
-        config.forEach(m => {
-          const npaValues = npas[m.metric][npa]
-
-          rows.push([
-            m.label ?  `${m.title}, ${m.years[m.years.length - 1]}<span class="block text-sm">${m.label}</span>` :  m.title + ', ' + m.years[m.years.length - 1],
-            npaValues[npaValues.length - 1] || 'N/A',
-            groups.charlotte[m.metric][groups.charlotte[m.metric].length - 1],
-            groups.mecklenburg[m.metric][groups.mecklenburg[m.metric].length - 1]
-          ])
-
-
-          sparklines.push([
-            null,
-            makeSparklineData(m.years, npaValues),
-            makeSparklineData(m.years, groups.charlotte[m.metric]),
-            makeSparklineData(m.years, groups.mecklenburg[m.metric])
-          ])
-          mapLinks.push(m.metric)
-        })
-    }).then(() => {
-      rows = rows
-      mapLinks = mapLinks
-      sparklines = sparklines
-    })
-  }
-
-  function handleMapLink(event) {
+  function handleMapLink(data, meta) {
     showMap = true
-    const config = npaConfig.filter(el => el.metric === event.detail.toString())
-    let idx = 0
-    npaConfig.forEach((el, i) => {
-      if (el.metric === event.detail.toString()) idx = i
-    })
-    mapData = npaData[event.detail.toString()]
-    mapTitle = config[0].title + ', ' + config[0].years[config[0].years.length - 1]
-    highlightRow = idx
+    setMap(data, meta)
 
     document
       .querySelector('#Community-scrollTarget')
@@ -159,8 +138,86 @@
 
 <Title title="Community" icon="community" />
 
-<Map showMap={showMap} mapTitle={mapTitle} mapData={mapData} />
+<Map showMap={showMap} mapMeta={mapMeta} mapData={mapData} />
 
-<Table caption="Your Neighborhood" rows={rows} columns={columns} alignCenter={[2, 3, 4]} mapLinks={mapLinks} on:mapLink={handleMapLink} sparklines={sparklines} highlightRow={highlightRow} />
+<div class="w-full pt-10 pb-5">
+  <table class="table-component table-auto w-full">
+  <thead>
+    <tr>
+      <th></th>
+      <th class="text-left">METRIC</th>
+      <th class="text-center">NEIGHBORHOOD</th>
+      <th class="text-center">CHARLOTTE</th>
+      <th class="text-center">MECKLENBURG</th>
+    </tr>
+  </thead>
+  {#if npa}
+  <tbody>
+    {#each metricList as metric}
+      <tr>
+        {#await fetchQolData(metric)}
+          ...waiting
+        {:then data}
+          <td class="cursor-pointer"
+            on:click={() => {handleMapLink(data, metricConfig.filter(el => el.metric === metric)[0])}}
+            on:keypress={() => {handleMapLink(data, metricConfig.filter(el => el.metric === metric)[0])}}
+            >
+            <svg class="w-5 h-5 block m-auto fill-current">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-map2"></use>
+            </svg>
+          </td>
+          <td data-label="METRIC">
+            {metricConfig.filter(el => el.metric === metric)[0].title},
+            {data.years[data.years.length - 1]}
+            {#if metricConfig.filter(el => el.metric === metric)[0].label}
+            <span class="block text-sm">{@html metricConfig.filter(el => el.metric === metric)[0].label}</span>
+            {/if}
+          </td>
+          <td data-label="NEIGHBORHOOD" class="text-center">
+            {formatNumber(
+              data.m[npa][data.years.length - 1],
+              metricConfig.filter(el => el.metric === metric)[0].format || null,
+              metricConfig.filter(el => el.metric === metric)[0].decimals || 0)
+            }
+            <br>
+            <Sparkline data={sparklineData(data, metric, [npa])} />
+          </td>
+          <td data-label="CHARLOTTE" class="text-center">
+            {formatNumber(
+              sumGroup(data, data.years.length - 1, metricGroup["Jurisdiction"]["Charlotte"]),
+              metricConfig.filter(el => el.metric === metric)[0].format || null,
+              metricConfig.filter(el => el.metric === metric)[0].decimals || 0
+            )}
+            <br>
+            <Sparkline data={sparklineData(data, metric, metricGroup["Jurisdiction"]["Charlotte"])} />
+          </td>
+          <td data-label="MECKLENBURG" class="text-center">{formatNumber(
+            sumGroup(data, data.years.length - 1),
+            metricConfig.filter(el => el.metric === metric)[0].format || null,
+            metricConfig.filter(el => el.metric === metric)[0].decimals || 0
+          )}
+          <br>
+          <Sparkline data={sparklineData(data, metric)} />
+          </td>
+        {:catch error}
+          <td>
+          ...problem fetching data
+          </td>
+        {/await}
+      </tr>
+    {/each}
+
+  </tbody>
+  {/if}
+</table>
+</div>
+
+<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="0" height="0">
+  <symbol id="icon-map2" viewBox="0 0 32 32">
+    <path d="M21 6l-10-4-11 4v24l11-4 10 4 11-4v-24l-11 4zM12 4.554l8 3.2v19.692l-8-3.2v-19.692zM2 7.401l8-2.909v19.744l-8 2.909v-19.744zM30 24.599l-8 2.909v-19.744l8-2.909v19.744z"></path>
+    </symbol>
+</svg>
+
+<!-- <Table caption="Your Neighborhood" rows={rows} columns={columns} alignCenter={[2, 3, 4]} mapLinks={mapLinks} on:mapLink={handleMapLink} sparklines={sparklines} highlightRow={highlightRow} /> -->
 
 <Resources links={resourceLinks} />
