@@ -12,6 +12,7 @@
   const metricList = ["m34", "m54", "m10", "m59", "m58", "m20", "m26", "m80", "m65", "m88", "m76", "m37", "m33", "m13", "m12", "m47", "m36", "m45", "m81", "m15", "m18", "m14", "m40", "m64", "m3", "m48", "m27"]
   const defaultMetric = "m37"
   let npa
+  let selected = metricGroup.Jurisdiction.Charlotte
 
 
   // Resources
@@ -104,13 +105,15 @@
     })
 
     // fill any missing values
-    for (let i = 0; i < data.years.length - 1; i++) {
-      if (sparklineData.filter(el => el.year == data.years[i]).length === 0) {
-        sparklineData.push({
-          year: data.years[i],
-          label: null,
-          value: null
-        })
+    if (sparklineData.length > 1) {
+      for (let i = 0; i < data.years.length - 1; i++) {
+        if (sparklineData.filter(el => el.year == data.years[i]).length === 0) {
+          sparklineData.push({
+            year: data.years[i],
+            label: null,
+            value: null
+          })
+        }
       }
     }
 
@@ -147,7 +150,17 @@
       <th></th>
       <th class="text-left">METRIC</th>
       <th class="text-center">NEIGHBORHOOD</th>
-      <th class="text-center">CHARLOTTE</th>
+      <th class="text-center">
+        <select bind:value={selected} class="bg-white uppercase outline-0 border-b-2 border-slate-800 dark:border-white dark:bg-slate-800">
+          {#each Object.keys(metricGroup) as category}
+          <optgroup label={category}>
+            {#each Object.keys(metricGroup[category]) as group}
+              <option value={metricGroup[category][group]}>{category === 'Jurisdiction' ? '' : category} {group}</option>
+            {/each}
+          </optgroup>
+          {/each}
+        </select>
+      </th>
       <th class="text-center">MECKLENBURG</th>
     </tr>
   </thead>
@@ -182,14 +195,14 @@
             <br>
             <Sparkline data={sparklineData(data, metric, [npa])} />
           </td>
-          <td data-label="CHARLOTTE" class="text-center">
+          <td data-label="" class="text-center">
             {formatNumber(
-              sumGroup(data, data.years.length - 1, metricGroup["Jurisdiction"]["Charlotte"]),
+              sumGroup(data, data.years.length - 1, selected),
               metricConfig.filter(el => el.metric === metric)[0].format || null,
               metricConfig.filter(el => el.metric === metric)[0].decimals || 0
             )}
             <br>
-            <Sparkline data={sparklineData(data, metric, metricGroup["Jurisdiction"]["Charlotte"])} />
+            <Sparkline data={sparklineData(data, metric, selected)} />
           </td>
           <td data-label="MECKLENBURG" class="text-center">{formatNumber(
             sumGroup(data, data.years.length - 1),
