@@ -62,7 +62,7 @@
             `${formatCommas(el.area)} Sq. Ft.`
           ])
           // set impervious total
-          imperviousTotal += el.area
+          imperviousTotal += parseInt(el.area, 10)
         })
       })
       .then(() => {
