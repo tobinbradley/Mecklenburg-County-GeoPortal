@@ -57,7 +57,7 @@
   const resourceLinks = [
     {
       name: 'POLARIS',
-      url: 'http://polaris.mecklenburgcountync.gov/'
+      url: 'https://polaris3g.mecklenburgcountync.gov/'
     },
     {
       name: "County Assessor's Office",
