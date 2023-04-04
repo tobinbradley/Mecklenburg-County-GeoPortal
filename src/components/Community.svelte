@@ -151,7 +151,7 @@
       <th class="text-left">METRIC</th>
       <th class="text-center">NEIGHBORHOOD</th>
       <th class="text-center">
-        <select bind:value={selected} class="bg-white uppercase outline-0 border-b-2 border-slate-800 dark:border-white dark:bg-slate-800">
+        <select bind:value={selected} class="bg-white uppercase outline-0 border-b-2 border-slate-800 dark:border-white dark:bg-slate-800 text-center">
           {#each Object.keys(metricGroup) as category}
           <optgroup label={category}>
             {#each Object.keys(metricGroup[category]) as group}
@@ -176,11 +176,12 @@
             on:keypress={() => {handleMapLink(data, metricConfig.filter(el => el.metric === metric)[0])}}
             >
             <svg class="w-5 h-5 block m-auto fill-current">
+              <title>show on map</title>
               <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#icon-map2"></use>
             </svg>
           </td>
           <td data-label="METRIC">
-            {metricConfig.filter(el => el.metric === metric)[0].title},
+            <a href="https://mcmap.org/qol/data/meta/{metric}.html" rel="noreferrer" target="_blank">{metricConfig.filter(el => el.metric === metric)[0].title}</a>,
             {data.years[data.years.length - 1]}
             {#if metricConfig.filter(el => el.metric === metric)[0].label}
             <span class="block text-sm">{@html metricConfig.filter(el => el.metric === metric)[0].label}</span>
