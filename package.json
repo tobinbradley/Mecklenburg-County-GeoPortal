@@ -1,6 +1,6 @@
 {
   "name": "geoportal",
-  "version": "5.7.2",
+  "version": "5.8.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
