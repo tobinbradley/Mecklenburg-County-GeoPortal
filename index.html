@@ -141,9 +141,20 @@
     </div>
   </footer>
 
-
   <div id="backtotop" class="print:hidden"></div>
-  <div id="toast"></div>
+
+  <!-- service worker dialog -->
+  <dialog id="sw-dialog" class=" bg-orange-500 text-white px-3 py-2 rounded-r-md border-l-2 border-white shadow-lg">
+    <div class="flex place-items-center">
+      <div class="flex-1 pr-8 text-lg">
+        GeoPortal has been updated!
+      </div>
+      <div>
+        <button class="btn bg-white text-orange-800 hover:bg-orange-600 hover:text-white transition-colors duration-300" onclick="window.location.reload()">Refresh</button>
+      </div>
+    </div>
+  </dialog>
+
 
   <!-- analytics -->
   <script>

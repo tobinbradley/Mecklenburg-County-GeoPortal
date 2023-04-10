@@ -9,7 +9,6 @@ import App from './App.svelte'
 import Search from './components/Search.svelte'
 import BackToTop from './components/BackToTop.svelte'
 import YouTube from './components/YouTube.svelte'
-import Toast from './components/Toast.svelte'
 
 // kick off the Svelte
 new Search({
@@ -31,7 +30,3 @@ new BackToTop({
     )
   }
 })
-new Toast({
-  target: document.querySelector('#toast')
-})
-

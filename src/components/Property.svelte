@@ -7,7 +7,6 @@
   import RecordHighlight from './RecordHighlight.svelte'
   import jsonToURL from '../js/jsonToURL.js'
   import { formatCommas, formatMoney, formatDate } from '../js/formatNumbers.js'
-  import toastMaker from '../js/toastMaker'
 
   // Tables
   const ownerTable = {
@@ -120,7 +119,6 @@
         ownerTable.rows = ownerTable.rows
       })
       .catch(ex => {
-        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
@@ -145,7 +143,6 @@
         appraisalTable.rows = appraisalTable.rows
       })
       .catch(ex => {
-        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
@@ -169,7 +166,6 @@
         saleTable.rows = saleTable.rows
       })
       .catch(ex => {
-        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
@@ -192,7 +188,6 @@
         useTable.rows = useTable.rows
       })
       .catch(ex => {
-        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
@@ -218,7 +213,6 @@
         buildingTable.rows = buildingTable.rows
       })
       .catch(ex => {
-        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 
@@ -243,7 +237,6 @@
         permitTable.rows = permitTable.rows
       })
       .catch(ex => {
-        toastMaker( "error", "We're having a problem loading this data. Please try back later.")
         console.log("parsing failed", ex);
       })
 

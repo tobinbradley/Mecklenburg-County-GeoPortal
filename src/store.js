@@ -58,22 +58,10 @@ const initTabs = [
 
 let defaultTabs = ['schools']
 
-
-// message types are: info, warning, error, success
-const toastData = {
-  message: "",
-  messageType: "success",
-  loadDelay: 1000,
-  dismissDelay: 5000,
-  reloadButton: false
-}
-
 // export the things
 export let scroll = writable(false)
 export let location = writable(initLocation)
 export const tabs = readable(initTabs)
-export let toastMessage = writable(toastData)
-
 
 // process hash on load
 const args = window.location.hash.replace('#', '').split('/')
