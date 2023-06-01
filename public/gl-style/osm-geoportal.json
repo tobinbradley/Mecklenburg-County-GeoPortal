@@ -7,7 +7,7 @@
   "sources": {
     "openmaptiles": {
       "type": "vector",
-      "url": "pmtiles://https://pub-41c5b8a60911473a932c7ac0e2fd3b63.r2.dev/tiles.pmtiles",
+      "tiles": ["https://tiles.mcmap.org/osmvt/{z}/{x}/{y}"],
       "maxzoom": 14,
       "minzoom": 0
     },
@@ -59,7 +59,7 @@
       ],
 			"tileSize":  256,
       "minzoom": 0,
-      "maxzoom": 14
+      "maxzoom": 13
 		}
   },
   "sprite": "https://mcmap.org/gl-styles/sprites/osm-liberty",
