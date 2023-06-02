@@ -94,10 +94,10 @@
   function locationMarker(gl) {
     // create markers for geocoding
     const el = document.createElement('div');
-    el.className = 'mapboxgl-user-location-dot'
+    el.className = 'maplibregl-user-location-dot'
 
     const popup = new gl.Popup({ offset: 9 }).setHTML(
-      `<h3 class="font-bold text-sky-800 text-base pb-1">Your Location</h3>${$location.label}`
+      `<h3 class="text-sky-800 font-bold text-base pb-1">Your Location</h3>${$location.label}`
     )
     const marker = new gl.Marker(el)
       .setLngLat($location.lnglat)
@@ -132,6 +132,11 @@
         if (toggleLayers === 'environment') {
           map.setLayoutProperty(
             'floodplains',
+            'visibility',
+            'visible'
+          )
+          map.setLayoutProperty(
+            'conservation_easements',
             'visibility',
             'visible'
           )

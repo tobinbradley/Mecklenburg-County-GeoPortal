@@ -35,6 +35,14 @@
       "minzoom": 14,
       "maxzoom": 14
     },
+    "conservation_easements": {
+      "type": "vector",
+      "tiles": [
+        "https://api.mcmap.org/v1/mvt/stormwater_conservation_easements/{z}/{x}/{y}"
+      ],
+      "minzoom": 14,
+      "maxzoom": 14
+    },
     "greenways": {
       "type": "vector",
       "tiles": [
@@ -52,15 +60,15 @@
       "maxzoom": 19
     },
     "terrain_source": {
-			"type":  "raster-dem",
+      "type": "raster-dem",
       "encoding": "terrarium",
-			"tiles": [
+      "tiles": [
         "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
       ],
-			"tileSize":  256,
+      "tileSize": 256,
       "minzoom": 0,
       "maxzoom": 13
-		}
+    }
   },
   "sprite": "https://mcmap.org/gl-styles/sprites/osm-liberty",
   "glyphs": "https://mcmap.org/gl-styles/fonts/{fontstack}/{range}.pbf",
@@ -223,6 +231,19 @@
       },
       "paint": {
         "fill-color": "hsla(202, 81%, 86%, 1)"
+      }
+    },
+    {
+      "id": "conservation_easements",
+      "type": "fill",
+      "source": "conservation_easements",
+      "source-layer": "stormwater_conservation_easements",
+      "minzoom": 14,
+      "layout": {
+        "visibility": "none"
+      },
+      "paint": {
+        "fill-color": "hsla(304, 81%, 86%, 1)"
       }
     },
     {
