@@ -23,6 +23,7 @@
   let watershedReport = JSON.parse(JSON.stringify(floodplainReport))
   let districtReport = JSON.parse(JSON.stringify(floodplainReport))
   let brownfieldReport = JSON.parse(JSON.stringify(floodplainReport))
+  let conservationReport = structuredClone(floodplainReport)
 
   // Map
   let showMap = false
@@ -52,6 +53,10 @@
     {
       name: 'NC DEQ Brownfields Program',
       url: 'https://deq.nc.gov/about/divisions/waste-management/brownfields-program'
+    },
+    {
+      name: 'City of Charlotte Water Quality Monitoring',
+      url: 'https://www.charlottenc.gov/Services/Stormwater/Surface-Water-Quality/Monitoring'
     },
     {
       name: 'Floodplain data on Open Mapping',
@@ -91,6 +96,7 @@
     district($location.groundpid)
     brownfields($location.groundpid)
     watershed($location.lnglat[0], $location.lnglat[1])
+    conservation($location.groundpid)
   }
 
   //***************************************************************
@@ -184,6 +190,45 @@
         } else {
           brownfieldReport = {
             top: 'This property does not contain a brownfield.',
+            detail: null,
+            headline: null
+          }
+        }
+      })
+      .catch(ex => {
+        console.log("parsing failed", ex);
+      })
+  }
+
+  //***************************************************************
+  // conservation easement
+  //***************************************************************
+  function conservation(pid) {
+    const params = {
+      columns: "id",
+      filter: `tax_parcels.pid = '${
+        pid
+      }'`,
+      geom_column_from: "the_geom",
+      geom_column_to: "geom"
+    }
+
+    fetch(`https://api.mcmap.org/v1/intersect_feature/tax_parcels/stormwater_conservation_easements?${jsonToURL(params)}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.length > 0) {
+          brownfieldReport = {
+            top: 'This property has a',
+            sub: 'No Mowing, No Cutting, No Debris Dumping, No Structures',
+            detail: `Conservation easements help protect stream and wetland restoration projects that focus on
+              improving water quality and ecosystems and decrease potential flooding. For more information about
+              the conservation easement on your property and where it is located, please contact Jacey Meador at
+              <a href="email:Jacey.Meador@charlottenc.gov">Jacey.Meador@charlottenc.gov</a>.`,
+            headline: 'CONSERVATION EASEMENT'
+          }
+        } else {
+          brownfieldReport = {
+            top: 'This property does not contain a conservation easement.',
             detail: null,
             headline: null
           }
@@ -308,6 +353,7 @@
   <RecordHighlight {...districtReport} />
   <RecordHighlight {...brownfieldReport} />
   <RecordHighlight {...watershedReport} />
+  <RecordHighlight {...conservationReport} />
 </div>
 
 <Table caption="Soil Types" rows={rows} columns={columns} alignRight={alignRight} />
