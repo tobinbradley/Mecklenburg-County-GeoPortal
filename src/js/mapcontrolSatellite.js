@@ -8,21 +8,21 @@ export default class AerialToggle {
     let _this = this;
 
     this._btn = document.createElement("button");
-    this._btn.className = "mapboxgl-ctrl-icon mapboxgl-ctrl-aerial";
+    this._btn.className = "maplibregl-ctrl-icon maplibregl-ctrl-aerial";
     this._btn.type = "button";
     this._btn.setAttribute("aria-label", "toggle satellite imagery");
     this._btn.onclick = function() {
       if (map.getLayer('satellite').visibility === 'none') {
         map.setLayoutProperty('satellite', 'visibility', 'visible')
-        _this._btn.classList.add('mapboxgl-ctrl-aerial-active')
+        _this._btn.classList.add('maplibregl-ctrl-aerial-active')
       } else {
         map.setLayoutProperty('satellite', 'visibility', 'none')
-        _this._btn.classList.remove('mapboxgl-ctrl-aerial-active')
+        _this._btn.classList.remove('maplibregl-ctrl-aerial-active')
       }
     };
 
     this._container = document.createElement("div");
-    this._container.className = "mapboxgl-ctrl mapboxgl-ctrl-group";
+    this._container.className = "maplibregl-ctrl maplibregl-ctrl-group";
     this._container.appendChild(this._btn);
 
     return this._container;

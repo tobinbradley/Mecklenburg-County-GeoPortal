@@ -6,16 +6,16 @@
   @apply shadow-lg w-full mx-auto border-sky-800 border-t-8 rounded-lg rounded-t-none;
 }
 
-.map .mapboxgl-popup-content {
+.map .maplibregl-popup-content {
   @apply pt-6 shadow-xl text-slate-800;
 }
-.map .mapboxgl-popup-close-button,
-.map .mapboxgl-popup-close-button:hover {
+.map .maplibregl-popup-close-button,
+.map .maplibregl-popup-close-button:hover {
   @apply w-5 h-5 text-white bg-slate-800;
 }
 
-.mapboxgl-popup-community .mapboxgl-popup-content {
-  @apply py-1;
+.maplibregl-popup-community .maplibregl-popup-content {
+  @apply text-slate-800;
 }
 
 /* points for schools etc */
@@ -38,11 +38,11 @@
 }
 
 /* aerial toggle control */
-.mapboxgl-ctrl-aerial {
+.maplibregl-ctrl-aerial {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMCIgaGVpZ2h0PSIzMCIgdmlld0JveD0iMCAwIDI4LjEgMjguMSI+PHBhdGggZD0ibTEzLjEgNS40aC0yLjZjLTAuOSAwLTAuOS0wLjkgMC0wLjloN2MwLjkgMCAwLjkgMC45IDAgMC45aC0yLjZjMCAwIDEuMSAwLjggMS4xIDIuNXYxLjhoNy43djIuNmwtNy43IDIuNi0wLjYgNi40IDMuMiAxLjd2MC45SDkuNVYyMi45TDEyLjcgMjEuMiAxMi4xIDE0LjggNC40IDEyLjJWOS42SDEyLjFWNy45YzAtMS44IDEuMS0yLjUgMS4xLTIuNXoiLz48L3N2Zz4=) !important;
   opacity: 0.3;
 }
-.mapboxgl-ctrl-aerial-active {
+.maplibregl-ctrl-aerial-active {
   opacity: 1;
 }
 
