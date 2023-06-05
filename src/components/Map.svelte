@@ -21,15 +21,16 @@
     (async () => {
       await import("maplibre-gl/dist/maplibre-gl.css")
       const { default: gl } = await import("maplibre-gl")
+      const {default:  mapstyle} = await import ("../assets/osm-geoportal.json")
 
-      createMap(gl)
+      createMap(gl, mapstyle)
     })();
   }
 
-  function createMap(gl) {
+  function createMap(gl, mapstyle) {
     let mapOptions = {
       container: mapContainer,
-      style: './gl-style/osm-geoportal.json',
+      style: mapstyle,
       attributionControl: false,
       minZoom: 8,
       maxBounds: [[-82.641, 34.115], [-79.008, 36.762]],
