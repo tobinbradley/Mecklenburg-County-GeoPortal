@@ -9,18 +9,18 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@sveltejs/vite-plugin-svelte": "^2.4.1",
-    "autoprefixer": "^10.4.14",
-    "postcss": "^8.4.24",
+    "@sveltejs/vite-plugin-svelte": "^2.4.5",
+    "autoprefixer": "^10.4.15",
+    "postcss": "^8.4.28",
     "postcss-load-config": "^4.0.1",
-    "svelte": "^3.59.1",
+    "svelte": "^4.2.0",
     "svelte-preprocess": "^5.0.4",
-    "tailwindcss": "^3.3.2",
-    "vite": "^4.3.9",
+    "tailwindcss": "^3.3.3",
+    "vite": "^4.4.9",
     "workbox-cli": "^7.0.0"
   },
   "dependencies": {
     "d3-scale-chromatic": "^3.0.0",
-    "maplibre-gl": "^3.0.1"
+    "maplibre-gl": "^3.3.0"
   }
 }
