@@ -164,9 +164,9 @@
 
 <Map showMap={showMap} mapPoints={mapPoints} />
 
-<Table rows={schoolsCurrent.rows} columns={schoolsCurrent.columns} caption="Current School Year" alignRight={schoolsCurrent.alignRight} />
+<Table rows={schoolsCurrent.rows} columns={schoolsCurrent.columns} caption="2023-2024 School Year" alignRight={schoolsCurrent.alignRight} />
 
-<Table rows={schoolsFuture.rows} columns={schoolsFuture.columns} caption="Next School Year" alignRight={schoolsFuture.alignRight} />
+<Table rows={schoolsFuture.rows} columns={schoolsFuture.columns} caption="2024-2025 School Year" alignRight={schoolsFuture.alignRight} />
 
 <Table rows={magnetTable.rows} columns={magnetTable.columns} caption={'Magnet Schools (You Are in <a href="https://cmschoice.org/your-choices/schools/" target="_blank">Zone ' + zone + '</a>)'} alignRight={magnetTable.alignRight} />
 
