@@ -42,145 +42,71 @@
   let mapPoints = []
 
   location.subscribe(value => {
-    // reset variables
-    officials = null
-    pollingLocation = {
-      headline: null,
-      sub: null,
-      detail: null
-    };
-    [nationalHouse, stateSenate, stateHouse, countyCommission, countyBoard, local].forEach(item => {
-      item = []
-    })
-    mapPoints = []
+    Promise.all([
+      fetch('https://api.mcmap.org/v1/query/boe_elected_officials?sort=branch,district').then(resp => resp.json()),
+      fetch(`https://api.mcmap.org/v1/intersect_point/view_political_districts/${$location.lnglat[0]},${$location.lnglat[1]},4326?columns=districttype,district`).then(resp => resp.json())
+    ])
+    .then(data => {
+      officials = data[0]
 
-    fetch('https://api.mcmap.org/v1/query/boe_elected_officials')
-      .then(response => response.json())
-      .then(json => {
-        officials = json
-      }).then(() => {
-      // kick off other requests after officials in hand
-      fetchNational($location.lnglat[0], $location.lnglat[1])
-      fetchState($location.lnglat[0], $location.lnglat[1])
-      fetchCounty($location.lnglat[0], $location.lnglat[1])
-      fetchLocal($location.lnglat[0], $location.lnglat[1])
-    })
+      // national house
+      nationalHouse = officials.filter(el => el.branch.indexOf('US House of Representatives') !== -1 &&
+        el.district === data[1].filter(el => el.districttype === 'national_congressional')[0].district)
+      // county commsion
+      countyCommission = officials.filter(el => el.branch.indexOf('Board of Commissioners') !== -1 &&
+        (el.district === data[1].filter(el => el.districttype === 'county_commission')[0].district || el.district === 'At-Large'))
+      // school board
+      countyBoard = officials.filter(el => el.branch.indexOf('Board of Education') !== -1 &&
+        (el.district === data[1].filter(el => el.districttype === 'school_board')[0].district || el.district === 'At-Large'))
+      // state senate
+      stateSenate = officials.filter(el => el.branch.indexOf('NC State Senate') !== -1 &&
+          el.district === data[1].filter(el => el.districttype === 'state_senate')[0].district)
+      // state house
+      stateHouse = officials.filter(el => el.branch.indexOf('NC House of Representatives') !== -1 &&
+          el.district === data[1].filter(el => el.districttype === 'state_house')[0].district)
+      // local
+      if (data[1].filter(el => el.districttype === 'charlotte_city_council').length > 0) {
+        // charlotte
+        local = officials.filter(el => el.branch.indexOf('Charlotte') !== -1 &&
+          (el.district === data[1].filter(el => el.districttype === 'charlotte_city_council')[0].district || el.district === 'At-Large'))
+      } else if (data[1].filter(el => el.districttype === 'jurisdictions' && el.district != 'Stallings' && el.district != 'Mecklenburg').length > 0) {
+        // towns
+        local = officials.filter(el => el.branch.indexOf(data[1].filter(el => el.districttype === 'jurisdictions')[0].district) !== -1)
+      }
 
-    fetchPollingLocation($location.lnglat[0], $location.lnglat[1])
+      fetchPollingLocation(data[1].filter(el => el.districttype === 'voting_precincts')[0].district)
+
+    })
 
   })
 
-  function fetchPollingLocation(lng, lat) {
+  function fetchPollingLocation(precno) {
     const params = {
       geom_column: "voting_precincts.the_geom",
-      columns: `pl.name,
-        pl.address,
-        voting_precincts.precno,
-        st_x(st_transform(pl.the_geom, 4326)) as lng,
-        st_y(st_transform(pl.the_geom, 4326)) as lat,
-        ST_Distance(pl.the_geom,ST_Transform(GeomFromText('POINT(${lng} ${lat})',4326), 2264)) as distance
+      columns: `name,
+        address,
+        precno,
+        st_x(st_transform(the_geom, 4326)) as lng,
+        st_y(st_transform(the_geom, 4326)) as lat,
+        ST_Distance(the_geom,ST_Transform(GeomFromText('POINT(${$location.lnglat[0]} ${$location.lnglat[1]})',4326), 2264)) as distance
         `,
-      filter: 'voting_precincts.precno = pl.precno'
+      filter: `precno = ${precno}`
     }
-    fetch(`https://api.mcmap.org/v1/intersect_point/voting_precincts%2C%20polling_locations%20pl/${lng},${lat},4326?` + jsonToURL(params))
+    fetch(`https://api.mcmap.org/v1/query/polling_locations?` + jsonToURL(params))
       .then(response => response.json())
       .then(json => {
         pollingLocation.headline = json[0].name
         pollingLocation.sub = json[0].address
         pollingLocation.detail = `Precinct ${json[0].precno}`
-        mapPoints.push({
+        mapPoints = [{
           label: 'V',
           lngLat: [json[0].lng, json[0].lat],
           name: json[0].name,
           address: `${json[0].address}`
-        })
+        }]
       })
   }
 
-  function fetchNational(lng, lat) {
-    const params = {
-      geom_column: "the_geom",
-      columns: "district"
-    }
-    fetch(`https://api.mcmap.org/v1/intersect_point/national_congressional/${lng},${lat},4326?` + jsonToURL(params))
-      .then(response => response.json())
-      .then(json => {
-        nationalHouse = officials.filter(el => el.branch.indexOf('US House of Representatives') !== -1 && el.district === json[0].district)
-      })
-  }
-
-  function fetchState(lng, lat) {
-    fetch(`https://api.mcmap.org/v1/intersect_point/state_senate/${lng},${lat},4326?` +
-        jsonToURL({
-          geom_column: "the_geom",
-          columns: "senate as district"
-        })
-      )
-      .then(response => response.json())
-      .then(json => {
-        stateSenate = officials.filter(el => el.branch.indexOf('NC State Senate') !== -1 && el.district === json[0].district)
-      })
-
-    fetch(`https://api.mcmap.org/v1/intersect_point/state_house/${lng},${lat},4326?` +
-        jsonToURL({
-          geom_column: "the_geom",
-          columns: "house as district"
-        })
-      )
-      .then(response => response.json())
-      .then(json => {
-        stateHouse = officials.filter(el => el.branch.indexOf('NC House of Representatives') !== -1 && el.district === json[0].district)
-      })
-  }
-
-  function fetchCounty(lng, lat) {
-    fetch(`https://api.mcmap.org/v1/intersect_point/voting_precincts/${lng},${lat},4326?` +
-        jsonToURL({
-          geom_column: "the_geom",
-          columns: "cc, school"
-        })
-      )
-      .then(response => response.json())
-      .then(json => {
-        countyCommission = officials.filter(el => el.branch.indexOf('Board of Commissioners') !== -1 &&
-          (el.district === json[0].cc || el.district === 'At-Large'))
-        countyBoard = officials.filter(el => el.branch.indexOf('Board of Education') !== -1 &&
-          (el.district === json[0].school || el.district === 'At-Large'))
-      })
-  }
-
-  function fetchLocal(lng, lat) {
-    fetch(`https://api.mcmap.org/v1/intersect_point/city_council/${lng},${lat},4326?` +
-        jsonToURL({
-          geom_column: "the_geom",
-          columns: "citydist as district"
-        })
-      )
-      .then(response => response.json())
-      .then(json => {
-        if (json.length > 0) {
-          local = officials.filter(el => el.branch.indexOf('Charlotte') !== -1 &&
-            (el.district === json[0].district.toString() || el.district === 'At-Large' || el.district === ''))
-        } else {
-          fetchLocalTowns(lng, lat)
-        }
-      })
-  }
-
-  function fetchLocalTowns(lng, lat) {
-    fetch(`https://api.mcmap.org/v1/intersect_point/jurisdictions/${lng},${lat},4326?` +
-        jsonToURL({
-          geom_column: "the_geom",
-          columns: "name as city"
-        })
-      )
-      .then(response => response.json())
-      .then(json => {
-        if (json.length > 0 && json[0].city !== "Stallings" && json[0].city !== "Mecklenburg") {
-          local = officials.filter(el => el.branch.indexOf(json[0].city) !== -1)
-        }
-      })
-  }
 
 </script>
 
