@@ -9,15 +9,13 @@
 
   // Magnet table
   const magnetTable = {
-    columns: ["School", "Focus", "Grades", "Address", "Distance"],
-    alignRight: [5],
+    columns: ["School", "Focus", "Grades", "Address", "Distance", "2022-23 Grade"],
     rows: []
   }
 
   // Current schools table
   const schoolsCurrent = {
-    columns: ["School", "Grades", "Address", "Distance"],
-    alignRight: [4],
+    columns: ["School", "Grades", "Address", "Distance", "Grade*", "Growth Status*", "Grade Level Proficiency*"],
     rows: []
   }
 
@@ -35,11 +33,15 @@
   const resourceLinks = [
     {
       name: 'Charlotte-Mecklenburg Schools',
-      url: 'http://www.cms.k12.nc.us/'
+      url: 'https://www.cmsk12.org/'
+    },
+    {
+      name: 'North Carolina Department of Public Instruction',
+      url: 'https://www.dpi.nc.gov/'
     },
     {
       name: 'School data on Open Mapping',
-      url: 'http://maps.co.mecklenburg.nc.us/openmapping/data.html?search=school'
+      url: 'https://maps.mecknc.gov/openmapping/data.html?search=school'
     }
   ]
 
@@ -80,7 +82,7 @@
       // school numbers to fetch
       const schlnums = [...new Set(Object.values(jsons[0][0]).concat(Object.values(jsons[1][0])))]
 
-      fetch(`https://api.mcmap.org/v1/query/cms_schools?columns=city,num as schlnum,address,name,type,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat&filter=num in(${schlnums.join()})`)
+      fetch(`https://api.mcmap.org/v1/query/view_cms_schools_metrics?columns=city,glp_2022_23,grade_2022_23,growth_status_2022_23,num as schlnum,address,name,type,ST_Distance(geom,ST_Transform(GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance,st_x(st_transform(geom, 4326)) as lng, st_y(st_transform(geom, 4326)) as lat&filter=num in(${schlnums.join()})`)
         .then(schools => schools.json())
         .then(schools => {
 
@@ -111,7 +113,10 @@
                 result.name,
                 result.grades.join(', '),
                 result.address,
-                `${formatCommas(result.distance / 5280, 1)} miles`
+                `${formatCommas(result.distance / 5280, 1)} miles`,
+                result.grade_2022_23 || '',
+                result.growth_status_2022_23 || '',
+                result.glp_2022_23 || ''
               ])
             })
 
@@ -127,13 +132,13 @@
     const params = {
       filter: "magnet in ('Full', 'Partial')",
       columns: `num,city,address,name,grade_level,coalesce(mag_focus, '') as mag_focus,st_x(st_transform(geom, 4326)) as lng,
-          st_y(st_transform(geom, 4326)) as lat,magnet,
+          st_y(st_transform(geom, 4326)) as lat,magnet,glp_2022_23,grade_2022_23,growth_status_2022_23,
           ST_Distance(geom,ST_Transform(
           GeomFromText('POINT( ${lng} ${lat} )',4326), 2264)) as distance`,
       sort: 'distance'
     }
 
-    fetch(`https://api.mcmap.org/v1/query/cms_schools?${jsonToURL(params)}`)
+    fetch(`https://api.mcmap.org/v1/query/view_cms_schools_metrics?${jsonToURL(params)}`)
       .then(response => response.json())
       .then(data => {
         // make records for table
@@ -143,8 +148,8 @@
             el.mag_focus,
             el.grade_level,
             `${el.address}, ${el.city}`,
-            `${formatCommas(el.distance / 5280, 1)} miles`
-//                [4429, 8364, 5532, 8482, 7405, 7496, 5520].indexOf(Number(el.num)) !== -1 ? 'All' : '',
+            `${formatCommas(el.distance / 5280, 1)} miles`,
+            el.grade_2022_23 || ''
           ])
         })
       })
@@ -162,13 +167,33 @@
 
 <Title title="SCHOOLS" icon="school" />
 
-<Map showMap={showMap} mapPoints={mapPoints} />
+<Map showMap={showMap} mapPoints={mapPoints} basemapEnum="arcgis/navigation" />
 
-<Table rows={schoolsCurrent.rows} columns={schoolsCurrent.columns} caption="2023-2024 School Year" alignRight={schoolsCurrent.alignRight} />
+<Table
+  rows={schoolsCurrent.rows}
+  columns={schoolsCurrent.columns}
+  caption="2023-2024 School Year"
+  alignRight={[4]}
+  alignCenter={[5,6,7]}
+  footer="*2022-23 school year, North Carolina Department of Public Instruction"
+/>
 
-<Table rows={schoolsFuture.rows} columns={schoolsFuture.columns} caption="2024-2025 School Year" alignRight={schoolsFuture.alignRight} />
+<Table
+  rows={schoolsFuture.rows}
+  columns={schoolsFuture.columns}
+  caption="2024-2025 School Year"
+  alignRight={[4]}
+  alignCenter={[5,6,7]}
+  footer="*2022-23 school year, North Carolina Department of Public Instruction"
+/>
 
-<Table rows={magnetTable.rows} columns={magnetTable.columns} caption={'Magnet Schools (You Are in <a href="https://cmschoice.org/your-choices/schools/" target="_blank">Zone ' + zone + '</a>)'} alignRight={magnetTable.alignRight} />
+<Table
+  rows={magnetTable.rows}
+  columns={magnetTable.columns}
+  caption={'Magnet Schools (You Are in <a href="https://cmschoice.org/your-choices/schools/" target="_blank">Zone ' + zone + '</a>)'}
+  alignRight={[5]}
+  alignCenter{[6]}
+/>
 
 <p class="pt-8 pb-2">
   Transportation eligibility is determined by the transportation zone in which you live.
