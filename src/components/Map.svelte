@@ -3,12 +3,14 @@
   import AerialToggle from '../js/mapcontrolSatellite.js'
   import { createEventDispatcher } from 'svelte'
 
-  const dispatch = createEventDispatcher()
-
+  const apiKey = "AAPK47243148443e45dbbafdc12899934519XllUJyQWQ7aZCKvAnVoh_KLNXdG8F5gj2PPlGaHdLk_HmMrkzZDbuykgCFlHVELl"
+  export let basemapEnum = "arcgis/topographic"
   export let showMap = false
   export let mapPoints = null
   export let fullMap = false
   export let toggleLayers = null
+
+  const dispatch = createEventDispatcher()
 
   const mapContainer = `mapID${Math.floor((Math.random() * 10000) + 1)}`
   let map = null
@@ -21,16 +23,43 @@
     (async () => {
       await import("maplibre-gl/dist/maplibre-gl.css")
       const { default: gl } = await import("maplibre-gl")
-      const {default:  mapstyle} = await import ("../assets/osm-geoportal.json")
-
-      createMap(gl, mapstyle)
+      createMap(gl)
     })();
   }
 
-  function createMap(gl, mapstyle) {
+  function createMap(gl) {
+    map = new gl.Map(mapOptions(gl))
+
+    map.on('load', () => {
+      // add terrain
+      map.addSource('terrain', {
+        "type": "raster-dem",
+        "encoding": "terrarium",
+        "tiles": [
+          "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
+        ],
+        "tileSize": 256,
+        "minzoom": 0,
+        "maxzoom": 13
+      })
+      map.setTerrain({ source: 'terrain', "exaggeration":  1.4 })
+
+      // location marker
+      locationMarker(gl)
+      // points if needed
+      if (mapPoints) drawPoints(gl)
+      // toggle layers if needed
+      if (toggleLayers) toggle(toggleLayers)
+      // add controls
+      controls(gl)
+
+    })
+  }
+
+  function mapOptions(gl) {
     let mapOptions = {
       container: mapContainer,
-      style: mapstyle,
+      style: `https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/styles/${basemapEnum}?token=${apiKey}`,
       attributionControl: false,
       minZoom: 8,
       maxBounds: [[-82.641, 34.115], [-79.008, 36.762]],
@@ -58,20 +87,7 @@
       mapOptions.zoom = 17
     }
 
-    // create map
-    map = new gl.Map(mapOptions)
-
-    // location marker
-    locationMarker(gl)
-
-    // points if needed
-    if (mapPoints) drawPoints(gl)
-
-    // toggle layers if needed
-    if (toggleLayers) toggle(toggleLayers)
-
-    // add controls
-    controls(gl)
+    return mapOptions
   }
 
   function drawPoints(gl) {
@@ -96,6 +112,7 @@
     // create markers for geocoding
     const el = document.createElement('div');
     el.className = 'maplibregl-user-location-dot'
+    el.style.backgroundImage = '';
 
     const popup = new gl.Popup({ offset: 9 }).setHTML(
       `<h3 class="text-sky-800 font-bold text-base pb-1">Your Location</h3>${$location.label}`
@@ -116,45 +133,72 @@
     map.addControl(new gl.FullscreenControl())
   }
 
-  function toggle(layers) {
-    map.on("load", () => {
+  function toggle() {
         if (toggleLayers === 'impervious') {
-          map.setLayoutProperty(
-            'building-3d',
-            'visibility',
-            'none'
-          )
-          map.setLayoutProperty(
-            'impervious',
-            'visibility',
-            'visible'
-          )
+          map.addSource('impervious', {
+            "type": "vector",
+            "tiles": [
+              "https://maps.mecknc.gov/tiles/impervious_surface/{z}/{x}/{y}"
+            ],
+            "minzoom": 16,
+            "maxzoom": 16
+          })
+          map.addLayer({
+            "id": "impervious",
+            "type": "fill",
+            "source": "impervious",
+            "source-layer": "impervious_surface",
+            "minzoom": 16,
+            "paint": {
+              "fill-color": [
+                "match",
+                ["get", "type"],
+                "Commercial", "hsla(322, 28%, 62%, 1)",
+                "Residential", "hsla(72, 46%, 58%, 1)",
+                "hsla(0, 0%, 80%, 0)"
+              ]
+            }
+          })
         }
         if (toggleLayers === 'environment') {
-          map.setLayoutProperty(
-            'floodplains',
-            'visibility',
-            'visible'
-          )
-          map.setLayoutProperty(
-            'conservation_easements',
-            'visibility',
-            'visible'
-          )
+          map.addSource('floodplains', {
+            "type": "vector",
+            "tiles": [
+              "https://maps.mecknc.gov/tiles/view_regulated_floodplains/{z}/{x}/{y}"
+            ],
+            "minzoom": 14,
+            "maxzoom": 14
+          })
+          map.addSource('stormwater_conservation_easements', {
+            "type": "vector",
+            "tiles": [
+              "https://maps.mecknc.gov/tiles/stormwater_conservation_easements/{z}/{x}/{y}"
+            ],
+            "minzoom": 14,
+            "maxzoom": 14
+          })
+          map.addLayer({
+            "id": "floodplains",
+            "type": "fill",
+            "source": "floodplains",
+            "source-layer": "view_regulated_floodplains",
+            "minzoom": 14,
+            "paint": {
+              "fill-color": "hsla(202, 81%, 86%, 1)"
+            }
+          }, 'Parcel/line')
+          map.addLayer({
+            "id": "stormwater_conservation_easements",
+            "type": "fill",
+            "source": "stormwater_conservation_easements",
+            "source-layer": "stormwater_conservation_easements",
+            "minzoom": 14,
+            "paint": {
+              "fill-color": "hsla(304, 81%, 86%, 1)"
+            }
+          }, 'Parcel/line')
         }
-        if (toggleLayers === 'parks') {
-          map.setLayoutProperty(
-            'greenways',
-            'visibility',
-            'visible'
-          )
-          map.setLayoutProperty(
-            'greenways_label',
-            'visibility',
-            'visible'
-          )
-        }
-    })
+
   }
 
   function handleShowButton() {
