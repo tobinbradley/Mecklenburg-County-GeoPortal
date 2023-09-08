@@ -345,7 +345,7 @@
 
 <Title title="Environment" icon="environment" />
 
-<Map showMap={showMap} toggleLayers="environment"  />
+<Map showMap={showMap} toggleLayers="environment" basemapEnum="arcgis/outdoor" />
 
 <div class="flex flex-row flex-wrap justify-around print:block">
   <RecordHighlight {...floodplainReport} />
