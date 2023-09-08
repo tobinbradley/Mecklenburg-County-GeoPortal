@@ -14,6 +14,10 @@
   @apply w-5 h-5 text-white bg-slate-800;
 }
 
+.maplibregl-user-location-dot svg {
+  display: none !important;
+}
+
 .maplibregl-popup-community .maplibregl-popup-content {
   @apply text-slate-800;
 }
