@@ -78,7 +78,7 @@
 
 <Title title="LIBRARIES" icon="library" />
 
-<Map showMap={showMap} mapPoints={mapPoints} on:mapOff={handleMapOff} basemapEnum="arcgis/navigation" />
+<Map showMap={showMap} mapPoints={mapPoints} on:mapOff={handleMapOff} />
 
 <Table rows={rows} columns={columns} caption="5 Closest Libraries" alignRight={alignRight} />
 

@@ -106,7 +106,7 @@
 
 <Title title="PARKS" icon="park" />
 
-<Map showMap={showMap} mapPoints={mapPoints} basemapEnum="arcgis/outdoor" />
+<Map showMap={showMap} mapPoints={mapPoints} />
 
 <Table rows={parkRows} columns={["Park", "Address", "Distance"]} caption="10 Closest Parks" alignRight={[3]} />
 

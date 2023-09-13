@@ -119,7 +119,7 @@
 
 <Title title="VOTING" icon="voting" />
 
-<Map showMap={showMap} mapPoints={mapPoints} basemapEnum="arcgis/navigation" />
+<Map showMap={showMap} mapPoints={mapPoints} />
 
 <!-- Polling Location -->
 

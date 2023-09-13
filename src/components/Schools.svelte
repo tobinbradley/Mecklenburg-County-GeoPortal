@@ -167,7 +167,7 @@
 
 <Title title="SCHOOLS" icon="school" />
 
-<Map showMap={showMap} mapPoints={mapPoints} basemapEnum="arcgis/navigation" />
+<Map showMap={showMap} mapPoints={mapPoints} />
 
 <Table
   rows={schoolsCurrent.rows}
