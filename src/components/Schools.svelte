@@ -9,7 +9,7 @@
 
   // Magnet table
   const magnetTable = {
-    columns: ["School", "Focus", "Grades", "Address", "Distance", "2022-23 Grade"],
+    columns: ["School", "Grades", "Address", "Focus", "Distance"],
     rows: []
   }
 
@@ -116,7 +116,7 @@
                 `${formatCommas(result.distance / 5280, 1)} miles`,
                 result.grade_2022_23 || '',
                 result.growth_status_2022_23 || '',
-                result.glp_2022_23 || ''
+                result.glp_2022_23 ? result.glp_2022_23 + '%' : ''
               ])
             })
 
@@ -145,11 +145,10 @@
         data.forEach(el => {
           magnetTable.rows.push([
             el.name,
-            el.mag_focus,
             el.grade_level,
             `${el.address}, ${el.city}`,
-            `${formatCommas(el.distance / 5280, 1)} miles`,
-            el.grade_2022_23 || ''
+            el.mag_focus,
+            `${formatCommas(el.distance / 5280, 1)} miles`
           ])
         })
       })
@@ -192,7 +191,6 @@
   columns={magnetTable.columns}
   caption={'Magnet Schools (You Are in <a href="https://cmschoice.org/your-choices/schools/" target="_blank">Zone ' + zone + '</a>)'}
   alignRight={[5]}
-  alignCenter{[6]}
 />
 
 <p class="pt-8 pb-2">
