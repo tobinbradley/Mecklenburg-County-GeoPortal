@@ -25,12 +25,15 @@ export default class AerialToggle {
           tileSize: 256,
           maxzoom: 19
         })
-        map.addLayer({
-          id: "satellite",
-          type: "raster",
-          source: "satellite",
-          maxzoom: 22
-        })
+        map.addLayer(
+          {
+            id: "satellite",
+            type: "raster",
+            source: "satellite",
+            maxzoom: 22
+          },
+          "Pavement marking/U-turn"
+        )
         _this._btn.classList.add("maplibregl-ctrl-aerial-active")
       }
 
