@@ -4,7 +4,7 @@
   import { createEventDispatcher } from 'svelte'
 
   const apiKey = "AAPK47243148443e45dbbafdc12899934519XllUJyQWQ7aZCKvAnVoh_KLNXdG8F5gj2PPlGaHdLk_HmMrkzZDbuykgCFlHVELl"
-  export let basemapEnum = "arcgis/topographic"
+  export let basemapEnum = "arcgis/outdoor"
   export let showMap = false
   export let mapPoints = null
   export let fullMap = false
@@ -43,6 +43,11 @@
         "maxzoom": 13
       })
       map.setTerrain({ source: 'terrain', "exaggeration":  1.4 })
+      map.addLayer({
+			  "id":  "hills",
+			  "type":  "hillshade",
+			  "source":  "terrain"
+		  })
 
       // location marker
       locationMarker(gl)
@@ -177,6 +182,14 @@
             "minzoom": 14,
             "maxzoom": 14
           })
+          map.addSource('water_quality_buffers', {
+            "type": "vector",
+            "tiles": [
+              "https://maps.mecknc.gov/tiles/water_quality_buffers/{z}/{x}/{y}"
+            ],
+            "minzoom": 14,
+            "maxzoom": 14
+          })
           map.addLayer({
             "id": "floodplains",
             "type": "fill",
@@ -184,9 +197,11 @@
             "source-layer": "view_regulated_floodplains",
             "minzoom": 14,
             "paint": {
-              "fill-color": "hsla(202, 81%, 86%, 1)"
+              "fill-color": "#2563eb",
+              "fill-outline-color": "#172554",
+              "fill-opacity": 0.3
             }
-          }, 'Parcel/line')
+          }, 'Contour_11_main_text')
           map.addLayer({
             "id": "stormwater_conservation_easements",
             "type": "fill",
@@ -194,9 +209,23 @@
             "source-layer": "stormwater_conservation_easements",
             "minzoom": 14,
             "paint": {
-              "fill-color": "hsla(304, 81%, 86%, 1)"
+              "fill-color": "#16a34a",
+              "fill-outline-color": "#172554",
+              "fill-opacity": 0.3
             }
-          }, 'Parcel/line')
+          }, 'Contour_11_main_text')
+          map.addLayer({
+            "id": "water_quality_buffers",
+            "type": "fill",
+            "source": "water_quality_buffers",
+            "source-layer": "water_quality_buffers",
+            "minzoom": 14,
+            "paint": {
+              "fill-color": "#db2777",
+              "fill-outline-color": "#172554",
+              "fill-opacity": 0.3
+            }
+          }, 'Contour_11_main_text')
         }
 
   }
