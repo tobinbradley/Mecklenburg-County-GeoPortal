@@ -130,7 +130,7 @@
 
   function fetchMagnet(lng, lat) {
     const params = {
-      filter: "magnet in ('Full', 'Partial')",
+      filter: "magnet <> 'Non Magnet'",
       columns: `num,city,address,name,grade_level,coalesce(mag_focus, '') as mag_focus,st_x(st_transform(geom, 4326)) as lng,
           st_y(st_transform(geom, 4326)) as lat,magnet,glp_2022_23,grade_2022_23,growth_status_2022_23,
           ST_Distance(geom,ST_Transform(
