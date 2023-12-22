@@ -10,6 +10,15 @@ Site: [https://mcmap.org/geoportal](https://mcmap.org/geoportal)
 
 GeoPortal is a single page application (SPA) and progressive web app (PWA). It consumes a number of services to operate, as outlined in the architecture image.
 
+Two optional environmental variables control the map layers, `VITE_MAPTILES` for the URL for base map tile style and `VITE_AERIALS` for aerials URL. The easiest way to set these variables is by creating a `.env` file in the root project folder:
+
+```env
+VITE_MAPTILES="https://style-url.json"
+VITE_AERIALS="https://aerials/{z}/{x}/{y}"
+```
+
+If the `VITE_AERIALS` environmental variable is not supplied, the aerial toggle button will not appear on the map. If the `VITE_MAPTILES` environmental variable is not supplied, no map toggle option will be available.
+
 
 ## Using the project
 
