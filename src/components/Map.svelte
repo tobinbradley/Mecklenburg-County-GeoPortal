@@ -3,8 +3,6 @@
   import AerialToggle from '../js/mapcontrolSatellite.js'
   import { createEventDispatcher } from 'svelte'
 
-  const apiKey = "AAPK47243148443e45dbbafdc12899934519XllUJyQWQ7aZCKvAnVoh_KLNXdG8F5gj2PPlGaHdLk_HmMrkzZDbuykgCFlHVELl"
-  export let basemapEnum = "arcgis/outdoor"
   export let showMap = false
   export let mapPoints = null
   export let fullMap = false
@@ -64,7 +62,7 @@
   function mapOptions(gl) {
     let mapOptions = {
       container: mapContainer,
-      style: `https://basemapstyles-api.arcgis.com/arcgis/rest/services/styles/v2/styles/${basemapEnum}?token=${apiKey}`,
+      style: `${import.meta.env.VITE_MAPTILES}`,
       attributionControl: false,
       minZoom: 8,
       maxBounds: [[-82.641, 34.115], [-79.008, 36.762]],
@@ -134,7 +132,9 @@
 
   function controls(gl) {
     map.addControl(new gl.NavigationControl())
-    map.addControl(new AerialToggle({}))
+    if (import.meta.env.VITE_AERIALS) {
+      map.addControl(new AerialToggle({}))
+    }
     map.addControl(new gl.FullscreenControl())
   }
 
@@ -238,11 +238,12 @@
   }
 </script>
 
+{#if import.meta.env.VITE_MAPTILES}
+  {#if showMap}
+  <div class="map mt-8 mb-12" id={mapContainer}></div>
+  {/if}
 
-{#if showMap}
-<div class="map mt-8 mb-12" id={mapContainer}></div>
+  <div class="text-center mt-2 print:hidden">
+    <button on:click={handleShowButton} class="btn py-1 px-2 text-sm hover:bg-gray-200 hover:shadow capitalize shadow-none text-gray-600 dark:text-gray-300 hover:text-gray-800 transition duration-200 ease-in-out">{#if !showMap}show{:else}hide{/if} map</button>
+  </div>
 {/if}
-
-<div class="text-center mt-2 print:hidden">
-  <button on:click={handleShowButton} class="btn py-1 px-2 text-sm hover:bg-gray-200 hover:shadow capitalize shadow-none text-gray-600 dark:text-gray-300 hover:text-gray-800 transition duration-200 ease-in-out">{#if !showMap}show{:else}hide{/if} map</button>
-</div>

@@ -20,7 +20,7 @@ export default class AerialToggle {
         map.addSource("satellite", {
           type: "raster",
           tiles: [
-            "https://api.nearmap.com/tiles/v3/Vert/{z}/{x}/{y}.img?apikey=YWI4OGY1YjUtZWNkZC00YzJkLWFjZWUtNmQ1YmExYTRlM2I1"
+            `${import.meta.env.VITE_AERIALS}`
           ],
           tileSize: 256,
           maxzoom: 19
