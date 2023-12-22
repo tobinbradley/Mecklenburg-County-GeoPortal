@@ -17,3 +17,4 @@ TODO.md
 deploy.sh
 dist
 bun.lockb
+package-lock.json
